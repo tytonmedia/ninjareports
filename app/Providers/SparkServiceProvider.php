@@ -57,8 +57,20 @@ class SparkServiceProvider extends ServiceProvider
                 'First', 'Second', 'Third'
             ]);
 
-        Spark::plan('Basic', 'provider-id-1')
-            ->price(10)
+        Spark::plan('Business', 'business')
+            ->price(29.00)
+            ->features([
+                'First', 'Second', 'Third'
+            ]);
+
+        Spark::plan('Premium', 'premium')
+            ->price(69.00)
+            ->features([
+                'First', 'Second', 'Third'
+            ]);
+
+        Spark::plan('White Label', 'white_label')
+            ->price(129.00)
             ->features([
                 'First', 'Second', 'Third'
             ]);
