@@ -33,19 +33,6 @@
         @endif
     @endif
 
-    <!-- Name -->
-    <div class="form-group" :class="{'has-error': registerForm.errors.has('name')}">
-        <label class="col-md-4 control-label">Name</label>
-
-        <div class="col-md-6">
-            <input type="text" class="form-control" name="name" v-model="registerForm.name" autofocus>
-
-            <span class="help-block" v-show="registerForm.errors.has('name')">
-                @{{ registerForm.errors.get('name') }}
-            </span>
-        </div>
-    </div>
-
     <!-- E-Mail Address -->
     <div class="form-group" :class="{'has-error': registerForm.errors.has('email')}">
         <label class="col-md-4 control-label">E-Mail Address</label>
@@ -59,6 +46,42 @@
         </div>
     </div>
 
+    <!-- First Name -->
+    <div class="form-group" :class="{'has-error': registerForm.errors.has('first_name')}">
+        <label class="col-md-4 control-label">First Name</label>
+
+        <div class="col-md-6">
+            <input type="text" class="form-control" name="first_name" v-model="registerForm.first_name" autofocus>
+
+            <span class="help-block" v-show="registerForm.errors.has('first_name')">
+                @{{ registerForm.errors.get('first_name') }}
+            </span>
+        </div>
+    </div>
+    <!-- Last Name -->
+    <div class="form-group" :class="{'has-error': registerForm.errors.has('last_name')}">
+        <label class="col-md-4 control-label">Last Name</label>
+
+        <div class="col-md-6">
+            <input type="text" class="form-control" name="last_name" v-model="registerForm.last_name" autofocus>
+
+            <span class="help-block" v-show="registerForm.errors.has('last_name')">
+                @{{ registerForm.errors.get('last_name') }}
+            </span>
+        </div>
+    </div>    
+    
+    <div class="form-group" :class="{'has-error': registerForm.errors.has('phone')}">
+        <label class="col-md-4 control-label">Phone</label>
+
+        <div class="col-md-6">
+            <input type="text" class="form-control" name="phone" v-model="registerForm.phone" autofocus>
+
+            <span class="help-block" v-show="registerForm.errors.has('phone')">
+                @{{ registerForm.errors.get('age') }}
+            </span>
+        </div>
+    </div>
     <!-- Password -->
     <div class="form-group" :class="{'has-error': registerForm.errors.has('password')}">
         <label class="col-md-4 control-label">Password</label>
