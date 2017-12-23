@@ -31,15 +31,16 @@
                 </ul>
 
                 <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right top-right-nav">
                     @includeIf('spark::nav.user-right')
 
                     <!-- Notifications -->
                     <li>
                         <a @click="showNotifications" class="has-activity-indicator">
                             <div class="navbar-icon">
-                                <i class="activity-indicator" v-if="hasUnreadNotifications || hasUnreadAnnouncements"></i>
-                                <i class="icon fa fa-bell"></i>
+                                <span class="activity-indicator-count">3</span>
+                                <!-- <i class="activity-indicator" v-if="hasUnreadNotifications || hasUnreadAnnouncements"></i> -->
+                                <i class="icon fa fa-circle"></i>
                             </div>
                         </a>
                     </li>
@@ -48,6 +49,7 @@
                         <!-- User Photo / Name -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             <img :src="user.photo_url" class="spark-nav-profile-photo m-r-xs">
+                            <span class="spark-nav-profile-name"><b>Tayler</b> <br> Tayler Media</span>
                             <span class="caret"></span>
                         </a>
 

@@ -1,0 +1,116 @@
+/* custom css */
+body {
+    color: #000;
+    /* background-color: #0E0E0E; */
+}
+.with-navbar {
+    padding-top: 70px;
+}
+/***********header**************/
+.navbar .container{
+    background-color: #F2F2F2;
+}
+.top-right-nav > li > a.has-activity-indicator {
+    padding-right: 0;
+}
+.top-right-nav > li.dropdown > a.dropdown-toggle {
+    padding-left: 0;
+}
+.navbar-inverse .navbar-nav > li > a {
+    color: #000;
+}
+.top-right-nav .navbar-icon{
+    color: #2A97B8;
+    margin-right: -6px;
+    z-index: 1;
+}
+.top-right-nav .navbar-icon .icon {
+    font-size: 18px;
+    background: #2A97B8;
+    border-radius: 12px;
+    border: 2px solid #FFF;
+    width: 30px;
+}
+.top-right-nav .spark-nav-profile-photo {
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    padding: 2px;
+    width: 40px;
+}
+.activity-indicator-count{
+    color: #FFF;
+    position: absolute;
+    right: 11px;
+    font-weight: bolder;
+}
+.spark-nav-profile-name{
+    margin-left: 10px;
+    font-size: 12px;
+    line-height: 17px;
+    margin-right: 10px;
+}
+/*header end*/
+
+.container{
+    background-color: #FFF;
+}
+
+.dashboard .panel {
+    margin-bottom: 22px;
+    background-color: #fff;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+.panel.panel-greetings {
+    background-color: #fff;
+}
+.panel-greetings .row{
+    height: 130px;
+}
+h2.title{
+    font-weight: bold;
+}
+.panel-greetings .row .greeting-button{
+    line-height: 120px;
+}
+.btn-black{
+    background: #000;
+    color: #fff;
+    border-radius: 0;
+    padding: 6px 12px;
+    text-transform: capitalize;
+}
+.btn-create-report{
+    padding: 10px 45px;
+    font-size: 16px;
+}
+
+.panel.panel-grey{
+    background-color: #F2F2F2;
+}
+
+.panel.panel-connect-accounts, .panel.panel-current-plan{    
+    margin-right: 15px;
+}
+
+.panel-connect-accounts .social-icon{
+    position: absolute;
+}
+.panel-connect-accounts .main-content{
+    padding-left: 180px;
+}
+.panel-current-plan button{
+    float: right
+}
+.panel-plan-usage canvas{
+    width: 120px !important;
+    height: 120px !important;
+    position: absolute;
+    top: 0;
+    right: 40px;
+}
+.panel-plan-usage .main-content, .panel.panel-current-plan .main-content{
+    min-height: 100px;
+}
