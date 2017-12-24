@@ -107,9 +107,17 @@ h2.title{
 .panel-plan-usage canvas{
     width: 120px !important;
     height: 120px !important;
+}
+.chart-legend{
     position: absolute;
+    right: 10px;
     top: 0;
-    right: 40px;
+}
+.chart-legend li span{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
 }
 .panel-plan-usage .main-content, .panel.panel-current-plan .main-content{
     min-height: 100px;

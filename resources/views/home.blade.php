@@ -42,14 +42,19 @@
                 <div class="panel panel-default panel-grey panel-plan-usage">
                     <div class="panel-body">
                         <div class="row">                            
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="main-content">
                                     <h4 class="title">Plan Usage</h4>
                                     <p>
                                         <b>15</b> of 30 Reports Sent 
-                                    </p>
-                                    <canvas id="myChart" width="120" height="120"></canvas>
-                                </div>                                
+                                    </p>                                    
+                                </div>                               
+                            </div>
+                            <div class="col-md-6">
+                                <div class="chart-canvas">
+                                     <canvas id="myChart" width="120" height="120"></canvas>
+                                </div>                               
+                                <div id="js-legend" class="chart-legend"></div>
                             </div>
                         </div>                                               
                     </div>
@@ -79,9 +84,9 @@
 </home>
 @endsection
 @section('custom-scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+<script src="/js/Chart.min.js"></script>
 <script>
-    var ctx = document.getElementById("myChart").getContext('2d');
+    /*var ctx = document.getElementById("myChart").getContext('2d');
     var myChart = new Chart(ctx, {
       type: 'pie',
       data: {
@@ -93,7 +98,48 @@
           ],
           data: [50, 50]
         }]
-      }
+      },
+      options: {
+            title: {
+                display: false,
+                text: 'Custom Chart Title'
+            },
+            legend:{
+                display: true,
+                labels: {
+                    fontColor: 'rgb(255, 99, 132)'
+                },
+                position: 'top'
+            },
+        }
     });
+    document.getElementById('js-legend').innerHTML = myChart.generateLegend();*/
+
+    var data = [
+       {
+        value: 50,
+        color: "#0F81F3",
+        label: "Sent"
+    }, {
+        value: 50,
+        color: "#55A8EE",
+        label: "Remaining"
+    }];
+
+    var options = {
+    }
+
+    var ctx = document.getElementById("myChart").getContext("2d");
+
+    var myChart = new Chart(ctx).Pie(data, options);
+
+    // Note - tooltipTemplate is for the string that shows in the tooltip
+
+    // legendTemplate is if you want to generate an HTML legend for the chart and use somewhere else on the page
+
+    // e.g:
+
+    document.getElementById('js-legend').innerHTML = myChart.generateLegend();
+
 </script>
 @endsection
