@@ -119,6 +119,9 @@ h2.title{
     height: 12px;
     margin-right: 5px;
 }
+.chart-legend ul {
+    list-style: none;
+}
 .panel-plan-usage .main-content, .panel.panel-current-plan .main-content{
     min-height: 100px;
 }
