@@ -15,6 +15,14 @@ body {
 .navbar .container{
     background-color: #F2F2F2;
 }
+@media (max-width: 767px) {
+    .navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
+        max-height: inherit;
+    }
+    .navbar-nav .open .dropdown-menu {
+        text-align: center;
+    }
+}
 .top-right-nav > li > a.has-activity-indicator {
     padding-right: 0;
 }
@@ -173,7 +181,7 @@ h2.title{
 
 }
 @media (max-width: 767px) {
-
+    
 }
 @media (max-device-width: 480px) {
     
