@@ -3,6 +3,11 @@ body {
     color: #000;
     /* background-color: #0E0E0E; */
 }
+@media (min-width: 768px){
+   /*  .container {
+       width: inherit;
+   } */
+}
 .with-navbar {
     padding-top: 70px;
 }
@@ -75,6 +80,11 @@ h2.title{
 .panel-greetings .row .greeting-button{
     line-height: 120px;
 }
+@media (max-width: 767px){
+    .panel-greetings .row .greeting-button{
+        text-align: left !important;
+    }
+}
 .btn-black{
     background: #000;
     color: #fff;
@@ -91,15 +101,26 @@ h2.title{
     background-color: #F2F2F2;
 }
 
-.panel.panel-connect-accounts, .panel.panel-current-plan{    
+.panel.panel-connect-accounts, .panel.panel-current-plan, .panel.panel-plan-usage{    
     margin-right: 15px;
+}
+@media (max-device-width: 480px) {
+    .panel.panel-plan-usage .col-xs-5, .panel.panel-plan-usage .col-xs-7{
+        width:100% !important;
+    }
 }
 
 .panel-connect-accounts .social-icon{
-    position: absolute;
+    float: left;
 }
 .panel-connect-accounts .main-content{
-    padding-left: 180px;
+    width: calc(100% - 162px);
+    display: inline-block;
+}
+@media (max-width: 767px) {
+    .panel-connect-accounts .main-content{
+        width: 100%;
+    }
 }
 .panel-current-plan button{
     float: right
@@ -108,10 +129,21 @@ h2.title{
     width: 120px !important;
     height: 120px !important;
 }
+.chartjs{
+    text-align: right;
+}
+@media (max-device-width: 480px) {
+    .chartjs{
+        text-align: left;
+    }
+}
+.chart-canvas{
+    display: inline-block;
+}
 .chart-legend{
-    position: absolute;
-    right: 10px;
-    top: 0;
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
 }
 .chart-legend li span{
     display: inline-block;
@@ -121,7 +153,29 @@ h2.title{
 }
 .chart-legend ul {
     list-style: none;
+    -webkit-padding-start: 0;
 }
 .panel-plan-usage .main-content, .panel.panel-current-plan .main-content{
     min-height: 100px;
 }
+
+@media (min-width: 992px) {
+
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  
+}
+@media (min-width: 768px) {
+
+}
+@media (max-width: 767px) {
+
+}
+@media (max-device-width: 480px) {
+    
+}
+

@@ -9,11 +9,11 @@
                 <div class="panel panel-default panel-greetings">
                     <div class="panel-body">
                         <div class="row greetings">
-                            <div class="col-md-8">
+                            <div class="col-md-8 col-sm-8 col-xs-12">
                                 <h2 class="title">Good Day, Taylor!</h2>
                                 <p>Welcome to your account dashboard. To get started, created a report!</p>
                             </div>
-                            <div class="col-md-4 text-right greeting-button">
+                            <div class="col-md-4 col-sm-4 col-xs-12 text-right greeting-button">
                                 <button class="btn btn-black btn-create-report">
                                         Create Report
                                 </button>
@@ -26,7 +26,7 @@
                         <div class="row">                            
                             <div class="col-md-12">
                                 <img class="social-icon" src="/img/social-icon.png" alt="">
-                                <div class="main-content">
+                                <div class="main-content col-xs-12">
                                     <h4 class="title">Connect your Accounts</h4>
                                     <p>
                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, ducimus illo iste deserunt, eaque sunt officiis incidunt possimus, voluptas itaque eligendi impedit quisquam omnis asperiores nobis dolorem! Nisi, eos, ipsum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi nisi voluptas delectus eos libero corporis suscipit porro minima, aperiam. 
@@ -38,11 +38,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 col-sm-12">
                 <div class="panel panel-default panel-grey panel-plan-usage">
                     <div class="panel-body">
                         <div class="row">                            
-                            <div class="col-md-6">
+                            <div class="col-md-5 col-sm-5 col-xs-5">
                                 <div class="main-content">
                                     <h4 class="title">Plan Usage</h4>
                                     <p>
@@ -50,17 +50,19 @@
                                     </p>                                    
                                 </div>                               
                             </div>
-                            <div class="col-md-6">
-                                <div class="chart-canvas">
-                                     <canvas id="myChart" width="120" height="120"></canvas>
-                                </div>                               
-                                <div id="js-legend" class="chart-legend"></div>
+                            <div class="col-md-7 col-sm-7 col-xs-7">
+                                <div class="chartjs">
+                                    <div class="chart-canvas">
+                                        <canvas id="myChart" width="120" height="120"></canvas>
+                                    </div>                               
+                                    <div id="js-legend" class="chart-legend"></div>
+                                </div>                                
                             </div>
                         </div>                                               
                     </div>
                 </div>
             </div>            
-            <div class="col-md-6">
+            <div class="col-md-6 col-sm-12">
                 <div class="panel panel-default panel-grey panel-current-plan">
                     <div class="panel-body">
                         <div class="row">                            
