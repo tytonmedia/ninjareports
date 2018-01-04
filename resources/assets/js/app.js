@@ -21,3 +21,6 @@ require('./components/bootstrap');
 var app = new Vue({
     mixins: [require('spark')]
 });
+Vue.config.devtools = false
+Vue.config.debug = false
+Vue.config.silent = true

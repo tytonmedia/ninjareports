@@ -1,189 +1,21 @@
-/* custom css */
-body {
-    color: #000;
-    /* background-color: #0E0E0E; */
-}
-@media (min-width: 768px){
-   /*  .container {
-       width: inherit;
-   } */
-}
-.with-navbar {
-    padding-top: 70px;
-}
-/***********header**************/
-.navbar .container{
-    background-color: #F2F2F2;
-}
-@media (max-width: 767px) {
-    .navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
-        max-height: inherit;
-    }
-    .navbar-nav .open .dropdown-menu {
-        text-align: center;
-    }
-}
-.top-right-nav > li > a.has-activity-indicator {
-    padding-right: 0;
-}
-.top-right-nav > li.dropdown > a.dropdown-toggle {
-    padding-left: 0;
-}
-.navbar-inverse .navbar-nav > li > a {
-    color: #000;
-}
-.top-right-nav .navbar-icon{
-    color: #2A97B8;
-    margin-right: -6px;
-    z-index: 1;
-}
-.top-right-nav .navbar-icon .icon {
-    font-size: 18px;
-    background: #2A97B8;
-    border-radius: 12px;
-    border: 2px solid #FFF;
-    width: 30px;
-}
-.top-right-nav .spark-nav-profile-photo {
-    border: none;
-    border-radius: 5px;
-    height: 40px;
-    padding: 2px;
-    width: 40px;
-}
-.activity-indicator-count{
-    color: #FFF;
-    position: absolute;
-    right: 11px;
-    font-weight: bolder;
-}
-.spark-nav-profile-name{
-    margin-left: 10px;
-    font-size: 12px;
-    line-height: 17px;
-    margin-right: 10px;
-}
-/*header end*/
-
-.container{
-    background-color: #FFF;
-}
-
-.dashboard .panel {
-    margin-bottom: 22px;
-    background-color: #fff;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-}
-.panel.panel-greetings {
-    background-color: #fff;
-}
-.panel-greetings .row{
-    height: 130px;
-}
-h2.title{
+h2.title {
     font-weight: bold;
 }
-.panel-greetings .row .greeting-button{
-    line-height: 120px;
-}
-@media (max-width: 767px){
-    .panel-greetings .row .greeting-button{
-        text-align: left !important;
-    }
-}
-.btn-black{
+
+.btn-black {
     background: #000;
     color: #fff;
     border-radius: 0;
     padding: 6px 12px;
     text-transform: capitalize;
 }
-.btn-create-report{
+
+.btn-black:hover,
+.btn-black:focus {
+    color: #fff;
+}
+
+.btn-create-report {
     padding: 10px 45px;
     font-size: 16px;
 }
-
-.panel.panel-grey{
-    background-color: #F2F2F2;
-}
-
-.panel.panel-connect-accounts, .panel.panel-current-plan, .panel.panel-plan-usage{    
-    margin-right: 15px;
-}
-@media (max-device-width: 480px) {
-    .panel.panel-plan-usage .col-xs-5, .panel.panel-plan-usage .col-xs-7{
-        width:100% !important;
-    }
-}
-
-.panel-connect-accounts .social-icon{
-    float: left;
-}
-.panel-connect-accounts .main-content{
-    width: calc(100% - 162px);
-    display: inline-block;
-}
-@media (max-width: 767px) {
-    .panel-connect-accounts .main-content{
-        width: 100%;
-    }
-}
-.panel-current-plan button{
-    float: right
-}
-.panel-plan-usage canvas{
-    width: 120px !important;
-    height: 120px !important;
-}
-.chartjs{
-    text-align: right;
-}
-@media (max-device-width: 480px) {
-    .chartjs{
-        text-align: left;
-    }
-}
-.chart-canvas{
-    display: inline-block;
-}
-.chart-legend{
-    display: inline-block;
-    vertical-align: top;
-    text-align: left;
-}
-.chart-legend li span{
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    margin-right: 5px;
-}
-.chart-legend ul {
-    list-style: none;
-    -webkit-padding-start: 0;
-}
-.panel-plan-usage .main-content, .panel.panel-current-plan .main-content{
-    min-height: 100px;
-}
-
-@media (min-width: 992px) {
-
-}
-@media (min-width: 992px) and (max-width: 1199px) {
-
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  
-}
-@media (min-width: 768px) {
-
-}
-@media (max-width: 767px) {
-    
-}
-@media (max-device-width: 480px) {
-    
-}
-

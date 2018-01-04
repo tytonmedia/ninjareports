@@ -1,9 +1,7 @@
 <!-- Left Side Of Navbar -->
-<ul class="nav navbar-nav navbar-right">
-    <li>
-        <a href="#" class="navbar-link">Reports</a>
-    </li>
-    <li>
-        <a href="#" class="navbar-link">Accounts</a>
-    </li>
-</ul>
+<li>
+    <a href="{{ route('reports.index') }}">Reports</a>
+</li>
+<li>
+    <a href="{{ route('accounts.index') }}">Accounts</a>
+</li>

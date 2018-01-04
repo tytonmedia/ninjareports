@@ -14,7 +14,6 @@ var path = require('path');
 
 mix.less('resources/assets/less/app.less', 'public/css')
    .copy('node_modules/sweetalert/dist/sweetalert.min.js', 'public/js/sweetalert.min.js')
-   .copy('node_modules/chart.js/Chart.min.js', 'public/js/Chart.min.js')
    .copy('node_modules/sweetalert/dist/sweetalert.css', 'public/css/sweetalert.css')
    .copy('resources/assets/css/custom.css', 'public/css/custom.css')
    .js('resources/assets/js/app.js', 'public/js')

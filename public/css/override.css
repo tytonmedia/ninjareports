@@ -1,0 +1,4 @@
+.navbar-inverse .navbar-nav>li>a {
+    color: #000;
+    font-weight: bold;
+}

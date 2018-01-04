@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Account;
 
 class HomeController extends Controller
 {
@@ -25,6 +25,7 @@ class HomeController extends Controller
      */
     public function show()
     {
-        return view('home');
+        $active_accounts = Account::where('user_id', auth()->user()->id)->where('status', 1)->count();
+        return view('home', compact('active_accounts'));
     }
 }

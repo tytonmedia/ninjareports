@@ -9,11 +9,14 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "facebook/graph-sdk": "^5.6",
+        "facebook/php-ads-sdk": "2.*",
         "fideloper/proxy": "~3.3",
-        "laravel/framework": "5.5.*",
-        "laravel/tinker": "~1.0",
+        "google/apiclient": "^2.0",
         "laravel/cashier": "~7.0",
-        "laravel/spark": "*@dev"
+        "laravel/framework": "5.5.*",
+        "laravel/spark": "*@dev",
+        "laravel/tinker": "~1.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -22,6 +25,9 @@
         "phpunit/phpunit": "~6.0"
     },
     "autoload": {
+        "files": [
+            "app/Helpers/General.php"
+        ],
         "classmap": [
             "database/seeds",
             "database/factories"
@@ -57,10 +63,8 @@
         "sort-packages": true,
         "optimize-autoloader": true
     },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "./spark"
-        }
-    ]
+    "repositories": [{
+        "type": "path",
+        "url": "./spark"
+    }]
 }

@@ -19,5 +19,16 @@
     "urijs": "^1.17.0",
     "vue": "2.*",
     "axios": "^0.15.2"
-  }
+  },
+  "name": "nr",
+  "version": "1.0.0",
+  "main": "webpack.mix.js",
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
