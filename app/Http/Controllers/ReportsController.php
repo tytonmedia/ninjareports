@@ -83,7 +83,7 @@ class ReportsController extends Controller
                 $date_preset = AdsInsightsDatePresetValues::THIS_MONTH;
                 break;
             case "yearly":
-                $date_preset = AdsInsightsDatePresetValues::LAST_YEAR;
+                $date_preset = AdsInsightsDatePresetValues::THIS_YEAR;
                 break;
             default:
                 $date_preset = AdsInsightsDatePresetValues::TODAY;
