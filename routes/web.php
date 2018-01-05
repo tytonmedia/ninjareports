@@ -19,6 +19,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('accounts')->group(function () {
         Route::get('/', 'AccountsController@index')->name('accounts.index');
         Route::get('connect', 'AccountsController@connect')->name('accounts.connect');
+        Route::get('settings/facebook', 'AccountsController@facebookSettings')->name('accounts.settings.facebook');
+        Route::get('settings/analytics', 'AccountsController@analyticsSettings')->name('accounts.settings.analytics');
+        Route::get('settings/adwords', 'AccountsController@adwordsSettings')->name('accounts.settings.adwords');
+        Route::get('sync/facebook/adaccounts', 'AccountsController@syncFacebookAdAccounts')->name('accounts.sync.facebook.adaccounts');
     });
 
     // ConnectController Routes
@@ -37,5 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', 'ReportsController@index')->name('reports.index');
         Route::get('create', 'ReportsController@create')->name('reports.create');
         Route::post('store', 'ReportsController@store')->name('reports.store');
+        Route::get('edit/{id}', 'ReportsController@edit')->name('reports.edit');
+        Route::get('facebook/adaccounts', 'ReportsController@getFbAdAccounts')->name('reports.facebook.adaccounts');
     });
 });

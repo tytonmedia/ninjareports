@@ -132,3 +132,11 @@ if (!function_exists('fb_connect')) {
         return $fb;
     }
 }
+
+if (!function_exists('fb_token')) {
+    function fb_token()
+    {
+        $token = \App\Models\Account::where('type', 'facebook')->where('user_id', auth()->user()->id)->pluck('token')->first();
+        return $token;
+    }
+}
