@@ -10,7 +10,16 @@ class ConnectController extends Controller
 {
     public function test()
     {
-        $account = Account::where('type', 'facebook')->where('user_id', auth()->user()->id)->first();
+        $client = analytics_connect();
+        $client->setAccessToken(analytics_token());
+        $analytics = new \Google_Service_Analytics($client);
+        $accounts = $analytics->management_accounts->listManagementAccounts()->getItems();
+        if($accounts){
+            foreach($accounts as $account){
+                pr($account->getId());
+                pr($account->getName());
+            }
+        }
     }
     public function facebook()
     {
@@ -70,6 +79,7 @@ class ConnectController extends Controller
             Session::flash('alert-danger', 'Facebook SDK returned an error: ' . $e->getMessage());
             return redirect()->route('accounts.index');
         }
+        Session::put('fb_access_token', 1);
         $me = $user->getGraphUser();
         $account = Account::where('type', 'facebook')->where('user_id', auth()->user()->id)->first();
         $account_update_array = [
@@ -91,26 +101,33 @@ class ConnectController extends Controller
     public function analytics()
     {
 
-        $client = $this->ga();
-        $client->setRedirectUri('https://localhost/nr/public/connect/google/callback');
+        $client = analytics_connect();
         return redirect($client->createAuthUrl());
     }
 
     public function analyticsCallback()
     {
-        $client = $this->ga();
+        $client = analytics_connect();
         $code = Input::get('code');
-        $client->setRedirectUri('https://localhost/nr/public/connect/google/callback');
-        $token = $client->fetchAccessTokenWithAuthCode($code);
-        Session::put('google_access_token', $token);
-        return redirect()->route('connect.test');
-    }
-
-    public function ganalytics()
-    {
-        $client = new \Google_Client();
-        $client->setAuthConfig(main_path('google.json'));
-        $client->addScope(\Google_Service_Analytics::ANALYTICS_READONLY);
-        return $client;
+        $client->authenticate($code);
+        $token = $client->getAccessToken();
+        $client->setAccessToken($token);
+        $user = new \Google_Service_Oauth2($client);
+        Session::put('ga_access_token', 1);
+        $account = Account::where('type', 'analytics')->where('user_id', auth()->user()->id)->first();
+        $account_update_array = [
+            'user_id' => auth()->user()->id,
+            'type' => 'analytics',
+            'title' => 'Google Analytics',
+            'email' => $user->userinfo->get()->email,
+            'status' => 1,
+            'token' => json_encode($token),
+        ];
+        if ($account) {
+            Account::where('id', $account->id)->update($account_update_array);
+        } else {
+            Account::create($account_update_array);
+        }
+        return redirect()->route('accounts.index');
     }
 }

@@ -92,6 +92,7 @@ if (!function_exists('validateTokens')) {
     {
         $accounts = \App\Models\Account::where('user_id', auth()->user()->id)->where('status', 1)->get();
         $fb_access_token = \Session::get('fb_access_token');
+        $ga_access_token = \Session::get('ga_access_token');
         foreach ($accounts as $account) {
 
             // Check Facebook Token Validation
@@ -138,5 +139,41 @@ if (!function_exists('fb_token')) {
     {
         $token = \App\Models\Account::where('type', 'facebook')->where('user_id', auth()->user()->id)->pluck('token')->first();
         return $token;
+    }
+}
+
+if (!function_exists('analytics_token')) {
+    function analytics_token()
+    {
+        $token = \App\Models\Account::where('type', 'analytics')->where('user_id', auth()->user()->id)->pluck('token')->first();
+        $token = (array) json_decode($token);
+        $client = analytics_connect();
+        $client->setAccessToken($token);
+        if ($client->isAccessTokenExpired()) {
+            $client->refreshToken($token);
+            $access_token = $client->getAccessToken();
+            \App\Models\Account::where('type', 'analytics')->where('user_id', auth()->user()->id)->update([
+                'token' => json_encode($access_token),
+            ]);
+        }
+        $token = \App\Models\Account::where('type', 'analytics')->where('user_id', auth()->user()->id)->pluck('token')->first();
+        if ($token) {
+            return (array) json_decode($token);
+        }
+        return false;
+    }
+}
+
+if (!function_exists('analytics_connect')) {
+    function analytics_connect()
+    {
+        $client = new \Google_Client();
+        $client->setAuthConfig(main_path('google.json'));
+        $client->addScope([\Google_Service_Oauth2::USERINFO_EMAIL, \Google_Service_Analytics::ANALYTICS_READONLY]);
+        $client->setRedirectUri(route('connect.analytics.callback'));
+        $client->setAccessType('offline');
+        $client->setIncludeGrantedScopes(true);
+        $client->setApprovalPrompt('force');
+        return $client;
     }
 }

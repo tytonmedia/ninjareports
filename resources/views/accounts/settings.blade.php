@@ -11,14 +11,14 @@
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-6 text-right greeting-button">
 							<a href="{{ route('reports.create') }}" class="btn btn-black">Create Report</a>
-							<button class="btn btn-black nr_sync_ad_accounts_button">Sync Ad Accounts
+							<button data-type="{{ $type }}" class="btn btn-black nr_sync_ad_accounts_button">Sync Ad Accounts
 								<span class="nr-loader fa fa-spin fa-spinner margin-left-5 hidden"></span>
 							</button>
 						</div>
 					</div>
 					<div class="connect_accounts_modal_section"></div>
 					<hr/>
-					<div class="synchronized_facebook_ad_accounts">{!! $facebook_ad_accounts_html !!}</div>
+					<div class="synchronized_ad_accounts">{!! $ad_accounts_html !!}</div>
 				</div>
 			</div>
 		</div>

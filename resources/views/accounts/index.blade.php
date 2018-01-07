@@ -32,7 +32,7 @@
 									@foreach($accounts as $account)
 									<tr>
 										<td>
-											<img src="{{ asset('img/facebook-ads.png') }}" />
+											<img src="{{ asset('img/'.$account->type.'.png') }}" />
 										</td>
 										<td>
 											<span class="color-black-bold">{{ $account->title }}</span>
@@ -43,7 +43,7 @@
 											<a class="btn btn-xs btn-black" href="'.route('connect.'.$account->type).'">Connect</a>' !!}
 										</td>
 										<td>
-											<a class="btn btn-xs btn-primary" href="{{ route('accounts.settings.'. $account->type) }}">Settings</a>
+											<a class="btn btn-xs btn-primary" href="{{ route('accounts.setting', $account->type) }}">Settings</a>
 											<a class="btn btn-xs btn-danger">Delete</a>
 										</td>
 									</tr>

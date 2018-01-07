@@ -1,4 +1,6 @@
-@extends('spark::layouts.app') @section('content')
+@extends('spark::layouts.app') @section('content') @section('page_styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css"
+/> @endsection
 <div class="spark-screen container">
 	<div class="row">
 		<div class="col-md-12">
@@ -50,6 +52,8 @@
 									</div>
 								</div>
 								<div class="sub_accounts_html"></div>
+								<div class="properties_html"></div>
+								<div class="views_html"></div>
 								<div class="form-group">
 									<div class="col-md-3"></div>
 									<div class="col-md-9">
@@ -62,8 +66,8 @@
 									<div class="col-md-3">
 										<label class="control-label color-black-bold">Frequency</label>
 									</div>
-									<div class="col-md-9">
-										<select class="form-control" name="frequency">
+									<div class="col-md-3">
+										<select class="form-control frequency" name="frequency">
 											<option value="daily">Daily</option>
 											<option value="weekly">Weekly</option>
 											<option value="monthly">Monthly</option>
@@ -71,6 +75,14 @@
 										</select>
 										<div class="error">
 											@if ($errors->has('frequency')) {{ $errors->first('frequency') }} @endif
+										</div>
+									</div>
+									<div class="ends_at_section">
+										<div class="col-md-1">
+											<label class="control-label color-black-bold">at</label>
+										</div>
+										<div class="col-md-5">
+											<input type="text" name="ends_at" readonly class="form-control timepicker" />
 										</div>
 									</div>
 								</div>
@@ -142,4 +154,6 @@
 		</div>
 	</div>
 </div>
+@endsection @section('page_scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
 @endsection

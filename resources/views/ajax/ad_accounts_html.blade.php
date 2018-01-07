@@ -4,7 +4,6 @@
 		<table class="table table-stripped accounts_connect_table">
 			<thead>
 				<tr>
-					<th></th>
 					<th>Ad Account</th>
 					<th>Name</th>
 					<th>Actions</th>
@@ -13,9 +12,6 @@
 			<tbody>
 				@foreach($ad_accounts as $ad_account)
 				<tr>
-					<td>
-						<img src="{{ asset('img/facebook-ads.png') }}" />
-					</td>
 					<td>
 						<span class="color-black-bold">{{ str_replace('act_', '', $ad_account->ad_account_id) }}</span>
 					</td>
@@ -31,5 +27,5 @@
 </div>
 @else
 <div class="text-center">No ad account synchronized. Please click
-	<code>Sync Ad Accounts</code> button to sync facebook ad accounts.</div>
+	<code>Sync Ad Accounts</code> button to sync {{ $type }} ad accounts.</div>
 @endif
