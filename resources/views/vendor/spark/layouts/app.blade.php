@@ -29,9 +29,16 @@
         window.Spark = <?php echo json_encode(array_merge(
             Spark::scriptVariables(), []
         )); ?>;
+        var canRunAds = true;
     </script>
 </head>
 <body class="with-navbar">
+    <script>
+      if( canRunAds === undefined ){
+        // adblocker detected, show fallback
+        showFallbackImage();
+      }
+    </script>
     <div id="spark-app" v-cloak>
         <!-- Navigation -->
         @if (Auth::check())

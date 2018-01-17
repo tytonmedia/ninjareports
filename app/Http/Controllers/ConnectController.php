@@ -14,8 +14,8 @@ class ConnectController extends Controller
         $client->setAccessToken(analytics_token());
         $analytics = new \Google_Service_Analytics($client);
         $accounts = $analytics->management_accounts->listManagementAccounts()->getItems();
-        if($accounts){
-            foreach($accounts as $account){
+        if ($accounts) {
+            foreach ($accounts as $account) {
                 pr($account->getId());
                 pr($account->getName());
             }
@@ -130,4 +130,51 @@ class ConnectController extends Controller
         }
         return redirect()->route('accounts.index');
     }
+
+    public function adwords()
+    {
+        $oauth2 = adwords_connect();
+        $oauth2->setState(sha1(openssl_random_pseudo_bytes(1024)));
+        Session::put('adwords_state', $oauth2->getState());
+        $config = [
+            'access_type' => 'offline',
+        ];
+        return redirect($oauth2->buildFullAuthorizationUri($config));
+    }
+
+    public function adwordsCallback()
+    {
+        $state = Input::get('state');
+        if ($state == Session::get('adwords_state')) {
+            $code = Input::get('code');
+            $oauth2 = adwords_connect();
+            $oauth2->setCode($code);
+            $authToken = $oauth2->fetchAuthToken();
+            $user_result = file_get_contents('https://www.googleapis.com/oauth2/v2/userinfo?access_token=' . $authToken['access_token']);
+            $user = json_decode($user_result);
+            $refresh_token = isset($authToken['refresh_token']) ? $authToken['refresh_token'] : '';
+            Session::put('gadwords_access_token', 1);
+            $account = Account::where('type', 'adword')->where('user_id', auth()->user()->id)->first();
+            $account_update_array = [
+                'user_id' => auth()->user()->id,
+                'type' => 'adword',
+                'title' => 'Google Adwords',
+                'email' => $user->email,
+                'status' => 1,
+            ];
+            if ($refresh_token) {
+                $account_update_array['token'] = $refresh_token;
+            }
+            if ($account) {
+                Account::where('id', $account->id)->update($account_update_array);
+            } else {
+                Account::create($account_update_array);
+            }
+            return redirect()->route('accounts.index');
+        } else {
+            Session::flash('alert-danger', 'Invalid State.');
+            return redirect()->route('accounts.index');
+        }
+    }
+
 }

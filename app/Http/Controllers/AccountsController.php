@@ -73,21 +73,51 @@ class AccountsController extends Controller
             $analytics = new \Google_Service_Analytics($client);
             try {
                 $accounts = $analytics->management_accounts->listManagementAccounts()->getItems();
+                $adaccounts = [];
+                if (count($accounts) > 0) {
+                    foreach ($accounts as $account) {
+                        $adaccounts[] = [
+                            'id' => $account->getId(),
+                            'name' => $account->getName(),
+                        ];
+                    }
+                }
+                $status = 'success';
             } catch (\Google_Service_Exception $e) {
                 $status = 'error';
             } catch (\Google_Exception $e) {
                 $status = 'error';
             }
-            $adaccounts = [];
-            if (count($accounts) > 0) {
+        }
+        if ($type == 'adword') {
+            $oauth2Token = (new \Google\AdsApi\Common\OAuth2TokenBuilder())
+                ->withClientId(env('GOOGLE_ADWORDS_CLIENT_ID'))
+                ->withClientSecret(env('GOOGLE_ADWORDS_CLIENT_SECRET'))
+                ->withRefreshToken(adwords_token())
+                ->build();
+            $soapSettings = (new \Google\AdsApi\Common\SoapSettingsBuilder())
+                ->disableSslVerify()
+                ->build();
+            $session = (new \Google\AdsApi\AdWords\AdWordsSessionBuilder())
+                ->withOAuth2Credential($oauth2Token)
+                ->withSoapSettings($soapSettings)
+                ->withDeveloperToken(env('ADWORDS_TOKEN'))
+                ->build();
+            $adWordsServices = new \Google\AdsApi\AdWords\AdWordsServices();
+            $customerService = $adWordsServices->get($session, \Google\AdsApi\AdWords\v201710\mcm\CustomerService::class);
+            if ($customerService->getCustomers() && count($customerService->getCustomers()) > 0) {
+                $accounts = $customerService->getCustomers();
+                $adaccounts = [];
                 foreach ($accounts as $account) {
                     $adaccounts[] = [
-                        'id' => $account->getId(),
-                        'name' => $account->getName(),
+                        'id' => $account->getCustomerId(),
+                        'name' => $account->getDescriptiveName(),
                     ];
                 }
+                $status = 'success';
+            } else {
+                $status = 'error';
             }
-            $status = 'success';
         }
         if ($status == 'success') {
             $account = Account::where('type', $type)->where('user_id', auth()->user()->id)->where('status', 1)->first();

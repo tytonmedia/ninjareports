@@ -14,7 +14,7 @@
 							<tbody>
 								<tr>
 									<td>
-										<img src="{{ asset('img/facebook-ads.png') }}" />
+										<img src="{{ asset('img/facebook.png') }}" />
 									</td>
 									<td>Facebook Ads</td>
 									<td>{!! in_array('facebook', $accounts) ? '<button class="btn btn-xs btn-default">Connected</button>':'
@@ -22,7 +22,7 @@
 								</tr>
 								<tr>
 									<td>
-										<img src="{{ asset('img/google-analytics.png') }}" />
+										<img src="{{ asset('img/analytics.png') }}" />
 									</td>
 									<td>Google Analytics</td>
 									<td>{!! in_array('analytics', $accounts) ? '<button class="btn btn-xs btn-default">Connected</button>':'
@@ -30,10 +30,10 @@
 								</tr>
 								<tr>
 									<td>
-										<img src="{{ asset('img/google-adword.png') }}" />
+										<img src="{{ asset('img/adword.png') }}" />
 									</td>
 									<td>Google Adwords</td>
-									<td>{!! in_array('adwords', $accounts) ? '<button class="btn btn-xs btn-default">Connected</button>':'
+									<td>{!! in_array('adword', $accounts) ? '<button class="btn btn-xs btn-default">Connected</button>':'
 										<a class="btn btn-xs btn-black" href="'.route('connect.adwords').'">Connect</a>' !!}</td>
 								</tr>
 							</tbody>

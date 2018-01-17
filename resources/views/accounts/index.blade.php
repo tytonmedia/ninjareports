@@ -30,9 +30,10 @@
 								</thead>
 								<tbody>
 									@foreach($accounts as $account)
+									@php($img  = $account->type == 'adwords' ? 'adword.png': $account->type.'.png')
 									<tr>
 										<td>
-											<img src="{{ asset('img/'.$account->type.'.png') }}" />
+											<img src="{{ asset('img/'.$img) }}" />
 										</td>
 										<td>
 											<span class="color-black-bold">{{ $account->title }}</span>

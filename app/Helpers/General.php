@@ -177,3 +177,26 @@ if (!function_exists('analytics_connect')) {
         return $client;
     }
 }
+
+if (!function_exists('adwords_connect')) {
+    function adwords_connect()
+    {
+        $oauth2 = new \Google\Auth\OAuth2([
+            'authorizationUri' => 'https://accounts.google.com/o/oauth2/v2/auth',
+            'tokenCredentialUri' => 'https://www.googleapis.com/oauth2/v4/token',
+            'redirectUri' => env('GOOGLE_ADWORDS_REDIRECT_URL'),
+            'clientId' => env('GOOGLE_ADWORDS_CLIENT_ID'),
+            'clientSecret' => env('GOOGLE_ADWORDS_CLIENT_SECRET'),
+            'scope' => [\Google_Service_Oauth2::USERINFO_EMAIL, 'https://www.googleapis.com/auth/adwords'],
+        ]);
+        return $oauth2;
+    }
+}
+
+if (!function_exists('adwords_token')) {
+    function adwords_token()
+    {
+        $token = \App\Models\Account::where('type', 'adword')->where('user_id', auth()->user()->id)->pluck('token')->first();
+        return $token;
+    }
+}
