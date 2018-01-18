@@ -131,7 +131,7 @@ class AccountsController extends Controller
                 }
                 $vendor_ad_accounts = [];
                 foreach ($adaccounts as $adaccount) {
-                    $vendor_ad_accounts[] = $adaccount['id'];
+                    $vendor_ad_accounts[] = (string) $adaccount['id'];
                     $ad_account_create_array = [
                         'user_id' => auth()->user()->id,
                         'account_id' => $account->id,
@@ -141,12 +141,12 @@ class AccountsController extends Controller
                     ];
                     $local_ad_account = AdAccount::where('account_id', $account->id)
                         ->where('user_id', auth()->user()->id)
-                        ->where('ad_account_id', $adaccount['id'])
+                        ->where('ad_account_id', (string) $adaccount['id'])
                         ->first();
                     if ($local_ad_account) {
                         AdAccount::where('account_id', $account->id)
                             ->where('user_id', auth()->user()->id)
-                            ->where('ad_account_id', $adaccount['id'])
+                            ->where('ad_account_id', (string) $adaccount['id'])
                             ->update($ad_account_create_array);
                     } else {
                         AdAccount::create($ad_account_create_array);
