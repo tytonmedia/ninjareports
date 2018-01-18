@@ -136,7 +136,7 @@ class AccountsController extends Controller
                         'user_id' => auth()->user()->id,
                         'account_id' => $account->id,
                         'title' => $adaccount['name'],
-                        'ad_account_id' => $adaccount['id'],
+                        'ad_account_id' => (string) $adaccount['id'],
                         'is_active' => 1,
                     ];
                     $local_ad_account = AdAccount::where('account_id', $account->id)
