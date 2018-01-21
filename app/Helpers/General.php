@@ -200,3 +200,24 @@ if (!function_exists('adwords_token')) {
         return $token;
     }
 }
+
+if (!function_exists('adwords_session')) {
+    function adwords_session($customerId)
+    {
+        $oauth2Token = (new \Google\AdsApi\Common\OAuth2TokenBuilder())
+            ->withClientId(env('GOOGLE_ADWORDS_CLIENT_ID'))
+            ->withClientSecret(env('GOOGLE_ADWORDS_CLIENT_SECRET'))
+            ->withRefreshToken(adwords_token())
+            ->build();
+        $soapSettings = (new \Google\AdsApi\Common\SoapSettingsBuilder())
+            ->disableSslVerify()
+            ->build();
+        $session = (new \Google\AdsApi\AdWords\AdWordsSessionBuilder())
+            ->withOAuth2Credential($oauth2Token)
+            ->withSoapSettings($soapSettings)
+            ->withClientCustomerId($customerId)
+            ->withDeveloperToken(env('ADWORDS_TOKEN'))
+            ->build();
+        return $session;
+    }
+}

@@ -9,14 +9,12 @@ use \FacebookAds\Object\Fields\AdsInsightsFields;
 use \FacebookAds\Object\Values\AdsInsightsBreakdownsValues;
 use \FacebookAds\Object\Values\AdsInsightsDatePresetValues;
 
-class CronController extends Controller
-{
+class CronController extends Controller {
 
-    public function report($id)
-    {
+    public function report($id) {
         $report = Report::where('id', $id)
-            ->with('account', 'ad_account', 'property', 'profile')
-            ->first();
+                ->with('account', 'ad_account', 'property', 'profile')
+                ->first();
         if ($report) {
             if ($report->account->type == 'facebook') {
                 $params = array(
@@ -79,22 +77,31 @@ class CronController extends Controller
                 $client->setAccessToken(analytics_token());
                 $analytics = new \Google_Service_Analytics($client);
                 $results = $analytics->data_ga->get(
-                    'ga:' . $report->profile->view_id,
-                    'today',
-                    'today',
-                    'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:bounceRate,ga:newUsers,ga:sessionsPerUser');
+                        'ga:' . $report->profile->view_id, 'today', 'today', 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:bounceRate,ga:newUsers,ga:sessionsPerUser');
                 pr($results->totalsForAllResults);
+                exit;
+            }
+            if ($report->account->type == 'adword') {
+                $session = adwords_session($report->ad_account->ad_account_id);
+                $reportQuery = 'SELECT CampaignId, AdGroupId, Id, Criteria, CriteriaType, '
+                        . 'Impressions, Clicks, Cost FROM CRITERIA_PERFORMANCE_REPORT '
+                        . 'WHERE Status IN [ENABLED, PAUSED] DURING LAST_7_DAYS';
+                $reportDownloader = new \Google\AdsApi\AdWords\Reporting\v201710\ReportDownloader($session);
+                $reportSettingsOverride = (new \Google\AdsApi\AdWords\ReportSettingsBuilder())
+                        ->includeZeroImpressions(false)
+                        ->build();
+                $reportDownloadResult = $reportDownloader->downloadReportWithAwql(
+                        $reportQuery, \Google\AdsApi\AdWords\Reporting\v201710\DownloadFormat::XML, $reportSettingsOverride);
+                pr($reportDownloadResult);
                 exit;
             }
         } else {
             Session::flash('alert-danger', 'Report not found.');
             return redirect()->route('reports.index');
         }
-
     }
 
-    public function fbDataFields()
-    {
+    public function fbDataFields() {
         $fields = [
             'clicks' => AdsInsightsFields::CLICKS,
             'impressions' => AdsInsightsFields::IMPRESSIONS,
@@ -105,4 +112,5 @@ class CronController extends Controller
         ];
         return (object) $fields;
     }
+
 }
