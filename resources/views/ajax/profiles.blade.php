@@ -6,7 +6,7 @@
 		@if($profiles && count($profiles) > 0)
 		<select class="form-control" name="profile">
 			@foreach($profiles as $profile)
-			<option value="{{ $profile->view_id }}">{{ $profile->name }} ({{ $profile->view_id }})</option>
+			<option value="{{ $profile->view_id }}" {{ isset($profile_id) && $profile_id == $profile->id ? 'selected':''}}>{{ $profile->name }} ({{ $profile->view_id }})</option>
 			@endforeach
 		</select>
 		@else

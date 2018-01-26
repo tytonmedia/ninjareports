@@ -38,7 +38,8 @@
 										<td>{{ $report->recipients }}</td>
 										<td>{{ $report->created_at->diffForHumans() }}</td>
 										<td>
-											<a href="{{ route('cron.report', $report->id) }}" class="btn btn-xs btn-black">Edit</a>
+											<a href="{{ route('reports.edit', $report->id) }}" class="btn btn-xs btn-black">Edit</a>
+											<a onClick="return confirm('Are you sure you want to delete this report?')" href="{{ route('reports.delete', $report->id) }}" class="btn btn-xs btn-black">Delete</a>
 										</td>
 									</tr>
 									@endforeach

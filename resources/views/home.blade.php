@@ -54,7 +54,7 @@
 								<div class="main-content">
 									<h4 class="title">Plan Usage</h4>
 									<p>
-										<b>15</b> of 30 Reports Sent
+										<b>{{ $reports_sent_count }}</b> of {{ $plan->reports }} Reports Sent
 									</p>
 								</div>
 							</div>
@@ -77,11 +77,13 @@
 							<div class="col-md-12">
 								<div class="main-content">
 									<div class="h4 title">
-										<span>Current Plan: Lite</span>
-										<button class="btn btn-black">Upgrade</button>
+										<span>Current Plan: {{ ucfirst(str_replace('_', ' ', $plan->title)) }}</span>
+										@if($plan->title != 'white_label')
+											<a href="{{ url('settings#/subscription') }}" class="btn btn-black">Upgrade</a>
+										@endif
 									</div>
 									<p>
-										30 Reports/Month
+										{{ $plan->reports }} Reports/Month
 									</p>
 								</div>
 							</div>

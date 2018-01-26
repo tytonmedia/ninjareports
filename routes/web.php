@@ -40,6 +40,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('create', 'ReportsController@create')->name('reports.create');
         Route::post('store', 'ReportsController@store')->name('reports.store');
         Route::get('edit/{id}', 'ReportsController@edit')->name('reports.edit');
+        Route::post('update/{id}', 'ReportsController@update')->name('reports.update');
+        Route::get('delete/{id}', 'ReportsController@destroy')->name('reports.delete');
         Route::get('{type}/adaccounts', 'ReportsController@ad_accounts')->name('reports.adaccounts');
         Route::get('{type}/properties/{account}', 'ReportsController@properties')->name('reports.properties');
         Route::get('{type}/properties/{account}/profiles/{property}', 'ReportsController@profiles')->name('reports.profiles');

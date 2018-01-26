@@ -36,12 +36,39 @@ class ReportsController extends Controller
 
     public function edit($id)
     {
-        $report = Report::where('id', $id)
-            ->where('user_id', auth()->user()->id)
-            ->with('analytics')
-            ->first();
+        validateTokens();
+        $accounts = Account::where('user_id', auth()->user()->id)->where('status', 1)->get();
+        $report = Report::where('id', $id)->where('user_id', auth()->user()->id)->first();
         if ($report) {
-            pr($report->analytics->toJson(JSON_PRETTY_PRINT));
+            $account = Account::find($report->account_id);
+            $type = $account->type;
+            $ad_account_id = $report->ad_account_id;
+            $property_id = $report->property_id;
+            $profile_id = $report->profile_id;
+            $ad_accounts = AdAccount::where('account_id', $report->account_id)
+                ->where('user_id', auth()->user()->id)
+                ->where('is_active', 1)
+                ->get();
+            $ad_accounts_html = view('ajax.ad_accounts', compact('ad_accounts', 'type', 'ad_account_id'))->render();
+            $properties_html = '';
+            if ($property_id) {
+                $ad_account = AdAccount::find($ad_account_id);
+                $account = $ad_account->property_id;
+                $properties = AnalyticProperty::where('ad_account_id', $ad_account_id)
+                    ->where('user_id', auth()->user()->id)
+                    ->where('is_active', 1)
+                    ->get();
+                $properties_html = view('ajax.properties', compact('properties', 'type', 'account', 'property_id'))->render();
+            }
+            $profiles_html = '';
+            if ($profile_id) {
+                $profiles = AnalyticView::where('property_id', $property_id)
+                    ->where('user_id', auth()->user()->id)
+                    ->where('is_active', 1)
+                    ->get();
+                $profiles_html = view('ajax.profiles', compact('profiles', 'type', 'profile_id'))->render();
+            }
+            return view('reports.edit', compact('accounts', 'report', 'ad_accounts_html', 'properties_html', 'profiles_html'));
         } else {
             Session::flash('alert-danger', 'Report not found.');
             return redirect()->route('reports.index');
@@ -83,7 +110,7 @@ class ReportsController extends Controller
                     ->pluck('id')
                     ->first();
                 if ($ad_account_id) {
-                    $ends_at = $data->ends_at ? $data->ends_at : $data->ends_at_month . '-' . $data->ends_at_day;
+                    $ends_at = isset($data->ends_at) && $data->ends_at ? $data->ends_at : $data->ends_at_month . '-' . $data->ends_at_day;
                     $property_id = 0;
                     if (isset($data->property)) {
                         $property_id = AnalyticProperty::where('property', $data->property)
@@ -126,6 +153,11 @@ class ReportsController extends Controller
                 return redirect()->route('reports.create');
             }
         }
+    }
+
+    public function update($id, Request $request)
+    {
+        pr($request->all());
     }
 
     public function ad_accounts($type)
@@ -191,7 +223,7 @@ class ReportsController extends Controller
                     ->where('user_id', auth()->user()->id)
                     ->where('is_active', 1)
                     ->get();
-                $html = view('ajax.profiles', compact('profiles', 'type', 'account'))->render();
+                $html = view('ajax.profiles', compact('profiles', 'type'))->render();
                 $status = 'success';
             } else {
                 $status = 'error';
@@ -201,6 +233,18 @@ class ReportsController extends Controller
             'status' => $status,
             'html' => $html,
         ]);
+    }
+
+    public function destroy($id)
+    {
+        $report = Report::where('id', $id)->where('user_id', auth()->user()->id)->first();
+        if ($report) {
+            $report->delete();
+            session()->flash('alert-success', 'Report Deleted Successfully!');
+        } else {
+            session()->flash('alert-danger', 'Something went wrong!');
+        }
+        return redirect()->route('reports.index');
     }
 
 }

@@ -8,7 +8,7 @@ class Report extends Model
 {
 
     protected $fillable = [
-        'user_id', 'account_id', 'ad_account_id', 'property_id', 'profile_id', 'title', 'frequency', 'ends_at', 'email_subject', 'recipients', 'attachment_type',
+        'user_id', 'account_id', 'ad_account_id', 'property_id', 'profile_id', 'title', 'frequency', 'ends_at', 'email_subject', 'recipients', 'attachment_type', 'sent_at'
     ];
 
     public function account()

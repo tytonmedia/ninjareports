@@ -8,7 +8,7 @@
 		@if($ad_accounts && count($ad_accounts) > 0)
 		<select data-type="{{ $type }}" class="form-control nr-ad-account" name="account">
 			@foreach($ad_accounts as $ad_account)
-			<option value="{{ $ad_account->ad_account_id }}">{{ $ad_account->title }} ({{ str_replace('act_', '', $ad_account->ad_account_id) }})</option>
+			<option value="{{ $ad_account->ad_account_id }}" {{ isset($ad_account_id) && $ad_account_id == $ad_account->id ? 'selected':''}}>{{ $ad_account->title }} ({{ str_replace('act_', '', $ad_account->ad_account_id) }})</option>
 			@endforeach
 		</select>
 		@else

@@ -8,7 +8,7 @@
 		@if($properties && count($properties) > 0)
 		<select data-type="{{ $type }}" data-ad_account="{{ $account }}" class="form-control nr-ad-property" name="property">
 			@foreach($properties as $property)
-			<option value="{{ $property->property }}">{{ $property->name }} ({{ $property->property }})</option>
+			<option value="{{ $property->property }}" {{ isset($property_id) && $property_id == $property->id ? 'selected':'' }}>{{ $property->name }} ({{ $property->property }})</option>
 			@endforeach
 		</select>
 		@else
