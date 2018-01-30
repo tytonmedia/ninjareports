@@ -14,7 +14,7 @@ class AddSentAtFieldToReportsTable extends Migration
     public function up()
     {
         Schema::table('reports', function (Blueprint $table) {
-            $table->timestamp('sent_at')->nullable()->after('is_sent');
+            $table->timestamp('sent_at')->nullable()->after('attachment_type');
         });
     }
 
