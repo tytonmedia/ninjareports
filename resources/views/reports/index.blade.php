@@ -25,7 +25,7 @@
 										<th>Frequency</th>
 										<th>Recipients</th>
 										<th>Last Sent</th>
-										<th></th>
+										<th style="min-width: 150px"></th>
 									</tr>
 								</thead>
 								<tbody>

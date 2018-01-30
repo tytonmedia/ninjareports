@@ -134,6 +134,7 @@ class ReportsController extends Controller
                         'title' => $data->title,
                         'frequency' => $data->frequency,
                         'ends_at' => $ends_at,
+                        'next_send_time' => make_schedules($data->frequency, $ends_at),
                         'email_subject' => $data->email_subject,
                         'recipients' => $data->recipients,
                         'attachment_type' => $data->attachment_type,
@@ -157,7 +158,82 @@ class ReportsController extends Controller
 
     public function update($id, Request $request)
     {
-        pr($request->all());
+        $validation_array = [
+            'title' => 'required|max:191',
+            'account_type' => 'required',
+            'frequency' => 'required',
+            'recipients' => 'required',
+            'attachment_type' => 'required',
+            'email_subject' => 'required',
+        ];
+        if ($request->account_type != '') {
+            $validation_array['account'] = 'required';
+        }
+        if ($request->account_type == 'analytics') {
+            $validation_array['property'] = 'required';
+            $validation_array['profile'] = 'required';
+        }
+        $v = Validator::make($request->all(), $validation_array);
+
+        if ($v->fails()) {
+            return redirect()->back()->withErrors($v)->withInput();
+        } else {
+            $data = (object) $request->all();
+            $account_id = Account::where('user_id', auth()->user()->id)
+                ->where('type', $data->account_type)
+                ->pluck('id')
+                ->first();
+            if ($account_id) {
+                $ad_account_id = AdAccount::where('user_id', auth()->user()->id)
+                    ->where('account_id', $account_id)
+                    ->where('ad_account_id', $data->account)
+                    ->where('is_active', 1)
+                    ->pluck('id')
+                    ->first();
+                if ($ad_account_id) {
+                    $ends_at = isset($data->ends_at) && $data->ends_at ? $data->ends_at : $data->ends_at_month . '-' . $data->ends_at_day;
+                    $property_id = 0;
+                    if (isset($data->property)) {
+                        $property_id = AnalyticProperty::where('property', $data->property)
+                            ->where('user_id', auth()->user()->id)
+                            ->pluck('id')
+                            ->first();
+                    }
+                    $profile_id = 0;
+                    if (isset($data->profile)) {
+                        $profile_id = AnalyticView::where('view_id', $data->profile)
+                            ->where('user_id', auth()->user()->id)
+                            ->pluck('id')
+                            ->first();
+                    }
+                    $report = Report::where('user_id', auth()->user()->id)->where('id', $id)->update([
+                        'account_id' => $account_id,
+                        'ad_account_id' => $ad_account_id,
+                        'property_id' => $property_id,
+                        'profile_id' => $profile_id,
+                        'title' => $data->title,
+                        'frequency' => $data->frequency,
+                        'ends_at' => $ends_at,
+                        'next_send_time' => make_schedules($data->frequency, $ends_at),
+                        'email_subject' => $data->email_subject,
+                        'recipients' => $data->recipients,
+                        'attachment_type' => $data->attachment_type,
+                    ]);
+                    if ($report) {
+                        Session::flash('alert-success', 'Report updated successfully.');
+                    } else {
+                        Session::flash('alert-danger', 'Error creating report. Please try again later.');
+                    }
+                    return redirect()->route('reports.index');
+                } else {
+                    Session::flash('alert-danger', 'Ad Account not found.');
+                    return redirect()->route('reports.edit', $id);
+                }
+            } else {
+                Session::flash('alert-danger', 'Account type not found.');
+                return redirect()->route('reports.edit', $id);
+            }
+        }
     }
 
     public function ad_accounts($type)

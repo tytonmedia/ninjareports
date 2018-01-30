@@ -221,3 +221,50 @@ if (!function_exists('adwords_session')) {
         return $session;
     }
 }
+
+if (!function_exists('make_schedules')) {
+    function make_schedules($frequency, $ends_at)
+    {
+        $next_send_time = '';
+        $current_time = date('H:i:s');
+        $current_day = date('D');
+        $current_date = date('j');
+        $current_month = date('n');
+        if ($frequency == 'daily') {
+            $frequency_time = date('H:i:s', strtotime($ends_at));
+            if ($frequency_time > $current_time) {
+                $next_send_time = date('Y-m-d') . ' ' . $frequency_time;
+            } else {
+                $next_send_time = date('Y-m-d', strtotime('+1 day', time())) . ' ' . $frequency_time;
+            }
+        }
+        if ($frequency == 'weekly') {
+            $frequency_day = $ends_at;
+            $day = strtolower(date('l', strtotime($frequency_day)));
+            if ($frequency_day == $current_day && '19:00:00' > $current_time) {
+                $next_send_time = date('Y-m-d') . ' 19:00:00';
+            } else {
+                $next_send_time = date('Y-m-d', strtotime('next ' . $day)) . ' 19:00:00';
+            }
+        }
+        if ($frequency == 'monthly') {
+            $frequency_date = $ends_at;
+            if ($frequency_date > $current_date) {
+                $next_send_time = date('Y-m-') . $frequency_date . ' 19:00:00';
+            } else {
+                $next_send_time = date('Y-') . date('m-', strtotime('first day of +1 month')) . sprintf('%02d', $frequency_date) . ' 19:00:00';
+            }
+        }
+        if ($frequency == 'yearly') {
+            $yearly_data = explode('-', $ends_at);
+            $frequency_month = $yearly_data[0];
+            $frequency_date = $yearly_data[1];
+            if (($frequency_month > $current_month) || ($frequency_month == $current_month && $frequency_date > $current_date) || ($frequency_month == $current_month && $frequency_date == $current_date && '19:00:00' > $current_time)) {
+                $next_send_time = date('Y-') . sprintf('%02d', $frequency_month) . '-' . sprintf('%02d', $frequency_date) . ' 19:00:00';
+            } else {
+                $next_send_time = date('Y-m-d 19:00:00', strtotime(date('Y-') . sprintf('%02d', $frequency_month) . '-' . sprintf('%02d', $frequency_date) . ' + 1 year'));
+            }
+        }
+        return $next_send_time;
+    }
+}
