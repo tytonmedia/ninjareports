@@ -17,7 +17,8 @@
         "laravel/cashier": "~7.0",
         "laravel/framework": "5.5.*",
         "laravel/spark": "*@dev",
-        "laravel/tinker": "~1.0"
+        "laravel/tinker": "~1.0",
+        "sendgrid/sendgrid": "~6.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

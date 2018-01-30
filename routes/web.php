@@ -13,6 +13,12 @@
 Route::get('/', 'WelcomeController@show')->name('welcome.show');
 Route::get('/home', 'HomeController@show')->name('home.show');
 
+// CronController Routes
+Route::prefix('cron')->group(function () {
+    Route::get('run', 'CronController@run')->name('cron.run');
+    Route::get('report/{id}', 'CronController@report')->name('cron.report');
+});
+
 Route::group(['middleware' => 'auth'], function () {
 
     // AccountsController Routes
@@ -45,10 +51,5 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{type}/adaccounts', 'ReportsController@ad_accounts')->name('reports.adaccounts');
         Route::get('{type}/properties/{account}', 'ReportsController@properties')->name('reports.properties');
         Route::get('{type}/properties/{account}/profiles/{property}', 'ReportsController@profiles')->name('reports.profiles');
-    });
-
-    // CronController Routes
-    Route::prefix('cron')->group(function () {
-        Route::get('report/{id}', 'CronController@report')->name('cron.report');
     });
 });

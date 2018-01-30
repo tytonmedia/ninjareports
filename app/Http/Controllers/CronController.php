@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Report;
+use App\Models\Schedule;
 use Session;
 use \FacebookAds\Http\Exception\AuthorizationException;
 use \FacebookAds\Object\AdAccount;
@@ -14,6 +15,25 @@ use \FacebookAds\Object\Values\AdsInsightsDatePresetValues;
 class CronController extends Controller
 {
 
+    public function run()
+    {
+        $next_send_time = date('Y-m-d H:i:00');
+        $reports = Report::where('next_send_time', $next_send_time)->with('account', 'ad_account', 'property', 'profile')->get();
+        if ($reports && count($reports) > 0) {
+            foreach ($reports as $report) {
+                $recipients = explode(',', $report->recipients);
+                if (is_array($recipients) && count($recipients) > 0) {
+                    foreach ($recipients as $email) {
+                        Schedule::create([
+                            'user_id' => $report->user_id,
+                            'report_id' => $report->id,
+                            'recipient' => $email,
+                        ]);
+                    }
+                }
+            }
+        }
+    }
     public function report($id)
     {
         $report = Report::where('id', $id)
@@ -119,7 +139,7 @@ class CronController extends Controller
                     $sources_result = [];
                     $operating_system_result = [];
                     $locations_result = [];
-                    foreach($metrics as $metric){
+                    foreach ($metrics as $metric) {
                         $sources_result[] = $metric[0];
                         $operating_system_result[] = $metric[1];
                         $locations_result[] = $metric[2];
@@ -128,8 +148,8 @@ class CronController extends Controller
                     $operating_systems = array_unique($operating_system_result);
                     $locations = array_unique($locations_result);
                     $source_keys = [];
-                    if($sources && count($sources) > 0){
-                        foreach($sources as $source){
+                    if ($sources && count($sources) > 0) {
+                        foreach ($sources as $source) {
                             //pr(array_keys($metrics, $source));
                         }
                     }
