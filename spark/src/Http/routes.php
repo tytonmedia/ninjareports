@@ -31,6 +31,9 @@ $router->group(['middleware' => 'web'], function ($router) {
     // Profile Contact Information...
     $router->put('/settings/contact', 'Settings\Profile\ContactInformationController@update');
 
+    // Timezone ...
+    $router->put('/settings/timezone', 'Settings\Profile\TimezoneController@update');
+
     // Profile Photo...
     $router->post('/settings/photo', 'Settings\Profile\PhotoController@store');
 

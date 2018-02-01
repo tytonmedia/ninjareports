@@ -201,6 +201,7 @@ class SparkServiceProvider extends ServiceProvider
             'Contracts\Interactions\Auth\Register' => 'Interactions\Auth\Register',
             'Contracts\Interactions\Settings\Profile\UpdateProfilePhoto' => 'Interactions\Settings\Profile\UpdateProfilePhoto',
             'Contracts\Interactions\Settings\Profile\UpdateContactInformation' => 'Interactions\Settings\Profile\UpdateContactInformation',
+            'Contracts\Interactions\Settings\Profile\UpdateTimezone' => 'Interactions\Settings\Profile\UpdateTimezone',
             'Contracts\Interactions\Settings\Teams\CreateTeam' => 'Interactions\Settings\Teams\CreateTeam',
             'Contracts\Interactions\Settings\Teams\AddTeamMember' => 'Interactions\Settings\Teams\AddTeamMember',
             'Contracts\Interactions\Settings\Teams\UpdateTeamMember' => 'Interactions\Settings\Teams\UpdateTeamMember',

@@ -5,5 +5,8 @@
 
         <!-- Update Contact Information -->
         @include('spark::settings.profile.update-contact-information')
+
+        <!-- Update Timezone -->
+        @include('spark::settings.profile.update-timezone')
     </div>
 </spark-profile>

@@ -225,6 +225,7 @@ if (!function_exists('adwords_session')) {
 if (!function_exists('make_schedules')) {
     function make_schedules($frequency, $ends_at)
     {
+        auth()->user()->timezone ? date_default_timezone_set(auth()->user()->timezone) : '';
         $next_send_time = '';
         $current_time = date('H:i:s');
         $current_day = date('D');
@@ -267,4 +268,24 @@ if (!function_exists('make_schedules')) {
         }
         return $next_send_time;
     }
+}
+
+if (!function_exists('sendMail')) {
+
+    function sendMail($to, $subject, $template_id, $substitutions = array(), $attachments = [], $from = 'noreply@ninjareports.com', $showResponse = true)
+    {
+        $default_subs = [
+            '%company%' => 'Ninja Reports',
+        ];
+        $substitutions = count($substitutions) > 0 ? $substitutions : $default_subs;
+        $response = \App\Models\SendGrid::send($to, $subject, $template_id, $substitutions, $attachments, $from);
+        if ($showResponse) {
+            return $response;
+        }
+        if ($response->statusCode() == 202) {
+            return true;
+        }
+        return false;
+    }
+
 }

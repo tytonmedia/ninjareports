@@ -19,26 +19,3 @@ h2.title {
     padding: 10px 45px;
     font-size: 16px;
 }
-
-.margin-left-5 {
-    margin-left: 5px;
-}
-
-.accounts_connect_table img {
-    max-width: 40px;
-}
-
-.color-black {
-    color: #000;
-}
-
-.color-black-bold {
-    color: #000;
-    font-weight: bold;
-}
-
-.error {
-    color: darkred;
-    font-style: italic;
-    font-weight: bold;
-}

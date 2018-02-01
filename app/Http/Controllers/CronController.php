@@ -17,28 +17,45 @@ class CronController extends Controller
 
     public function run()
     {
+        auth()->user()->timezone ? date_default_timezone_set(auth()->user()->timezone) : '';
         $next_send_time = date('Y-m-d H:i:00');
-        $reports = Report::where('next_send_time', $next_send_time)->with('account', 'ad_account', 'property', 'profile')->get();
-        if ($reports && count($reports) > 0) {
-            foreach ($reports as $report) {
-                $recipients = explode(',', $report->recipients);
-                if (is_array($recipients) && count($recipients) > 0) {
-                    foreach ($recipients as $email) {
-                        Schedule::create([
-                            'user_id' => $report->user_id,
-                            'report_id' => $report->id,
-                            'recipient' => $email,
-                        ]);
+        echo $next_send_time;
+        exit;
+        $current_plan = auth()->user()->current_billing_plan ? auth()->user()->current_billing_plan : 'free_trial';
+        $plan = Plan::whereTitle($current_plan)->first();
+        $reports_sent_count = Schedule::whereUserId(auth()->user()->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
+        if ($reports_sent_count >= $plan->reports) {
+            $reports = Report::where('next_send_time', $next_send_time)->with('account', 'ad_account', 'property', 'profile')->get();
+            if ($reports && count($reports) > 0) {
+                foreach ($reports as $report) {
+                    $recipients = explode(',', $report->recipients);
+                    if (is_array($recipients) && count($recipients) > 0) {
+                        $this->report($report, $recipients);
+                        $report->sent_at = date('Y-m-d H:i:s');
+                        $report->save();
+                        exit;
+                        foreach ($recipients as $email) {
+                            $welcome_email_substitutions = [
+                                '%frequency%' => ucfirst($report->frequency),
+                                '%report_date%' => date('m/d/Y'),
+                                '%email%' => $user->email,
+                                '%package%' => $user->current_billing_plan,
+                                '%year%' => date('Y'),
+                            ];
+                            sendMail($user->email, 'Welcome To Ninja Reports!', '66424c1c-aa6b-4daa-a031-2edc29ea620a', $welcome_email_substitutions);
+                            Schedule::create([
+                                'user_id' => $report->user_id,
+                                'report_id' => $report->id,
+                                'recipient' => $email,
+                            ]);
+                        }
                     }
                 }
             }
         }
     }
-    public function report($id)
+    public function report($report, $recipients)
     {
-        $report = Report::where('id', $id)
-            ->with('account', 'ad_account', 'property', 'profile')
-            ->first();
         if ($report) {
             if ($report->account->type == 'facebook') {
 
@@ -63,8 +80,6 @@ class CronController extends Controller
                 try {
                     $fb_ad_account = new AdAccount($report->ad_account->ad_account_id);
                 } catch (\InvalidArgumentException $e) {
-                    Session::flash('alert-danger', 'Invalid account.');
-                    return redirect()->route('reports.index');
                 }
 
                 $fields = [AdsInsightsFields::CLICKS, AdsInsightsFields::IMPRESSIONS, AdsInsightsFields::CTR, AdsInsightsFields::CPM, AdsInsightsFields::CPC, AdsInsightsFields::SPEND];
@@ -112,13 +127,8 @@ class CronController extends Controller
                             ]);
                         }
                         exit;
-                    } else {
-                        Session::flash('alert-danger', 'No data available. Please try again later.');
-                        return redirect()->route('reports.index');
                     }
                 } catch (AuthorizationException $e) {
-                    Session::flash('alert-danger', $e->getMessage());
-                    return redirect()->route('reports.index');
                 }
             }
             if ($report->account->type == 'analytics') {
