@@ -8,8 +8,13 @@ class Report extends Model
 {
 
     protected $fillable = [
-        'user_id', 'account_id', 'ad_account_id', 'property_id', 'profile_id', 'title', 'frequency', 'ends_at', 'email_subject', 'recipients', 'attachment_type', 'sent_at', 'next_send_time'
+        'user_id', 'account_id', 'ad_account_id', 'property_id', 'profile_id', 'title', 'frequency', 'ends_at', 'email_subject', 'recipients', 'attachment_type', 'sent_at', 'next_send_time', 'is_active'
     ];
+
+    public function user()
+    {
+        return $this->hasOne('App\User', 'id', 'user_id');
+    }
 
     public function account()
     {

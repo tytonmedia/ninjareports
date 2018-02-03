@@ -135,28 +135,30 @@ if (!function_exists('fb_connect')) {
 }
 
 if (!function_exists('fb_token')) {
-    function fb_token()
+    function fb_token($user_id = 0)
     {
-        $token = \App\Models\Account::where('type', 'facebook')->where('user_id', auth()->user()->id)->pluck('token')->first();
+        $user_id = $user_id ? $user_id : auth()->user()->id;
+        $token = \App\Models\Account::where('type', 'facebook')->where('user_id', $user_id)->pluck('token')->first();
         return $token;
     }
 }
 
 if (!function_exists('analytics_token')) {
-    function analytics_token()
+    function analytics_token($user_id = 0)
     {
-        $token = \App\Models\Account::where('type', 'analytics')->where('user_id', auth()->user()->id)->pluck('token')->first();
+        $user_id = $user_id ? $user_id : auth()->user()->id;
+        $token = \App\Models\Account::where('type', 'analytics')->where('user_id', $user_id)->pluck('token')->first();
         $token = (array) json_decode($token);
         $client = analytics_connect();
         $client->setAccessToken($token);
         if ($client->isAccessTokenExpired()) {
             $client->refreshToken($token);
             $access_token = $client->getAccessToken();
-            \App\Models\Account::where('type', 'analytics')->where('user_id', auth()->user()->id)->update([
+            \App\Models\Account::where('type', 'analytics')->where('user_id', $user_id)->update([
                 'token' => json_encode($access_token),
             ]);
         }
-        $token = \App\Models\Account::where('type', 'analytics')->where('user_id', auth()->user()->id)->pluck('token')->first();
+        $token = \App\Models\Account::where('type', 'analytics')->where('user_id', $user_id)->pluck('token')->first();
         if ($token) {
             return (array) json_decode($token);
         }
@@ -194,9 +196,10 @@ if (!function_exists('adwords_connect')) {
 }
 
 if (!function_exists('adwords_token')) {
-    function adwords_token()
+    function adwords_token($user_id = 0)
     {
-        $token = \App\Models\Account::where('type', 'adword')->where('user_id', auth()->user()->id)->pluck('token')->first();
+        $user_id = $user_id ? $user_id : auth()->user()->id;
+        $token = \App\Models\Account::where('type', 'adword')->where('user_id', $user_id)->pluck('token')->first();
         return $token;
     }
 }
@@ -223,9 +226,16 @@ if (!function_exists('adwords_session')) {
 }
 
 if (!function_exists('make_schedules')) {
-    function make_schedules($frequency, $ends_at)
+    function make_schedules($frequency, $ends_at, $user_id = 0)
     {
-        auth()->user()->timezone ? date_default_timezone_set(auth()->user()->timezone) : '';
+        if($user_id){
+            $user_timezone = \App\User::find($user_id)->timezone;
+            $user_timezone ? date_default_timezone_set($user_timezone) : '';
+        } else {
+            if(auth()->check()){
+                auth()->user()->timezone ? date_default_timezone_set(auth()->user()->timezone) : '';
+            }
+        }
         $next_send_time = '';
         $current_time = date('H:i:s');
         $current_day = date('D');
@@ -266,7 +276,12 @@ if (!function_exists('make_schedules')) {
                 $next_send_time = date('Y-m-d 19:00:00', strtotime(date('Y-') . sprintf('%02d', $frequency_month) . '-' . sprintf('%02d', $frequency_date) . ' + 1 year'));
             }
         }
-        return $next_send_time;
+        if (validateDate($next_send_time)) {
+            $next_send_str_time = strtotime($next_send_time);
+            date_default_timezone_set('UTC');
+            return date('Y-m-d H:i:s', $next_send_str_time);
+        }
+        return false;
     }
 }
 
@@ -286,6 +301,47 @@ if (!function_exists('sendMail')) {
             return true;
         }
         return false;
+    }
+
+}
+
+if (!function_exists('validateDate')) {
+
+    function validateDate($date, $format = 'Y-m-d H:i:s')
+    {
+        $d = DateTime::createFromFormat($format, $date);
+        return $d && $d->format($format) == $date;
+    }
+
+}
+
+if (!function_exists('update_schedule')) {
+
+    function update_schedule($report, $user_id)
+    {
+        $next_send_time = make_schedules($report->frequency, $report->ends_at, $user_id);
+        $report->sent_at = date('Y-m-d H:i:s');
+        $report->next_send_time = $next_send_time;
+        $report->save();
+    }
+
+}
+
+if (!function_exists('getChartUrl')) {
+
+    function getChartUrl($json_array)
+    {
+        $encoded_json = '';
+        if (count($json_array) > 0) {
+            foreach ($json_array as $key => $data) {
+                $encoded_json .= '["' . $key . '",' . $data . '],';
+            }
+        }
+        $json = '{"options" : {"data" : {"type" : "pie","columns" : [' . $encoded_json . ']}}}';
+        $raw_sig = hash_hmac('sha256', $json, env('CHARTURL_KEY'), true);
+        $encoded_sig = base64_encode($raw_sig);
+        $url = "https://charturl.com/i/" . env('CHARTURL_TOKEN') . "/" . env('CHARTURL_SLUG') . "?d=" . urlencode($json) . "&s=" . urlencode($encoded_sig);
+        return $url;
     }
 
 }
