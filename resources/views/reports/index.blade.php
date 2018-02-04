@@ -24,7 +24,7 @@
 										<th>Account</th>
 										<th>Frequency</th>
 										<th>Recipients</th>
-										<th>Last Sent</th>
+										<th style="min-width: 100px">Last Sent</th>
 										<th style="min-width: 150px"></th>
 									</tr>
 								</thead>
@@ -36,7 +36,7 @@
 										<td>{{ $report->account->title }}</td>
 										<td>{{ ucfirst($report->frequency) }}</td>
 										<td>{{ $report->recipients }}</td>
-										<td>{{ $report->created_at->diffForHumans() }}</td>
+										<td>{{ $report->sent_at ? $report->sent_at->diffForHumans() : '-' }}</td>
 										<td>
 											<a href="{{ route('reports.edit', $report->id) }}" class="btn btn-xs btn-black">Edit</a>
 											<a onClick="return confirm('Are you sure you want to delete this report?')" href="{{ route('reports.delete', $report->id) }}" class="btn btn-xs btn-black">Delete</a>

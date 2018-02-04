@@ -8,7 +8,7 @@ class Report extends Model
 {
 
     protected $fillable = [
-        'user_id', 'account_id', 'ad_account_id', 'property_id', 'profile_id', 'title', 'frequency', 'ends_at', 'email_subject', 'recipients', 'attachment_type', 'sent_at', 'next_send_time', 'is_active'
+        'user_id', 'account_id', 'ad_account_id', 'property_id', 'profile_id', 'title', 'frequency', 'ends_at', 'email_subject', 'recipients', 'attachment_type', 'sent_at', 'next_send_time', 'is_active',
     ];
 
     public function user()
@@ -34,6 +34,11 @@ class Report extends Model
     public function profile()
     {
         return $this->hasOne('App\Models\AnalyticView', 'id', 'profile_id');
+    }
+
+    public function getDates()
+    {
+        return array('created_at', 'updated_at', 'deleted_at', 'sent_at');
     }
 
 }

@@ -96,7 +96,7 @@ class CronController extends Controller
                             $top_ad_campaigns .= '<tr style="border-bottom:1px solid #ccc"><td style="padding:5px;">' . $campaign_insight->campaign . '</td><td style="padding:5px;">' . $campaign_insight->impressions . '</td><td style="padding:5px;">' . $campaign_insight->clicks . '</td><td style="padding:5px;">' . $campaign_insight_cpm . '%</td><td style="padding:5px;">' . $campaign_insight->ctr . '</td><td style="padding:5px;">' . $campaign_insight->cpc . '</td><td style="padding:5px;">$' . $campaign_insight->spend . '</td></tr>';
                         }
                     } else {
-                        $top_ad_campaigns = 'No data';
+                        $top_ad_campaigns = '<tr><h3><center>No data</center></h3></tr>';
                     }
                     $total_clicks = 'No data';
                     $total_impressions = 'No data';
@@ -138,73 +138,75 @@ class CronController extends Controller
                                 'gender' => $insight->gender,
                             ];
                         }
-                    }
-                    $fb_ages = [];
-                    $fb_genders = [];
-                    if (count($fb_ads_data) > 0) {
-                        foreach ($fb_ads_data as $fb_ad_data) {
-                            $fb_ages[] = $fb_ad_data['age'];
-                            $fb_genders[] = $fb_ad_data['gender'];
-                        }
 
-                        $ages = [];
-                        $genders = [];
-                        if (count($fb_ages) > 0) {
-                            $ages = array_unique($fb_ages);
-                        }
-                        if (count($fb_genders) > 0) {
-                            $genders = array_unique($fb_genders);
-                        }
-
-                        $ages_keys = [];
-                        if (count($ages) > 0) {
-                            foreach ($ages as $age) {
-                                $ages_keys[$age] = $this->getKeys($fb_ads_data, 'age', $age);
+                        $fb_ages = [];
+                        $fb_genders = [];
+                        if (count($fb_ads_data) > 0) {
+                            foreach ($fb_ads_data as $fb_ad_data) {
+                                $fb_ages[] = $fb_ad_data['age'];
+                                $fb_genders[] = $fb_ad_data['gender'];
                             }
-                        }
 
-                        $genders_keys = [];
-                        if (count($genders) > 0) {
-                            foreach ($genders as $gender) {
-                                $genders_keys[$gender] = $this->getKeys($fb_ads_data, 'gender', $gender);
+                            $ages = [];
+                            $genders = [];
+                            if (count($fb_ages) > 0) {
+                                $ages = array_unique($fb_ages);
                             }
-                        }
+                            if (count($fb_genders) > 0) {
+                                $genders = array_unique($fb_genders);
+                            }
 
-                        $ages_clicks = [];
-                        if (count($ages_keys) > 0) {
-                            foreach ($ages_keys as $agekey => $age_key) {
-                                $age_click_data = 0;
-                                foreach ($age_key as $age_click_key) {
-                                    $age_click_data += $fb_ads_data[$age_click_key]['clicks'];
+                            $ages_keys = [];
+                            if (count($ages) > 0) {
+                                foreach ($ages as $age) {
+                                    $ages_keys[$age] = $this->getKeys($fb_ads_data, 'age', $age);
                                 }
-                                $ages_clicks[$agekey] = $age_click_data;
                             }
-                        }
 
-                        $genders_clicks = [];
-                        if (count($genders_keys) > 0) {
-                            foreach ($genders_keys as $genderkey => $gender_key) {
-                                $gender_click_data = 0;
-                                foreach ($gender_key as $gender_click_key) {
-                                    $gender_click_data += $fb_ads_data[$gender_click_key]['clicks'];
+                            $genders_keys = [];
+                            if (count($genders) > 0) {
+                                foreach ($genders as $gender) {
+                                    $genders_keys[$gender] = $this->getKeys($fb_ads_data, 'gender', $gender);
                                 }
-                                $genders_clicks[$genderkey] = $gender_click_data;
                             }
-                        }
 
-                        if (count($ages_clicks) > 0) {
-                            $ages_graph_url = getChartUrl($ages_clicks);
-                        }
+                            $ages_clicks = [];
+                            if (count($ages_keys) > 0) {
+                                foreach ($ages_keys as $agekey => $age_key) {
+                                    $age_click_data = 0;
+                                    foreach ($age_key as $age_click_key) {
+                                        $age_click_data += $fb_ads_data[$age_click_key]['clicks'];
+                                    }
+                                    $ages_clicks[$agekey] = $age_click_data;
+                                }
+                            }
 
-                        if (count($genders_clicks) > 0) {
-                            $genders_graph_url = getChartUrl($genders_clicks);
-                        }
+                            $genders_clicks = [];
+                            if (count($genders_keys) > 0) {
+                                foreach ($genders_keys as $genderkey => $gender_key) {
+                                    $gender_click_data = 0;
+                                    foreach ($gender_key as $gender_click_key) {
+                                        $gender_click_data += $fb_ads_data[$gender_click_key]['clicks'];
+                                    }
+                                    $genders_clicks[$genderkey] = $gender_click_data;
+                                }
+                            }
 
+                            if (count($ages_clicks) > 0) {
+                                $ages_graph_url = getChartUrl($ages_clicks);
+                            }
+
+                            if (count($genders_clicks) > 0) {
+                                $genders_graph_url = getChartUrl($genders_clicks);
+                            }
+
+                        }
                     }
+
                     //$html = view('reports.templates.facebook', compact('report', 'campaigns_insights', 'total_clicks', 'total_impressions', 'total_ctr', 'total_cpm', 'total_cpc', 'total_spend', 'ages_graph_url', 'genders_graph_url'))->render();
                     foreach ($recipients as $email) {
                         $welcome_email_substitutions = [
-                            '%frequency%' => (string) $report->frequency,
+                            '%frequency%' => (string) ucfirst($report->frequency),
                             '%report_date%' => (string) date('m/d/Y'),
                             '%visitors%' => (string) $total_clicks,
                             '%avg_time%' => (string) $total_impressions,
@@ -227,7 +229,6 @@ class CronController extends Controller
                 }
             }
             if ($report->account->type == 'analytics') {
-                exit;
                 $from_date = '';
                 $to_date = date('Y-m-d', strtotime($report->next_send_time));
                 switch ($report->frequency) {
@@ -244,34 +245,152 @@ class CronController extends Controller
                         $from_date = 'today';
                         $to_date = 'today';
                 }
+
                 $client = analytics_connect();
-                $client->setAccessToken(analytics_token());
+                $client->setAccessToken(analytics_token($report->user_id));
                 $analytics = new \Google_Service_Analytics($client);
-                $params = array(
-                    'dimensions' => 'ga:deviceCategory,ga:country',
-                    //'sort' => '-ga:sessions,ga:country',
-                    //'max-results' => '5'
-                );
+                // Get top 5 sources
+                $top_sources_results = $analytics->data_ga->get(
+                    'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:bounceRate,ga:newUsers,ga:sessionsPerUser', [
+                        'dimensions' => 'ga:source',
+                        'sort' => '-ga:sessions',
+                        'max-results' => 5,
+                    ]);
+                $top_5_sources = '';
+                $sources_insights = $top_sources_results->rows;
+                if (isset($sources_insights) && count($sources_insights) > 0) {
+                    $top_5_sources .='<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;">Source</th><th style="background:#666;color:#fff;padding:5px;">Visitotrs</th><th style="background:#666;color:#fff;padding:5px;">New %</th><th style="background:#666;color:#fff;padding:5px;">Bounce %</th><th style="background:#666;color:#fff;padding:5px;">Pages/Visit</th><th style="background:#666;color:#fff;padding:5px;">Avg. Time</th></tr>';
+                    foreach ($sources_insights as $insight) {
+                        $bounce_rate = number_format((float) $insight[4], 3, '.', '');
+                        $pages_per_visit = number_format((float) $insight[6], 3, '.', '');
+                        $avg_time = number_format((float) $insight[3], 3, '.', '');
+                        $top_5_sources .= '<tr><td>' . $insight[0] . '</td><td>' . $insight[1] . '</td><td>' . $insight[5] . '</td><td>' . $bounce_rate . '</td><td>' . $pages_per_visit . '</td><td>' . $avg_time . '</td></tr>';
+                    }
+                    $top_5_sources .='</tbody></table>';
+                } else {
+                    $top_5_sources = '<tr><h3><center>No data</center></h3></tr>';
+                }
 
                 $results = $analytics->data_ga->get(
-                    'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:bounceRate,ga:newUsers,ga:sessionsPerUser', $params);
+                    'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:bounceRate,ga:newUsers,ga:sessionsPerUser', ['dimensions' => 'ga:deviceCategory,ga:country']);
                 $insights = $results->totalsForAllResults;
                 $metrics = $results->rows;
+                $total_sessions = 'No data';
+                $total_pageviews = 'No data';
+                $total_avg_time = 'No data';
+                $total_bounce_rate = 'No data';
+                $total_new_visitors = 'No data';
+                $total_pages_per_visitor = 'No data';
+                $google_analytics_ads_data = [];
+                $locations_graph_url = 'no_data';
+                $devices_graph_url = 'no_data';
+
+                if (isset($insights) && $insights) {
+                    $total_sessions = $insights['ga:sessions'];
+                    $total_pageviews = $insights['ga:pageviews'];
+                    $total_avg_time = number_format((float) $insights['ga:avgSessionDuration'], 3, '.', '');
+                    $total_bounce_rate = number_format((float) $insights['ga:bounceRate'], 3, '.', '');
+                    $total_new_visitors = $insights['ga:newUsers'];
+                    $total_pages_per_visitor = number_format((float) $insights['ga:sessionsPerUser'], 3, '.', '');
+                }
                 if ($metrics && count($metrics) > 0) {
-                    $final_metrics_array = [];
                     $operating_system_result = [];
                     $locations_result = [];
                     foreach ($metrics as $metric) {
                         $operating_system_result[] = $metric[0];
                         $locations_result[] = $metric[1];
+                        $google_analytics_ads_data[] = [
+                            'operating_system' => $metric[0],
+                            'location' => $metric[1],
+                            'sessions' => $metric[2],
+                            'pageviews' => $metric[3],
+                            'avg_time' => $metric[4],
+                            'bounce_rate' => $metric[5],
+                            'new_visitors' => $metric[6],
+                            'pages_per_visitor' => $metric[7],
+                        ];
                     }
-                    $operating_systems = array_unique($operating_system_result);
-                    $locations = array_unique($locations_result);
-                    pr($metrics);
-                    pr($operating_systems);
-                    pr($locations);
+
+                    $operating_systems = [];
+                    $locations = [];
+                    if (count($google_analytics_ads_data) > 0) {
+                        if (count($operating_system_result) > 0) {
+                            $operating_systems = array_unique($operating_system_result);
+                        }
+
+                        if (count($locations_result) > 0) {
+                            $locations = array_unique($locations_result);
+                        }
+
+                        $operating_systems_keys = [];
+                        if (count($operating_systems) > 0) {
+                            foreach ($operating_systems as $operating_system) {
+                                $operating_systems_keys[$operating_system] = $this->getKeys($google_analytics_ads_data, 'operating_system', $operating_system);
+                            }
+                        }
+
+                        $locations_keys = [];
+                        if (count($locations) > 0) {
+                            foreach ($locations as $location) {
+                                $locations_keys[$location] = $this->getKeys($google_analytics_ads_data, 'location', $location);
+                            }
+                        }
+
+                        $operating_systems_clicks = [];
+                        if (count($operating_systems_keys) > 0) {
+                            foreach ($operating_systems_keys as $operatingsystemkey => $operating_system_key) {
+                                $operating_system_click_data = 0;
+                                foreach ($operating_system_key as $operating_system_session_key) {
+                                    $operating_system_click_data += $google_analytics_ads_data[$operating_system_session_key]['sessions'];
+                                }
+                                $operating_systems_clicks[$operatingsystemkey] = $operating_system_click_data;
+                            }
+                        }
+
+                        $locations_clicks = [];
+                        if (count($locations_keys) > 0) {
+                            foreach ($locations_keys as $locationkey => $location_key) {
+                                $location_click_data = 0;
+                                foreach ($location_key as $location_session_key) {
+                                    $location_click_data += $google_analytics_ads_data[$location_session_key]['sessions'];
+                                }
+                                $locations_clicks[$locationkey] = $location_click_data;
+                            }
+                        }
+
+                        if (count($operating_systems_clicks) > 0) {
+                            $devices_graph_url = getChartUrl($operating_systems_clicks);
+                        }
+
+                        if (count($locations_clicks) > 0) {
+                            arsort($locations_clicks);
+                            $locations_graph_url = getChartUrl(array_slice($locations_clicks, 0, 5));
+                        }
+                    }
                 }
-                exit;
+
+                //$html = view('reports.templates.analytics', compact('report', 'sources_insights', 'total_sessions', 'total_avg_time', 'total_bounce_rate', 'total_pageviews', 'total_pages_per_visitor', 'total_new_visitors', 'devices_graph_url', 'locations_graph_url'))->render();
+                foreach ($recipients as $email) {
+                    $analytics_email_substitutions = [
+                        '%frequency%' => (string) ucfirst($report->frequency),
+                        '%report_date%' => (string) date('m/d/Y'),
+                        '%visitors%' => (string) $total_sessions,
+                        '%avg_time%' => (string) $total_avg_time,
+                        '%bounce_rate%' => (string) $total_bounce_rate,
+                        '%page_views%' => (string) $total_pageviews,
+                        '%page_per_visits%' => (string) $total_pages_per_visitor,
+                        '%new_visitors%' => (string) $total_new_visitors,
+                        '%devices_graph_url%' => (string) $devices_graph_url,
+                        '%locations_graph_url%' => (string) $locations_graph_url,
+                        '%top_5_sources%' => (string) $top_5_sources,
+                    ];
+                    sendMail($email, 'Your ' . ucfirst($report->frequency) . ' Facebook Ads Report', 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions);
+                    Schedule::create([
+                        'user_id' => $report->user_id,
+                        'report_id' => $report->id,
+                        'recipient' => $email,
+                    ]);
+                }
             }
             if ($report->account->type == 'adword') {
                 $session = adwords_session($report->ad_account->ad_account_id);

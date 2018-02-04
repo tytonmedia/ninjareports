@@ -19,3 +19,7 @@ h2.title {
     padding: 10px 45px;
     font-size: 16px;
 }
+
+.accounts_connect_table img {
+    max-width: 50px;
+}
