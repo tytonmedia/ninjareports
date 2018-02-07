@@ -219,7 +219,7 @@ class CronController extends Controller
                             '%genders_graph_url%' => (string) $genders_graph_url,
                             '%top_ad_campaigns%' => (string) $top_ad_campaigns,
                         ];
-                        sendMail($email, 'Your ' . ucfirst($report->frequency) . ' Facebook Ads Report', '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions);
+                        sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions);
                         Schedule::create([
                             'user_id' => $report->user_id,
                             'report_id' => $report->id,
@@ -385,7 +385,7 @@ class CronController extends Controller
                         '%locations_graph_url%' => (string) $locations_graph_url,
                         '%top_5_sources%' => (string) $top_5_sources,
                     ];
-                    sendMail($email, 'Your ' . ucfirst($report->frequency) . ' Facebook Ads Report', 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions);
+                    sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions);
                     Schedule::create([
                         'user_id' => $report->user_id,
                         'report_id' => $report->id,
@@ -561,7 +561,7 @@ class CronController extends Controller
                         '%locations_graph_url%' => (string) $locations_graph_url,
                         '%top_5_campaigns%' => (string) $top_5_campaigns,
                     ];
-                    sendMail($email, 'Your ' . ucfirst($report->frequency) . ' Facebook Ads Report', '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions);
+                    sendMail($email, $report->email_subject, '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions);
                     Schedule::create([
                         'user_id' => $report->user_id,
                         'report_id' => $report->id,
