@@ -205,12 +205,13 @@ if (!function_exists('adwords_token')) {
 }
 
 if (!function_exists('adwords_session')) {
-    function adwords_session($customerId)
+    function adwords_session($customerId, $user_id = 0)
     {
+        $user_id = $user_id ? $user_id : auth()->user()->id;
         $oauth2Token = (new \Google\AdsApi\Common\OAuth2TokenBuilder())
             ->withClientId(env('GOOGLE_ADWORDS_CLIENT_ID'))
             ->withClientSecret(env('GOOGLE_ADWORDS_CLIENT_SECRET'))
-            ->withRefreshToken(adwords_token())
+            ->withRefreshToken(adwords_token($user_id))
             ->build();
         $soapSettings = (new \Google\AdsApi\Common\SoapSettingsBuilder())
             ->disableSslVerify()
@@ -228,11 +229,11 @@ if (!function_exists('adwords_session')) {
 if (!function_exists('make_schedules')) {
     function make_schedules($frequency, $ends_at, $user_id = 0)
     {
-        if($user_id){
+        if ($user_id) {
             $user_timezone = \App\User::find($user_id)->timezone;
             $user_timezone ? date_default_timezone_set($user_timezone) : '';
         } else {
-            if(auth()->check()){
+            if (auth()->check()) {
                 auth()->user()->timezone ? date_default_timezone_set(auth()->user()->timezone) : '';
             }
         }
