@@ -411,7 +411,7 @@ class CronController extends Controller
                     default:
                         $during = 'TODAY';
                 }
-                $session = adwords_session($report->ad_account->ad_account_id);
+                $session = adwords_session($report->ad_account->ad_account_id, $report->user_id);
                 $reportQuery = 'SELECT CampaignName, Clicks, Impressions, Ctr, Cost, AverageCpm, AverageCpc , CountryCriteriaId, Device FROM GEO_PERFORMANCE_REPORT DURING ' . $during;
                 $reportDownloader = new \Google\AdsApi\AdWords\Reporting\v201710\ReportDownloader($session);
                 $reportSettingsOverride = (new \Google\AdsApi\AdWords\ReportSettingsBuilder())
@@ -545,7 +545,7 @@ class CronController extends Controller
                         $top_5_campaigns = '<tr><h3><center>No data</center></h3></tr>';
                     }
                 }
-                $html = view('reports.templates.adword', compact('report', 'total_clicks', 'total_impressions', 'total_ctr', 'total_cpm', 'total_cpc', 'total_spend', 'devices_graph_url', 'locations_graph_url', 'top_5_campaigns'))->render();
+                //$html = view('reports.templates.adword', compact('report', 'total_clicks', 'total_impressions', 'total_ctr', 'total_cpm', 'total_cpc', 'total_spend', 'devices_graph_url', 'locations_graph_url', 'top_5_campaigns'))->render();
                 foreach ($recipients as $email) {
                     $welcome_email_substitutions = [
                         '%frequency%' => (string) ucfirst($report->frequency),
