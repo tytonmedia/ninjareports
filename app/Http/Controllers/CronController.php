@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Plan;
 use App\Models\Report;
 use App\Models\Schedule;
+use App\Models\Geo;
 use Session;
 use \FacebookAds\Http\Exception\AuthorizationException;
 use \FacebookAds\Object\AdAccount;
@@ -19,7 +20,8 @@ class CronController extends Controller
     public function run()
     {
         $next_send_time = date('Y-m-d H:i:00');
-        $reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
+        //$reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
+        $reports = Report::where('id', 3)->get();
         if ($reports && count($reports) > 0) {
             foreach ($reports as $report) {
                 $current_plan = $report->user->current_billing_plan ? $report->user->current_billing_plan : 'free_trial';
@@ -259,14 +261,14 @@ class CronController extends Controller
                 $top_5_sources = '';
                 $sources_insights = $top_sources_results->rows;
                 if (isset($sources_insights) && count($sources_insights) > 0) {
-                    $top_5_sources .='<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;">Source</th><th style="background:#666;color:#fff;padding:5px;">Visitotrs</th><th style="background:#666;color:#fff;padding:5px;">New %</th><th style="background:#666;color:#fff;padding:5px;">Bounce %</th><th style="background:#666;color:#fff;padding:5px;">Pages/Visit</th><th style="background:#666;color:#fff;padding:5px;">Avg. Time</th></tr>';
+                    $top_5_sources .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;">Source</th><th style="background:#666;color:#fff;padding:5px;">Visitotrs</th><th style="background:#666;color:#fff;padding:5px;">New %</th><th style="background:#666;color:#fff;padding:5px;">Bounce %</th><th style="background:#666;color:#fff;padding:5px;">Pages/Visit</th><th style="background:#666;color:#fff;padding:5px;">Avg. Time</th></tr>';
                     foreach ($sources_insights as $insight) {
                         $bounce_rate = number_format((float) $insight[4], 3, '.', '');
                         $pages_per_visit = number_format((float) $insight[6], 3, '.', '');
                         $avg_time = number_format((float) $insight[3], 3, '.', '');
                         $top_5_sources .= '<tr><td>' . $insight[0] . '</td><td>' . $insight[1] . '</td><td>' . $insight[5] . '</td><td>' . $bounce_rate . '</td><td>' . $pages_per_visit . '</td><td>' . $avg_time . '</td></tr>';
                     }
-                    $top_5_sources .='</tbody></table>';
+                    $top_5_sources .= '</tbody></table>';
                 } else {
                     $top_5_sources = '<tr><h3><center>No data</center></h3></tr>';
                 }
@@ -393,18 +395,180 @@ class CronController extends Controller
                 }
             }
             if ($report->account->type == 'adword') {
+                switch ($report->frequency) {
+                    case "weekly":
+                        $during = 'LAST_7_DAYS';
+                        break;
+                    case "monthly":
+                        $to_date = date('Ymd', strtotime($report->next_send_time));
+                        $from_date = date('Ymd', strtotime('-1 month', strtotime($report->next_send_time)));
+                        $during = $from_date . ',' . $to_date;
+                        break;
+                    case "yearly":
+                        $to_date = date('Ymd', strtotime($report->next_send_time));
+                        $from_date = date('Ymd', strtotime('-1 year', strtotime($report->next_send_time)));
+                        $during = $from_date . ',' . $to_date;
+                        break;
+                    default:
+                        $during = 'TODAY';
+                }
                 $session = adwords_session($report->ad_account->ad_account_id);
-                $reportQuery = 'SELECT CampaignId, AdGroupId, Id, Criteria, CriteriaType, '
-                    . 'Impressions, Clicks, Cost FROM CRITERIA_PERFORMANCE_REPORT '
-                    . 'WHERE Status IN [ENABLED, PAUSED] DURING LAST_7_DAYS';
+                $reportQuery = 'SELECT CampaignName, Clicks, Impressions, Ctr, Cost, AverageCpm, AverageCpc , CountryCriteriaId, Device FROM GEO_PERFORMANCE_REPORT DURING ' . $during;
                 $reportDownloader = new \Google\AdsApi\AdWords\Reporting\v201710\ReportDownloader($session);
                 $reportSettingsOverride = (new \Google\AdsApi\AdWords\ReportSettingsBuilder())
                     ->includeZeroImpressions(false)
                     ->build();
                 $reportDownloadResult = $reportDownloader->downloadReportWithAwql(
-                    $reportQuery, \Google\AdsApi\AdWords\Reporting\v201710\DownloadFormat::XML, $reportSettingsOverride);
-                pr($reportDownloadResult);
-                exit;
+                    $reportQuery, \Google\AdsApi\AdWords\Reporting\v201710\DownloadFormat::CSV, $reportSettingsOverride);
+                $campaigns_adword_data = str_getcsv($reportDownloadResult->getAsString(), "\n");
+
+                $total_clicks = 'No data';
+                $total_impressions = 'No data';
+                $total_ctr = 'No data';
+                $total_cpm = 'No data';
+                $total_cpc = 'No data';
+                $total_spend = 'No data';
+                $adwords_ads_data = [];
+                $devices_graph_url = 'no_data';
+                $locations_graph_url = 'no_data';
+                $final_adword_data = [];
+                $top_5_campaigns = '';
+                if (is_array($campaigns_adword_data) && count($campaigns_adword_data) > 0) {
+                    foreach ($campaigns_adword_data as $report_data_key => $report_data) {
+                        if ($report_data_key === 0 || $report_data_key === 1) {
+                            continue;
+                        }
+                        $final_adword_data[] = explode(',', $report_data);
+                    }
+                    $top_5_campaigns_array = [];
+                    $google_adwords_ads_data = [];
+                    if (count($final_adword_data) > 0) {
+                        $operating_system_result = [];
+                        $locations_result = [];
+                        $adword_data_count = count($final_adword_data);
+                        foreach ($final_adword_data as $adword_data) {
+                            if (--$adword_data_count <= 0) {
+                                break;
+                            }
+                            $locations_result[] = $adword_data[7];
+                            $operating_system_result[] = $adword_data[8];
+                            $google_adwords_ads_data[] = [
+                                'clicks' => $adword_data[1],
+                                'impressions' => $adword_data[2],
+                                'ctr' => $adword_data[3],
+                                'spend' => $adword_data[4],
+                                'cpc' => $adword_data[5],
+                                'cpm' => $adword_data[6],
+                                'location' => $adword_data[7],
+                                'operating_system' => $adword_data[8],
+                            ];
+                        }
+                        $operating_systems = [];
+                        $locations = [];
+                        if (count($operating_system_result) > 0) {
+                            $operating_systems = array_unique($operating_system_result);
+                        }
+
+                        if (count($locations_result) > 0) {
+                            $locations = array_unique($locations_result);
+                        }
+                        
+                        $operating_systems_keys = [];
+                        if (count($operating_systems) > 0) {
+                            foreach ($operating_systems as $operating_system) {
+                                $operating_systems_keys[$operating_system] = $this->getKeys($google_adwords_ads_data, 'operating_system', $operating_system);
+                            }
+                        }
+
+                        $locations_keys = [];
+                        if (count($locations) > 0) {
+                            foreach ($locations as $location) {
+                                $locations_keys[$location] = $this->getKeys($google_adwords_ads_data, 'location', $location);
+                            }
+                        }
+
+                        $operating_systems_clicks = [];
+                        if (count($operating_systems_keys) > 0) {
+                            foreach ($operating_systems_keys as $operatingsystemkey => $operating_system_key) {
+                                $operating_system_click_data = 0;
+                                foreach ($operating_system_key as $operating_system_session_key) {
+                                    $operating_system_click_data += $google_adwords_ads_data[$operating_system_session_key]['clicks'];
+                                }
+                                $operating_systems_clicks[$operatingsystemkey] = $operating_system_click_data;
+                            }
+                        }
+
+                        $locations_clicks = [];
+                        if (count($locations_keys) > 0) {
+                            foreach ($locations_keys as $locationkey => $location_key) {
+                                $location_click_data = 0;
+                                foreach ($location_key as $location_session_key) {
+                                    $location_click_data += $google_adwords_ads_data[$location_session_key]['clicks'];
+                                }
+                                $locations_clicks[$locationkey] = $location_click_data;
+                            }
+                        }
+                        if (count($operating_systems_clicks) > 0) {
+                            $devices_graph_url = getChartUrl($operating_systems_clicks);
+                        }
+                        
+                        if (count($locations_clicks) > 0) {
+                            arsort($locations_clicks);
+                            $top_5_locations = array_slice($locations_clicks, 0, 5, true);
+                            $final_locations_data = [];
+                            foreach($top_5_locations as $country_id => $clicks){
+                                $geo = Geo::select('country_code')->where('parent_id', $country_id)->first();
+                                $country = 'N/A';
+                                if($geo){
+                                    $country = $geo->country_code;
+                                }
+                                $final_locations_data[$country] = $clicks;
+                            }
+                            $locations_graph_url = getChartUrl($final_locations_data);
+                        }
+
+                        $total_data = end($final_adword_data);
+                        $total_clicks = $total_data[1];
+                        $total_impressions = $total_data[2];
+                        $total_ctr = $total_data[3];
+                        $total_spend = $total_data[4];
+                        $total_cpm = $total_data[5];
+                        $total_cpc = $total_data[6];
+                        $top_5_campaigns_array = array_slice($final_adword_data, 0, 5);
+                    }
+                    if (count($top_5_campaigns_array) > 0) {
+                        $top_5_campaigns .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;">Campaign</th><th style="background:#666;color:#fff;padding:5px;">Clicks</th><th style="background:#666;color:#fff;padding:5px;">Impressions</th><th style="background:#666;color:#fff;padding:5px;">CTR</th><th style="background:#666;color:#fff;padding:5px;">CPM</th><th style="background:#666;color:#fff;padding:5px;">CPC</th></tr>';
+                        foreach ($top_5_campaigns_array as $campaign_array) {
+                            $top_5_campaigns .= '<tr><td>' . $campaign_array[0] . '</td><td>' . $campaign_array[1] . '</td><td>' . $campaign_array[2] . '</td><td>' . $campaign_array[3] . '</td><td>' . $campaign_array[5] . '</td><td>' . $campaign_array[6] . '</td></tr>';
+                        }
+                        $top_5_campaigns .= '</tbody></table>';
+                    } else {
+                        $top_5_campaigns = '<tr><h3><center>No data</center></h3></tr>';
+                    }
+                }
+                $html = view('reports.templates.adword', compact('report', 'total_clicks', 'total_impressions', 'total_ctr', 'total_cpm', 'total_cpc', 'total_spend', 'devices_graph_url', 'locations_graph_url', 'top_5_campaigns'))->render();
+                foreach ($recipients as $email) {
+                    $welcome_email_substitutions = [
+                        '%frequency%' => (string) ucfirst($report->frequency),
+                        '%report_date%' => (string) date('m/d/Y'),
+                        '%property_url%' => 'www.ninjareports.com',
+                        '%clicks%' => (string) $total_clicks,
+                        '%impressions%' => (string) $total_impressions,
+                        '%ctr%' => (string) $total_ctr,
+                        '%spend%' => (string) number_format((float) ($total_spend / 1000000), 2, '.', ''),
+                        '%page_per_visits%' => (string) $total_cpm,
+                        '%new_visitors%' => (string) $total_cpc,
+                        '%devices_graph_url%' => (string) $devices_graph_url,
+                        '%locations_graph_url%' => (string) $locations_graph_url,
+                        '%top_5_campaigns%' => (string) $top_5_campaigns,
+                    ];
+                    sendMail($email, 'Your ' . ucfirst($report->frequency) . ' Facebook Ads Report', '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions);
+                    Schedule::create([
+                        'user_id' => $report->user_id,
+                        'report_id' => $report->id,
+                        'recipient' => $email,
+                    ]);
+                }
             }
         } else {
             Session::flash('alert-danger', 'Report not found.');
