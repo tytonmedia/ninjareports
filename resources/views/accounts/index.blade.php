@@ -45,7 +45,7 @@
 										</td>
 										<td>
 											<a class="btn btn-xs btn-primary" href="{{ route('accounts.setting', $account->type) }}">Settings</a>
-											<a class="btn btn-xs btn-danger">Delete</a>
+											<a href="{{ route('account.delete', $account->id) }}" onclick="return confirm('Are you sure?')" class="btn btn-xs btn-danger">Delete</a>
 										</td>
 									</tr>
 									@endforeach

@@ -88,6 +88,7 @@ class ConnectController extends Controller
             'title' => 'Facebook Ads',
             'email' => $me->getEmail(),
             'status' => 1,
+            'is_active' => 1,
             'token' => (string) $accessToken,
         ];
         if ($account) {
@@ -121,6 +122,7 @@ class ConnectController extends Controller
             'title' => 'Google Analytics',
             'email' => $user->userinfo->get()->email,
             'status' => 1,
+            'is_active' => 1,
             'token' => json_encode($token),
         ];
         if ($account) {
@@ -161,6 +163,7 @@ class ConnectController extends Controller
                 'title' => 'Google Adwords',
                 'email' => $user->email,
                 'status' => 1,
+                'is_active' => 1,
             ];
             if ($refresh_token) {
                 $account_update_array['token'] = $refresh_token;

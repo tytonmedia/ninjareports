@@ -12,7 +12,7 @@ class AccountsController extends Controller
 {
     public function index()
     {
-        $accounts = Account::where('user_id', auth()->user()->id)->get();
+        $accounts = Account::where('user_id', auth()->user()->id)->where('status', 1)->get();
         return view('accounts.index', compact('accounts'));
     }
 
@@ -287,6 +287,20 @@ class AccountsController extends Controller
                 }
             }
         }
+    }
+
+    public function delete($id)
+    {
+        $account = Account::where('id', $id)->where('user_id', auth()->id())->first();
+        if ($account) {
+            $account->status = 0;
+            $account->is_active = 0;
+            $account->save();
+            Session::flash('alert-success', 'Account deleted successfully.');
+        } else {
+            Session::flash('alert-danger', 'Something went wrong.');
+        }
+        return redirect()->route('accounts.index');
     }
 
 }

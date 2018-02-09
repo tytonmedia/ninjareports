@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('connect', 'AccountsController@connect')->name('accounts.connect');
         Route::get('settings/{type}', 'AccountsController@setting')->name('accounts.setting');
         Route::get('sync/{type}/adaccounts', 'AccountsController@sync')->name('accounts.sync.adaccounts');
+        Route::get('delete/{id}', 'AccountsController@delete')->name('account.delete');
     });
 
     // ConnectController Routes
