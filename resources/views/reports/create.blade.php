@@ -11,9 +11,6 @@
 						<div class="col-md-6 col-sm-6 col-xs-6">
 							<h2 class="title">Create Report</h2>
 						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6 text-right greeting-button">
-							<a href="{{ route('reports.index') }}" class="btn btn-black">Reports</a>
-						</div>
 					</div>
 					<hr/>
 					<div class="row">
@@ -35,7 +32,7 @@
 								</div>
 								<div class="form-group">
 									<div class="col-md-3">
-										<label class="control-label color-black-bold">Account Type
+										<label class="control-label color-black-bold">Data Source
 											<span class="ad-account-types-loader fa fa-spin fa-spinner margin-left-5 hidden"></span>
 										</label>
 									</div>
@@ -82,7 +79,8 @@
 											<label class="control-label color-black-bold">at</label>
 										</div>
 										<div class="col-md-5">
-											<input type="text" name="ends_at" readonly class="form-control timepicker" />
+											<input type="text" name="ends_at" readonly class="custom-readonly form-control timepicker" />
+											<div class="help-block"><a style="font-size: 11px" href="{{ url('settings') }}">Set Timezone</a></div>
 										</div>
 									</div>
 								</div>
@@ -95,10 +93,10 @@
 										<label class="control-label color-black-bold">Recipients</label>
 									</div>
 									<div class="col-md-9">
-										<label>
-											<i>(Comma seperated emails)</i>
-										</label>
 										<textarea class="form-control" name="recipients">{{ old('recipients') }}</textarea>
+										<label>
+											<i style="color: lightgrey;font-size:12px">(Comma seperated emails)</i>
+										</label>
 										<div class="error">
 											@if ($errors->has('recipients')) {{ $errors->first('recipients') }} @endif
 										</div>
@@ -143,7 +141,7 @@
 										<label class="control-label color-black-bold"></label>
 									</div>
 									<div class="col-md-9">
-										<input class="btn btn-black" type="submit" name="submit" value="Create Report" />
+										<input class="btn btn-primary" type="submit" name="submit" value="Create Report" />
 									</div>
 								</div>
 							</div>

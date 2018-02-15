@@ -27,10 +27,20 @@
     <!-- Global Spark Object -->
     <script>
         window.Spark = <?php echo json_encode(array_merge(
-            Spark::scriptVariables(), []
-        )); ?>;
+    Spark::scriptVariables(), []
+)); ?>;
         var canRunAds = true;
     </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-79012395-19"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-79012395-19');
+</script>
+
 </head>
 <body class="with-navbar">
     <script>

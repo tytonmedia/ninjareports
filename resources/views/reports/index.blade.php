@@ -16,10 +16,17 @@
 					<hr/> @if($reports && count($reports) > 0)
 					<div class="row">
 						<div class="col-md-12">
+							@if($paused)
+								<div class="alert alert-danger">
+									<b>Upgrade to Resume</b><br/>
+									You have reached the limit of your plan. <a href="{{ url('settings#/subscription') }}">Upgrade your plan</a> to resume your reports.
+								</div>
+							@endif
 							<table class="table table-stripped accounts_connect_table">
 								<thead>
 									<tr>
 										<th>Name</th>
+										<th>Status</th>
 										<th>Property/Ad Account</th>
 										<th>Account</th>
 										<th>Frequency</th>
@@ -32,6 +39,7 @@
 									@foreach($reports as $report)
 									<tr>
 										<td>{{ $report->title }}</td>
+										<td>{!! $paused ? '<button class="btn btn-xs btn-danger">Paused</button>':'<button class="btn btn-xs btn-success">Active</button>' !!}</td>
 										<td>{{ $report->ad_account->title }}</td>
 										<td>{{ $report->account->title }}</td>
 										<td>{{ ucfirst($report->frequency) }}</td>

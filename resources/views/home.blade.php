@@ -8,8 +8,8 @@
 					<div class="panel-body">
 						<div class="row greetings">
 							<div class="col-md-8 col-sm-8 col-xs-12">
-								<h2 class="title">Good Day, {{ auth()->user()->name }}</h2>
-								<p>Welcome to your account dashboard. To get started, created a report!</p>
+								<h2 class="title">Good Day, {{ auth()->user()->name }}!</h2>
+								<p>Welcome to your account dashboard. To get started, integrate an app and click the create report button.</p>
 							</div>
 							<div class="col-md-4 col-sm-4 col-xs-12 text-right greeting-button">
 								@if($active_accounts > 0)
@@ -26,17 +26,14 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-2 text-center">
-								<img class="social-icon" src="/img/social-icon.png" alt="">
+								<img class="social-icon img img-responsive" src="/img/social_icon.png" alt="">
 							</div>
 							<div class="col-md-10">
 								<h4 class="title">Connect your Accounts</h4>
 								<p>
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, ducimus illo iste deserunt, eaque sunt officiis incidunt
-									possimus, voluptas itaque eligendi impedit quisquam omnis asperiores nobis dolorem! Nisi, eos, ipsum. Lorem ipsum
-									dolor sit amet, consectetur adipisicing elit. Modi nisi voluptas delectus eos libero corporis suscipit porro minima,
-									aperiam.
+								Integrate your favorite online applications with Ninja Reports and schedule daily, weekly or monthly reports. Click Add Integration to allow Ninja Reports to access your account data and starting automating your reports.
 								</p>
-								<button class="btn btn-black nr_connect_accounts_button">Connect Accounts
+								<button class="btn btn-black nr_connect_accounts_button">Add Integration
 									<span class="nr-loader fa fa-spin fa-spinner margin-left-5 hidden"></span>
 								</button>
 							</div>
@@ -61,7 +58,7 @@
 							<div class="col-md-7 col-sm-7 col-xs-7">
 								<div class="chartjs">
 									<div class="chart-canvas">
-										<canvas id="myChart" width="120" height="120"></canvas>
+										<canvas id="pie-chart" width="100" height="100"></canvas>
 									</div>
 									<div id="js-legend" class="chart-legend"></div>
 								</div>
@@ -79,7 +76,7 @@
 									<div class="h4 title">
 										<span>Current Plan: {{ ucfirst(str_replace('_', ' ', $plan->title)) }}</span>
 										@if($plan->title != 'white_label')
-											<a href="{{ url('settings#/subscription') }}" class="btn btn-black">Upgrade</a>
+											<a href="{{ url('settings#/subscription') }}" class="btn btn-black pull-right">Upgrade</a>
 										@endif
 									</div>
 									<p>
@@ -95,4 +92,19 @@
 		</div>
 	</div>
 </home>
+@endsection
+@section('page_scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+<script>
+	new Chart(document.getElementById("pie-chart"), {
+    type: 'pie',
+    data: {
+      labels: ["Sent", "Remaining"],
+      datasets: [{
+        backgroundColor: ["#1e90ff", "#00bfff"],
+        data: [{{ $reports_sent_count }},{{ $plan->reports }}]
+      }]
+    }
+});
+</script>
 @endsection

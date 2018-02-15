@@ -6,7 +6,9 @@ use App\Models\Account;
 use App\Models\AdAccount;
 use App\Models\AnalyticProperty;
 use App\Models\AnalyticView;
+use App\Models\Plan;
 use App\Models\Report;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Session;
@@ -15,12 +17,19 @@ class ReportsController extends Controller
 {
     public function index()
     {
+        $current_plan = auth()->user()->current_billing_plan ? auth()->user()->current_billing_plan : 'free_trial';
+        $plan = Plan::whereTitle($current_plan)->first();
+        $reports_sent_count = Schedule::whereUserId(auth()->user()->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
+        $paused = false;
+        if ($reports_sent_count >= $plan->reports) {
+            $paused = true;
+        }
         $reports = Report::where('user_id', auth()->user()->id)
             ->where('is_active', 1)
             ->with('account', 'ad_account')
             ->orderBy('id', 'desc')
             ->paginate(15);
-        return view('reports.index', compact('reports'));
+        return view('reports.index', compact('reports', 'paused'));
     }
 
     public function create()

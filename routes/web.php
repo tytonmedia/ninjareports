@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
  */
-Route::get('/', 'WelcomeController@show')->name('welcome.show');
+Route::get('/', 'HomeController@show')->name('welcome.show');
 Route::get('/home', 'HomeController@show')->name('home.show');
 
 // CronController Routes

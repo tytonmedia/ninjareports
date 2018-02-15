@@ -53,25 +53,25 @@ class SparkServiceProvider extends ServiceProvider
         Spark::plan('Free Trial', 'free_trial')
             ->price(0.00)
             ->features([
-                'First', 'Second', 'Third',
+                'WANT TO TRY OUR APP FOR FREE?', 'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '25 Reports',
             ]);
 
         Spark::plan('Business', 'business')
             ->price(29.00)
             ->features([
-                'First', 'Second', 'Third',
+                'POPULAR FOR SMALL BUSINESS', 'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '100 Reports', 'Support', 'PDF & CSV Attachments',
             ]);
 
         Spark::plan('Premium', 'premium')
             ->price(69.00)
             ->features([
-                'First', 'Second', 'Third',
+                'OUR MOST POPULAR PACKAGE!', 'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '500 Reports', 'Support', 'PDF & CSV Attachments',
             ]);
 
         Spark::plan('White Label', 'white_label')
             ->price(129.00)
             ->features([
-                'First', 'Second', 'Third',
+                'OUR MOST POPULAR PACKAGE!', 'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '1000 Reports', 'Support', 'PDF & CSV Attachments', 'Your Own Logo on Reports',
             ]);
     }
 }

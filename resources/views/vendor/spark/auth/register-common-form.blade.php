@@ -92,7 +92,7 @@
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" name="terms" v-model="registerForm.terms">
-                        I Accept The <a href="/terms" target="_blank">Terms Of Service</a>
+                        I Accept The <a href="https://www.ninjareports.com/terms-conditions/" target="_blank">Terms Of Service</a>
                     </label>
 
                     <span class="help-block" v-show="registerForm.errors.has('terms')">

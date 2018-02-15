@@ -35,7 +35,7 @@
 								</div>
 								<div class="form-group">
 									<div class="col-md-3">
-										<label class="control-label color-black-bold">Account Type
+										<label class="control-label color-black-bold">Data Source
 											<span class="ad-account-types-loader fa fa-spin fa-spinner margin-left-5 hidden"></span>
 										</label>
 									</div>
@@ -83,7 +83,7 @@
 												<label class="control-label color-black-bold">at</label>
 											</div>
 											<div class="col-md-5">
-												<input type="text" name="ends_at" value="{{ $report->ends_at }}" readonly class="form-control timepicker" />
+												<input type="text" name="ends_at" value="{{ $report->ends_at }}" readonly class="custom-readonly form-control timepicker" />
 											</div>
 										@endif
 										@if($report->frequency == 'weekly')
@@ -201,7 +201,7 @@
 										<label class="control-label color-black-bold"></label>
 									</div>
 									<div class="col-md-9">
-										<input class="btn btn-black" type="submit" name="submit" value="Update Report" />
+										<input class="btn btn-primary" type="submit" name="submit" value="Update Report" />
 									</div>
 								</div>
 							</div>

@@ -21,5 +21,19 @@ h2.title {
 }
 
 .accounts_connect_table img {
-    max-width: 50px;
+    max-width: 35px;
+}
+
+.custom-readonly.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #fff;
+    opacity: 1;
+}
+
+.default-text-color {
+    color: #1e90ff
+}
+
+.default-background-color {
+    color: #fff;
+    background: #1e90ff
 }
