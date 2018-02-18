@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Geo;
 use App\Models\Plan;
 use App\Models\Report;
 use App\Models\Schedule;
-use App\Models\Geo;
 use Session;
 use \FacebookAds\Http\Exception\AuthorizationException;
 use \FacebookAds\Object\AdAccount;
@@ -20,7 +20,7 @@ class CronController extends Controller
     public function run()
     {
         $next_send_time = date('Y-m-d H:i:00');
-        $reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
+        $reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->where('is_paused', 0)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
         if ($reports && count($reports) > 0) {
             foreach ($reports as $report) {
                 $current_plan = $report->user->current_billing_plan ? $report->user->current_billing_plan : 'free_trial';
@@ -471,7 +471,7 @@ class CronController extends Controller
                         if (count($locations_result) > 0) {
                             $locations = array_unique($locations_result);
                         }
-                        
+
                         $operating_systems_keys = [];
                         if (count($operating_systems) > 0) {
                             foreach ($operating_systems as $operating_system) {
@@ -510,15 +510,15 @@ class CronController extends Controller
                         if (count($operating_systems_clicks) > 0) {
                             $devices_graph_url = getChartUrl($operating_systems_clicks);
                         }
-                        
+
                         if (count($locations_clicks) > 0) {
                             arsort($locations_clicks);
                             $top_5_locations = array_slice($locations_clicks, 0, 5, true);
                             $final_locations_data = [];
-                            foreach($top_5_locations as $country_id => $clicks){
+                            foreach ($top_5_locations as $country_id => $clicks) {
                                 $geo = Geo::select('country_code')->where('parent_id', $country_id)->first();
                                 $country = 'N/A';
-                                if($geo){
+                                if ($geo) {
                                     $country = $geo->country_code;
                                 }
                                 $final_locations_data[$country] = $clicks;

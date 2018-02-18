@@ -187,5 +187,39 @@
                 });
             }
         });
+
+        // Start/Pause Reports
+        $(document).on('click', '.toggle_report', function(){
+            toastr.remove();
+            var btn = $(this);
+            btn.html('<i class="fa fa-spin fa-spinner"></i>');
+            var report_id = btn.data('report_id');
+            var status = btn.data('status');
+            if(status === 'yes'){
+                var is_paused = 0;
+                var btn_value = 'Pause';
+                btn.data('status', 'no');
+            } else {
+                var is_paused = 1;
+                var btn_value = 'Start';
+                btn.data('status', 'yes');
+            }
+            $.ajax({
+                type: 'POST',
+                url: site_url + 'reports/' + report_id  + '/pause/' + is_paused,
+                success: function (response) {
+                    btn.html(btn_value);
+                    if (response.status == 'success') {
+                        toastr.success('Status Changes Successfully.');
+                    } else {
+                        toastr.error('Something went wrong. Please try again.');
+                    }
+                },
+                error: function () {
+                    btn.html(btn_value);
+                    toastr.error('Something went wrong. Please try again.');
+                }
+            });
+        });
     });
 })(jQuery);

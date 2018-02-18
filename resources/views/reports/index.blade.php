@@ -13,7 +13,7 @@
 							<a href="{{ route('reports.create') }}" class="btn btn-black btn-create-report">Create Report</a>
 						</div>
 					</div>
-					<hr/> @if($reports && count($reports) > 0)
+					<hr/> @if($all_reports && count($all_reports) > 0)
 					<div class="row">
 						<div class="col-md-12">
 							@if($paused)
@@ -22,6 +22,7 @@
 									You have reached the limit of your plan. <a href="{{ url('settings#/subscription') }}">Upgrade your plan</a> to resume your reports.
 								</div>
 							@endif
+							<div class="table-responsive">
 							<table class="table table-stripped accounts_connect_table">
 								<thead>
 									<tr>
@@ -36,10 +37,11 @@
 									</tr>
 								</thead>
 								<tbody>
-									@foreach($reports as $report)
+									@foreach($all_reports as $report)
+									@php($is_paused = $report->is_paused)
 									<tr>
 										<td>{{ $report->title }}</td>
-										<td>{!! $paused ? '<button class="btn btn-xs btn-danger">Paused</button>':'<button class="btn btn-xs btn-success">Active</button>' !!}</td>
+										<td>{!! $paused || $is_paused ? '<button class="btn btn-xs btn-danger">Paused</button>':'<button class="btn btn-xs btn-success">Active</button>' !!}</td>
 										<td>{{ $report->ad_account->title }}</td>
 										<td>{{ $report->account->title }}</td>
 										<td>{{ ucfirst($report->frequency) }}</td>
@@ -48,14 +50,16 @@
 										<td>
 											<a href="{{ route('reports.edit', $report->id) }}" class="btn btn-xs btn-black">Edit</a>
 											<a onClick="return confirm('Are you sure you want to delete this report?')" href="{{ route('reports.delete', $report->id) }}" class="btn btn-xs btn-black">Delete</a>
+											<button data-report_id="{{ $report->id }}" class="btn btn-black toggle_report" data-status="{{ $is_paused ? 'yes' : 'no' }}">{{ $is_paused ? 'Start' : 'Pause' }}</button>
 										</td>
 									</tr>
 									@endforeach
 									<tr>
-										<td colspan="7"><span class="pull-right">{{ $reports->links() }}</span></td>
+										<td colspan="7"><span class="pull-right">{{ $all_reports->links() }}</span></td>
 									</tr>
 								</tbody>
 							</table>
+</div>
 						</div>
 					</div>
 					@else

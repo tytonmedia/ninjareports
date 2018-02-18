@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('create', 'ReportsController@create')->name('reports.create');
         Route::post('store', 'ReportsController@store')->name('reports.store');
         Route::get('edit/{id}', 'ReportsController@edit')->name('reports.edit');
+        Route::post('{id}/pause/{status}', 'ReportsController@status')->name('reports.status');
         Route::post('update/{id}', 'ReportsController@update')->name('reports.update');
         Route::get('delete/{id}', 'ReportsController@destroy')->name('reports.delete');
         Route::get('{type}/adaccounts', 'ReportsController@ad_accounts')->name('reports.adaccounts');

@@ -24,12 +24,12 @@ class ReportsController extends Controller
         if ($reports_sent_count >= $plan->reports) {
             $paused = true;
         }
-        $reports = Report::where('user_id', auth()->user()->id)
+        $all_reports = Report::where('user_id', auth()->user()->id)
             ->where('is_active', 1)
             ->with('account', 'ad_account')
             ->orderBy('id', 'desc')
             ->paginate(15);
-        return view('reports.index', compact('reports', 'paused'));
+        return view('reports.index', compact('all_reports', 'paused'));
     }
 
     public function create()
@@ -343,4 +343,17 @@ class ReportsController extends Controller
         return redirect()->route('reports.index');
     }
 
+    public function status($id, $is_paused)
+    {
+        $report = Report::find($id);
+        $status = 'error';
+        if ($report) {
+            $report->is_paused = $is_paused;
+            $report->save();
+            $status = 'success';
+        }
+        return response()->json([
+            'status' => $status,
+        ]);
+    }
 }
