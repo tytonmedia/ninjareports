@@ -37,3 +37,11 @@ h2.title {
     color: #fff;
     background: #1e90ff
 }
+
+.reports_table.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    padding: 14px;
+}
+
+.margin-top-5 {
+    margin-top: 5px;
+}

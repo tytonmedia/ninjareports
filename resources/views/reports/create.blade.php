@@ -141,7 +141,7 @@
 										<label class="control-label color-black-bold"></label>
 									</div>
 									<div class="col-md-9">
-										<input class="btn btn-primary" type="submit" name="submit" value="Create Report" />
+										<input style="background: #3c5ecc" class="btn btn-primary" type="submit" name="submit" value="Create Report" />
 									</div>
 								</div>
 							</div>

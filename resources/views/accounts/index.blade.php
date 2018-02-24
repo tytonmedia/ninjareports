@@ -8,9 +8,10 @@
 					<div class="row">
 						<div class="col-md-6 col-sm-6 col-xs-6">
 							<h2 class="title">Connect Accounts</h2>
+							<i>This is where you can integrate your favorite online applications with Ninja Reports. Click Add Integration to allow Ninja Reports to access your account data.</i>
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-6 text-right greeting-button">
-							<button class="btn btn-black nr_connect_accounts_button">Connect Accounts
+							<button class="btn btn-black nr_connect_accounts_button">Add Integration
 								<span class="nr-loader fa fa-spin fa-spinner margin-left-5 hidden"></span>
 							</button>
 						</div>
@@ -23,7 +24,7 @@
 								<thead>
 									<tr>
 										<th></th>
-										<th>Account</th>
+										<th>Integration</th>
 										<th>Status</th>
 										<th>Actions</th>
 									</tr>

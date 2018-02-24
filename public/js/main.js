@@ -92,7 +92,7 @@
                 success: function (response) {
                     loader.addClass('hidden');
                     if (response.status == 'success') {
-                        toastr.success('Ad accounts synchronized.');
+                        toastr.success('Properties synchronized.');
                         $('.synchronized_ad_accounts').html(response.html);
                     } else {
                         toastr.error('Something went wrong. Please try again.');

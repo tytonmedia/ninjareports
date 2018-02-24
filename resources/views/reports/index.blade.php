@@ -23,13 +23,13 @@
 								</div>
 							@endif
 							<div class="table-responsive">
-							<table class="table table-stripped accounts_connect_table">
+							<table class="reports_table table table-stripped accounts_connect_table">
 								<thead>
 									<tr>
 										<th>Name</th>
 										<th>Status</th>
 										<th>Property/Ad Account</th>
-										<th>Account</th>
+										<th>Integration</th>
 										<th>Frequency</th>
 										<th>Recipients</th>
 										<th style="min-width: 100px">Last Sent</th>
@@ -38,19 +38,26 @@
 								</thead>
 								<tbody>
 									@foreach($all_reports as $report)
+									@php($emails = $report->recipients ? explode(',', $report->recipients) : [])
 									@php($is_paused = $report->is_paused)
 									<tr>
-										<td>{{ $report->title }}</td>
+										<td><a href="{{ route('reports.edit', $report->id) }}"><strong>{{ $report->title }}</strong></a></td>
 										<td>{!! $paused || $is_paused ? '<button class="btn btn-xs btn-danger">Paused</button>':'<button class="btn btn-xs btn-success">Active</button>' !!}</td>
 										<td>{{ $report->ad_account->title }}</td>
 										<td>{{ $report->account->title }}</td>
 										<td>{{ ucfirst($report->frequency) }}</td>
-										<td>{{ $report->recipients }}</td>
+										<td>
+											@if(count($emails) > 0)
+											@foreach($emails as $email)
+											{{ $email }}<br/>
+											@endforeach
+											@endif
+										</td>
 										<td>{{ $report->sent_at ? $report->sent_at->diffForHumans() : '-' }}</td>
 										<td>
-											<a href="{{ route('reports.edit', $report->id) }}" class="btn btn-xs btn-black">Edit</a>
-											<a onClick="return confirm('Are you sure you want to delete this report?')" href="{{ route('reports.delete', $report->id) }}" class="btn btn-xs btn-black">Delete</a>
-											<button data-report_id="{{ $report->id }}" class="btn btn-black toggle_report" data-status="{{ $is_paused ? 'yes' : 'no' }}">{{ $is_paused ? 'Start' : 'Pause' }}</button>
+											<a href="{{ route('reports.edit', $report->id) }}" class="btn btn-xs btn-black margin-top-5">Edit</a>
+											<a onClick="return confirm('Are you sure you want to delete this report?')" href="{{ route('reports.delete', $report->id) }}" class="btn btn-xs btn-black margin-top-5">Delete</a>
+											<button data-report_id="{{ $report->id }}" class="btn btn-black toggle_report margin-top-5" data-status="{{ $is_paused ? 'yes' : 'no' }}">{{ $is_paused ? 'Start' : 'Pause' }}</button>
 										</td>
 									</tr>
 									@endforeach

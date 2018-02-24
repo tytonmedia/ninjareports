@@ -1,6 +1,6 @@
 <div class="form-group">
 	<div class="col-md-3">
-		<label class="control-label color-black-bold">Ad Account
+		<label class="control-label color-black-bold">Property
 			<span class="analytics-properties-loader fa fa-spin fa-spinner margin-left-5 hidden"></span>
 		</label>
 	</div>
@@ -13,7 +13,7 @@
 		</select>
 		@else
 		<div class="error">
-			No ad account found. Please
+			No property found. Please
 			<a href="{{ route('accounts.setting', $type) }}">click here</a> to sync {{ $type }} ad accounts.
 		</div>
 		@endif

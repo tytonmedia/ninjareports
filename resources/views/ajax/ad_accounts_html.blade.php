@@ -4,7 +4,7 @@
 		<table class="table table-stripped accounts_connect_table">
 			<thead>
 				<tr>
-					<th>Ad Account</th>
+					<th>Property</th>
 					<th>Name</th>
 					<th>Actions</th>
 				</tr>
@@ -27,5 +27,5 @@
 </div>
 @else
 <div class="text-center">No ad account synchronized. Please click
-	<code>Sync Ad Accounts</code> button to sync {{ $type }} ad accounts.</div>
+	<code>Sync Ad Accounts</code> button to sync {{ $type }} accounts.</div>
 @endif
