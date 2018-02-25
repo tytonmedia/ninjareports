@@ -9,7 +9,7 @@ $router->group(['middleware' => 'web'], function ($router) {
     $router->get('/terms', 'TermsController@show')->name('terms');
 
     // Missing Team Notice...
-    $router->get('/missing-'.$teamString, 'MissingTeamController@show');
+    $router->get('/missing-' . $teamString, 'MissingTeamController@show');
 
     // Customer Support...
     $router->post('/support/email', 'SupportController@sendEmail');
@@ -37,61 +37,64 @@ $router->group(['middleware' => 'web'], function ($router) {
     // Profile Photo...
     $router->post('/settings/photo', 'Settings\Profile\PhotoController@store');
 
+    // Profile Logo...
+    $router->post('/settings/logo', 'Settings\Profile\LogoController@store');
+
     // Teams...
     if (Spark::usesTeams()) {
         // General Settings...
-        $router->get('/settings/'.$pluralTeamString.'/roles', 'Settings\Teams\TeamMemberRoleController@all');
-        $router->get('/settings/'.$pluralTeamString.'/{team}', 'Settings\Teams\DashboardController@show')->name('settings.team');
+        $router->get('/settings/' . $pluralTeamString . '/roles', 'Settings\Teams\TeamMemberRoleController@all');
+        $router->get('/settings/' . $pluralTeamString . '/{team}', 'Settings\Teams\DashboardController@show')->name('settings.team');
 
-        $router->get('/'.$pluralTeamString.'', 'TeamController@all');
-        $router->get('/'.$pluralTeamString.'/current', 'TeamController@current');
-        $router->get('/'.$pluralTeamString.'/{team_id}', 'TeamController@show');
-        $router->post('/settings/'.$pluralTeamString, 'Settings\Teams\TeamController@store');
-        $router->post('/settings/'.$pluralTeamString.'/{team}/photo', 'Settings\Teams\TeamPhotoController@update');
-        $router->put('/settings/'.$pluralTeamString.'/{team}/name', 'Settings\Teams\TeamNameController@update');
+        $router->get('/' . $pluralTeamString . '', 'TeamController@all');
+        $router->get('/' . $pluralTeamString . '/current', 'TeamController@current');
+        $router->get('/' . $pluralTeamString . '/{team_id}', 'TeamController@show');
+        $router->post('/settings/' . $pluralTeamString, 'Settings\Teams\TeamController@store');
+        $router->post('/settings/' . $pluralTeamString . '/{team}/photo', 'Settings\Teams\TeamPhotoController@update');
+        $router->put('/settings/' . $pluralTeamString . '/{team}/name', 'Settings\Teams\TeamNameController@update');
 
         // Invitations...
-        $router->get('/settings/'.$pluralTeamString.'/{team}/invitations', 'Settings\Teams\MailedInvitationController@all');
-        $router->post('/settings/'.$pluralTeamString.'/{team}/invitations', 'Settings\Teams\MailedInvitationController@store');
+        $router->get('/settings/' . $pluralTeamString . '/{team}/invitations', 'Settings\Teams\MailedInvitationController@all');
+        $router->post('/settings/' . $pluralTeamString . '/{team}/invitations', 'Settings\Teams\MailedInvitationController@store');
         $router->get('/settings/invitations/pending', 'Settings\Teams\PendingInvitationController@all');
         $router->get('/invitations/{invitation}', 'InvitationController@show');
         $router->post('/settings/invitations/{invitation}/accept', 'Settings\Teams\PendingInvitationController@accept');
         $router->post('/settings/invitations/{invitation}/reject', 'Settings\Teams\PendingInvitationController@reject');
         $router->delete('/settings/invitations/{invitation}', 'Settings\Teams\MailedInvitationController@destroy');
 
-        $router->put('/settings/'.$pluralTeamString.'/{team}/members/{team_member}', 'Settings\Teams\TeamMemberController@update');
-        $router->delete('/settings/'.$pluralTeamString.'/{team}/members/{team_member}', 'Settings\Teams\TeamMemberController@destroy');
-        $router->delete('/settings/'.$pluralTeamString.'/{team}', 'Settings\Teams\TeamController@destroy');
-        $router->get('/'.$pluralTeamString.'/{team}/switch', 'TeamController@switchCurrentTeam');
+        $router->put('/settings/' . $pluralTeamString . '/{team}/members/{team_member}', 'Settings\Teams\TeamMemberController@update');
+        $router->delete('/settings/' . $pluralTeamString . '/{team}/members/{team_member}', 'Settings\Teams\TeamMemberController@destroy');
+        $router->delete('/settings/' . $pluralTeamString . '/{team}', 'Settings\Teams\TeamController@destroy');
+        $router->get('/' . $pluralTeamString . '/{team}/switch', 'TeamController@switchCurrentTeam');
 
         // Billing
 
         // Subscription Settings...
-        $router->post('/settings/'.$pluralTeamString.'/{team}/subscription', 'Settings\Teams\Subscription\PlanController@store');
-        $router->put('/settings/'.$pluralTeamString.'/{team}/subscription', 'Settings\Teams\Subscription\PlanController@update');
-        $router->delete('/settings/'.$pluralTeamString.'/{team}/subscription', 'Settings\Teams\Subscription\PlanController@destroy');
+        $router->post('/settings/' . $pluralTeamString . '/{team}/subscription', 'Settings\Teams\Subscription\PlanController@store');
+        $router->put('/settings/' . $pluralTeamString . '/{team}/subscription', 'Settings\Teams\Subscription\PlanController@update');
+        $router->delete('/settings/' . $pluralTeamString . '/{team}/subscription', 'Settings\Teams\Subscription\PlanController@destroy');
 
         // VAT ID Settings...
-        $router->put('/settings/'.$pluralTeamString.'/{team}/payment-method/vat-id', 'Settings\Teams\PaymentMethod\VatIdController@update');
+        $router->put('/settings/' . $pluralTeamString . '/{team}/payment-method/vat-id', 'Settings\Teams\PaymentMethod\VatIdController@update');
 
         // Credit Card Settings...
-        $router->put('/settings/'.$pluralTeamString.'/{team}/payment-method', 'Settings\Teams\PaymentMethod\PaymentMethodController@update');
+        $router->put('/settings/' . $pluralTeamString . '/{team}/payment-method', 'Settings\Teams\PaymentMethod\PaymentMethodController@update');
 
         // Redeem Coupon...
-        $router->post('/settings/'.$pluralTeamString.'/{team}/payment-method/coupon', 'Settings\Teams\PaymentMethod\RedeemCouponController@redeem');
+        $router->post('/settings/' . $pluralTeamString . '/{team}/payment-method/coupon', 'Settings\Teams\PaymentMethod\RedeemCouponController@redeem');
 
         // Billing History...
         $router->put(
-            '/settings/'.$pluralTeamString.'/{team}/extra-billing-information',
+            '/settings/' . $pluralTeamString . '/{team}/extra-billing-information',
             'Settings\Teams\Billing\BillingInformationController@update'
         );
 
         // Coupons...
-        $router->get('/coupon/'.$teamString.'/{id}', 'TeamCouponController@current');
+        $router->get('/coupon/' . $teamString . '/{id}', 'TeamCouponController@current');
 
         // Invoices...
-        $router->get('/settings/'.$pluralTeamString.'/{team}/invoices', 'Settings\Teams\Billing\InvoiceController@all');
-        $router->get('/settings/'.$pluralTeamString.'/{team}/invoice/{id}', 'Settings\Teams\Billing\InvoiceController@download');
+        $router->get('/settings/' . $pluralTeamString . '/{team}/invoices', 'Settings\Teams\Billing\InvoiceController@all');
+        $router->get('/settings/' . $pluralTeamString . '/{team}/invoice/{id}', 'Settings\Teams\Billing\InvoiceController@download');
     }
 
     // Security Settings...

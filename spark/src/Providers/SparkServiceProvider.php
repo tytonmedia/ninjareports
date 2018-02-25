@@ -2,21 +2,21 @@
 
 namespace Laravel\Spark\Providers;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\ServiceProvider;
+use Intervention\Image\ImageManager;
+use Laravel\Spark\Console\Commands\InstallCommand;
+use Laravel\Spark\Console\Commands\StorePerformanceIndicatorsCommand;
+use Laravel\Spark\Console\Commands\UpdateCommand;
+use Laravel\Spark\Console\Commands\UpdateViewsCommand;
+use Laravel\Spark\Console\Commands\VersionCommand;
 use Laravel\Spark\Spark;
 use Laravel\Spark\TokenGuard;
-use Illuminate\Support\Facades\Auth;
-use Intervention\Image\ImageManager;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Validator;
+use Laravel\Spark\Validation\CountryValidator;
 use Laravel\Spark\Validation\StateValidator;
 use Laravel\Spark\Validation\VatIdValidator;
-use Laravel\Spark\Validation\CountryValidator;
-use Laravel\Spark\Console\Commands\InstallCommand;
-use Laravel\Spark\Console\Commands\UpdateCommand;
-use Laravel\Spark\Console\Commands\VersionCommand;
-use Laravel\Spark\Console\Commands\UpdateViewsCommand;
-use Laravel\Spark\Console\Commands\StorePerformanceIndicatorsCommand;
 
 class SparkServiceProvider extends ServiceProvider
 {
@@ -31,9 +31,9 @@ class SparkServiceProvider extends ServiceProvider
 
         $this->defineResources();
 
-        Validator::extend('state', StateValidator::class.'@validate');
-        Validator::extend('country', CountryValidator::class.'@validate');
-        Validator::extend('vat_id', VatIdValidator::class.'@validate');
+        Validator::extend('state', StateValidator::class . '@validate');
+        Validator::extend('country', CountryValidator::class . '@validate');
+        Validator::extend('vat_id', VatIdValidator::class . '@validate');
 
         Auth::viaRequest('spark', function ($request) {
             return app(TokenGuard::class)->user($request);
@@ -52,11 +52,11 @@ class SparkServiceProvider extends ServiceProvider
         // If the routes have not been cached, we will include them in a route group
         // so that all of the routes will be conveniently registered to the given
         // controller namespace. After that we will load the Spark routes file.
-        if (! $this->app->routesAreCached()) {
+        if (!$this->app->routesAreCached()) {
             Route::group([
                 'namespace' => 'Laravel\Spark\Http\Controllers'],
                 function ($router) {
-                    require __DIR__.'/../Http/routes.php';
+                    require __DIR__ . '/../Http/routes.php';
                 }
             );
         }
@@ -81,9 +81,9 @@ class SparkServiceProvider extends ServiceProvider
      */
     protected function defineResources()
     {
-        $this->loadViewsFrom(SPARK_PATH.'/resources/views', 'spark');
+        $this->loadViewsFrom(SPARK_PATH . '/resources/views', 'spark');
 
-        $this->loadTranslationsFrom(SPARK_PATH.'/resources/lang', 'spark');
+        $this->loadTranslationsFrom(SPARK_PATH . '/resources/lang', 'spark');
 
         if ($this->app->runningInConsole()) {
             $this->defineViewPublishing();
@@ -102,7 +102,7 @@ class SparkServiceProvider extends ServiceProvider
     public function defineViewPublishing()
     {
         $this->publishes([
-            SPARK_PATH.'/resources/views' => resource_path('views/vendor/spark'),
+            SPARK_PATH . '/resources/views' => resource_path('views/vendor/spark'),
         ], 'spark-views');
     }
 
@@ -114,11 +114,11 @@ class SparkServiceProvider extends ServiceProvider
     public function defineAssetPublishing()
     {
         $this->publishes([
-            SPARK_PATH.'/resources/assets/js' => resource_path('assets/js/spark'),
+            SPARK_PATH . '/resources/assets/js' => resource_path('assets/js/spark'),
         ], 'spark-js');
 
         $this->publishes([
-            SPARK_PATH.'/resources/assets/less' => resource_path('assets/less/spark'),
+            SPARK_PATH . '/resources/assets/less' => resource_path('assets/less/spark'),
         ], 'spark-less');
     }
 
@@ -130,9 +130,9 @@ class SparkServiceProvider extends ServiceProvider
     public function defineFullPublishing()
     {
         $this->publishes([
-            SPARK_PATH.'/resources/views' => resource_path('views/vendor/spark'),
-            SPARK_PATH.'/resources/assets/js' => resource_path('assets/js/spark'),
-            SPARK_PATH.'/resources/assets/less' => resource_path('assets/less/spark'),
+            SPARK_PATH . '/resources/views' => resource_path('views/vendor/spark'),
+            SPARK_PATH . '/resources/assets/js' => resource_path('assets/js/spark'),
+            SPARK_PATH . '/resources/assets/less' => resource_path('assets/less/spark'),
         ], 'spark-full');
     }
 
@@ -143,11 +143,11 @@ class SparkServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if (! defined('SPARK_PATH')) {
-            define('SPARK_PATH', realpath(__DIR__.'/../../'));
+        if (!defined('SPARK_PATH')) {
+            define('SPARK_PATH', realpath(__DIR__ . '/../../'));
         }
 
-        if (! class_exists('Spark')) {
+        if (!class_exists('Spark')) {
             class_alias('Laravel\Spark\Spark', 'Spark');
         }
 
@@ -200,6 +200,7 @@ class SparkServiceProvider extends ServiceProvider
             'Contracts\Interactions\Auth\CreateUser' => 'Interactions\Auth\CreateUser',
             'Contracts\Interactions\Auth\Register' => 'Interactions\Auth\Register',
             'Contracts\Interactions\Settings\Profile\UpdateProfilePhoto' => 'Interactions\Settings\Profile\UpdateProfilePhoto',
+            'Contracts\Interactions\Settings\Profile\UpdateLogo' => 'Interactions\Settings\Profile\UpdateLogo',
             'Contracts\Interactions\Settings\Profile\UpdateContactInformation' => 'Interactions\Settings\Profile\UpdateContactInformation',
             'Contracts\Interactions\Settings\Profile\UpdateTimezone' => 'Interactions\Settings\Profile\UpdateTimezone',
             'Contracts\Interactions\Settings\Teams\CreateTeam' => 'Interactions\Settings\Teams\CreateTeam',
@@ -215,7 +216,7 @@ class SparkServiceProvider extends ServiceProvider
         ];
 
         foreach ($services as $key => $value) {
-            $this->app->singleton('Laravel\Spark\\'.$key, 'Laravel\Spark\\'.$value);
+            $this->app->singleton('Laravel\Spark\\' . $key, 'Laravel\Spark\\' . $value);
         }
     }
 
@@ -227,10 +228,10 @@ class SparkServiceProvider extends ServiceProvider
     protected function registerAuthyService()
     {
         $this->app->when('Laravel\Spark\Services\Security\Authy')
-                ->needs('$key')
-                ->give(function () {
-                    return config('services.authy.secret');
-                });
+            ->needs('$key')
+            ->give(function () {
+                return config('services.authy.secret');
+            });
     }
 
     /**
@@ -253,8 +254,8 @@ class SparkServiceProvider extends ServiceProvider
     private function registerApiTokenRepository()
     {
         $concrete = class_exists('Laravel\Passport\Passport')
-                        ? 'Laravel\Spark\Repositories\PassportTokenRepository'
-                        : 'Laravel\Spark\Repositories\TokenRepository';
+        ? 'Laravel\Spark\Repositories\PassportTokenRepository'
+        : 'Laravel\Spark\Repositories\TokenRepository';
 
         $this->app->singleton('Laravel\Spark\Contracts\Repositories\TokenRepository', $concrete);
     }

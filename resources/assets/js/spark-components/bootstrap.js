@@ -21,6 +21,7 @@ require('./settings/settings');
  */
 require('./settings/profile');
 require('./settings/profile/update-profile-photo');
+require('./settings/profile/update-logo');
 require('./settings/profile/update-contact-information');
 require('./settings/profile/update-timezone');
 

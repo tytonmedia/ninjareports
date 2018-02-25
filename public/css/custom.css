@@ -19,29 +19,3 @@ h2.title {
     padding: 10px 45px;
     font-size: 16px;
 }
-
-.accounts_connect_table img {
-    max-width: 35px;
-}
-
-.custom-readonly.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
-    background-color: #fff;
-    opacity: 1;
-}
-
-.default-text-color {
-    color: #1e90ff
-}
-
-.default-background-color {
-    color: #fff;
-    background: #1e90ff
-}
-
-.reports_table.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
-    padding: 14px;
-}
-
-.margin-top-5 {
-    margin-top: 5px;
-}

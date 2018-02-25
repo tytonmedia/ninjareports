@@ -8,5 +8,8 @@
 
         <!-- Update Timezone -->
         @include('spark::settings.profile.update-timezone')
+
+        <!-- Update Logo -->
+        @include('spark::settings.profile.update-logo')
     </div>
 </spark-profile>
