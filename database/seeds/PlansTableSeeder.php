@@ -15,16 +15,25 @@ class PlansTableSeeder extends Seeder
         if (!$free_trial) {
             DB::table('plans')->insert([
                 'title' => 'free_trial',
-                'reports' => 50,
+                'reports' => 15,
                 'is_csv' => 0,
                 'is_pdf' => 0,
+            ]);
+        }
+         $personal = DB::table('plans')->where('title', 'personal')->first();
+        if (!$personal) {
+            DB::table('plans')->insert([
+                'title' => 'personal',
+                'reports' => 50,
+                'is_csv' => 1,
+                'is_pdf' => 1,
             ]);
         }
         $business = DB::table('plans')->where('title', 'business')->first();
         if (!$business) {
             DB::table('plans')->insert([
                 'title' => 'business',
-                'reports' => 500,
+                'reports' => 300,
                 'is_csv' => 1,
                 'is_pdf' => 1,
             ]);
@@ -33,7 +42,7 @@ class PlansTableSeeder extends Seeder
         if (!$premium) {
             DB::table('plans')->insert([
                 'title' => 'premium',
-                'reports' => 750,
+                'reports' => 800,
                 'is_csv' => 1,
                 'is_pdf' => 1,
             ]);
@@ -42,7 +51,7 @@ class PlansTableSeeder extends Seeder
         if (!$white_label) {
             DB::table('plans')->insert([
                 'title' => 'white_label',
-                'reports' => 2000,
+                'reports' => 1500,
                 'is_csv' => 1,
                 'is_pdf' => 1,
             ]);
