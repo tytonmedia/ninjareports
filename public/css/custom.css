@@ -37,12 +37,13 @@ html {
   bottom: 0;
   margin-top:50px;
   width: 100%;
-padding: 30px 0 20px 0;
+padding: 20px 0 15px 0;
   background-color: #333;
   color:#777;
 }
 .footer a, .footer {color:#ccc;}
-.copyright {text-align:center;font-size:13px;color:#888;padding:10px 0 0 0 ;}
+.copyright {text-align:center;font-size:13px;color:#888;padding:15px 0 0 0 ;border-top: 1px solid #444;}
+.copyright p {margin-bottom:0;}
 .panel-default {   border-color: #ddd;}
 .panel-default>.panel-heading {
     color: #333;
@@ -67,6 +68,8 @@ padding: 30px 0 20px 0;
 .btn-create-report {background-color:#1080F2;}
 .social-links {list-style-type:none;margin: 0;padding: 0;}
 .social-links li {display:inline-block;padding:0  15px 0 0;}
+.social-links li:first-child {position: relative;
+    top: -2px;}
 .social-links li a {}
 .register-btn-top {
     background: #1080F2;
@@ -83,3 +86,35 @@ padding: 30px 0 20px 0;
     border-radius: 25px;
     color: #fff !important;}
 div.error {display:block;color:#f00;}
+.footer-row {padding:0px 0px 15px 0;}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+/* Styles */
+footer.footer .socials, footer.footer .footer-right-container{text-align:center !important;}
+.footer-right-container {margin:10px 0;}
+}
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width : 321px) {
+/* Styles */
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 320px) {
+/* Styles */
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+/* Styles */
+}
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+/* Styles */
+}
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+/* Styles */
+}

@@ -72,9 +72,10 @@
     </div>
   <footer class="footer">
       <div class="container">
-        <div class="row">
-             <div class="col-md-6" style="text-align:left;">
+        <div class="row footer-row">
+             <div class="col-md-6 socials" style="text-align:left;">
               <ul class="social-links">
+                <li><a href="https://www.ninjareports.com/"><img src="{{{ asset('img/ninja_small.png') }}}" alt="ninja reports"/></a></li>
                   <li><a target="_blank" href="https://www.facebook.com/ninjareports/">Facebook</a></li>
                   <li><a target="_blank" href="https://twitter.com/ninja_reports">Twitter</a></li>
                   <li><a target="_blank" href="https://www.youtube.com/channel/UCcjm2lXhxAYGoKS1nCe3vIQ">Youtube</a></li>
@@ -82,7 +83,7 @@
                   <li><a href="https://www.ninjareports.com/blog/">Blog</a></li>
               </ul>
             </div>
-                   <div class="col-md-6" style="text-align:right;">
+                   <div class="col-md-6 footer-right-container" style="text-align:right;">
                     <a href="https://ninjareports.zendesk.com/hc/en-us">Support</a>  |
                     <a href="https://www.ninjareports.com/terms-conditions/">Terms &amp; conditions</a>  |  <a href="https://www.ninjareports.com/privacy-policy/">Privacy policy</a>
                 </div>
