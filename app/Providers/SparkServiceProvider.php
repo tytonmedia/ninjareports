@@ -53,31 +53,31 @@ class SparkServiceProvider extends ServiceProvider
         Spark::plan('Free Trial', 'free_trial')
             ->price(0.00)
             ->features([
-                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '15 Reports',
+                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '15 Reports/month',
             ]);
 
          Spark::plan('Personal', 'personal')
             ->price(10.00)
             ->features([
-                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '50 Reports',
+                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '50 Reports/month',
             ]);    
 
         Spark::plan('Business', 'business')
             ->price(50.00)
             ->features([
-                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '300 Reports', 'Support', 'PDF & CSV Attachments',
+                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '300 Reports/month', 'Support', 'PDF & CSV Attachments',
             ]);
 
         Spark::plan('Premium', 'premium')
             ->price(100.00)
             ->features([
-                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '800 Reports', 'Support', 'PDF & CSV Attachments',
+                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '800 Reports/month', 'Support', 'PDF & CSV Attachments',
             ]);
 
         Spark::plan('White Label', 'white_label')
             ->price(150.00)
             ->features([
-                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '1500 Reports', 'Support', 'PDF & CSV Attachments', 'Your Own Logo on Reports',
+                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '1500 Reports/month', 'Support', 'PDF & CSV Attachments', 'Your Own Logo on Reports',
             ]);
     }
 }
