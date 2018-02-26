@@ -40,5 +40,10 @@ padding: 30px 0 20px 0;
 .copyright {text-align:center;}
 
 .panel-default {   border-color: #ddd;}
+.panel-default>.panel-heading {
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
 
 .register-btn {background:#1080F2}
