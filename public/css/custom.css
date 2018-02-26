@@ -3,7 +3,7 @@ h2.title {
     font-weight: bold;
 }
 .navbar-icon {
-    color: #1080F2 ;
+    color: #333 ;
 }
 .btn-black {
     background: #000;
@@ -20,7 +20,7 @@ h2.title {
 }
 
 .btn-create-report {
-    padding: 10px 45px;
+    padding: 6px 30px;
     font-size: 16px;
 }
 body {
@@ -60,7 +60,7 @@ padding: 30px 0 20px 0;
 .greeting-button {float:right;}
 .panel-accounts h1 {font-size: 32px;
     margin-top: 5px;
-    font-weight: bold;}
+    font-weight: bold;color:#333;}
 .upgrade-btn {background:#1bc51b;color:#fff;border-radius: 25px;}
 .upgrade-btn:hover {color:#fff;background-color:#1bc51b;}
 .btn-create-report {background-color:#1080F2;}

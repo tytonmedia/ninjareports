@@ -27,3 +27,7 @@
    .spark-settings-stacked-tabs li.active a {
     border-left: 3px solid #1080F2;
 }
+
+.navbar-inverse .navbar-nav>li>a:hover {
+    color: #1080F2;
+    }
