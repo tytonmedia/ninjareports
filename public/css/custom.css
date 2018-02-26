@@ -1,18 +1,22 @@
+h1, h2, h3, h4, h5 {font-family: "Roboto", sans-serif;}
 h2.title {
     font-weight: bold;
 }
-
+.navbar-icon {
+    color: #1080F2 ;
+}
 .btn-black {
     background: #000;
     color: #fff;
     border-radius: 0;
     padding: 6px 12px;
-    text-transform: capitalize;
+    border-radius:25px;
 }
 
 .btn-black:hover,
 .btn-black:focus {
     color: #fff;
+    background:#333;
 }
 
 .btn-create-report {
@@ -38,12 +42,25 @@ padding: 30px 0 20px 0;
 }
 .footer a {color:#777;}
 .copyright {text-align:center;}
-
 .panel-default {   border-color: #ddd;}
 .panel-default>.panel-heading {
     color: #333;
     background-color: #f5f5f5;
     border-color: #ddd;
 }
-
 .register-btn {background:#1080F2}
+.navbar-inverse, .navbar-inverse .navbar-toggle {
+    border-color: #ddd;
+} 
+.accounts_connect_table td img {max-height: 50px;}
+.accounts_connect_table td a {width: 120px;}
+.empty-table {padding: 50px 0;
+    background: #fff;
+    font-size: 18px;}
+    .greeting-button {float:right;}
+    .panel-accounts h1 {font-size: 32px;
+    margin-top: 5px;
+    font-weight: bold;}
+    .upgrade-btn {background:#1bc51b;color:#fff;border-radius: 25px;}
+    .upgrade-btn:hover {color:#fff;background-color:#1bc51b;}
+    .btn-create-report {background-color:#1080F2;}

@@ -6,15 +6,16 @@
 			<div class="panel panel-default panel-accounts">
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<h2 class="title">Connect Accounts</h2>
-							<i>This is where you can integrate your favorite online applications with Ninja Reports. Click Add Integration to allow Ninja Reports to access your account data.</i>
-						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6 text-right greeting-button">
-							<button class="btn btn-black nr_connect_accounts_button">Add Integration
+						<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="greeting-button">
+							<button class="btn upgrade-btn nr_connect_accounts_button"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Integration
 								<span class="nr-loader fa fa-spin fa-spinner margin-left-5 hidden"></span>
 							</button>
 						</div>
+							<h1 class="title">Connect Accounts</h1>
+							<p class="">This is where you can integrate your favorite online applications with Ninja Reports. Click Add Integration to allow Ninja Reports to access your account data.</p>
+						</div>
+					
 					</div>
 					<div class="connect_accounts_modal_section"></div>
 					<hr/> @if($accounts && count($accounts) > 0)
@@ -55,7 +56,7 @@
 						</div>
 					</div>
 					@else
-					<div class="text-center">No Account Connected.</div>
+					<div class="text-center empty-table">No Account Connected.</div>
 					@endif
 				</div>
 			</div>

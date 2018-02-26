@@ -6,12 +6,14 @@
 			<div class="panel panel-default panel-accounts">
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<h2 class="title">Reports</h2>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class=" greeting-button">
+							<a href="{{ route('reports.create') }}"  onClick="ga('send','event','button', 'click', 'create_report');" class="btn btn-black btn-create-report">Create Report&nbsp;&nbsp;<i class="fa fa-caret-right" aria-hidden="true"></i></a>
 						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6 text-right greeting-button">
-							<a href="{{ route('reports.create') }}" class="btn btn-black btn-create-report">Create Report</a>
+							<h1 class="title">Reports</h1>
+							<p>Create, view and edit your email reports below. Click create report to build an automated email report.</p>
 						</div>
+						
 					</div>
 					<hr/> @if($all_reports && count($all_reports) > 0)
 					<div class="row">
@@ -70,7 +72,7 @@
 						</div>
 					</div>
 					@else
-					<div class="text-center">No reports created yet.</div>
+					<div class="text-center empty-table">No reports created yet.</div>
 					@endif
 				</div>
 			</div>

@@ -8,14 +8,14 @@
 					<div class="panel-body">
 						<div class="row greetings">
 							<div class="col-md-8 col-sm-8 col-xs-12">
-								<h2 class="title">Good Day, {{ auth()->user()->name }}!</h2>
+								<h1 class="title">Good Day, {{ auth()->user()->name }}!</h1>
 								<p>Welcome to your account dashboard. To get started, integrate an app and click the create report button.</p>
 							</div>
 							<div class="col-md-4 col-sm-4 col-xs-12 text-right greeting-button">
 								@if($active_accounts > 0)
-								<a href="{{ route('reports.create') }}" class="btn btn-black btn-create-report">Create Report</a>
+								<a href="{{ route('reports.create') }}" class="btn btn-black btn-create-report">Create Report &nbsp;&nbsp;<i class="fa fa-caret-right" aria-hidden="true"></i></a>
 								@else
-								<button class="btn btn-black btn-create-report nr_connect_accounts_button">Create Report
+								<button class="btn btn-black btn-create-report nr_connect_accounts_button">Create Report&nbsp;&nbsp;<i class="fa fa-caret-right" aria-hidden="true"></i>
 									<span class="nr-loader fa fa-spin fa-spinner margin-left-5 hidden"></span</button>
 										@endif
 							</div>
@@ -33,7 +33,7 @@
 								<p>
 								Integrate your favorite online applications with Ninja Reports and schedule daily, weekly or monthly reports. Click Add Integration to allow Ninja Reports to access your account data and starting automating your reports.
 								</p>
-								<button class="btn btn-black nr_connect_accounts_button">Add Integration
+								<button class="btn btn-black nr_connect_accounts_button"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Integration
 									<span class="nr-loader fa fa-spin fa-spinner margin-left-5 hidden"></span>
 								</button>
 							</div>
@@ -52,6 +52,7 @@
 									<h4 class="title">Plan Usage</h4>
 									<p>
 										<b>{{ $reports_sent_count }}</b> of {{ $plan->reports }} Reports Sent
+										<b>{{ $reports_sent_count }}</b> of {{ $plan['reports'] }} Reports Sent
 									</p>
 								</div>
 							</div>
@@ -77,10 +78,14 @@
 										<span>Current Plan: {{ ucfirst(str_replace('_', ' ', $plan->title)) }}</span>
 										@if($plan->title != 'white_label')
 											<a href="{{ url('settings#/subscription') }}" class="btn btn-black pull-right">Upgrade</a>
+										<span>Current Plan: {{ ucfirst(str_replace('_', ' ', $plan['title'])) }}</span>
+										@if($plan['title'] != 'white_label')
+											<a href="{{ url('settings#/subscription') }}" class="btn btn-black pull-right upgrade-btn" onClick="ga('send','event','button', 'click', 'upgrade');">Upgrade</a>
 										@endif
 									</div>
 									<p>
 										{{ $plan->reports }} Reports/Month
+										{{ $plan['reports'] }} Reports/Month
 									</p>
 								</div>
 							</div>
@@ -103,6 +108,7 @@
       datasets: [{
         backgroundColor: ["#1e90ff", "#00bfff"],
         data: [{{ $reports_sent_count }},{{ $plan->reports }}]
+        data: [{{ $reports_sent_count }},{{ $plan['reports'] }}]
       }]
     }
 });

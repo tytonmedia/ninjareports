@@ -5,7 +5,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Create Connection</h4>
+				<h4 class="modal-title">Add Integration</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
@@ -35,6 +35,20 @@
 									<td>Google Adwords</td>
 									<td>{!! in_array('adword', $accounts) ? '<button class="btn btn-xs btn-default">Connected</button>':'
 										<a class="btn btn-xs btn-black" href="'.route('connect.adwords').'">Connect</a>' !!}</td>
+								</tr>
+									<tr>
+									<td>
+										<img src="{{ asset('img/salesforce.png') }}" />
+									</td>
+									<td>Salesforce</td>
+									<td><button disabled="disabled" class="btn btn-xs btn-default">Coming Soon...</button></td>
+								</tr>
+								<tr>
+									<td>
+										<img src="{{ asset('img/quickbooks.png') }}" />
+									</td>
+									<td>Quickbooks</td>
+									<td><button disabled="disabled" class="btn btn-xs btn-default">Coming Soon...</button></td>
 								</tr>
 							</tbody>
 						</table>
