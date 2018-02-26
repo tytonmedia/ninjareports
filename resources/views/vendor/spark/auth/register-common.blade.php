@@ -97,12 +97,7 @@
                                 </div>
                             </td>
 
-                            <!-- Plan Features Button -->
-                            <td>
-                                <button class="btn btn-default m-l-sm" @click="showPlanDetails(plan)">
-                                    <i class="fa fa-btn fa-star-o"></i>Plan Features
-                                </button>
-                            </td>
+                        
 
                             <!-- Plan Price -->
                             <td>
@@ -132,6 +127,12 @@
 
                                 <button class="btn btn-primary-outline btn-plan" @click="selectPlan(plan)" v-else>
                                     Select
+                                </button>
+                            </td>
+                               <!-- Plan Features Button -->
+                            <td class="text-right">
+                                <button class="btn btn-default m-l-sm" @click="showPlanDetails(plan)">
+                                    <i class="fa fa-btn fa-star-o"></i>Plan Features
                                 </button>
                             </td>
                         </tr>
