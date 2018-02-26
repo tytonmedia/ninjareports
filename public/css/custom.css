@@ -19,3 +19,26 @@ h2.title {
     padding: 10px 45px;
     font-size: 16px;
 }
+body {
+    margin-bottom: 100px;
+    background:#f8f8f8;
+}
+html {
+  position: relative;
+  min-height: 100%;
+}
+.footer {
+	position:absolute;
+  bottom: 0;
+  margin-top:50px;
+  width: 100%;
+padding: 30px 0 20px 0;
+  background-color: #333;
+  color:#777;
+}
+.footer a {color:#777;}
+.copyright {text-align:center;}
+
+.panel-default {   border-color: #ddd;}
+
+.register-btn {background:#1080F2}

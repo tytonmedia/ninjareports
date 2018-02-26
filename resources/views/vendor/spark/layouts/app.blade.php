@@ -31,16 +31,7 @@
 )); ?>;
         var canRunAds = true;
     </script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-79012395-19"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-79012395-19');
-</script>
-
+{!! Analytics::render() !!}
 </head>
 <body class="with-navbar">
     <script>
@@ -67,7 +58,25 @@
             @include('spark::modals.session-expired')
         @endif
     </div>
-
+  <footer class="footer">
+      <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+            </div>
+             <div class="col-md-6">
+            </div>
+        </div>
+        <div class="row copyright">
+             <div class="col-md-6">
+                <p>Copyright 2018 © Ninja Reports - <i>A Tyton Media Company</i></p>
+            </div>
+                   <div class="col-md-6">
+                    <a href="https://www.ninjareports.com/terms-conditions/">Terms &amp; conditions</a>  |  <a href="https://www.ninjareports.com/privacy-policy/">Privacy policy</a>
+                </div>
+            </div>
+        </div>
+      </div>
+    </footer>
     <!-- JavaScript -->
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="/js/sweetalert.min.js"></script>

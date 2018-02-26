@@ -2,3 +2,19 @@
     color: #000;
     font-weight: bold;
 }
+
+.btn-primary {
+    color: #fff;
+    background-color: #1080F2;
+}
+
+.btn-link {
+    color: #1080F2;
+    font-weight: 400;
+    border-radius: 0;
+}
+
+.btn-primary-outline {
+    color: #1080F2;
+
+   }
