@@ -12,7 +12,7 @@
 								<span class="nr-loader fa fa-spin fa-spinner margin-left-5 hidden"></span>
 							</button>
 						</div>
-							<h1 class="title">Connect Accounts</h1>
+							<h1 class="title">Integrations</h1>
 							<p class="">This is where you can integrate your favorite online applications with Ninja Reports. Click Add Integration to allow Ninja Reports to access your account data.</p>
 						</div>
 					
@@ -56,7 +56,7 @@
 						</div>
 					</div>
 					@else
-					<div class="text-center empty-table">No Account Connected.</div>
+					<div class="text-center empty-table">No Integrations.</div>
 					@endif
 				</div>
 			</div>

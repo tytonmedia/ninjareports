@@ -76,7 +76,7 @@
                   <li><a target="_blank" href="https://www.facebook.com/ninjareports/">Facebook</a></li>
                   <li><a target="_blank" href="https://twitter.com/ninja_reports">Twitter</a></li>
                   <li><a target="_blank" href="https://www.youtube.com/channel/UCcjm2lXhxAYGoKS1nCe3vIQ">Youtube</a></li>
-                   <li><a target="_blank" href="https://www.linkedin.com/company/ninja-reports">Youtube</a></li>
+                   <li><a target="_blank" href="https://www.linkedin.com/company/ninja-reports">LinkedIn</a></li>
                   <li><a href="https://www.ninjareports.com/blog/">Blog</a></li>
               </ul>
             </div>
