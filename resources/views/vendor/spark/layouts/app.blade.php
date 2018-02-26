@@ -71,19 +71,25 @@
   <footer class="footer">
       <div class="container">
         <div class="row">
-            <div class="col-md-6">
+             <div class="col-md-6" style="text-align:left;">
+              <ul class="social-links">
+                  <li><a target="_blank" href="https://www.facebook.com/ninjareports/">Facebook</a></li>
+                  <li><a target="_blank" href="https://twitter.com/ninja_reports">Twitter</a></li>
+                  <li><a target="_blank" href="https://www.youtube.com/channel/UCcjm2lXhxAYGoKS1nCe3vIQ">Youtube</a></li>
+                   <li><a target="_blank" href="https://www.linkedin.com/company/ninja-reports">Youtube</a></li>
+                  <li><a href="https://www.ninjareports.com/blog/">Blog</a></li>
+              </ul>
             </div>
-             <div class="col-md-6">
-            </div>
-        </div>
-        <div class="row copyright">
-             <div class="col-md-6">
-                <p>Copyright 2018 © Ninja Reports - <i>A Tyton Media Company</i></p>
-            </div>
-                   <div class="col-md-6">
+                   <div class="col-md-6" style="text-align:right;">
+                    <a href="https://ninjareports.zendesk.com/hc/en-us">Support</a>  |
                     <a href="https://www.ninjareports.com/terms-conditions/">Terms &amp; conditions</a>  |  <a href="https://www.ninjareports.com/privacy-policy/">Privacy policy</a>
                 </div>
             </div>
+             <div class="row copyright">
+                  <div class="col-md-12" style="text-align:center;">
+                      <p>Copyright 2018 © Ninja Reports - <i>A Tyton Media Company</i></p>
+             </div>
+         </div>
         </div>
       </div>
     </footer>

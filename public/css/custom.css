@@ -40,8 +40,8 @@ padding: 30px 0 20px 0;
   background-color: #333;
   color:#777;
 }
-.footer a {color:#777;}
-.copyright {text-align:center;}
+.footer a, .footer {color:#ccc;}
+.copyright {text-align:center;font-size:13px;color:#888;padding:10px 0 0 0 ;}
 .panel-default {   border-color: #ddd;}
 .panel-default>.panel-heading {
     color: #333;
@@ -52,15 +52,18 @@ padding: 30px 0 20px 0;
 .navbar-inverse, .navbar-inverse .navbar-toggle {
     border-color: #ddd;
 } 
-.accounts_connect_table td img {max-height: 50px;}
+.accounts_connect_table td img {max-height: 30px;}
 .accounts_connect_table td a {width: 120px;}
 .empty-table {padding: 50px 0;
     background: #fff;
     font-size: 18px;}
-    .greeting-button {float:right;}
-    .panel-accounts h1 {font-size: 32px;
+.greeting-button {float:right;}
+.panel-accounts h1 {font-size: 32px;
     margin-top: 5px;
     font-weight: bold;}
-    .upgrade-btn {background:#1bc51b;color:#fff;border-radius: 25px;}
-    .upgrade-btn:hover {color:#fff;background-color:#1bc51b;}
-    .btn-create-report {background-color:#1080F2;}
+.upgrade-btn {background:#1bc51b;color:#fff;border-radius: 25px;}
+.upgrade-btn:hover {color:#fff;background-color:#1bc51b;}
+.btn-create-report {background-color:#1080F2;}
+.social-links {list-style-type:none;margin: 0;padding: 0;}
+.social-links li {display:inline-block;padding:0  15px 0 0;}
+.social-links li a {}
