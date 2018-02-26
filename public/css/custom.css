@@ -67,3 +67,17 @@ padding: 30px 0 20px 0;
 .social-links {list-style-type:none;margin: 0;padding: 0;}
 .social-links li {display:inline-block;padding:0  15px 0 0;}
 .social-links li a {}
+.register-btn-top {
+    background: #1080F2;
+    height: auto !important;
+    margin: 15px 30px 0px 30px;
+    padding: 9px 25px !important;
+    border-radius: 25px;
+    color: #fff !important;
+}
+.register-btn-top:hover { background: #0e66c0;
+    height: auto !important;
+    margin-top: 15px;
+    padding: 9px 25px !important;
+    border-radius: 25px;
+    color: #fff !important;}
