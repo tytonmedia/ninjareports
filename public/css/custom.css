@@ -12,7 +12,7 @@ h2.title {
     padding: 6px 12px;
     border-radius:25px;
 }
-.btn { border-radius:25px;}
+.btn {border-radius:25px;}
 .btn-black:hover,
 .btn-black:focus {
     color: #fff;
@@ -81,4 +81,4 @@ padding: 30px 0 20px 0;
     padding: 9px 25px !important;
     border-radius: 25px;
     color: #fff !important;}
-    div.error {display:block;color:#f00;}
+div.error {display:block;color:#f00;}
