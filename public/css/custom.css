@@ -12,7 +12,7 @@ h2.title {
     padding: 6px 12px;
     border-radius:25px;
 }
-
+.btn { border-radius:25px;}
 .btn-black:hover,
 .btn-black:focus {
     color: #fff;
@@ -53,7 +53,7 @@ padding: 30px 0 20px 0;
     border-color: #ddd;
 } 
 .accounts_connect_table td img {max-height: 30px;}
-.accounts_connect_table td a {width: 120px;}
+.accounts_connect_table td a {}
 .empty-table {padding: 50px 0;
     background: #fff;
     font-size: 18px;}
@@ -75,9 +75,10 @@ padding: 30px 0 20px 0;
     border-radius: 25px;
     color: #fff !important;
 }
-.register-btn-top:hover { background: #0e66c0;
+.register-btn-top:hover { background: #0e66c0 !important;
     height: auto !important;
     margin-top: 15px;
     padding: 9px 25px !important;
     border-radius: 25px;
     color: #fff !important;}
+    div.error {display:block;color:#f00;}
