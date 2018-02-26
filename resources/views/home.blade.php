@@ -51,7 +51,6 @@
 								<div class="main-content">
 									<h4 class="title">Plan Usage</h4>
 									<p>
-										<b>{{ $reports_sent_count }}</b> of {{ $plan->reports }} Reports Sent
 										<b>{{ $reports_sent_count }}</b> of {{ $plan['reports'] }} Reports Sent
 									</p>
 								</div>
@@ -75,9 +74,6 @@
 							<div class="col-md-12">
 								<div class="main-content">
 									<div class="h4 title">
-										<span>Current Plan: {{ ucfirst(str_replace('_', ' ', $plan->title)) }}</span>
-										@if($plan->title != 'white_label')
-											<a href="{{ url('settings#/subscription') }}" class="btn btn-black pull-right">Upgrade</a>
 										<span>Current Plan: {{ ucfirst(str_replace('_', ' ', $plan['title'])) }}</span>
 										@if($plan['title'] != 'white_label')
 											<a href="{{ url('settings#/subscription') }}" class="btn btn-black pull-right upgrade-btn" onClick="ga('send','event','button', 'click', 'upgrade');">Upgrade</a>
@@ -107,7 +103,6 @@
       labels: ["Sent", "Remaining"],
       datasets: [{
         backgroundColor: ["#1e90ff", "#00bfff"],
-        data: [{{ $reports_sent_count }},{{ $plan->reports }}]
         data: [{{ $reports_sent_count }},{{ $plan['reports'] }}]
       }]
     }
