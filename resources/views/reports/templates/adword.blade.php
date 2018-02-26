@@ -157,7 +157,7 @@
   </tr>
     <tr>
     <td><div style="text-align:center;margin:5px 0">
-<p style="padding:5px 0;margin:0">www.ninjareports.com</p>
+<p style="padding:5px 0;margin:0">{{ $ad_account_title }}</p>
 </div>
 </td>
   </tr>
@@ -368,7 +368,7 @@
       <tr>
         <td height="100%" valign="top">
           <div class="box" style="text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
-<h2 style="padding:0;margin:0;color:#1080F2">{{ $total_cpm }}</h2>
+<h2 style="padding:0;margin:0;color:#1080F2">${{ $total_cpm }}</h2>
 <label style="padding:0;margin:0">Avg. CPM</label>
 </div>
         </td>
@@ -401,7 +401,7 @@
       <tr>
         <td height="100%" valign="top">
           <div class="box" style="text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
-<h2 style="padding:0;margin:0;color:#1080F2">{{ $total_cpc }}</h2>
+<h2 style="padding:0;margin:0;color:#1080F2">${{ $total_cpc }}</h2>
 <label style="padding:0;margin:0">Avg CPC</label>
 </div>
         </td>

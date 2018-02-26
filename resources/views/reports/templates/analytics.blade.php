@@ -124,7 +124,7 @@
                           <table width="100%" cellpadding="0" cellspacing="0" border="0" style="width: 100%; max-width:600px;" align="center">
                             <tr>
                               <td role="modules-container" style="padding: 0px 0px 0px 0px; color: #000000; text-align: left;" bgcolor="#f2f2f2" width="100%" align="left">
-                                
+
     <table class="module preheader preheader-hide" role="module" data-type="preheader" border="0" cellpadding="0" cellspacing="0" width="100%"
            style="display: none !important; mso-hide: all; visibility: hidden; opacity: 0; color: transparent; height: 0; width: 0;">
       <tr>
@@ -153,7 +153,7 @@
         <td height="100%" valign="top">
           <div style="text-align:center;margin:10px 0 30px 0">
   <h2 style="padding:5px 0;margin:0">Your {{ ucfirst($report->frequency) }} Google Analytics Report</h2>
-<p style="padding:5px 0;margin:0">www.ninjareports.com</p>
+<p style="padding:5px 0;margin:0">{{ $ad_account_title }}</p>
 <p style="color:#999;padding:5px 0;margin:0">{{ date('m/d/Y') }}</p>
 </div>
         </td>
@@ -176,7 +176,7 @@
                 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-spacing:0;border-collapse:collapse;table-layout: fixed;" >
                   <tr>
             <![endif]-->
-          
+
     <!--[if (gte mso 9)|(IE)]>
       <td width="193.333px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
     <![endif]-->
@@ -263,7 +263,7 @@
       <tr>
         <td height="100%" valign="top">
           <div class="box" style="text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
-<h2 style="padding:0;margin:0">{{ $total_bounce_rate }}</h2>
+<h2 style="padding:0;margin:0">{{ $total_bounce_rate }}%</h2>
 <label style="padding:0;margin:0">Bounce</label>
 </div>
         </td>
@@ -284,7 +284,7 @@
         </td>
       </tr>
     </table>
-  
+
     <table  border="0"
             cellpadding="0"
             cellspacing="0"
@@ -302,7 +302,7 @@
                 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-spacing:0;border-collapse:collapse;table-layout: fixed;" >
                   <tr>
             <![endif]-->
-          
+
     <!--[if (gte mso 9)|(IE)]>
       <td width="193.333px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
     <![endif]-->
@@ -410,7 +410,7 @@
         </td>
       </tr>
     </table>
-  
+
     <table  border="0"
             cellpadding="0"
             cellspacing="0"
@@ -428,7 +428,7 @@
                 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-spacing:0;border-collapse:collapse;table-layout: fixed;" >
                   <tr>
             <![endif]-->
-          
+
     <!--[if (gte mso 9)|(IE)]>
       <td width="295.000px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
     <![endif]-->

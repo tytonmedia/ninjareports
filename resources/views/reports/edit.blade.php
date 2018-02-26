@@ -176,7 +176,7 @@
 											<a href="#pdf" class="btn btn-default{{ old('attachment_type') == 'pdf' ? ' active':($report->attachment_type == 'pdf' ? ' active': '') }}" data-toggle="tab">
 												<input type="radio" name="attachment_type" value="pdf" {{ old( 'attachment_type')=='pdf' ? ' checked': ($report->attachment_type == 'pdf' ? ' checked': '') }} />PDF
 											</a>
-											<a href="#scv" class="btn btn-default{{ old('attachment_type') == 'csv' ? ' active':($report->attachment_type == 'csv' ? ' active': '') }}" data-toggle="tab">
+											<a href="#scv" class="hidden btn btn-default{{ old('attachment_type') == 'csv' ? ' active':($report->attachment_type == 'csv' ? ' active': '') }}" data-toggle="tab">
 												<input type="radio" name="attachment_type" value="csv" {{ old( 'attachment_type')=='csv' ? ' checked': ($report->attachment_type == 'csv' ? ' checked': '') }} />CSV
 											</a>
 										</div>

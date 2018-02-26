@@ -21,6 +21,7 @@ class CronController extends Controller
     {
         $next_send_time = date('Y-m-d H:i:00');
         $reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->where('is_paused', 0)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
+        //$reports = Report::where('id', 2)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
         if ($reports && count($reports) > 0) {
             foreach ($reports as $report) {
                 $current_plan = $report->user->current_billing_plan ? $report->user->current_billing_plan : 'free_trial';
@@ -38,6 +39,7 @@ class CronController extends Controller
     }
     public function report($report, $recipients)
     {
+        $ad_account_title = $report->ad_account->title;
         if ($report) {
             if ($report->account->type == 'facebook') {
 
@@ -74,14 +76,14 @@ class CronController extends Controller
                             $cinsights = $campaign->getInsights($fields, $params);
                             foreach ($cinsights as $insight) {
                                 $campaigns_insights[] = array_merge([
-                                    'clicks' => $insight->clicks,
-                                    'impressions' => $insight->impressions,
-                                    'ctr' => $insight->ctr,
-                                    'cpc' => $insight->cpc,
-                                    'cpm' => $insight->cpm,
-                                    'spend' => $insight->spend,
-                                    'date_start' => $insight->date_start,
-                                    'date_stop' => $insight->date_stop,
+                                    'clicks' => round($insight->clicks),
+                                    'impressions' => round($insight->impressions),
+                                    'ctr' => round($insight->ctr),
+                                    'cpc' => round($insight->cpc),
+                                    'cpm' => round($insight->cpm),
+                                    'spend' => round($insight->spend),
+                                    'date_start' => round($insight->date_start),
+                                    'date_stop' => round($insight->date_stop),
                                 ], [
                                     'campaign' => $campaign->{CampaignFields::NAME},
                                 ]);
@@ -120,12 +122,12 @@ class CronController extends Controller
                         $total_cpc = 0;
                         $total_spend = 0;
                         foreach ($insights as $insight) {
-                            $total_clicks += $insight->clicks;
-                            $total_impressions += $insight->impressions;
-                            $total_ctr += number_format((float) $insight->ctr, 3, '.', '');
-                            $total_cpm += number_format((float) $insight->cpm, 3, '.', '');
-                            $total_cpc += number_format((float) $insight->cpc, 3, '.', '');
-                            $total_spend += number_format((float) $insight->spend, 2, '.', '');
+                            $total_clicks += round($insight->clicks);
+                            $total_impressions += round($insight->impressions);
+                            $total_ctr += round($insight->ctr);
+                            $total_cpm += round($insight->cpm);
+                            $total_cpc += round($insight->cpc);
+                            $total_spend += round($insight->spend);
                             $fb_ads_data[] = [
                                 'clicks' => $insight->clicks,
                                 'impressions' => $insight->impressions,
@@ -203,8 +205,7 @@ class CronController extends Controller
 
                         }
                     }
-
-                    //$html = view('reports.templates.facebook', compact('report', 'campaigns_insights', 'total_clicks', 'total_impressions', 'total_ctr', 'total_cpm', 'total_cpc', 'total_spend', 'ages_graph_url', 'genders_graph_url'))->render();
+                    //$html = view('reports.templates.facebook', compact('report', 'campaigns_insights', 'total_clicks', 'total_impressions', 'total_ctr', 'total_cpm', 'total_cpc', 'total_spend', 'ages_graph_url', 'genders_graph_url', 'ad_account_title'))->render();
                     foreach ($recipients as $email) {
                         $welcome_email_substitutions = [
                             '%frequency%' => (string) ucfirst($report->frequency),
@@ -258,11 +259,11 @@ class CronController extends Controller
                         'max-results' => 5,
                     ]);
                 $top_5_sources = '';
-                $sources_insights = $top_sources_results->rows;
+                $sources_insights = isset($top_sources_results->rows) ? $top_sources_results->rows : [];
                 if (isset($sources_insights) && count($sources_insights) > 0) {
                     $top_5_sources .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;">Source</th><th style="background:#666;color:#fff;padding:5px;">Visitotrs</th><th style="background:#666;color:#fff;padding:5px;">New %</th><th style="background:#666;color:#fff;padding:5px;">Bounce %</th><th style="background:#666;color:#fff;padding:5px;">Pages/Visit</th><th style="background:#666;color:#fff;padding:5px;">Avg. Time</th></tr>';
                     foreach ($sources_insights as $insight) {
-                        $bounce_rate = number_format((float) $insight[4], 3, '.', '');
+                        $bounce_rate = round($insight[4]);
                         $pages_per_visit = number_format((float) $insight[6], 3, '.', '');
                         $avg_time = number_format((float) $insight[3], 3, '.', '');
                         $top_5_sources .= '<tr><td>' . $insight[0] . '</td><td>' . $insight[1] . '</td><td>' . $insight[5] . '</td><td>' . $bounce_rate . '</td><td>' . $pages_per_visit . '</td><td>' . $avg_time . '</td></tr>';
@@ -289,10 +290,10 @@ class CronController extends Controller
                 if (isset($insights) && $insights) {
                     $total_sessions = $insights['ga:sessions'];
                     $total_pageviews = $insights['ga:pageviews'];
-                    $total_avg_time = number_format((float) $insights['ga:avgSessionDuration'], 3, '.', '');
-                    $total_bounce_rate = number_format((float) $insights['ga:bounceRate'], 3, '.', '');
+                    $total_avg_time = round($insights['ga:avgSessionDuration']);
+                    $total_bounce_rate = round($insights['ga:bounceRate']);
                     $total_new_visitors = $insights['ga:newUsers'];
-                    $total_pages_per_visitor = number_format((float) $insights['ga:sessionsPerUser'], 3, '.', '');
+                    $total_pages_per_visitor = round($insights['ga:sessionsPerUser']);
                 }
                 if ($metrics && count($metrics) > 0) {
                     $operating_system_result = [];
@@ -370,7 +371,7 @@ class CronController extends Controller
                     }
                 }
 
-                //$html = view('reports.templates.analytics', compact('report', 'sources_insights', 'total_sessions', 'total_avg_time', 'total_bounce_rate', 'total_pageviews', 'total_pages_per_visitor', 'total_new_visitors', 'devices_graph_url', 'locations_graph_url'))->render();
+                //$html = view('reports.templates.analytics', compact('report', 'sources_insights', 'total_sessions', 'total_avg_time', 'total_bounce_rate', 'total_pageviews', 'total_pages_per_visitor', 'total_new_visitors', 'devices_graph_url', 'locations_graph_url', 'ad_account_title'))->render();
                 foreach ($recipients as $email) {
                     $analytics_email_substitutions = [
                         '%frequency%' => (string) ucfirst($report->frequency),
@@ -545,7 +546,7 @@ class CronController extends Controller
                         $top_5_campaigns = '<tr><h3><center>No data</center></h3></tr>';
                     }
                 }
-                //$html = view('reports.templates.adword', compact('report', 'total_clicks', 'total_impressions', 'total_ctr', 'total_cpm', 'total_cpc', 'total_spend', 'devices_graph_url', 'locations_graph_url', 'top_5_campaigns'))->render();
+                //$html = view('reports.templates.adword', compact('report', 'total_clicks', 'total_impressions', 'total_ctr', 'total_cpm', 'total_cpc', 'total_spend', 'devices_graph_url', 'locations_graph_url', 'top_5_campaigns', 'ad_account_title'))->render();
                 foreach ($recipients as $email) {
                     $welcome_email_substitutions = [
                         '%frequency%' => (string) ucfirst($report->frequency),
