@@ -291,7 +291,7 @@ if (!function_exists('sendMail')) {
     function sendMail($to, $subject, $template_id, $substitutions = array(), $attachments = [], $from = 'noreply@ninjareports.com', $showResponse = true)
     {
         $default_subs = [
-            '%company%' => 'Ninja Reports',
+            '%company%' => 'Ninja Reports™',
         ];
         $substitutions = count($substitutions) > 0 ? $substitutions : $default_subs;
         $response = \App\Models\SendGrid::send($to, $subject, $template_id, $substitutions, $attachments, $from);

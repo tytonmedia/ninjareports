@@ -2,6 +2,12 @@
 <div class="spark-screen container">
 	<div class="row">
 		<div class="col-md-12">
+			@if($paused)
+								<div class="alert alert-danger">
+									<b>Upgrade to Resume</b><br/>
+									You have reached the limit of your plan. <a href="{{ url('settings#/subscription') }}">Upgrade your plan</a> to resume your reports.
+								</div>
+							@endif
 			@include('common.flash')
 			<div class="panel panel-default panel-accounts">
 				<div class="panel-body">
@@ -18,12 +24,6 @@
 					<hr/> @if($all_reports && count($all_reports) > 0)
 					<div class="row">
 						<div class="col-md-12">
-							@if($paused)
-								<div class="alert alert-danger">
-									<b>Upgrade to Resume</b><br/>
-									You have reached the limit of your plan. <a href="{{ url('settings#/subscription') }}">Upgrade your plan</a> to resume your reports.
-								</div>
-							@endif
 							<div class="table-responsive">
 							<table class="reports_table table table-stripped accounts_connect_table">
 								<thead>
@@ -64,7 +64,7 @@
 									</tr>
 									@endforeach
 									<tr>
-										<td colspan="7"><span class="pull-right">{{ $all_reports->links() }}</span></td>
+										<td colspan="8"><span class="pull-right">{{ $all_reports->links() }}</span></td>
 									</tr>
 								</tbody>
 							</table>
