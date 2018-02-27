@@ -64,7 +64,7 @@
 									</tr>
 									@endforeach
 									<tr>
-										<td colspan="7"><span class="pull-right">{{ $all_reports->links() }}</span></td>
+										<td colspan="8"><span class="pull-right">{{ $all_reports->links() }}</span></td>
 									</tr>
 								</tbody>
 							</table>
