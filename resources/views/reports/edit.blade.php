@@ -9,10 +9,10 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-6 col-sm-6 col-xs-6">
-							<h2 class="title">Edit Report</h2>
+							<h1 class="title">Edit Report</h1>
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-6 text-right greeting-button">
-							<a href="{{ route('reports.index') }}" class="btn btn-black">Reports</a>
+							<a href="{{ route('reports.index') }}" class="btn btn-black"><i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp; Reports</a>
 						</div>
 					</div>
 					<hr/>
