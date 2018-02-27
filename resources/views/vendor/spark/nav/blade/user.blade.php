@@ -68,7 +68,11 @@
                                 <i class="fa fa-fw fa-btn fa-cog"></i>Your Settings
                             </a>
                         </li>
-
+                        <li>
+                            <a href="/settings#/subscription">
+                                <i class="fa fa-fw fa-btn fa-magic"></i>Upgrade
+                            </a>
+                        </li>
                         @if (Spark::usesTeams() && (Spark::createsAdditionalTeams() || Spark::showsTeamSwitcher()))
                             <!-- Team Settings -->
                             @include('spark::nav.blade.teams')

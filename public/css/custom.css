@@ -87,6 +87,9 @@ padding: 20px 0 15px 0;
     color: #fff !important;}
 div.error {display:block;color:#f00;}
 .footer-row {padding:0px 0px 15px 0;}
+ul li.upgrade a, .navbar .dropdown-menu>li.upgrade>a i {color:#1080F2;}
+.modal-content .accounts_connect_table .btn {width:125px;}
+.panel-default .form-group .btn {}
 
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
