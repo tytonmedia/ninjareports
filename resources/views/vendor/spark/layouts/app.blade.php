@@ -84,8 +84,8 @@
               </ul>
             </div>
                    <div class="col-md-6 footer-right-container" style="text-align:right;">
-                    <a href="https://ninjareports.zendesk.com/hc/en-us">Support</a>  |
-                    <a href="https://www.ninjareports.com/terms-conditions/">Terms &amp; conditions</a>  |  <a href="https://www.ninjareports.com/privacy-policy/">Privacy policy</a>
+                    <a target="_blank" href="https://ninjareports.zendesk.com/hc/en-us">Support</a>  |
+                    <a thref="https://www.ninjareports.com/terms-conditions/">Terms &amp; conditions</a>  |  <a href="https://www.ninjareports.com/privacy-policy/">Privacy policy</a>
                 </div>
             </div>
              <div class="row copyright">
