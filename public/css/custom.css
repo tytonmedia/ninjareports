@@ -89,7 +89,7 @@ div.error {display:block;color:#f00;}
 .footer-row {padding:0px 0px 15px 0;}
 ul li.upgrade a, .navbar .dropdown-menu>li.upgrade>a i {color:#1080F2;}
 .modal-content .accounts_connect_table .btn {width:125px;}
-.panel-default .form-group .btn {}
+.panel-default .form-group .btn:hover {background:#0e66c0;}
 .btn.btn-xs {    padding: 1px 10px;}
 .form-control[readonly] {
     background-color: #fff;
@@ -99,9 +99,16 @@ label.help {font-size:12px;color:#ccc;}
 .table-responsive .reports_table td {
     padding: 20px 5px;
 }
+.accounts_connect_table td:last-child {min-width:200px;}
+.accounts_connect_table td:last-child a, .accounts_connect_table td:last-child button.toggle_report {font-size:13px;
+    padding: 3px 10px}
 .table>thead>tr>th {
     padding: 5px;
 }
+#pie-chart {display: block;
+    width: 215px;
+    float: right;
+    height: 215px;}
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 /* Styles */
