@@ -11,7 +11,7 @@
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-6 text-right greeting-button">
 							<a href="{{ route('reports.create') }}" class="btn btn-black">Create Report</a>
-							<button data-type="{{ $type }}" class="btn btn-black nr_sync_ad_accounts_button">Sync Properties
+							<button data-type="{{ $type }}" class="btn btn-black nr_sync_ad_accounts_button">Sync Account
 								<span class="nr-loader fa fa-spin fa-spinner margin-left-5 hidden"></span>
 							</button>
 						</div>
