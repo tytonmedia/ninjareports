@@ -4,6 +4,13 @@
 		<!-- Application Dashboard -->
 		<div class="row">
 			<div class="col-md-12">
+				@if($paused)
+					<div class="alert alert-danger">
+						<b>Upgrade to Resume</b><br/>
+						You have reached the limit of your plan. <a href="{{ url('settings#/subscription') }}">Upgrade your plan</a> to resume your reports.
+					</div>
+				@endif
+				@include('common.flash')
 				<div class="panel panel-default panel-greetings">
 					<div class="panel-body">
 						<div class="row greetings">
