@@ -26,6 +26,6 @@
 	</div>
 </div>
 @else
-<div class="text-center">No ad account synchronized. Please click
-	<code>Sync Ad Accounts</code> button to sync {{ $type }} accounts.</div>
+<div class="text-center">No {{ $type }} account synchronized. Please click the
+	<code>Sync Account</code> button to sync {{ $type }} accounts.</div>
 @endif
