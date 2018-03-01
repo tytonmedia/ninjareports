@@ -13,6 +13,7 @@ use \FacebookAds\Object\Fields\AdsInsightsFields;
 use \FacebookAds\Object\Fields\CampaignFields;
 use \FacebookAds\Object\Values\AdsInsightsBreakdownsValues;
 use \FacebookAds\Object\Values\AdsInsightsDatePresetValues;
+use date;
 
 class CronController extends Controller
 {
@@ -76,12 +77,12 @@ class CronController extends Controller
                             $cinsights = $campaign->getInsights($fields, $params);
                             foreach ($cinsights as $insight) {
                                 $campaigns_insights[] = array_merge([
-                                    'clicks' => round($insight->clicks),
-                                    'impressions' => round($insight->impressions),
-                                    'ctr' => round($insight->ctr),
-                                    'cpc' => round($insight->cpc),
-                                    'cpm' => round($insight->cpm),
-                                    'spend' => round($insight->spend),
+                                    'clicks' => round($insight->clicks,2),
+                                    'impressions' => round($insight->impressions,2),
+                                    'ctr' => round($insight->ctr,2),
+                                    'cpc' => round($insight->cpc,2),
+                                    'cpm' => round($insight->cpm,2),
+                                    'spend' => round($insight->spend,2),
                                     'date_start' => round($insight->date_start),
                                     'date_stop' => round($insight->date_stop),
                                 ], [
@@ -122,12 +123,12 @@ class CronController extends Controller
                         $total_cpc = 0;
                         $total_spend = 0;
                         foreach ($insights as $insight) {
-                            $total_clicks += round($insight->clicks);
-                            $total_impressions += round($insight->impressions);
-                            $total_ctr += round($insight->ctr);
-                            $total_cpm += round($insight->cpm);
-                            $total_cpc += round($insight->cpc);
-                            $total_spend += round($insight->spend);
+                            $total_clicks += round($insight->clicks,2);
+                            $total_impressions += round($insight->impressions,2);
+                            $total_ctr += round($insight->ctr,2);
+                            $total_cpm += round($insight->cpm,2);
+                            $total_cpc += round($insight->cpc,2);
+                            $total_spend += round($insight->spend,2);
                             $fb_ads_data[] = [
                                 'clicks' => $insight->clicks,
                                 'impressions' => $insight->impressions,
@@ -219,6 +220,7 @@ class CronController extends Controller
                             '%ages_graph_url%' => (string) $ages_graph_url,
                             '%genders_graph_url%' => (string) $genders_graph_url,
                             '%top_ad_campaigns%' => (string) $top_ad_campaigns,
+                            '%property_url%' => $report->ad_account->title,
                         ];
                         sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions);
                         Schedule::create([
@@ -263,9 +265,9 @@ class CronController extends Controller
                 if (isset($sources_insights) && count($sources_insights) > 0) {
                     $top_5_sources .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;">Source</th><th style="background:#666;color:#fff;padding:5px;">Visitotrs</th><th style="background:#666;color:#fff;padding:5px;">New %</th><th style="background:#666;color:#fff;padding:5px;">Bounce %</th><th style="background:#666;color:#fff;padding:5px;">Pages/Visit</th><th style="background:#666;color:#fff;padding:5px;">Avg. Time</th></tr>';
                     foreach ($sources_insights as $insight) {
-                        $bounce_rate = round($insight[4]);
+                        $bounce_rate = round($insight[4] ,2) . "%";
                         $pages_per_visit = number_format((float) $insight[6], 3, '.', '');
-                        $avg_time = number_format((float) $insight[3], 3, '.', '');
+                        $avg_time = date("H:i:s",strtotime($insight[3]));
                         $top_5_sources .= '<tr><td>' . $insight[0] . '</td><td>' . $insight[1] . '</td><td>' . $insight[5] . '</td><td>' . $bounce_rate . '</td><td>' . $pages_per_visit . '</td><td>' . $avg_time . '</td></tr>';
                     }
                     $top_5_sources .= '</tbody></table>';
@@ -290,10 +292,10 @@ class CronController extends Controller
                 if (isset($insights) && $insights) {
                     $total_sessions = $insights['ga:sessions'];
                     $total_pageviews = $insights['ga:pageviews'];
-                    $total_avg_time = round($insights['ga:avgSessionDuration']);
-                    $total_bounce_rate = round($insights['ga:bounceRate']);
+                    $total_avg_time = date("H:i:s",strtotime($insights['ga:avgSessionDuration']));
+                    $total_bounce_rate = round($insights['ga:bounceRate'],2);
                     $total_new_visitors = $insights['ga:newUsers'];
-                    $total_pages_per_visitor = round($insights['ga:sessionsPerUser']);
+                    $total_pages_per_visitor = round($insights['ga:sessionsPerUser'],2);
                 }
                 if ($metrics && count($metrics) > 0) {
                     $operating_system_result = [];
@@ -377,7 +379,7 @@ class CronController extends Controller
                         '%frequency%' => (string) ucfirst($report->frequency),
                         '%report_date%' => (string) date('m/d/Y'),
                         '%visitors%' => (string) $total_sessions,
-                        '%avg_time%' => (string) $total_avg_time,
+                        '%avg_time%' => (string) date("H:i:s",strtotime($total_avg_time)),
                         '%bounce_rate%' => (string) $total_bounce_rate,
                         '%page_views%' => (string) $total_pageviews,
                         '%page_per_visits%' => (string) $total_pages_per_visitor,
@@ -385,6 +387,7 @@ class CronController extends Controller
                         '%devices_graph_url%' => (string) $devices_graph_url,
                         '%locations_graph_url%' => (string) $locations_graph_url,
                         '%top_5_sources%' => (string) $top_5_sources,
+                        '%property_url%' => $report->ad_account->title,
                     ];
                     sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions);
                     Schedule::create([
@@ -551,7 +554,7 @@ class CronController extends Controller
                     $welcome_email_substitutions = [
                         '%frequency%' => (string) ucfirst($report->frequency),
                         '%report_date%' => (string) date('m/d/Y'),
-                        '%property_url%' => 'www.ninjareports.com',
+                        '%property_url%' => $report->ad_account->title,
                         '%clicks%' => (string) $total_clicks,
                         '%impressions%' => (string) $total_impressions,
                         '%ctr%' => (string) $total_ctr,
