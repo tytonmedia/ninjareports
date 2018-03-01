@@ -114,6 +114,12 @@ label.help {font-size:12px;color:#ccc;}
 /* Styles */
 footer.footer .socials, footer.footer .footer-right-container{text-align:center !important;}
 .footer-right-container {margin:10px 0;}
+.footer-row {
+    padding: 0px;
+}
+#spark-app {
+    padding-bottom: 75px;
+}
 }
 /* Smartphones (landscape) ----------- */
 @media only screen and (min-width : 321px) {

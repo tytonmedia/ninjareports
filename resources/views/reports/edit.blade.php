@@ -154,10 +154,9 @@
 										<label class="control-label color-black-bold">Recipients</label>
 									</div>
 									<div class="col-md-9">
-										<label>
-											<i>(Comma seperated emails)</i>
-										</label>
+										
 										<textarea class="form-control" name="recipients">{{ old('recipients') ? old('recipients') : $report->recipients }}</textarea>
+										<label class="help">(Comma seperated emails)</label>
 										<div class="error">
 											@if ($errors->has('recipients')) {{ $errors->first('recipients') }} @endif
 										</div>
