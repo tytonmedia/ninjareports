@@ -27,6 +27,7 @@
 					<hr/> @if($accounts && count($accounts) > 0)
 					<div class="row">
 						<div class="col-md-12">
+							<div class="table-responsive">
 							<table class="table table-stripped accounts_connect_table">
 								<thead>
 									<tr>
@@ -59,6 +60,7 @@
 									@endforeach
 								</tbody>
 							</table>
+						</div>
 						</div>
 					</div>
 					@else
