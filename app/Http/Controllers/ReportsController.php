@@ -36,8 +36,19 @@ class ReportsController extends Controller
     {
         validateTokens();
         $accounts = Account::where('user_id', auth()->user()->id)->where('status', 1)->get();
+
+        $current_plan = auth()->user()->current_billing_plan ? auth()->user()->current_billing_plan : 'free_trial';
+        $plan = Plan::whereTitle($current_plan)->first();
+        $reports_sent_count = Schedule::whereUserId(auth()->user()->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
+        $reports_sent_count = $reports_sent_count > $plan->reports ? $plan->reports : $reports_sent_count;
+
+
+        $paused = false;
+        if ($reports_sent_count >= $plan->reports) {
+            $paused = true;
+        }
         if ($accounts->count() > 0) {
-            return view('reports.create', compact('accounts'));
+            return view('reports.create', compact('accounts','paused'));
         } else {
             Session::flash('alert-danger', 'No account connected. Please connect an account to create a report.');
             return redirect()->route('accounts.index');
@@ -78,7 +89,18 @@ class ReportsController extends Controller
                     ->get();
                 $profiles_html = view('ajax.profiles', compact('profiles', 'type', 'profile_id'))->render();
             }
-            return view('reports.edit', compact('accounts', 'report', 'ad_accounts_html', 'properties_html', 'profiles_html'));
+
+            $current_plan = auth()->user()->current_billing_plan ? auth()->user()->current_billing_plan : 'free_trial';
+            $plan = Plan::whereTitle($current_plan)->first();
+            $reports_sent_count = Schedule::whereUserId(auth()->user()->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
+            $reports_sent_count = $reports_sent_count > $plan->reports ? $plan->reports : $reports_sent_count;
+
+
+            $paused = false;
+            if ($reports_sent_count >= $plan->reports) {
+                $paused = true;
+            }
+            return view('reports.edit', compact('accounts', 'report', 'ad_accounts_html', 'properties_html', 'profiles_html','paused'));
         } else {
             Session::flash('alert-danger', 'Report not found.');
             return redirect()->route('reports.index');
