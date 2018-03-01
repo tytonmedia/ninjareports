@@ -28,7 +28,7 @@ class CronController extends Controller
                 $current_plan = $report->user->current_billing_plan ? $report->user->current_billing_plan : 'free_trial';
                 $plan = Plan::whereTitle($current_plan)->first();
                 $reports_sent_count = Schedule::whereUserId($report->user->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
-                if ($reports_sent_count <= $plan->reports) {
+                if ($reports_sent_count < $plan->reports) {
                     $recipients = explode(',', $report->recipients);
                     if (is_array($recipients) && count($recipients) > 0) {
                         $this->report($report, $recipients);

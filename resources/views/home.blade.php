@@ -33,7 +33,7 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-2 text-center">
-								<img class="social-icon img img-responsive" src="/img/social_icon.png" alt="">
+								<img class="social-icon img img-responsive" src="/img/social_icon.png" alt="ninja reports icon">
 							</div>
 							<div class="col-md-10">
 								<h4 class="title">Connect your Accounts</h4>
@@ -58,7 +58,7 @@
 								<div class="main-content">
 									<h4 class="title">Plan Usage</h4>
 									<p>
-										<b>{{ $reports_sent_count }}</b> of {{ $plan['reports'] }} Reports Sent
+										<b>{{ $reports_sent_count }}</b> of {{ $plan->reports }} Reports Sent
 									</p>
 								</div>
 							</div>
@@ -88,7 +88,6 @@
 									</div>
 									<p>
 										{{ $plan->reports }} Reports/Month
-
 									</p>
 								</div>
 							</div>
