@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Plan;
 use App\Models\Report;
+use App\Models\Schedule;
 use App\Models\Account;
 use App\Models\AdAccount;
 use App\Models\AnalyticProperty;
