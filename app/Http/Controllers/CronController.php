@@ -463,8 +463,8 @@ class CronController extends Controller
                                 'impressions' => $adword_data[2],
                                 'ctr' => $adword_data[3],
                                 'spend' => $adword_data[4],
-                                'cpc' => $adword_data[5],
-                                'cpm' => $adword_data[6],
+                                'cpc' => round($adword_data[5],2),
+                                'cpm' => round($adword_data[6],2),
                                 'location' => $adword_data[7],
                                 'operating_system' => $adword_data[8],
                             ];
@@ -538,14 +538,14 @@ class CronController extends Controller
                         $total_impressions = $total_data[2];
                         $total_ctr = $total_data[3];
                         $total_spend = $total_data[4];
-                        $total_cpm = $total_data[5];
-                        $total_cpc = $total_data[6];
+                        $total_cpm = round($total_data[5],2);
+                        $total_cpc = round($total_data[6],2);
                         $top_5_campaigns_array = array_slice($final_adword_data, 0, 5);
                     }
                     if (count($top_5_campaigns_array) > 0) {
                         $top_5_campaigns .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;">Campaign</th><th style="background:#666;color:#fff;padding:5px;">Clicks</th><th style="background:#666;color:#fff;padding:5px;">Impressions</th><th style="background:#666;color:#fff;padding:5px;">CTR</th><th style="background:#666;color:#fff;padding:5px;">CPM</th><th style="background:#666;color:#fff;padding:5px;">CPC</th></tr>';
                         foreach ($top_5_campaigns_array as $campaign_array) {
-                            $top_5_campaigns .= '<tr><td>' . $campaign_array[0] . '</td><td>' . $campaign_array[1] . '</td><td>' . $campaign_array[2] . '</td><td>' . $campaign_array[3] . '</td><td>' . $campaign_array[5] . '</td><td>' . $campaign_array[6] . '</td></tr>';
+                            $top_5_campaigns .= '<tr><td>' . $campaign_array[0] . '</td><td>' . $campaign_array[1] . '</td><td>' . $campaign_array[2] . '</td><td>' . $campaign_array[3] . '</td><td>$' . $campaign_array[5] . '</td><td>$' . $campaign_array[6] . '</td></tr>';
                         }
                         $top_5_campaigns .= '</tbody></table>';
                     } else {
