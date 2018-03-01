@@ -100,7 +100,7 @@ class CronController extends Controller
                         foreach ($campaigns_insights as $campaign_insight) {
                             $campaign_insight = (object) $campaign_insight;
                             $campaign_insight_cpm = number_format((float) $campaign_insight->cpm, 2, '.', '');
-                            $top_ad_campaigns .= '<tr style="border-bottom:1px solid #ccc"><td style="padding:5px;">' . $campaign_insight->campaign . '</td><td style="padding:5px;">' . $campaign_insight->impressions . '</td><td style="padding:5px;">' . $campaign_insight->clicks . '</td><td style="padding:5px;">' . $campaign_insight_cpm . '%</td><td style="padding:5px;">' . $campaign_insight->ctr . '</td><td style="padding:5px;">' . $campaign_insight->cpc . '</td><td style="padding:5px;">$' . $campaign_insight->spend . '</td></tr>';
+                            $top_ad_campaigns .= '<tr style="border-bottom:1px solid #ccc"><td style="padding:5px;">' . $campaign_insight->campaign . '</td><td style="padding:5px;">' . $campaign_insight->impressions . '</td><td style="padding:5px;">' . $campaign_insight->clicks . '</td><td style="padding:5px;">$' . $campaign_insight_cpm . '</td><td style="padding:5px;">' . $campaign_insight->ctr . '%</td><td style="padding:5px;">$' . $campaign_insight->cpc . '</td><td style="padding:5px;">$' . $campaign_insight->spend . '</td></tr>';
                         }
                     } else {
                         $top_ad_campaigns = '<tr><h3><center>No data</center></h3></tr>';
