@@ -267,7 +267,7 @@ class CronController extends Controller
                     foreach ($sources_insights as $insight) {
                         $bounce_rate = round($insight[4] ,2) . "%";
                         $pages_per_visit = number_format((float) $insight[6], 3, '.', '');
-                        $avg_time = number_format((float) $insight[3], 3, '.', '');
+                        $avg_time = date("H:i:s",strtotime($insight[3]));
                         $top_5_sources .= '<tr><td>' . $insight[0] . '</td><td>' . $insight[1] . '</td><td>' . $insight[5] . '</td><td>' . $bounce_rate . '</td><td>' . $pages_per_visit . '</td><td>' . $avg_time . '</td></tr>';
                     }
                     $top_5_sources .= '</tbody></table>';
