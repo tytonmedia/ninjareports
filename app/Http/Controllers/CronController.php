@@ -556,7 +556,7 @@ class CronController extends Controller
                         $top_5_campaigns .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;">Campaign</th><th style="background:#666;color:#fff;padding:5px;">Clicks</th><th style="background:#666;color:#fff;padding:5px;">Impressions</th><th style="background:#666;color:#fff;padding:5px;">CTR</th><th style="background:#666;color:#fff;padding:5px;">CPM</th><th style="background:#666;color:#fff;padding:5px;">CPC</th></tr>';
                         foreach ($top_5_campaigns_array as $campaign_array) {
                             $ad_cpc =  number_format((float) ($campaign_array[6] / 100), 2);
-                            $ad_cpm = number_format((float) ($campaign_array[5] / 100), 2)
+                            $ad_cpm = number_format((float) ($campaign_array[5] / 100), 2);
                             $top_5_campaigns .= '<tr><td>' . $campaign_array[0] . '</td><td>' . $campaign_array[1] . '</td><td>' . $campaign_array[2] . '</td><td>' . $campaign_array[3] . '</td><td>$' . $ad_cpm  . '</td><td>$' . $ad_cpc . '</td></tr>';
                         }
                         $top_5_campaigns .= '</tbody></table>';
