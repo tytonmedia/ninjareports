@@ -398,7 +398,7 @@ class CronController extends Controller
                         '%devices_graph_url%' => (string) $devices_graph_url,
                         '%locations_graph_url%' => (string) $locations_graph_url,
                         '%top_5_sources%' => (string) $top_5_sources,
-                        '%property_url%' => $report->property->property,
+                        '%property_url%' => $report->property->title,
                         '%logo_property%' => $logo,
                     ];
                     sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions);
@@ -472,8 +472,8 @@ class CronController extends Controller
                                 'impressions' => $adword_data[2],
                                 'ctr' => $adword_data[3],
                                 'spend' => $adword_data[4],
-                                'cpc' => number_format($adword_data[5],2),
-                                'cpm' => number_format($adword_data[6],2),
+                                'cpc' => $adword_data[5],
+                                'cpm' => $adword_data[6],
                                 'location' => $adword_data[7],
                                 'operating_system' => $adword_data[8],
                             ];
@@ -547,8 +547,8 @@ class CronController extends Controller
                         $total_impressions = $total_data[2];
                         $total_ctr = $total_data[3];
                         $total_spend = $total_data[4];
-                        $total_cpm = round($total_data[5],2);
-                        $total_cpc = round($total_data[6],2);
+                        $total_cpm = number_format($total_data[5],2);
+                        $total_cpc = number_format($total_data[6],2);
                         $top_5_campaigns_array = array_slice($final_adword_data, 0, 5);
                     }
                     if (count($top_5_campaigns_array) > 0) {
@@ -566,13 +566,13 @@ class CronController extends Controller
                     $welcome_email_substitutions = [
                         '%frequency%' => (string) ucfirst($report->frequency),
                         '%report_date%' => (string) date('m/d/Y'),
-                        '%property_url%' => $report->ad_account->ad_account_title,
+                        '%property_url%' => $report->ad_account->title,
                         '%clicks%' => (string) $total_clicks,
                         '%impressions%' => (string) $total_impressions,
-                        '%ctr%' => (string) $total_ctr,
+                        '%ctr%' => (string) number_format($total_ctr,2),
                         '%spend%' => (string) number_format((float) ($total_spend / 1000000), 2, '.', ''),
-                        '%page_per_visits%' => (string) $total_cpm,
-                        '%new_visitors%' => (string) $total_cpc,
+                        '%page_per_visits%' => (string) number_format($total_cpm, 2),
+                        '%new_visitors%' => (string) number_format($total_cpc,2),
                         '%devices_graph_url%' => (string) $devices_graph_url,
                         '%locations_graph_url%' => (string) $locations_graph_url,
                         '%top_5_campaigns%' => (string) $top_5_campaigns,
