@@ -1,8 +1,7 @@
 @extends('spark::layouts.app') @section('content')
     <?php
     $value=0;
-    echo "apple";
-    echo session("googlePrice");
+
     if (session()->has('googlePrice')) {
     $value = session('googlePrice');
     session()->forget('googlePrice'); ?>
@@ -15,6 +14,15 @@
         var google_conversion_currency = "USD";
         var google_remarketing_only = false;
         /* ]]> */
+
+    </script>
+    <script type="application/javascript">
+        ga('ecommerce:addTransaction', {
+            'id': '{{ uniqid() }}',                     // Transaction ID. Required.
+
+            'revenue': '{{ $value }}',               // Grand Total.
+
+        });
     </script>
     <script type="text/javascript"
             src="//www.googleadservices.com/pagead/conversion.js">
