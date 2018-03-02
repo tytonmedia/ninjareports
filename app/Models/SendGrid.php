@@ -22,7 +22,7 @@ class SendGrid extends Model
             ],
             'from' => [
                 'email' => $from,
-                'name' => 'Ninja Reports',
+                'name' => 'Ninja Reports™',
             ],
             "template_id" => $template_id,
         ];
