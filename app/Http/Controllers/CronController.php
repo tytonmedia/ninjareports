@@ -228,7 +228,7 @@ class CronController extends Controller
                             '%ages_graph_url%' => (string) $ages_graph_url,
                             '%genders_graph_url%' => (string) $genders_graph_url,
                             '%top_ad_campaigns%' => (string) $top_ad_campaigns,
-                            '%property_url%' => $report->ad_account->ad_account_id,
+                            '%property_url%' => $report->ad_account->account_name,
                             '%logo_property%' => $logo,
                         ];
                         sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions);
