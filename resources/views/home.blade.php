@@ -4,7 +4,8 @@
     echo "apple";
     echo session("googlePrice");
     if (session()->has('googlePrice')) {
-    $value = session('googlePrice'); ?>
+    $value = session('googlePrice');
+    session()->forget('googlePrice'); ?>
     <!-- Google Code for Ninja Report Sign Up Conversion Page -->
     <script type="text/javascript">
         /* <![CDATA[ */
