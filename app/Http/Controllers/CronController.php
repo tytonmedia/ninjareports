@@ -229,7 +229,7 @@ class CronController extends Controller
                             '%genders_graph_url%' => (string) $genders_graph_url,
                             '%top_ad_campaigns%' => (string) $top_ad_campaigns,
                             '%property_url%' => $report->ad_account->ad_account_id,
-                            '%logo_property' => $logo,
+                            '%logo_property%' => $logo,
                         ];
                         sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions);
                         Schedule::create([
@@ -399,7 +399,7 @@ class CronController extends Controller
                         '%locations_graph_url%' => (string) $locations_graph_url,
                         '%top_5_sources%' => (string) $top_5_sources,
                         '%property_url%' => $report->property->property,
-                        '%logo_property' => $logo,
+                        '%logo_property%' => $logo,
                     ];
                     sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions);
                     Schedule::create([
@@ -576,7 +576,7 @@ class CronController extends Controller
                         '%devices_graph_url%' => (string) $devices_graph_url,
                         '%locations_graph_url%' => (string) $locations_graph_url,
                         '%top_5_campaigns%' => (string) $top_5_campaigns,
-                        '%logo_property' => $logo,
+                        '%logo_property%' => $logo,
                     ];
                     sendMail($email, $report->email_subject, '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions);
                     Schedule::create([
