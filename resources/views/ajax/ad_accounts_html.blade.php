@@ -5,7 +5,7 @@
 		<table class="table table-stripped accounts_connect_table">
 			<thead>
 				<tr>
-					<th>Property</th>
+					<th>Account</th>
 					<th>Name</th>
 					<th>Actions</th>
 				</tr>
