@@ -44,7 +44,7 @@ class CronController extends Controller
     public function report($report, $recipients)
     {
         $logo="https://marketing-image-production.s3.amazonaws.com/uploads/6a85ebdabdfb77a126cb7bf00bc4e6d57311fe1066183a13b069ef4c4d45787aeca594f03de289f41878cb97923a4cd1ef1d77b4d1409a7d10c00fb4b2cfab8b.png";
-        $logoCheck=url("/") . "/storage/logos/" . $report->user->logo;
+        $logoCheck=$report->user->logo;
         if ($logoCheck!='logo.pnp') {
             $logo=$logoCheck;
         }
