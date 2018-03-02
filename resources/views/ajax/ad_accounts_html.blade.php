@@ -1,10 +1,11 @@
 @if($ad_accounts && count($ad_accounts) > 0)
 <div class="row">
 	<div class="col-md-12">
+		<div class="table-responsive">
 		<table class="table table-stripped accounts_connect_table">
 			<thead>
 				<tr>
-					<th>Property</th>
+					<th>Account</th>
 					<th>Name</th>
 					<th>Actions</th>
 				</tr>
@@ -23,6 +24,7 @@
 				@endforeach
 			</tbody>
 		</table>
+	</div>
 	</div>
 </div>
 @else
