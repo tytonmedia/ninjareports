@@ -28,12 +28,12 @@ class Report extends Model
 
     public function property()
     {
-        return $this->hasOne('App\Models\AnalyticProperty', 'id', 'property_id');
+        return $this->hasOne('App\Models\AnalyticProperty', 'id', 'property_id','property');
     }
 
     public function profile()
     {
-        return $this->hasOne('App\Models\AnalyticView', 'id', 'profile_id');
+        return $this->hasOne('App\Models\AnalyticView', 'id', 'profile_id','name');
     }
 
     public function getDates()
