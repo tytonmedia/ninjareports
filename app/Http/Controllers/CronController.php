@@ -277,9 +277,10 @@ class CronController extends Controller
                     foreach ($sources_insights as $insight) {
                         $bounce_rate = round($insight[4] ,0) . "%";
                         $pages_per_visit = number_format((float) $insight[6], 2, '.', '');
+                        $total_new_visits = round($insight[5],0);
                         $avg_time = date("H:i:s",strtotime($insight[3]));
 
-                        $top_5_sources .= '<tr><td>' . $insight[0] . '</td><td>' . $insight[1] . '</td><td>' . $insight[5] . '</td><td>' . $bounce_rate . '</td><td>' . $pages_per_visit . '</td><td>' . $avg_time . '</td></tr>';
+                        $top_5_sources .= '<tr><td>' . $insight[0] . '</td><td>' . $insight[1] . '</td><td>' . $total_new_visits . '</td><td>' . $bounce_rate . '</td><td>' . $pages_per_visit . '</td><td>' . $avg_time . '</td></tr>';
                     }
                     $top_5_sources .= '</tbody></table>';
                 } else {
@@ -554,7 +555,9 @@ class CronController extends Controller
                     if (count($top_5_campaigns_array) > 0) {
                         $top_5_campaigns .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;">Campaign</th><th style="background:#666;color:#fff;padding:5px;">Clicks</th><th style="background:#666;color:#fff;padding:5px;">Impressions</th><th style="background:#666;color:#fff;padding:5px;">CTR</th><th style="background:#666;color:#fff;padding:5px;">CPM</th><th style="background:#666;color:#fff;padding:5px;">CPC</th></tr>';
                         foreach ($top_5_campaigns_array as $campaign_array) {
-                            $top_5_campaigns .= '<tr><td>' . $campaign_array[0] . '</td><td>' . $campaign_array[1] . '</td><td>' . $campaign_array[2] . '</td><td>' . $campaign_array[3] . '</td><td>$' . number_format(($campaign_array[5] / 100), 2, '.', '') . '</td><td>$' . number_format(($campaign_array[6] / 100), 2, '.', '') . '</td></tr>';
+                            $ad_cpc =  number_format((float) ($campaign_array[6] / 100), 2, '.', '');
+                            $ad_cpm = number_format((float) ($campaign_array[5] / 100), 2, '.', '')
+                            $top_5_campaigns .= '<tr><td>' . $campaign_array[0] . '</td><td>' . $campaign_array[1] . '</td><td>' . $campaign_array[2] . '</td><td>' . $campaign_array[3] . '</td><td>$' . $ad_cpm  . '</td><td>$' . $ad_cpc . '</td></tr>';
                         }
                         $top_5_campaigns .= '</tbody></table>';
                     } else {
