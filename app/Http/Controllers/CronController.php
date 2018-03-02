@@ -566,7 +566,7 @@ class CronController extends Controller
                     $welcome_email_substitutions = [
                         '%frequency%' => (string) ucfirst($report->frequency),
                         '%report_date%' => (string) date('m/d/Y'),
-                        '%property_url%' => $report->ad_account->ad_account_id,
+                        '%property_url%' => $report->ad_account->ad_account_title,
                         '%clicks%' => (string) $total_clicks,
                         '%impressions%' => (string) $total_impressions,
                         '%ctr%' => (string) $total_ctr,
