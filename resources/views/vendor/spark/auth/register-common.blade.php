@@ -1,3 +1,4 @@
+
 <!-- Coupon -->
 <div class="row" v-if="coupon">
     <div class="col-md-8 col-md-offset-2">
