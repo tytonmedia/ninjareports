@@ -398,7 +398,7 @@ class CronController extends Controller
                         '%devices_graph_url%' => (string) $devices_graph_url,
                         '%locations_graph_url%' => (string) $locations_graph_url,
                         '%top_5_sources%' => (string) $top_5_sources,
-                        '%property_url%' => $report->property->title,
+                        '%property_url%' => (string) $report->property->name,
                         '%logo_property%' => $logo,
                     ];
                     sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions);
@@ -571,8 +571,8 @@ class CronController extends Controller
                         '%impressions%' => (string) $total_impressions,
                         '%ctr%' => (string) $total_ctr,
                         '%spend%' => (string) number_format((float) ($total_spend / 1000000), 2, '.', ''),
-                        '%page_per_visits%' => (string) number_format((float) ($total_cpm / 1000000), 2, '.', ''),
-                        '%new_visitors%' => (string) number_format($total_cpc,2, ''),
+                        '%page_per_visits%' => (string) $total_cpm,
+                        '%new_visitors%' => (string) number_format((float) $total_cpc),2, ''),
                         '%devices_graph_url%' => (string) $devices_graph_url,
                         '%locations_graph_url%' => (string) $locations_graph_url,
                         '%top_5_campaigns%' => (string) $top_5_campaigns,
