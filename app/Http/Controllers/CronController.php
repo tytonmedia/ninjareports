@@ -472,8 +472,8 @@ class CronController extends Controller
                                 'impressions' => $adword_data[2],
                                 'ctr' => $adword_data[3],
                                 'spend' => $adword_data[4],
-                                'cpc' => number_format(($adword_data[5],2),
-                                'cpm' => number_format(($adword_data[6],2),
+                                'cpc' => number_format($adword_data[5],2),
+                                'cpm' => number_format($adword_data[6],2),
                                 'location' => $adword_data[7],
                                 'operating_system' => $adword_data[8],
                             ];
