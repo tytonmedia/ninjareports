@@ -43,6 +43,11 @@ class CronController extends Controller
     }
     public function report($report, $recipients)
     {
+        $logo="https://marketing-image-production.s3.amazonaws.com/uploads/6a85ebdabdfb77a126cb7bf00bc4e6d57311fe1066183a13b069ef4c4d45787aeca594f03de289f41878cb97923a4cd1ef1d77b4d1409a7d10c00fb4b2cfab8b.png";
+        $logoCheck=url("/") . "/storage/logos/" . $report->user->logo;
+        if ($logoCheck!='logo.pnp') {
+            $logo=$logoCheck;
+        }
         $ad_account_title = $report->ad_account->title;
         if ($report) {
             if ($report->account->type == 'facebook') {
@@ -223,7 +228,8 @@ class CronController extends Controller
                             '%ages_graph_url%' => (string) $ages_graph_url,
                             '%genders_graph_url%' => (string) $genders_graph_url,
                             '%top_ad_campaigns%' => (string) $top_ad_campaigns,
-                            '%property_url%' => $report->ad_account->title,
+                            '%property_url%' => $report->ad_account->ad_account_id,
+                            '%logo_property' => $logo,
                         ];
                         sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions);
                         Schedule::create([
@@ -258,7 +264,7 @@ class CronController extends Controller
                 $analytics = new \Google_Service_Analytics($client);
                 // Get top 5 sources
                 $top_sources_results = $analytics->data_ga->get(
-                    'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:bounceRate,ga:newUsers,ga:sessionsPerUser', [
+                    'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounceRate,ga:newUsers,ga:sessionsPerUser', [
                         'dimensions' => 'ga:source',
                         'sort' => '-ga:sessions',
                         'max-results' => 5,
@@ -267,10 +273,12 @@ class CronController extends Controller
                 $sources_insights = isset($top_sources_results->rows) ? $top_sources_results->rows : [];
                 if (isset($sources_insights) && count($sources_insights) > 0) {
                     $top_5_sources .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;">Source</th><th style="background:#666;color:#fff;padding:5px;">Visitotrs</th><th style="background:#666;color:#fff;padding:5px;">New %</th><th style="background:#666;color:#fff;padding:5px;">Bounce %</th><th style="background:#666;color:#fff;padding:5px;">Pages/Visit</th><th style="background:#666;color:#fff;padding:5px;">Avg. Time</th></tr>';
+
                     foreach ($sources_insights as $insight) {
                         $bounce_rate = round($insight[4] ,2) . "%";
                         $pages_per_visit = number_format((float) $insight[6], 3, '.', '');
                         $avg_time = date("H:i:s",strtotime($insight[3]));
+
                         $top_5_sources .= '<tr><td>' . $insight[0] . '</td><td>' . $insight[1] . '</td><td>' . $insight[5] . '</td><td>' . $bounce_rate . '</td><td>' . $pages_per_visit . '</td><td>' . $avg_time . '</td></tr>';
                     }
                     $top_5_sources .= '</tbody></table>';
@@ -279,7 +287,7 @@ class CronController extends Controller
                 }
 
                 $results = $analytics->data_ga->get(
-                    'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:bounceRate,ga:newUsers,ga:sessionsPerUser', ['dimensions' => 'ga:deviceCategory,ga:country']);
+                    'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounceRate,ga:newUsers,ga:sessionsPerUser', ['dimensions' => 'ga:deviceCategory,ga:country']);
                 $insights = $results->totalsForAllResults;
                 $metrics = $results->rows;
                 $total_sessions = 'No data';
@@ -295,7 +303,7 @@ class CronController extends Controller
                 if (isset($insights) && $insights) {
                     $total_sessions = $insights['ga:sessions'];
                     $total_pageviews = $insights['ga:pageviews'];
-                    $total_avg_time = date("H:i:s",strtotime($insights['ga:avgSessionDuration']));
+                    $total_avg_time = date("H:i:s",strtotime($insights['ga:avgTimeOnPage']));
                     $total_bounce_rate = round($insights['ga:bounceRate'],2);
                     $total_new_visitors = $insights['ga:newUsers'];
                     $total_pages_per_visitor = round($insights['ga:sessionsPerUser'],2);
@@ -390,7 +398,8 @@ class CronController extends Controller
                         '%devices_graph_url%' => (string) $devices_graph_url,
                         '%locations_graph_url%' => (string) $locations_graph_url,
                         '%top_5_sources%' => (string) $top_5_sources,
-                        '%property_url%' => $report->ad_account->title,
+                        '%property_url%' => $report->property->property,
+                        '%logo_property' => $logo,
                     ];
                     sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions);
                     Schedule::create([
@@ -557,7 +566,7 @@ class CronController extends Controller
                     $welcome_email_substitutions = [
                         '%frequency%' => (string) ucfirst($report->frequency),
                         '%report_date%' => (string) date('m/d/Y'),
-                        '%property_url%' => $report->ad_account->title,
+                        '%property_url%' => $report->ad_account->ad_account_id,
                         '%clicks%' => (string) $total_clicks,
                         '%impressions%' => (string) $total_impressions,
                         '%ctr%' => (string) $total_ctr,
@@ -567,6 +576,7 @@ class CronController extends Controller
                         '%devices_graph_url%' => (string) $devices_graph_url,
                         '%locations_graph_url%' => (string) $locations_graph_url,
                         '%top_5_campaigns%' => (string) $top_5_campaigns,
+                        '%logo_property' => $logo,
                     ];
                     sendMail($email, $report->email_subject, '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions);
                     Schedule::create([
