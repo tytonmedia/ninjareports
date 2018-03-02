@@ -398,7 +398,7 @@ class CronController extends Controller
                         '%devices_graph_url%' => (string) $devices_graph_url,
                         '%locations_graph_url%' => (string) $locations_graph_url,
                         '%top_5_sources%' => (string) $top_5_sources,
-                        '%property_url%' => $report->property->property,
+                        '%property_url%' => $report->property->title,
                         '%logo_property%' => $logo,
                     ];
                     sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions);
@@ -472,8 +472,8 @@ class CronController extends Controller
                                 'impressions' => $adword_data[2],
                                 'ctr' => $adword_data[3],
                                 'spend' => $adword_data[4],
-                                'cpc' => number_format($adword_data[5],2),
-                                'cpm' => number_format($adword_data[6],2),
+                                'cpc' => $adword_data[5],
+                                'cpm' => $adword_data[6],
                                 'location' => $adword_data[7],
                                 'operating_system' => $adword_data[8],
                             ];
@@ -566,7 +566,7 @@ class CronController extends Controller
                     $welcome_email_substitutions = [
                         '%frequency%' => (string) ucfirst($report->frequency),
                         '%report_date%' => (string) date('m/d/Y'),
-                        '%property_url%' => $report->ad_account->ad_account_title,
+                        '%property_url%' => $report->ad_account->title,
                         '%clicks%' => (string) $total_clicks,
                         '%impressions%' => (string) $total_impressions,
                         '%ctr%' => (string) number_format($total_ctr,2),
