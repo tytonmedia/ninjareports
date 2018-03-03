@@ -1,20 +1,4 @@
-<!-- Google Code for Ninja Report Sign Up Conversion Page -->
-<script type="text/javascript">
-/* <![CDATA[ */
-var google_conversion_id = 878550381;
-var google_conversion_label = "zVCpCNuH5n0Q7br2ogM";
-var google_conversion_value = 0.00;
-var google_conversion_currency = "USD";
-var google_remarketing_only = false;
-/* ]]> */
-</script>
-<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
-</script>
-<noscript>
-<div style="display:inline;">
-<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/878550381/?value=0.00&amp;currency_code=USD&amp;label=zVCpCNuH5n0Q7br2ogM&amp;guid=ON&amp;script=0"/>
-</div>
-</noscript>
+
 <form class="form-horizontal" role="form">
     @if (Spark::usesTeams() && Spark::onlyTeamPlans())
         <!-- Team Name -->
