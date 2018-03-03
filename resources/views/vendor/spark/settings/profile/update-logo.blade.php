@@ -13,7 +13,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">&nbsp;</label>
 
-                        <div class="col-md-6">
+                        <div class="col-md-6" style="text-align:center;">
                             <span role="img" class="profile-photo-preview white-label-logo"
                                 :style="previewStyle">
                             </span>

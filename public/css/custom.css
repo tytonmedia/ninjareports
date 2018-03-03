@@ -109,6 +109,9 @@ label.help {font-size:12px;color:#ccc;}
     width: 215px !important;
     float: right;
     height: 215px !important;}
+
+.white-label-logo {height:50px;width:300px;}
+
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 /* Styles */
