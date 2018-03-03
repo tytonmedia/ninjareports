@@ -549,7 +549,7 @@ class CronController extends Controller
                         $total_ctr = $total_data[3];
                         $total_spend = $total_data[4];
                         $total_cpm = number_format(($total_data[5] / 1000000),2);
-                        $total_cpc = number_format(($total_data[6] / 100000,2);
+                        $total_cpc = number_format(($total_data[6] / 100000),2);
                         $top_5_campaigns_array = array_slice($final_adword_data, 0, 5);
                     }
                     if (count($top_5_campaigns_array) > 0) {
