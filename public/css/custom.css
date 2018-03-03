@@ -111,7 +111,7 @@ label.help {font-size:12px;color:#ccc;}
     height: 215px !important;}
 
 .white-label-logo {height:50px;width:300px;}
-
+.help-block {font-size:12px;}
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 /* Styles */
