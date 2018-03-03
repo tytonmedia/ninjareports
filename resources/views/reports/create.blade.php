@@ -86,7 +86,7 @@
 										</div>
 										<div class="col-md-5">
 											<input type="text" name="ends_at" readonly class="custom-readonly form-control timepicker" />
-											<div class="help-block"><a style="font-size: 11px" href="{{ url('settings') }}">Set Timezone</a></div>
+											<div class="help-block"><a style="font-size: 12px" href="{{ url('settings') }}">Set Timezone</a> to send reports at the correct time.</div>
 										</div>
 									</div>
 								</div>
