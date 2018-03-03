@@ -34,7 +34,7 @@
                  width="1"
                  style="border-style:none;"
                  alt=""
-                 src="//www.googleadservices.com/pagead/conversion/878550381/?value="{{ $value }}&amp;currency_code=USD&amp;label=zVCpCNuH5n0Q7br2ogM&amp;guid=ON&amp;script=0"/>
+                 src="//www.googleadservices.com/pagead/conversion/878550381/?value={{ $value }}&amp;currency_code=USD&amp;label=zVCpCNuH5n0Q7br2ogM&amp;guid=ON&amp;script=0"/>
         </div>
     </noscript>
     <?php } ?>
