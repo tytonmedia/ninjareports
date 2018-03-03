@@ -26,7 +26,7 @@ class CronController extends Controller
         $reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->where('is_paused', 0)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
         //$reports = Report::where('id', 2)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
 
-        if ($reports && count($reports) < 0) {
+        if ($reports && count($reports) > 0) {
             foreach ($reports as $report) {
                 $current_plan = $report->user->current_billing_plan ? $report->user->current_billing_plan : 'free_trial';
                 $plan = Plan::whereTitle($current_plan)->first();

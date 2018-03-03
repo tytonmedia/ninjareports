@@ -1,7 +1,7 @@
 <spark-update-logo :user="user" inline-template v-if="user.current_billing_plan === 'white_label'">
     <div>
         <div class="panel panel-default" v-if="user">
-            <div class="panel-heading">Logo</div>
+            <div class="panel-heading">White Label Logo</div>
 
             <div class="panel-body">
                 <div class="alert alert-danger" v-if="form.errors.has('photo')">
