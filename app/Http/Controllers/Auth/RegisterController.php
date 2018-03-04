@@ -70,6 +70,10 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+          $new_user_substitutions = [
+             '%name%' => $user->name,
+            '%email%' => $user->email,
+        ];
         $welcome_email_substitutions = [
             '%app_link%' => env('APP_URL'),
             '%app_name%' => env('APP_NAME'),
@@ -78,5 +82,6 @@ class RegisterController extends Controller
             '%year%' => date('Y'),
         ];
         sendMail($user->email, 'Welcome To Ninja Reports!', '66424c1c-aa6b-4daa-a031-2edc29ea620a', $welcome_email_substitutions);
+        sendMail('alerts@tytonmedia.com','New Ninja Reports User','a48e9f9c-19e3-4b80-b0ea-2b97e8a46db0', $new_user_substitutions);
     }
 }
