@@ -73,6 +73,7 @@ class RegisterController extends Controller
           $new_user_substitutions = [
              '%name%' => $user->name,
             '%email%' => $user->email,
+            '%package%' => $user->current_billing_plan,
         ];
         $welcome_email_substitutions = [
             '%app_link%' => env('APP_URL'),
