@@ -7,7 +7,7 @@
 			@if($paused)
 				<div class="alert alert-danger">
 					<b>Upgrade to Resume</b><br/>
-					You have reached the limit of your plan. <a href="{{ url('settings#/subscription') }}">Upgrade your plan</a> to resume your reports.
+					You have reached the limit of your plan. <a onClick="ga('send', 'event', 'button', 'click', 'upgrade_alert_create');" href="{{ url('settings#/subscription') }}">Upgrade your plan</a> to resume your reports.
 				</div>
 			@endif
 			@include('common.flash')
@@ -17,6 +17,7 @@
 						<div class="col-md-12 col-sm-12 col-xs-12">
 							<h1 class="title">Create Report</h1>
 							<p>Build your automated email reports below. Select your integration, schedule your reports, add your recipients and enjoy automated reporting.</p>
+						<button class="">Send Test Report</button>
 						</div>
 					</div>
 					<div class="row">

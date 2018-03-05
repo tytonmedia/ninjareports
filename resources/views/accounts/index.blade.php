@@ -5,7 +5,7 @@
 			@if($paused)
 				<div class="alert alert-danger">
 					<b>Upgrade to Resume</b><br/>
-					You have reached the limit of your plan. <a href="{{ url('settings#/subscription') }}">Upgrade your plan</a> to resume your reports.
+					You have reached the limit of your plan. <a onClick="ga('send', 'event', 'button', 'click', 'upgrade_alert_integrations');" href="{{ url('settings#/subscription') }}">Upgrade your plan</a> to resume your reports.
 				</div>
 			@endif
 			@include('common.flash')
@@ -14,7 +14,7 @@
 					<div class="row">
 						<div class="col-md-12 col-sm-12 col-xs-12">
 								<div class="greeting-button">
-							<button class="btn upgrade-btn nr_connect_accounts_button"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Integration
+							<button class="btn upgrade-btn nr_connect_accounts_button" onClick="ga('send', 'event', 'button', 'click', 'add_integration_dash');"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Integration
 								<span class="nr-loader fa fa-spin fa-spinner margin-left-5 hidden"></span>
 							</button>
 						</div>
