@@ -17,7 +17,6 @@
 						<div class="col-md-12 col-sm-12 col-xs-12">
 							<h1 class="title">Create Report</h1>
 							<p>Build your automated email reports below. Select your integration, schedule your reports, add your recipients and enjoy automated reporting.</p>
-						<button class="">Send Test Report</button>
 						</div>
 					</div>
 					<div class="row">
