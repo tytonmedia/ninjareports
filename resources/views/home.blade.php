@@ -103,7 +103,7 @@
                                                     class="fa fa-caret-right"
                                                     aria-hidden="true"></i></a>
                                     @else
-                                        <button class="btn btn-black btn-create-report nr_connect_accounts_button">
+                                        <button class="btn btn-black btn-create-report nr_connect_accounts_button" onClick="ga('send', 'event', 'button', 'click', 'create_report_dashboard');">
                                             Create
                                             Report&nbsp;&nbsp;<i
                                                     class="fa fa-caret-right"
