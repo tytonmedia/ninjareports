@@ -17,6 +17,7 @@
 
     </script>
     <script type="application/javascript">
+        ga('require', 'ecommerce');
         ga('ecommerce:addTransaction', {
             'id': '{{ uniqid() }}',                     // Transaction ID. Required.
 
