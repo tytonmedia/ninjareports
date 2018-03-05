@@ -162,7 +162,7 @@
                                         your
                                         reports.
                                     </p>
-                                    <button class="btn btn-black nr_connect_accounts_button">
+                                    <button class="btn btn-black nr_connect_accounts_button" onClick="ga('send', 'event', 'button', 'click', 'add_integration_dashboard');">
                                         <i class="fa fa-plus-circle"
                                            aria-hidden="true"></i>
                                         Add
