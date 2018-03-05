@@ -57,7 +57,7 @@
                             of
                             your
                             plan.
-                            <a href="{{ url('settings#/subscription') }}">Upgrade
+                            <a href="{{ url('settings#/subscription') }}" onClick="ga('send', 'event', 'button', 'click', 'upgrade_alert_dashboard');">Upgrade
                                 your
                                 plan</a>
                             to
