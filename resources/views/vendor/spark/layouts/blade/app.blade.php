@@ -39,7 +39,12 @@
 
   gtag('config', 'UA-79012395-19');
 </script>
-
+<script>
+  window['GoogleAnalyticsObject'] = 'ga';
+  window['ga'] = window['ga'] || function() {
+    (window['ga'].q = window['ga'].q || []).push(arguments)
+  };
+</script>
 </head>
 <body class="with-navbar">
     <div id="spark-app" v-cloak>
