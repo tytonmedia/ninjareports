@@ -14,9 +14,9 @@ class SparkServiceProvider extends ServiceProvider
      */
     protected $details = [
         'vendor' => 'Ninja Reports',
-        'product' => 'Your Product',
-        'street' => 'PO Box 111',
-        'location' => 'Your Town, NY 12345',
+        'product' => 'Ninja Reports',
+        'street' => '5601 west 136th tr',
+        'location' => 'Overland Park, KS 66223',
         'phone' => '555-555-5555',
     ];
 
@@ -34,6 +34,7 @@ class SparkServiceProvider extends ServiceProvider
      */
     protected $developers = [
         //
+        'tyler@ninjareports.com',
     ];
 
     /**
