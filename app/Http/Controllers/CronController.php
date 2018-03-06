@@ -410,11 +410,12 @@ class CronController extends Controller
 
                 //$html = view('reports.templates.analytics', compact('report', 'sources_insights', 'total_sessions', 'total_avg_time', 'total_bounce_rate', 'total_pageviews', 'total_pages_per_visitor', 'total_new_visitors', 'devices_graph_url', 'locations_graph_url', 'ad_account_title'))->render();
                 foreach ($recipients as $email) {
+                    echo $total_avg_time;
                     $analytics_email_substitutions = [
                         '%frequency%' => (string)ucfirst($report->frequency),
                         '%report_date%' => (string)$reportDate,
                         '%visitors%' => (string)$total_sessions,
-                        '%avg_time%' => (string)gmdate("H:i:s", $total_avg_time),
+                        '%avg_time%' => (string)gmdate("H:i:s", floor($total_avg_time*3600)),
                         '%bounce_rate%' => (string)$total_bounce_rate,
                         '%page_views%' => (string)$total_pageviews,
                         '%page_per_visits%' => (string)$total_pages_per_visitor,
