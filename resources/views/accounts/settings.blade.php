@@ -5,7 +5,7 @@
 			@if($paused)
 				<div class="alert alert-danger">
 					<b>Upgrade to Resume</b><br/>
-					You have reached the limit of your plan. <a href="{{ url('settings#/subscription') }}">Upgrade your plan</a> to resume your reports.
+					You have reached the limit of your plan. <a onClick="ga('send', 'event', 'button', 'click', 'upgrade_alert_settings');" href="{{ url('settings#/subscription') }}">Upgrade your plan</a> to resume your reports.
 				</div>
 			@endif
 			@include('common.flash')

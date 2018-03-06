@@ -17,12 +17,12 @@
 
     </script>
     <script type="application/javascript">
+        ga('require', 'ecommerce');
         ga('ecommerce:addTransaction', {
             'id': '{{ uniqid() }}',                     // Transaction ID. Required.
-
             'revenue': '{{ $value }}',               // Grand Total.
-
         });
+        ga('ecommerce:send');
     </script>
     <script type="text/javascript"
             src="//www.googleadservices.com/pagead/conversion.js">
@@ -57,7 +57,7 @@
                             of
                             your
                             plan.
-                            <a href="{{ url('settings#/subscription') }}">Upgrade
+                            <a href="{{ url('settings#/subscription') }}" onClick="ga('send', 'event', 'button', 'click', 'upgrade_alert_dashboard');">Upgrade
                                 your
                                 plan</a>
                             to
@@ -103,7 +103,7 @@
                                                     class="fa fa-caret-right"
                                                     aria-hidden="true"></i></a>
                                     @else
-                                        <button class="btn btn-black btn-create-report nr_connect_accounts_button">
+                                        <button class="btn btn-black btn-create-report nr_connect_accounts_button" onClick="ga('send', 'event', 'button', 'click', 'create_report_dashboard');">
                                             Create
                                             Report&nbsp;&nbsp;<i
                                                     class="fa fa-caret-right"
@@ -157,12 +157,12 @@
                                         account
                                         data
                                         and
-                                        starting
+                                        start
                                         automating
                                         your
                                         reports.
                                     </p>
-                                    <button class="btn btn-black nr_connect_accounts_button">
+                                    <button class="btn btn-black nr_connect_accounts_button" onClick="ga('send', 'event', 'button', 'click', 'add_integration_dashboard');">
                                         <i class="fa fa-plus-circle"
                                            aria-hidden="true"></i>
                                         Add

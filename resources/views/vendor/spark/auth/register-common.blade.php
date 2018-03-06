@@ -84,7 +84,7 @@
                         All subscription plan prices are excluding applicable VAT.
                     </p>
                 @endif
-
+                <div class="table-responsive">
                 <table class="table table-borderless m-b-none">
                     <thead></thead>
                     <tbody>
@@ -139,6 +139,7 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
             </div>
         </div>
     </div>
