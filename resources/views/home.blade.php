@@ -20,9 +20,7 @@
         ga('require', 'ecommerce');
         ga('ecommerce:addTransaction', {
             'id': '{{ uniqid() }}',                     // Transaction ID. Required.
-
             'revenue': '{{ $value }}',               // Grand Total.
-
         });
         ga('ecommerce:send');
     </script>
