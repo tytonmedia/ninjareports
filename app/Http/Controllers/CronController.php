@@ -41,12 +41,12 @@ class CronController extends Controller
 
                     $email = $report->user->email;
                     $subject = 'You\'ve reached your monthly report limit on NinjaReports';
-                    $timestamp=date('Y-m-d');
-                    $daysLeft=(int)date('t', $timestamp) - (int)date('j', $timestamp);
+                    $timestamp = date('Y-m-d');
+                    $daysLeft = (int)date('t', $timestamp) - (int)date('j', $timestamp);
                     $welcome_email_substitutions = [
                         '%reports%' => (string)$reports_sent_count,
                         '%limit%' => (string)$plan->reports,
-                        '%x_days%' => (string) $daysLeft,
+                        '%x_days%' => (string)$daysLeft,
 
                     ];
                     sendMail($email, $subject, '99642447-0c92-4931-8038-0c1190f779cd', $welcome_email_substitutions);
@@ -68,17 +68,21 @@ class CronController extends Controller
             if ($report->account->type == 'facebook') {
 
                 $params = [];
+                $reportDate=date("m/d/Y");
                 switch ($report->frequency) {
                     case "weekly":
                         $params['date_preset'] = AdsInsightsDatePresetValues::LAST_7D;
+                        $reportDate = date("m/d/Y", strtotime("-7 Days")) . "-" . date("m/d/Y");
                         break;
                     case "monthly":
                         $params['date_preset'] = AdsInsightsDatePresetValues::LAST_30D;
+                        $reportDate = date("F");
                         break;
                     case "yearly":
                         $endDate = date('Y-m-d', strtotime(date('Y') . '-' . $report->ends_at));
                         $startDate = date('Y-m-d', strtotime('-1 year', strtotime($endDate)));
                         $params['time_range'] = ("{'since': '" . $startDate . "', 'until': '" . $endDate . "'}");
+                        $reportDate=date("Y");
                         break;
                     default:
                         $params['date_preset'] = AdsInsightsDatePresetValues::TODAY;
@@ -233,7 +237,7 @@ class CronController extends Controller
                     foreach ($recipients as $email) {
                         $welcome_email_substitutions = [
                             '%frequency%' => (string)ucfirst($report->frequency),
-                            '%report_date%' => (string)date('m/d/Y'),
+                            '%report_date%' => (string)$reportDate,
                             '%visitors%' => (string)$total_clicks,
                             '%avg_time%' => (string)$total_impressions,
                             '%bounce_rate%' => (string)$total_ctr,
@@ -259,15 +263,19 @@ class CronController extends Controller
             if ($report->account->type == 'analytics') {
                 $from_date = '';
                 $to_date = date('Y-m-d', strtotime($report->next_send_time));
+                $reportDate=date("m/d/Y");
                 switch ($report->frequency) {
                     case "weekly":
                         $from_date = date('Y-m-d', strtotime('-7 day', strtotime($report->next_send_time)));
+                        $reportDate = date("m/d/Y", strtotime("-7 Days")) . "-" . date("m/d/Y");
                         break;
                     case "monthly":
                         $from_date = date('Y-m-d', strtotime('-1 month', strtotime($report->next_send_time)));
+                        $reportDate=("F");
                         break;
                     case "yearly":
                         $from_date = date('Y-m-d', strtotime('-1 year', strtotime($report->next_send_time)));
+                        $reportDate=date("Y");
                         break;
                     default:
                         $from_date = 'today';
@@ -404,7 +412,7 @@ class CronController extends Controller
                 foreach ($recipients as $email) {
                     $analytics_email_substitutions = [
                         '%frequency%' => (string)ucfirst($report->frequency),
-                        '%report_date%' => (string)date('m/d/Y'),
+                        '%report_date%' => (string)$reportDate,
                         '%visitors%' => (string)$total_sessions,
                         '%avg_time%' => (string)gmdate("H:i:s", $total_avg_time),
                         '%bounce_rate%' => (string)$total_bounce_rate,
@@ -426,19 +434,23 @@ class CronController extends Controller
                 }
             }
             if ($report->account->type == 'adword') {
+                $reportDate=date("m/d/Y");
                 switch ($report->frequency) {
                     case "weekly":
                         $during = 'LAST_7_DAYS';
+                        $reportDate = date("m/d/Y", strtotime("-7 Days")) . "-" . date("m/d/Y");
                         break;
                     case "monthly":
                         $to_date = date('Ymd', strtotime($report->next_send_time));
                         $from_date = date('Ymd', strtotime('-1 month', strtotime($report->next_send_time)));
                         $during = $from_date . ',' . $to_date;
+                        $reportDate=date("F");
                         break;
                     case "yearly":
                         $to_date = date('Ymd', strtotime($report->next_send_time));
                         $from_date = date('Ymd', strtotime('-1 year', strtotime($report->next_send_time)));
                         $during = $from_date . ',' . $to_date;
+                        $reportDate=date("Y");
                         break;
                     default:
                         $during = 'TODAY';
@@ -583,7 +595,7 @@ class CronController extends Controller
                 foreach ($recipients as $email) {
                     $welcome_email_substitutions = [
                         '%frequency%' => (string)ucfirst($report->frequency),
-                        '%report_date%' => (string)date('m/d/Y'),
+                        '%report_date%' => (string)$reportDate,
                         '%property_url%' => $report->ad_account->title,
                         '%clicks%' => (string)$total_clicks,
                         '%impressions%' => (string)$total_impressions,
