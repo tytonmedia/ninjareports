@@ -24,6 +24,7 @@
             'revenue': '{{ $value }}',               // Grand Total.
 
         });
+        ga('ecommerce:send');
     </script>
     <script type="text/javascript"
             src="//www.googleadservices.com/pagead/conversion.js">
