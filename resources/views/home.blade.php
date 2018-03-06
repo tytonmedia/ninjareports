@@ -246,7 +246,7 @@
                 labels: ["Sent", "Remaining"],
                 datasets: [{
                     backgroundColor: ["#1e90ff", "#00bfff"],
-                    data: [{{ $reports_sent_count }},{{ $plan['reports'] }}]
+                    data: [{{ $reports_sent_count }},{{ $plan['reports']-$reports_sent_count }}]
                 }]
             }
         });
