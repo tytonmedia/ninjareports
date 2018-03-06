@@ -444,7 +444,7 @@ class CronController extends Controller
                         $during = 'TODAY';
                 }
                 $session = adwords_session($report->ad_account->ad_account_id, $report->user_id);
-                $reportQuery = 'SELECT CampaignName, Clicks, Impressions, Ctr, Cost, AverageCpm, AverageCpc , CountryCriteriaId, Device FROM GEO_PERFORMANCE_REPORT DURING ' . $during;
+                $reportQuery = 'SELECT CampaignName, Clicks, Impressions, Ctr, Cost, AverageCpm, AverageCpc , CountryCriteriaId, Device, AdGroupName FROM GEO_PERFORMANCE_REPORT DURING ' . $during;
                 $reportDownloader = new \Google\AdsApi\AdWords\Reporting\v201710\ReportDownloader($session);
                 $reportSettingsOverride = (new \Google\AdsApi\AdWords\ReportSettingsBuilder())
                     ->includeZeroImpressions(false)
@@ -572,7 +572,7 @@ class CronController extends Controller
                         foreach ($top_5_campaigns_array as $campaign_array) {
                             $ad_cpc = number_format((float)($campaign_array[6] / 100000), 2);
                             $ad_cpm = number_format((float)($campaign_array[5] / 100000), 2);
-                            $top_5_campaigns .= '<tr><td>' . $campaign_array[0] . '</td><td>' . $campaign_array[1] . '</td><td>' . $campaign_array[2] . '</td><td>' . $campaign_array[3] . '</td><td>$' . $ad_cpm . '</td><td>$' . $ad_cpc . '</td></tr>';
+                            $top_5_campaigns .= '<tr><td>' . $campaign_array[9] . '</td><td>' . $campaign_array[1] . '</td><td>' . $campaign_array[2] . '</td><td>' . $campaign_array[3] . '</td><td>$' . $ad_cpm . '</td><td>$' . $ad_cpc . '</td></tr>';
                         }
                         $top_5_campaigns .= '</tbody></table>';
                     } else {
