@@ -159,7 +159,7 @@
                                         account
                                         data
                                         and
-                                        starting
+                                        start
                                         automating
                                         your
                                         reports.
