@@ -415,7 +415,7 @@ class CronController extends Controller
                         '%frequency%' => (string)ucfirst($report->frequency),
                         '%report_date%' => (string)$reportDate,
                         '%visitors%' => (string)$total_sessions,
-                        '%avg_time%' => (string)gmdate("H:i:s", floor($total_avg_time*3600)),
+                        '%avg_time%' => (string)gmdate("H:i:s", floor(strtotime($total_avg_time)*3600)),
                         '%bounce_rate%' => (string)$total_bounce_rate,
                         '%page_views%' => (string)$total_pageviews,
                         '%page_per_visits%' => (string)$total_pages_per_visitor,
