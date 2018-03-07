@@ -493,6 +493,9 @@ class CronController extends Controller
                     ->build();
                 $reportDownloadResult = $reportDownloader->downloadReportWithAwql(
                     $reportQuery, \Google\AdsApi\AdWords\Reporting\v201710\DownloadFormat::CSV, $reportSettingsOverride);
+
+                file_put_contents('adwords_array.csv', $reportDownloadResult);
+
                 $campaigns_adword_data = str_getcsv($reportDownloadResult->getAsString(), "\n");
 
                 $encodedString = json_encode($campaigns_adword_data);
