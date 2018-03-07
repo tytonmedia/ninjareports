@@ -312,6 +312,14 @@ class CronController extends Controller
 
                 $results = $analytics->data_ga->get(
                     'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounceRate,ga:newUsers,ga:sessionsPerUser', ['dimensions' => 'ga:deviceCategory,ga:country']);
+
+
+                $encodedString = json_encode($results);
+
+//Save the JSON string to a text file.
+                file_put_contents('analytics_array.txt', $encodedString);
+
+
                 $insights = $results->totalsForAllResults;
                 $metrics = $results->rows;
                 $total_sessions = 'No data';
