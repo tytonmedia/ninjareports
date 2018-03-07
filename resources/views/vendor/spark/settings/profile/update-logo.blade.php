@@ -14,7 +14,7 @@
                         <label class="col-md-3 control-label">&nbsp;</label>
 
                         <div class="col-md-6" style="text-align:center;">
-                            <span role="img" class="profile-photo-preview white-label-logo"
+                            <span role="img" class="white-photo-preview white-label-logo"
                                 :style="previewStyle">
                             </span>
                         </div>
@@ -30,7 +30,10 @@
                                 <span>Select New logo</span>
 
                                 <input ref="logo" type="file" class="form-control" name="logo" @change="update">
+
                             </label>
+                            <br>
+                            <small>Recommended 300x100 Pixels</small>
                         </div>
                          <label class="col-md-3 control-label">&nbsp;</label>
                     </div>

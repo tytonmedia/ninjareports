@@ -239,13 +239,11 @@ if (!function_exists('make_schedules')) {
         }
         $next_send_time = '';
         $current_time = date('H:i:s');
-
         $current_day = date('D');
         $current_date = date('j');
         $current_month = date('n');
         if ($frequency == 'daily') {
             $frequency_time = date('H:i:s', strtotime($ends_at));
-
             if ($frequency_time > $current_time) {
                 $next_send_time = date('Y-m-d') . ' ' . $frequency_time;
             } else {
