@@ -291,7 +291,7 @@ class CronController extends Controller
                 $analytics = new \Google_Service_Analytics($client);
                 // Get top 5 sources
                 $top_sources_results = $analytics->data_ga->get(
-                    'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounceRate,ga:newUsers,ga:sessionsPerUser', [
+                    'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounceRate,ga:newUsers,ga:sessionsPerUser,ga:itemRevenue', [
                     'dimensions' => 'ga:source',
                     'sort' => '-ga:sessions',
                     'max-results' => 5,
@@ -300,14 +300,14 @@ class CronController extends Controller
                 $sources_insights = isset($top_sources_results->rows) ? $top_sources_results->rows : [];
                 if (isset($sources_insights) && count($sources_insights) > 0) {
 
-                    $top_5_sources .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;">Source</th><th style="background:#666;color:#fff;padding:5px;">Visits</th><th style="background:#666;color:#fff;padding:5px;">New</th><th style="background:#666;color:#fff;padding:5px;">Bounce %</th><th style="background:#666;color:#fff;padding:5px;">Pages/Visit</th><th style="background:#666;color:#fff;padding:5px;">Avg. Time</th></tr>';
+                    $top_5_sources .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;text-align:left;">Source</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Visits</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">New</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Bounce %</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Pages/Visit</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Revenue</th></tr>';
                     foreach ($sources_insights as $insight) {
                         $new_visitors = round($insight[6], 0) . "";
                         $pages_per_visit = number_format((float)$insight[7], 2, '.', '');
                         $bounce_rate = round($insight[5], 0);
                         $avg_time = date("H:i:s", strtotime($insight[3]));
-
-                        $top_5_sources .= '<tr><td>' . $insight[0] . '</td><td>' . $insight[1] . '</td><td>' . $new_visitors . '</td><td>' . $bounce_rate . '%</td><td>' . $pages_per_visit . '</td><td>' . $avg_time . '</td></tr>';
+                        $revenue = $insight[8];
+                        $top_5_sources .= '<tr><td>' . $insight[0] . '</td><td>' . $insight[1] . '</td><td>' . $new_visitors . '</td><td>' . $bounce_rate . '%</td><td>' . $pages_per_visit . '</td><td>' . $revenue . '</td></tr>';
                     }
                     $top_5_sources .= '</tbody></table>';
                 } else {
@@ -315,7 +315,7 @@ class CronController extends Controller
                 }
 
                 $results = $analytics->data_ga->get(
-                    'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounceRate,ga:newUsers,ga:sessionsPerUser', ['dimensions' => 'ga:deviceCategory,ga:country']);
+                    'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounceRate,ga:newUsers,ga:sessionsPerUser,ga:itemRevenue', ['dimensions' => 'ga:deviceCategory,ga:country']);
 
 
                 $encodedString = json_encode($results);
@@ -332,17 +332,19 @@ class CronController extends Controller
                 $total_bounce_rate = 'No data';
                 $total_new_visitors = 'No data';
                 $total_pages_per_visitor = 'No data';
+                $total_revenue = 'No data';
                 $google_analytics_ads_data = [];
                 $locations_graph_url = 'no_data';
                 $devices_graph_url = 'no_data';
 
                 if (isset($insights) && $insights) {
-                    $total_sessions = $insights['ga:sessions'];
-                    $total_pageviews = $insights['ga:pageviews'];
+                    $total_sessions = number_format($insights['ga:sessions']);
+                    $total_pageviews = number_format($insights['ga:pageviews']);
                     $total_avg_time = $insights['ga:avgTimeOnPage'];
                     $total_bounce_rate = round($insights['ga:bounceRate'], 2);
-                    $total_new_visitors = $insights['ga:newUsers'];
+                    $total_new_visitors = number_format($insights['ga:newUsers']);
                     $total_pages_per_visitor = round($insights['ga:sessionsPerUser'], 2);
+                    $total_revenue = $insights['ga:itemRevenue'];
                 }
                 if ($metrics && count($metrics) > 0) {
                     $operating_system_result = [];
@@ -359,6 +361,7 @@ class CronController extends Controller
                             'bounce_rate' => $metric[5],
                             'new_visitors' => $metric[6],
                             'pages_per_visitor' => $metric[7],
+                            'revenue' => $metric[8],
                         ];
                     }
 
@@ -427,7 +430,8 @@ class CronController extends Controller
                         '%frequency%' => (string)ucfirst($report->frequency),
                         '%report_date%' => (string)$reportDate,
                         '%visitors%' => (string)$total_sessions,
-                        '%avg_time%' => (string)"" . gmdate("H:i:s", strtotime($total_avg_time)),
+                        '%avg_time%' => (string)gmdate("H:i:s", strtotime($total_avg_time)*3600),
+                        '%revenue%' => (string)$total_revenue,
                         '%bounce_rate%' => (string)$total_bounce_rate,
                         '%page_views%' => (string)$total_pageviews,
                         '%page_per_visits%' => (string)$total_pages_per_visitor,
