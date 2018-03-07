@@ -17,8 +17,14 @@
 require('spark-bootstrap');
 
 require('./components/bootstrap');
+Spark.forms.register = {
+    timeszone: ''
+};
+
 
 var app = new Vue({
+
+
     mixins: [require('spark')]
 });
 Vue.config.devtools = false
