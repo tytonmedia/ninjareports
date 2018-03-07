@@ -68,7 +68,9 @@ class CronController extends Controller
             if ($report->account->type == 'facebook') {
 
                 $params = [];
-                $reportDate=date("m/d/Y",strtotime($report->ends_at));
+                date_default_timezone_set($report->user->timezone);
+                $reportDate=date("m/d/Y");
+                date_default_timezone_set('Europe/London');
                 switch ($report->frequency) {
                     case "weekly":
                         $params['date_preset'] = AdsInsightsDatePresetValues::LAST_7D;
@@ -263,7 +265,9 @@ class CronController extends Controller
             if ($report->account->type == 'analytics') {
                 $from_date = '';
                 $to_date = date('Y-m-d', strtotime($report->next_send_time));
-                $reportDate=date("m/d/Y",strtotime($report->ends_at));
+                date_default_timezone_set($report->user->timezone);
+                $reportDate=date("m/d/Y");
+                date_default_timezone_set('Europe/London');
                 switch ($report->frequency) {
                     case "weekly":
                         $from_date = date('Y-m-d', strtotime('-7 day', strtotime($report->next_send_time)));
@@ -449,7 +453,9 @@ class CronController extends Controller
                 }
             }
             if ($report->account->type == 'adword') {
-                $reportDate=date("m/d/Y",strtotime($report->ends_at));
+                date_default_timezone_set($report->user->timezone);
+                $reportDate=date("m/d/Y");
+                date_default_timezone_set('Europe/London');
                 switch ($report->frequency) {
                     case "weekly":
                         $during = 'LAST_7_DAYS';
