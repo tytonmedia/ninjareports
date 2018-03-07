@@ -68,7 +68,9 @@ class CronController extends Controller
             if ($report->account->type == 'facebook') {
 
                 $params = [];
-                $reportDate=date("m/d/Y",strtotime($report->ends_at));
+                date_default_timezone_set($report->user->timezone);
+                $reportDate=date("m/d/Y");
+                date_default_timezone_set('Europe/London');
                 switch ($report->frequency) {
                     case "weekly":
                         $params['date_preset'] = AdsInsightsDatePresetValues::LAST_7D;
@@ -263,7 +265,9 @@ class CronController extends Controller
             if ($report->account->type == 'analytics') {
                 $from_date = '';
                 $to_date = date('Y-m-d', strtotime($report->next_send_time));
-                $reportDate=date("m/d/Y",strtotime($report->ends_at));
+                date_default_timezone_set($report->user->timezone);
+                $reportDate=date("m/d/Y");
+                date_default_timezone_set('Europe/London');
                 switch ($report->frequency) {
                     case "weekly":
                         $from_date = date('Y-m-d', strtotime('-7 day', strtotime($report->next_send_time)));
@@ -421,7 +425,7 @@ class CronController extends Controller
 
                 //$html = view('reports.templates.analytics', compact('report', 'sources_insights', 'total_sessions', 'total_avg_time', 'total_bounce_rate', 'total_pageviews', 'total_pages_per_visitor', 'total_new_visitors', 'devices_graph_url', 'locations_graph_url', 'ad_account_title'))->render();
                 foreach ($recipients as $email) {
-                    echo $total_avg_time;
+
                     $analytics_email_substitutions = [
                         '%frequency%' => (string)ucfirst($report->frequency),
                         '%report_date%' => (string)$reportDate,
@@ -438,6 +442,12 @@ class CronController extends Controller
                         '%property_url%' => (string)$report->property->name,
                         '%logo_property%' => $logo,
                     ];
+
+                    $encodedString = json_encode($analytics_email_substitutions);
+
+//Save the JSON string to a text file.
+                    file_put_contents('analytics_send_array.txt', $encodedString);
+
                     sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions);
                     Schedule::create([
                         'user_id' => $report->user_id,
@@ -447,7 +457,9 @@ class CronController extends Controller
                 }
             }
             if ($report->account->type == 'adword') {
-                $reportDate=date("m/d/Y",strtotime($report->ends_at));
+                date_default_timezone_set($report->user->timezone);
+                $reportDate=date("m/d/Y");
+                date_default_timezone_set('Europe/London');
                 switch ($report->frequency) {
                     case "weekly":
                         $during = 'LAST_7_DAYS';
