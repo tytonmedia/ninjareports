@@ -335,7 +335,7 @@ class CronController extends Controller
                 if (isset($insights) && $insights) {
                     $total_sessions = $insights['ga:sessions'];
                     $total_pageviews = $insights['ga:pageviews'];
-                    $total_avg_time = date("H:i:s", strtotime($insights['ga:avgTimeOnPage']));
+                    $total_avg_time = $insights['ga:avgTimeOnPage'];
                     $total_bounce_rate = round($insights['ga:bounceRate'], 2);
                     $total_new_visitors = $insights['ga:newUsers'];
                     $total_pages_per_visitor = round($insights['ga:sessionsPerUser'], 2);
@@ -423,8 +423,8 @@ class CronController extends Controller
                         '%frequency%' => (string)ucfirst($report->frequency),
                         '%report_date%' => (string)$reportDate,
                         '%visitors%' => (string)$total_sessions,
-                        //'%avg_time%' => (string)gmdate("H:i:s", floor(strtotime($total_avg_time)*3600)),
-                        '%avg_time%' => (string)$total_avg_time,
+                        '%avg_time%' => (string)gmdate("H:i:s", strtotime($total_avg_time)*3600),
+
                         '%bounce_rate%' => (string)$total_bounce_rate,
                         '%page_views%' => (string)$total_pageviews,
                         '%page_per_visits%' => (string)$total_pages_per_visitor,
