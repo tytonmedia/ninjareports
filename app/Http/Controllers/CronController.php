@@ -312,6 +312,14 @@ class CronController extends Controller
 
                 $results = $analytics->data_ga->get(
                     'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounceRate,ga:newUsers,ga:sessionsPerUser', ['dimensions' => 'ga:deviceCategory,ga:country']);
+
+
+                $encodedString = json_encode($results);
+
+//Save the JSON string to a text file.
+                file_put_contents('analytics_array.txt', $encodedString);
+
+
                 $insights = $results->totalsForAllResults;
                 $metrics = $results->rows;
                 $total_sessions = 'No data';
@@ -415,7 +423,8 @@ class CronController extends Controller
                         '%frequency%' => (string)ucfirst($report->frequency),
                         '%report_date%' => (string)$reportDate,
                         '%visitors%' => (string)$total_sessions,
-                        '%avg_time%' => (string)gmdate("H:i:s", floor(strtotime($total_avg_time)*3600)),
+                        //'%avg_time%' => (string)gmdate("H:i:s", floor(strtotime($total_avg_time)*3600)),
+                        '%avg_time%' => (string)$total_avg_time,
                         '%bounce_rate%' => (string)$total_bounce_rate,
                         '%page_views%' => (string)$total_pageviews,
                         '%page_per_visits%' => (string)$total_pages_per_visitor,
