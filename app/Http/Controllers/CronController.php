@@ -434,6 +434,12 @@ class CronController extends Controller
                         '%property_url%' => (string)$report->property->name,
                         '%logo_property%' => $logo,
                     ];
+
+                    $encodedString = json_encode($analytics_email_substitutions);
+
+//Save the JSON string to a text file.
+                    file_put_contents('analytics_send_array.txt', $encodedString);
+
                     sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions);
                     Schedule::create([
                         'user_id' => $report->user_id,
