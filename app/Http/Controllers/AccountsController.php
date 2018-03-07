@@ -39,12 +39,15 @@ class AccountsController extends Controller
             }
         }
         $html = view('ajax.connect_accounts_modal', compact('accounts'))->render();
+
+        $this->sync($account->type);
+
         return response()->json([
             'status' => 'success',
             'html' => $html,
         ]);
 
-        $this->sync($account->type);
+
     }
 
     public function setting($type)
