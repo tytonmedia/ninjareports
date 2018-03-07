@@ -52,6 +52,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'timezone' => 'required',
         ]);
     }
 
@@ -64,11 +65,12 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
-        pr($data); exit;
+
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'timezone' => $data['timezone'],
         ]);
           $new_user_substitutions = [
              '%name%' => $user->name,
