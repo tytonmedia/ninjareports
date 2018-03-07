@@ -482,6 +482,15 @@ class CronController extends Controller
                 }
                 $session = adwords_session($report->ad_account->ad_account_id, $report->user_id);
                 $reportQuery = 'SELECT CampaignName, Clicks, Impressions, Ctr, Cost, AverageCpm, AverageCpc , CountryCriteriaId, Device, AdGroupName FROM GEO_PERFORMANCE_REPORT DURING ' . $during;
+
+
+                $encodedString = json_encode($reportQuery);
+
+//Save the JSON string to a text file.
+                file_put_contents('adwords_array.txt', $encodedString);
+
+
+
                 $reportDownloader = new \Google\AdsApi\AdWords\Reporting\v201710\ReportDownloader($session);
                 $reportSettingsOverride = (new \Google\AdsApi\AdWords\ReportSettingsBuilder())
                     ->includeZeroImpressions(false)
