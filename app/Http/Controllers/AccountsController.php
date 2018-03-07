@@ -43,6 +43,8 @@ class AccountsController extends Controller
             'status' => 'success',
             'html' => $html,
         ]);
+
+        $this->sync($account->type);
     }
 
     public function setting($type)
