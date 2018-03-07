@@ -302,7 +302,7 @@ class CronController extends Controller
                         $pages_per_visit = number_format((float)$insight[7], 2, '.', '');
                         $bounce_rate = round($insight[5], 0);
                         $avg_time = date("H:i:s", strtotime($insight[3]));
-                        $revenue = $insight[8]);
+                        $revenue = $insight[8];
                         $top_5_sources .= '<tr><td>' . $insight[0] . '</td><td>' . $insight[1] . '</td><td>' . $new_visitors . '</td><td>' . $bounce_rate . '%</td><td>' . $pages_per_visit . '</td><td>' . $revenue . '</td></tr>';
                     }
                     $top_5_sources .= '</tbody></table>';
