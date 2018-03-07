@@ -334,11 +334,11 @@ class CronController extends Controller
                 $devices_graph_url = 'no_data';
 
                 if (isset($insights) && $insights) {
-                    $total_sessions = $insights['ga:sessions'];
-                    $total_pageviews = $insights['ga:pageviews'];
+                    $total_sessions = number_format($insights['ga:sessions']);
+                    $total_pageviews = number_format($insights['ga:pageviews']);
                     $total_avg_time = $insights['ga:avgTimeOnPage'];
                     $total_bounce_rate = round($insights['ga:bounceRate'], 2);
-                    $total_new_visitors = $insights['ga:newUsers'];
+                    $total_new_visitors = number_format($insights['ga:newUsers']);
                     $total_pages_per_visitor = round($insights['ga:sessionsPerUser'], 2);
                     $total_revenue = $insights['ga:itemRevenue'];
                 }
