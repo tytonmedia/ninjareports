@@ -10,6 +10,7 @@ use Laravel\Spark\Events\Subscription\SubscriptionUpdated;
 use Laravel\Spark\Events\Subscription\SubscriptionCancelled;
 use Laravel\Spark\Http\Requests\Settings\Subscription\UpdateSubscriptionRequest;
 use Laravel\Spark\Contracts\Http\Requests\Settings\Subscription\CreateSubscriptionRequest;
+use App\Models\Plan;
 
 class PlanController extends Controller
 {
@@ -31,6 +32,7 @@ class PlanController extends Controller
      */
     public function store(CreateSubscriptionRequest $request)
     {
+
         $plan = Spark::plans()->where('id', $request->plan)->first();
 
         Spark::interact(Subscribe::class, [
@@ -66,6 +68,7 @@ class PlanController extends Controller
         event(new SubscriptionUpdated(
             $request->user()->fresh()
         ));
+        return $plan->price;
     }
 
     /**

@@ -2272,11 +2272,22 @@
             updateSubscription: function (e) {
                 var t = this;
                 this.selectingPlan = e, this.planForm.errors.forget(), axios.put(this.urlForPlanUpdate, {plan: e.id}).then(function () {
-                    Bus.$emit("updateUser"), Bus.$emit("updateTeam")
+                    Bus.$emit("updateUser"), Bus.$emit("updateTeam");
+
+                    ga('require', 'ecommerce');
+                    ga('ecommerce:addTransaction', {
+                        'id': new Date().getTime(),                     // Transaction ID. Required.
+                        'revenue': e.price,               // Grand Total.
+                    });
+                    ga('ecommerce:send');
                 }).catch(function (e) {
                     422 == e.response.status ? t.planForm.errors.set(e.response.data) : t.planForm.errors.set({plan: ["We were unable to update your subscription. Please contact customer support."]})
                 }).finally(function () {
-                    t.selectingPlan = null
+                    t.selectingPlan = null;
+
+
+
+
                 })
             },
             isActivePlan: function (e) {
