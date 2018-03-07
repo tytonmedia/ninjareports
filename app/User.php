@@ -15,6 +15,7 @@ class User extends SparkUser
         'name',
         'email',
         'logo',
+        'timezone'
     ];
 
     /**
