@@ -52,7 +52,7 @@ class UpdateLogo implements Contract
         $disk = Storage::disk('public');
 
         $disk->put(
-            $path, $this->formatImage($file)
+            $path, $this->formatWhite($file)
         );
 
         $oldPhotoUrl = $user->logo;
@@ -76,5 +76,9 @@ class UpdateLogo implements Contract
     {
         return (string) $this->images->make($file->path())
             ->fit(300)->encode();
+    }
+    protected function formatWhite($file)
+    {
+        return (string) $this->images->make($file->path())->encode();
     }
 }
