@@ -7058,7 +7058,7 @@ button.close {
     border-radius: 6px;
     display: inline-block;
     background-position: center;
-    background-size: cover;
+    background-size: contain;
     height: 100px;
     vertical-align: middle;
     width: 300px
