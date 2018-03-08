@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\RedirectsUsers;
 use Laravel\Spark\Contracts\Interactions\Auth\Register;
 use Laravel\Spark\Contracts\Http\Requests\Auth\RegisterRequest;
 use session;
+use Laravel\Spark\Contracts\Interactions\Settings\Profile\UpdateTimezone;
 
 class RegisterController extends Controller
 {
@@ -56,9 +57,16 @@ class RegisterController extends Controller
      */
     public function register(RegisterRequest $request)
     {
+
+
         Auth::login($user = Spark::interact(
             Register::class, [$request]
         ));
+
+        $this->interaction(
+            $request, UpdateTimezone::class,
+            [$request->user(), $request->all()]
+        );
 
         event(new UserRegistered($user));
 

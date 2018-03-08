@@ -68,7 +68,7 @@ class CronController extends Controller
             if ($report->account->type == 'facebook') {
 
                 $params = [];
-                date_default_timezone_set($report->user->timezone);
+                $report->user->timezone ? date_default_timezone_set($report->user->timezone) : '';
                 $reportDate=date("m/d/Y");
                 date_default_timezone_set('Europe/London');
                 switch ($report->frequency) {
@@ -265,7 +265,7 @@ class CronController extends Controller
             if ($report->account->type == 'analytics') {
                 $from_date = '';
                 $to_date = date('Y-m-d', strtotime($report->next_send_time));
-                date_default_timezone_set($report->user->timezone);
+                $report->user->timezone ? date_default_timezone_set($report->user->timezone) : '';
                 $reportDate=date("m/d/Y");
                 date_default_timezone_set('Europe/London');
                 switch ($report->frequency) {
@@ -457,7 +457,7 @@ class CronController extends Controller
                 }
             }
             if ($report->account->type == 'adword') {
-                date_default_timezone_set($report->user->timezone);
+                $report->user->timezone ? date_default_timezone_set($report->user->timezone) : '';
                 $reportDate=date("m/d/Y");
                 date_default_timezone_set('Europe/London');
                 switch ($report->frequency) {
@@ -481,7 +481,7 @@ class CronController extends Controller
                         $during = 'TODAY';
                 }
                 $session = adwords_session($report->ad_account->ad_account_id, $report->user_id);
-                $reportQuery = 'SELECT CampaignName, Clicks, Impressions, Ctr, Cost, AverageCpm, AverageCpc , CountryCriteriaId, Device, AdGroupName FROM GEO_PERFORMANCE_REPORT DURING ' . $during;
+                $reportQuery = 'SELECT CampaignName, Clicks, Impressions, Ctr, Cost, AverageCpm, AverageCpc , CountryCriteriaId, Device, Name, Labels FROM GEO_PERFORMANCE_REPORT DURING ' . $during;
 
 
 
