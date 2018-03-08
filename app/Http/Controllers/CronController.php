@@ -275,7 +275,7 @@ class CronController extends Controller
                         break;
                     case "monthly":
                         $from_date = date('Y-m-d', strtotime('-1 month', strtotime($report->next_send_time)));
-                        $reportDate=("F");
+                        $reportDate=date("F");
                         break;
                     case "yearly":
                         $from_date = date('Y-m-d', strtotime('-1 year', strtotime($report->next_send_time)));
