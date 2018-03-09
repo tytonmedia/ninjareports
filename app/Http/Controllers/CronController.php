@@ -208,6 +208,7 @@ class CronController extends Controller
                     //$html = view('reports.templates.facebook', compact('report', 'campaigns_insights', 'total_clicks', 'total_impressions', 'total_ctr', 'total_cpm', 'total_cpc', 'total_spend', 'ages_graph_url', 'genders_graph_url', 'ad_account_title'))->render();
                     foreach ($recipients as $email) {
                         $welcome_email_substitutions = [
+                            '%ad_account%' => (string) $ad_account_title,
                             '%frequency%' => (string) ucfirst($report->frequency),
                             '%report_date%' => (string) date('m/d/Y'),
                             '%visitors%' => (string) $total_clicks,
@@ -374,6 +375,7 @@ class CronController extends Controller
                 //$html = view('reports.templates.analytics', compact('report', 'sources_insights', 'total_sessions', 'total_avg_time', 'total_bounce_rate', 'total_pageviews', 'total_pages_per_visitor', 'total_new_visitors', 'devices_graph_url', 'locations_graph_url', 'ad_account_title'))->render();
                 foreach ($recipients as $email) {
                     $analytics_email_substitutions = [
+                        '%property_url%' => (string) $ad_account_title,
                         '%frequency%' => (string) ucfirst($report->frequency),
                         '%report_date%' => (string) date('m/d/Y'),
                         '%visitors%' => (string) $total_sessions,
@@ -549,9 +551,9 @@ class CronController extends Controller
                 //$html = view('reports.templates.adword', compact('report', 'total_clicks', 'total_impressions', 'total_ctr', 'total_cpm', 'total_cpc', 'total_spend', 'devices_graph_url', 'locations_graph_url', 'top_5_campaigns', 'ad_account_title'))->render();
                 foreach ($recipients as $email) {
                     $welcome_email_substitutions = [
+                        '%property_url%' => (string) $ad_account_title,
                         '%frequency%' => (string) ucfirst($report->frequency),
                         '%report_date%' => (string) date('m/d/Y'),
-                        '%property_url%' => 'www.ninjareports.com',
                         '%clicks%' => (string) $total_clicks,
                         '%impressions%' => (string) $total_impressions,
                         '%ctr%' => (string) $total_ctr,
