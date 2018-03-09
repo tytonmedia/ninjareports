@@ -296,7 +296,7 @@ if (!function_exists('sendMail')) {
         $substitutions = count($substitutions) > 0 ? $substitutions : $default_subs;
         $response = \App\Models\SendGrid::send($to, $subject, $template_id, $substitutions, $attachments, $from);
         if ($showResponse) {
-            return $response;
+            return pr($response);
         }
         if ($response->statusCode() == 202) {
             return true;

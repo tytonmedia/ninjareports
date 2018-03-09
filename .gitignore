@@ -12,3 +12,4 @@ yarn-error.log
 .env
 google.json
 /nbproject
+/public/files/
