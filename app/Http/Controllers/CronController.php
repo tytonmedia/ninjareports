@@ -522,7 +522,7 @@ class CronController extends Controller
                         $during = 'TODAY';
                 }
                 $session = adwords_session($report->ad_account->ad_account_id, $report->user_id);
-                $reportQuery = 'SELECT CampaignName, Clicks, Impressions, Ctr, Cost, AverageCpm, AverageCpc , CountryCriteriaId, Device, Name, Labels FROM GEO_PERFORMANCE_REPORT DURING ' . $during;
+                $reportQuery = 'SELECT CampaignName, Clicks, Impressions, Ctr, Cost, AverageCpm, AverageCpc , CountryCriteriaId, Device, Labels FROM GEO_PERFORMANCE_REPORT DURING ' . $during;
 
                 $reportDownloader = new \Google\AdsApi\AdWords\Reporting\v201710\ReportDownloader($session);
                 $reportSettingsOverride = (new \Google\AdsApi\AdWords\ReportSettingsBuilder())
