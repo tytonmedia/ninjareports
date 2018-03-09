@@ -274,7 +274,9 @@ class CronController extends Controller
                         ];
                         if ($report->attachment_type == 'pdf') {
                             sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions, $attachments);
-                            unlink($pdf_dir . $pdf_file_name);
+                            if (file_exists($pdf_dir . $pdf_file_name)) {
+                                unlink($pdf_dir . $pdf_file_name);
+                            }
                         } else {
                             sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions);
                         }
@@ -486,7 +488,9 @@ class CronController extends Controller
                     //file_put_contents('analytics_send_array.txt', $encodedString);
                     if ($report->attachment_type == 'pdf') {
                         sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions, $attachments);
-                        unlink($pdf_dir . $pdf_file_name);
+                        if (file_exists($pdf_dir . $pdf_file_name)) {
+                            unlink($pdf_dir . $pdf_file_name);
+                        }
                     } else {
                         sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions);
                     }
@@ -699,7 +703,9 @@ class CronController extends Controller
                     ];
                     if ($report->attachment_type == 'pdf') {
                         sendMail($email, $report->email_subject, '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions, $attachments);
-                        unlink($pdf_dir . $pdf_file_name);
+                        if (file_exists($pdf_dir . $pdf_file_name)) {
+                            unlink($pdf_dir . $pdf_file_name);
+                        }
                     } else {
                         sendMail($email, $report->email_subject, '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions);
                     }
