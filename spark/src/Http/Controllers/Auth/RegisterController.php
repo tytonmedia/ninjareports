@@ -10,6 +10,8 @@ use Laravel\Spark\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Laravel\Spark\Contracts\Interactions\Auth\Register;
 use Laravel\Spark\Contracts\Http\Requests\Auth\RegisterRequest;
+use session;
+use Laravel\Spark\Contracts\Interactions\Settings\Profile\UpdateTimezone;
 
 class RegisterController extends Controller
 {
@@ -30,12 +32,12 @@ class RegisterController extends Controller
     /**
      * Show the application registration form.
      *
-     * @param  Request  $request
+     * @param  Request $request
      * @return Response
      */
     public function showRegistrationForm(Request $request)
     {
-        if (Spark::promotion() && ! $request->filled('coupon')) {
+        if (Spark::promotion() && !$request->filled('coupon')) {
             // If the application is running a site-wide promotion, we will redirect the user
             // to a register URL that contains the promotional coupon ID, which will force
             // all new registrations to use this coupon when creating the subscriptions.
@@ -50,16 +52,47 @@ class RegisterController extends Controller
     /**
      * Handle a registration request for the application.
      *
-     * @param  RegisterRequest  $request
+     * @param  RegisterRequest $request
      * @return Response
      */
     public function register(RegisterRequest $request)
     {
+
+
         Auth::login($user = Spark::interact(
             Register::class, [$request]
         ));
 
+        $this->interaction(
+            $request, UpdateTimezone::class,
+            [$request->user(), $request->all()]
+        );
+
         event(new UserRegistered($user));
+
+        $value = "0.00";
+
+        switch ($request->plan) {
+            case 'free_trial':
+                $value = "0.00";
+                break;
+            case 'personal':
+                $value = "10.00";
+                break;
+            case 'business';
+                $value = "50.00";
+                break;
+            case "premium";
+                $value = "100.00";
+                break;
+            case "white_label";
+                $value = "150.00";
+                break;
+
+
+        }
+        session()->forget('googlePrice');
+        session(['googlePrice' => $value]);
 
         return response()->json([
             'redirect' => $this->redirectPath()

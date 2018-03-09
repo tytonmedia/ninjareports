@@ -1,10 +1,11 @@
 @if($ad_accounts && count($ad_accounts) > 0)
 <div class="row">
 	<div class="col-md-12">
+		<div class="table-responsive">
 		<table class="table table-stripped accounts_connect_table">
 			<thead>
 				<tr>
-					<th>Property</th>
+					<th>Account</th>
 					<th>Name</th>
 					<th>Actions</th>
 				</tr>
@@ -24,8 +25,9 @@
 			</tbody>
 		</table>
 	</div>
+	</div>
 </div>
 @else
-<div class="text-center">No ad account synchronized. Please click
-	<code>Sync Ad Accounts</code> button to sync {{ $type }} accounts.</div>
+<div class="text-center">No {{ $type }} account synchronized. Please click the
+	<code>Sync Account</code> button to sync {{ $type }} accounts.</div>
 @endif

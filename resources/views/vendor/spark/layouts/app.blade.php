@@ -12,6 +12,8 @@
     <!-- Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,600,700' rel='stylesheet' type='text/css'>
+
+    <link rel="shortcut icon" href="{{{ asset('img/favicon.png') }}}">
     <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" />
     @yield('page_styles')
@@ -41,7 +43,16 @@
 
   gtag('config', 'UA-79012395-19');
 </script>
-
+<script>
+  window['GoogleAnalyticsObject'] = 'ga';
+  window['ga'] = window['ga'] || function() {
+    (window['ga'].q = window['ga'].q || []).push(arguments)
+  };
+</script>
+<!-- Start of ninjareports Zendesk Widget script -->
+<script>/*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var e=this.createElement("script");n&&(this.domain=n),e.id="js-iframe-async",e.src="https://assets.zendesk.com/embeddable_framework/main.js",this.t=+new Date,this.zendeskHost="ninjareports.zendesk.com",this.zEQueue=a,this.body.appendChild(e)},o.write('<body onload="document._l();">'),o.close()}();
+/*]]>*/</script>
+<!-- End of ninjareports Zendesk Widget script -->
 </head>
 <body class="with-navbar">
     <script>
@@ -70,9 +81,10 @@
     </div>
   <footer class="footer">
       <div class="container">
-        <div class="row">
-             <div class="col-md-6" style="text-align:left;">
+        <div class="row footer-row">
+             <div class="col-md-6 socials" style="text-align:left;">
               <ul class="social-links">
+                <li><a href="https://www.ninjareports.com/"><img src="{{{ asset('img/ninja_small.png') }}}" alt="ninja reports"/></a></li>
                   <li><a target="_blank" href="https://www.facebook.com/ninjareports/">Facebook</a></li>
                   <li><a target="_blank" href="https://twitter.com/ninja_reports">Twitter</a></li>
                   <li><a target="_blank" href="https://www.youtube.com/channel/UCcjm2lXhxAYGoKS1nCe3vIQ">Youtube</a></li>
@@ -80,8 +92,8 @@
                   <li><a href="https://www.ninjareports.com/blog/">Blog</a></li>
               </ul>
             </div>
-                   <div class="col-md-6" style="text-align:right;">
-                    <a href="https://ninjareports.zendesk.com/hc/en-us">Support</a>  |
+                   <div class="col-md-6 footer-right-container" style="text-align:right;">
+                    <a target="_blank" href="https://ninjareports.zendesk.com/hc/en-us">Support</a>  |
                     <a href="https://www.ninjareports.com/terms-conditions/">Terms &amp; conditions</a>  |  <a href="https://www.ninjareports.com/privacy-policy/">Privacy policy</a>
                 </div>
             </div>

@@ -58,7 +58,8 @@ module.exports = {
             } else if (this.query.invitation) {
                 this.selectFreePlan();
             } else if (this.paidPlansForActiveInterval.length > 0) {
-                this.selectPlan(this.paidPlansForActiveInterval[0]);
+               // this.selectPlan(this.paidPlansForActiveInterval[0]);
+                this.selectFreePlan();
             } else {
                 this.selectFreePlan();
             }

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Plan;
+use App\Models\Report;
+use App\Models\Schedule;
 use App\Models\Account;
 use App\Models\AdAccount;
 use App\Models\AnalyticProperty;
@@ -13,7 +16,17 @@ class AccountsController extends Controller
     public function index()
     {
         $accounts = Account::where('user_id', auth()->user()->id)->where('status', 1)->get();
-        return view('accounts.index', compact('accounts'));
+        $current_plan = auth()->user()->current_billing_plan ? auth()->user()->current_billing_plan : 'free_trial';
+        $plan = Plan::whereTitle($current_plan)->first();
+        $reports_sent_count = Schedule::whereUserId(auth()->user()->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
+        $reports_sent_count = $reports_sent_count > $plan->reports ? $plan->reports : $reports_sent_count;
+
+
+        $paused = false;
+        if ($reports_sent_count >= $plan->reports) {
+            $paused = true;
+        }
+        return view('accounts.index', compact('accounts','paused'));
     }
 
     public function connect()
@@ -26,10 +39,15 @@ class AccountsController extends Controller
             }
         }
         $html = view('ajax.connect_accounts_modal', compact('accounts'))->render();
+
+       // $this->sync($account->type);
+
         return response()->json([
             'status' => 'success',
             'html' => $html,
         ]);
+
+
     }
 
     public function setting($type)
@@ -41,7 +59,18 @@ class AccountsController extends Controller
         if ($account) {
             $ad_accounts = AdAccount::where('account_id', $account->id)->where('is_active', 1)->get();
             $ad_accounts_html = view('ajax.ad_accounts_html', compact('ad_accounts', 'type'))->render();
-            return view('accounts.settings', compact('ad_accounts_html', 'type'));
+            $accounts = Account::where('user_id', auth()->user()->id)->where('status', 1)->get();
+            $current_plan = auth()->user()->current_billing_plan ? auth()->user()->current_billing_plan : 'free_trial';
+            $plan = Plan::whereTitle($current_plan)->first();
+            $reports_sent_count = Schedule::whereUserId(auth()->user()->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
+            $reports_sent_count = $reports_sent_count > $plan->reports ? $plan->reports : $reports_sent_count;
+
+
+            $paused = false;
+            if ($reports_sent_count >= $plan->reports) {
+                $paused = true;
+            }
+            return view('accounts.settings', compact('ad_accounts_html', 'type','paused'));
         } else {
             Session::flash('alert-danger', ucfirst($account) . ' not connected. Please connect ' . $account . ' account to update settings.');
             return redirect()->route('accounts.index');

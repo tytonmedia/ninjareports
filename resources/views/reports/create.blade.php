@@ -4,17 +4,23 @@
 <div class="spark-screen container">
 	<div class="row">
 		<div class="col-md-12">
+			@if($paused)
+				<div class="alert alert-danger">
+					<b>Upgrade to Resume</b><br/>
+					You have reached the limit of your plan. <a onClick="ga('send', 'event', 'button', 'click', 'upgrade_alert_create');" href="{{ url('settings#/subscription') }}">Upgrade your plan</a> to resume your reports.
+				</div>
+			@endif
 			@include('common.flash')
 			<div class="panel panel-default panel-accounts">
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<h2 class="title">Create Report</h2>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<h1 class="title">Create Report</h1>
+							<p>Build your automated email reports below. Select your integration, schedule your reports, add your recipients and enjoy automated reporting.</p>
 						</div>
 					</div>
-					<hr/>
 					<div class="row">
-						<form method="post" class="form form-horizontal" action="{{ route('reports.store') }}">
+						<form method="post" class="form form-horizontal" action="{{ route('reports.store') }}" onsubmit="ga('send','event','button', 'click', 'start_report');">
 							{{ csrf_field() }}
 							<div class="col-md-6">
 								<h4 class="title">Report Settings</h4>
@@ -80,7 +86,7 @@
 										</div>
 										<div class="col-md-5">
 											<input type="text" name="ends_at" readonly class="custom-readonly form-control timepicker" />
-											<div class="help-block"><a style="font-size: 11px" href="{{ url('settings') }}">Set Timezone</a></div>
+											<div class="help-block"><a style="font-size: 12px" href="{{ url('settings') }}">Set Timezone</a> to send reports at the correct time.</div>
 										</div>
 									</div>
 								</div>
@@ -94,9 +100,7 @@
 									</div>
 									<div class="col-md-9">
 										<textarea class="form-control" name="recipients">{{ old('recipients') }}</textarea>
-										<label>
-											<i style="color: lightgrey;font-size:12px">(Comma seperated emails)</i>
-										</label>
+										<label class="help">(Comma seperated emails)</label>
 										<div class="error">
 											@if ($errors->has('recipients')) {{ $errors->first('recipients') }} @endif
 										</div>
@@ -141,7 +145,7 @@
 										<label class="control-label color-black-bold"></label>
 									</div>
 									<div class="col-md-9">
-										<input style="background: #3c5ecc" class="btn btn-primary" type="submit" name="submit" value="Create Report" />
+										<input class="btn btn-lg btn-primary" type="submit" name="submit" value="Create Report" />
 									</div>
 								</div>
 							</div>

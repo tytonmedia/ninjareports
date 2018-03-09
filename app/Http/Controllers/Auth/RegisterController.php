@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Validator;
+use Session;
 
 class RegisterController extends Controller
 {
@@ -51,6 +52,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'timezone' => 'required',
         ]);
     }
 
@@ -62,12 +64,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        pr($data); exit;
+
+
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'timezone' => $data['timezone'],
         ]);
+          $new_user_substitutions = [
+             '%name%' => $user->name,
+            '%email%' => $user->email,
+            '%package%' => $user->current_billing_plan,
+        ];
         $welcome_email_substitutions = [
             '%app_link%' => env('APP_URL'),
             '%app_name%' => env('APP_NAME'),
@@ -76,5 +85,6 @@ class RegisterController extends Controller
             '%year%' => date('Y'),
         ];
         sendMail($user->email, 'Welcome To Ninja Reports!', '66424c1c-aa6b-4daa-a031-2edc29ea620a', $welcome_email_substitutions);
+        sendMail('alerts@tytonmedia.com','New Ninja Reports User','a48e9f9c-19e3-4b80-b0ea-2b97e8a46db0', $new_user_substitutions);
     }
 }

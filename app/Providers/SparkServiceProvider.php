@@ -14,9 +14,9 @@ class SparkServiceProvider extends ServiceProvider
      */
     protected $details = [
         'vendor' => 'Ninja Reports',
-        'product' => 'Your Product',
-        'street' => 'PO Box 111',
-        'location' => 'Your Town, NY 12345',
+        'product' => 'Ninja Reports',
+        'street' => '5601 west 136th tr',
+        'location' => 'Overland Park, KS 66223',
         'phone' => '555-555-5555',
     ];
 
@@ -34,6 +34,7 @@ class SparkServiceProvider extends ServiceProvider
      */
     protected $developers = [
         //
+        'tyler@ninjareports.com',
     ];
 
     /**
@@ -59,25 +60,25 @@ class SparkServiceProvider extends ServiceProvider
          Spark::plan('Personal', 'personal')
             ->price(10.00)
             ->features([
-                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '50 Reports/month',
+                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '50 Reports/month','Support','PDF Attachments',
             ]);    
 
         Spark::plan('Business', 'business')
             ->price(50.00)
             ->features([
-                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '300 Reports/month', 'Support', 'PDF & CSV Attachments',
+                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '300 Reports/month', 'Support', 'PDF Attachments',
             ]);
 
         Spark::plan('Premium', 'premium')
             ->price(100.00)
             ->features([
-                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '800 Reports/month', 'Support', 'PDF & CSV Attachments',
+                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '800 Reports/month', 'Support', 'PDF Attachments',
             ]);
 
         Spark::plan('White Label', 'white_label')
             ->price(150.00)
             ->features([
-                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '1500 Reports/month', 'Support', 'PDF & CSV Attachments', 'Your Own Logo on Reports',
+                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '1500 Reports/month', 'Support', 'PDF Attachments', 'Your Own Logo on Reports',
             ]);
     }
 }

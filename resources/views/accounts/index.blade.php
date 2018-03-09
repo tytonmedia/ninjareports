@@ -2,13 +2,19 @@
 <div class="spark-screen container">
 	<div class="row">
 		<div class="col-md-12">
+			@if($paused)
+				<div class="alert alert-danger">
+					<b>Upgrade to Resume</b><br/>
+					You have reached the limit of your plan. <a onClick="ga('send', 'event', 'button', 'click', 'upgrade_alert_integrations');" href="{{ url('settings#/subscription') }}">Upgrade your plan</a> to resume your reports.
+				</div>
+			@endif
 			@include('common.flash')
 			<div class="panel panel-default panel-accounts">
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-sm-12 col-xs-12">
 								<div class="greeting-button">
-							<button class="btn upgrade-btn nr_connect_accounts_button"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Integration
+							<button class="btn upgrade-btn nr_connect_accounts_button" onClick="ga('send', 'event', 'button', 'click', 'add_integration_dash');"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Integration
 								<span class="nr-loader fa fa-spin fa-spinner margin-left-5 hidden"></span>
 							</button>
 						</div>
@@ -21,6 +27,7 @@
 					<hr/> @if($accounts && count($accounts) > 0)
 					<div class="row">
 						<div class="col-md-12">
+							<div class="table-responsive">
 							<table class="table table-stripped accounts_connect_table">
 								<thead>
 									<tr>
@@ -53,6 +60,7 @@
 									@endforeach
 								</tbody>
 							</table>
+						</div>
 						</div>
 					</div>
 					@else

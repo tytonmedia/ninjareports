@@ -10,6 +10,7 @@
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-md-12">
+						<div class="table-responsive">
 						<table class="table table-stripped accounts_connect_table">
 							<tbody>
 								<tr>
@@ -52,6 +53,7 @@
 								</tr>
 							</tbody>
 						</table>
+					</div>
 					</div>
 				</div>
 			</div>
