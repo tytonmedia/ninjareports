@@ -85,6 +85,8 @@ class RegisterController extends Controller
             '%year%' => date('Y'),
         ];
         sendMail($user->email, 'Welcome To Ninja Reports!', '66424c1c-aa6b-4daa-a031-2edc29ea620a', $welcome_email_substitutions);
+        if (App::environment('production')){
         sendMail('alerts@tytonmedia.com','New Ninja Reports User','a48e9f9c-19e3-4b80-b0ea-2b97e8a46db0', $new_user_substitutions);
+        }
     }
 }
