@@ -106,12 +106,15 @@ class CronController extends Controller
                 $fields = [AdsInsightsFields::CLICKS, AdsInsightsFields::IMPRESSIONS, AdsInsightsFields::CTR, AdsInsightsFields::CPM, AdsInsightsFields::CPC, AdsInsightsFields::SPEND];
                 try {
                     // Get Campaigns
+                    Log::info($campaigns);
                     $campaigns = $fb_ad_account->getCampaigns([CampaignFields::ID, CampaignFields::NAME], ['limit' => 5]);
                     $campaigns_insights = [];
                     if ($campaigns && count($campaigns) > 0) {
+                          Log::info('made it 1');
                         foreach ($campaigns as $campaign) {
                             $cinsights = $campaign->getInsights($fields, $params);
                             foreach ($cinsights as $insight) {
+                              Log::info('made it 2');
                                 $campaigns_insights[] = array_merge([
                                     'clicks' => round($insight->clicks, 2),
                                     'impressions' => round($insight->impressions, 2),
