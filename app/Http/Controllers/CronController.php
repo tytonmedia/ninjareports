@@ -106,15 +106,12 @@ class CronController extends Controller
                 $fields = [AdsInsightsFields::CLICKS, AdsInsightsFields::IMPRESSIONS, AdsInsightsFields::CTR, AdsInsightsFields::CPM, AdsInsightsFields::CPC, AdsInsightsFields::SPEND];
                 try {
                     // Get Campaigns
-                    Log::info($campaigns);
                     $campaigns = $fb_ad_account->getCampaigns([CampaignFields::ID, CampaignFields::NAME], ['limit' => 5]);
                     $campaigns_insights = [];
                     if ($campaigns && count($campaigns) > 0) {
-                          Log::info('made it 1');
                         foreach ($campaigns as $campaign) {
                             $cinsights = $campaign->getInsights($fields, $params);
                             foreach ($cinsights as $insight) {
-                              Log::info('made it 2');
                                 $campaigns_insights[] = array_merge([
                                     'clicks' => round($insight->clicks, 2),
                                     'impressions' => round($insight->impressions, 2),
@@ -538,14 +535,9 @@ class CronController extends Controller
                 $reportDownloadResult = $reportDownloader->downloadReportWithAwql(
                     $reportQuery, \Google\AdsApi\AdWords\Reporting\v201710\DownloadFormat::CSV, $reportSettingsOverride);
 
-             //   file_put_contents('adwords_array.csv', $reportDownloadResult);
-
                 $campaigns_adword_data = str_getcsv($reportDownloadResult->getAsString(), "\n");
 
                 $encodedString = json_encode($campaigns_adword_data);
-                  Log::info($encodedString);
-                    //Save the JSON string to a text file.
-            //file_put_contents('adwords_array.txt', $encodedString);
 
                 $total_clicks = 'No data';
                 $total_impressions = 'No data';
@@ -574,7 +566,6 @@ class CronController extends Controller
                         foreach ($final_adword_data as $adword_data) {
                             if (--$adword_data_count <= 0) {
                                 break;
-                                Log::info('No Adwords Data');
                             }
                             $locations_result[] = $adword_data[7];
                             $operating_system_result[] = $adword_data[8];
