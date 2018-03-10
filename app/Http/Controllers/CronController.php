@@ -85,7 +85,7 @@ class CronController extends Controller
                         break;
                     case "monthly":
                         $params['date_preset'] = AdsInsightsDatePresetValues::LAST_30D;
-                        $reportDate = date("F");
+                        $reportDate = date("m/d/Y", strtotime("-30 Days")) . "-" . date("m/d/Y");
                         break;
                     case "yearly":
                         $endDate = date('Y-m-d', strtotime(date('Y') . '-' . $report->ends_at));
