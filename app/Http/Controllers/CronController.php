@@ -15,6 +15,7 @@ use \FacebookAds\Object\Fields\AdsInsightsFields;
 use \FacebookAds\Object\Fields\CampaignFields;
 use \FacebookAds\Object\Values\AdsInsightsBreakdownsValues;
 use \FacebookAds\Object\Values\AdsInsightsDatePresetValues;
+use Illuminate\Support\Facades\Log;
 
 class CronController extends Controller
 {
@@ -107,6 +108,7 @@ class CronController extends Controller
                 try {
                     // Get Campaigns
                     $campaigns = $fb_ad_account->getCampaigns([CampaignFields::ID, CampaignFields::NAME], ['limit' => 5]);
+                    Log::info($campaigns);
                     $campaigns_insights = [];
                     if ($campaigns && count($campaigns) > 0) {
                         foreach ($campaigns as $campaign) {
@@ -128,6 +130,7 @@ class CronController extends Controller
 
                         }
                     }
+                    Log::info('fb done');
                     $top_ad_campaigns = '';
                     if (count($campaigns_insights) > 0) {
                         foreach ($campaigns_insights as $campaign_insight) {
@@ -538,7 +541,7 @@ class CronController extends Controller
                 $campaigns_adword_data = str_getcsv($reportDownloadResult->getAsString(), "\n");
 
                 $encodedString = json_encode($campaigns_adword_data);
-
+            Log::info($encodedString);
                 $total_clicks = 'No data';
                 $total_impressions = 'No data';
                 $total_ctr = 'No data';
