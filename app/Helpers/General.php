@@ -288,7 +288,7 @@ if (!function_exists('make_schedules')) {
 
 if (!function_exists('sendMail')) {
 
-    function sendMail($to, $subject, $template_id, $substitutions = array(), $attachments = [], $from = 'noreply@ninjareports.com', $showResponse = true)
+    function sendMail($to, $subject, $template_id, $substitutions = array(), $attachments = [], $from = 'noreply@ninjareports.com', $showResponse = false)
     {
         $default_subs = [
             '%company%' => 'Ninja Reports™',
@@ -296,7 +296,7 @@ if (!function_exists('sendMail')) {
         $substitutions = count($substitutions) > 0 ? $substitutions : $default_subs;
         $response = \App\Models\SendGrid::send($to, $subject, $template_id, $substitutions, $attachments, $from);
         if ($showResponse) {
-            return pr($response);
+            return $response;
         }
         if ($response->statusCode() == 202) {
             return true;
