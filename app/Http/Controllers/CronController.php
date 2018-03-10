@@ -514,7 +514,7 @@ class CronController extends Controller
                         $to_date = date('Ymd', strtotime($report->next_send_time));
                         $from_date = date('Ymd', strtotime('-1 month', strtotime($report->next_send_time)));
                         $during = $from_date . ',' . $to_date;
-                        $reportDate = date("F");
+                        $reportDate = date("m/d/Y", strtotime("-30 Days")) . "-" . date("m/d/Y");
                         break;
                     case "yearly":
                         $to_date = date('Ymd', strtotime($report->next_send_time));
