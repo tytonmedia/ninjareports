@@ -543,7 +543,7 @@ class CronController extends Controller
                 $campaigns_adword_data = str_getcsv($reportDownloadResult->getAsString(), "\n");
 
                 $encodedString = json_encode($campaigns_adword_data);
-
+                  Log::info($encodedString);
                     //Save the JSON string to a text file.
             //file_put_contents('adwords_array.txt', $encodedString);
 
@@ -574,6 +574,7 @@ class CronController extends Controller
                         foreach ($final_adword_data as $adword_data) {
                             if (--$adword_data_count <= 0) {
                                 break;
+                                Log::info('No Adwords Data');
                             }
                             $locations_result[] = $adword_data[7];
                             $operating_system_result[] = $adword_data[8];
