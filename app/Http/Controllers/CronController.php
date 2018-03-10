@@ -15,7 +15,6 @@ use \FacebookAds\Object\Fields\AdsInsightsFields;
 use \FacebookAds\Object\Fields\CampaignFields;
 use \FacebookAds\Object\Values\AdsInsightsBreakdownsValues;
 use \FacebookAds\Object\Values\AdsInsightsDatePresetValues;
-use Illuminate\Support\Facades\Log;
 
 class CronController extends Controller
 {
@@ -304,7 +303,7 @@ class CronController extends Controller
                         break;
                     case "monthly":
                         $from_date = date('Y-m-d', strtotime('-1 month', strtotime($report->next_send_time)));
-                        $reportDate = date("F");
+                        $reportDate = date("m/d/Y", strtotime("-30 Days")) . "-" . date("m/d/Y");
                         break;
                     case "yearly":
                         $from_date = date('Y-m-d', strtotime('-1 year', strtotime($report->next_send_time)));
