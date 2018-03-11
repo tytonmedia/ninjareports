@@ -299,7 +299,7 @@ if (!function_exists('sendMail')) {
 
         file_put_contents('send.txt', $encodedString);
 
-
+$encodedString;
         if ($showResponse) {
             return $response;
         }
