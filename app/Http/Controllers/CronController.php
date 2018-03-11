@@ -110,6 +110,11 @@ class CronController extends Controller
                     $campaigns = $fb_ad_account->getCampaigns([CampaignFields::ID, CampaignFields::NAME], ['limit' => 5]);
                     $campaigns_insights = [];
                     if ($campaigns && count($campaigns) > 0) {
+                        $encodedString = json_encode($campaigns);
+
+                        //Save the JSON string to a text file.
+                        file_put_contents('facebook_array.txt', $encodedString);
+
                         foreach ($campaigns as $campaign) {
                             $cinsights = $campaign->getInsights($fields, $params);
                             foreach ($cinsights as $insight) {
