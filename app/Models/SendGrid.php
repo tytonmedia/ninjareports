@@ -35,7 +35,7 @@ class SendGrid extends Model
         $response = $sg->client->mail()->send()->post($request_body);
         $encodedString = json_encode($response);
 
-        file_put_contents('sendgrid_response.txt', $encodedString);
+       // file_put_contents('sendgrid_response.txt', $encodedString);
         return $response;
     }
 }
