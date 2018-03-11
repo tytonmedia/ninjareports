@@ -284,7 +284,7 @@ class CronController extends Controller
                                 unlink($pdf_dir . $pdf_file_name);
                             }
                         } else {
-                            $sentsendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions);
+                            $sent=sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions);
                         }
                         Schedule::create([
                             'user_id' => $report->user_id,
