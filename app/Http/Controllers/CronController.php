@@ -110,6 +110,11 @@ class CronController extends Controller
                     $campaigns = $fb_ad_account->getCampaigns([CampaignFields::ID, CampaignFields::NAME], ['limit' => 5]);
                     $campaigns_insights = [];
                     if ($campaigns && count($campaigns) > 0) {
+                        $encodedString = json_encode($campaigns);
+
+                        //Save the JSON string to a text file.
+                        file_put_contents('facebook_array.txt', $encodedString);
+
                         foreach ($campaigns as $campaign) {
                             $cinsights = $campaign->getInsights($fields, $params);
                             foreach ($cinsights as $insight) {
@@ -348,7 +353,7 @@ class CronController extends Controller
                 $encodedString = json_encode($results);
 
                 //Save the JSON string to a text file.
-                //file_put_contents('analytics_array.txt', $encodedString);
+                file_put_contents('analytics_array.txt', $encodedString);
 
                 $insights = $results->totalsForAllResults;
                 $metrics = $results->rows;
@@ -540,6 +545,8 @@ class CronController extends Controller
 
                 $encodedString = json_encode($campaigns_adword_data);
 
+                file_put_contents('adwords_array.txt', $encodedString);
+
                 $total_clicks = 'No data';
                 $total_impressions = 'No data';
                 $total_ctr = 'No data';
@@ -564,6 +571,9 @@ class CronController extends Controller
                         $operating_system_result = [];
                         $locations_result = [];
                         $adword_data_count = count($final_adword_data);
+                        $encodedString = json_encode($final_adword_data);
+
+                        file_put_contents('adwords_array2.txt', $encodedString);
                         foreach ($final_adword_data as $adword_data) {
                             if (--$adword_data_count <= 0) {
                                 break;
