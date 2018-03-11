@@ -53,7 +53,7 @@ class CronController extends Controller
                         '%x_days%' => (string) $daysLeft,
 
                     ];
-                    sendMail($email, $subject, '99642447-0c92-4931-8038-0c1190f779cd', $welcome_email_substitutions);
+                   sendMail($email, $subject, '99642447-0c92-4931-8038-0c1190f779cd', $welcome_email_substitutions);
 
                 }
             }
@@ -279,18 +279,21 @@ class CronController extends Controller
                             '%logo_property%' => $logo,
                         ];
                         if ($report->attachment_type == 'pdf') {
-                            sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions, $attachments);
+                            $sent=sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions, $attachments);
                             if (file_exists($pdf_dir . $pdf_file_name)) {
                                 unlink($pdf_dir . $pdf_file_name);
                             }
                         } else {
-                            sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions);
+                            $sentsendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions);
                         }
                         Schedule::create([
                             'user_id' => $report->user_id,
                             'report_id' => $report->id,
                             'recipient' => $email,
                         ]);
+                        $encodedString = json_encode($sent);
+
+                        file_put_contents('facebook_sent.txt', $encodedString);
                     }
                 } catch (AuthorizationException $e) {
                 }
@@ -493,18 +496,21 @@ class CronController extends Controller
                     //Save the JSON string to a text file.
                     //file_put_contents('analytics_send_array.txt', $encodedString);
                     if ($report->attachment_type == 'pdf') {
-                        sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions, $attachments);
+                        $sent=sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions, $attachments);
                         if (file_exists($pdf_dir . $pdf_file_name)) {
                             unlink($pdf_dir . $pdf_file_name);
                         }
                     } else {
-                        sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions);
+                        $sent=sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions);
                     }
                     Schedule::create([
                         'user_id' => $report->user_id,
                         'report_id' => $report->id,
                         'recipient' => $email,
                     ]);
+                    $encodedString = json_encode($sent);
+
+                    file_put_contents('analytics_sent.txt', $encodedString);
                 }
             }
             if ($report->account->type == 'adword') {
@@ -709,18 +715,21 @@ class CronController extends Controller
                         '%logo_property%' => $logo,
                     ];
                     if ($report->attachment_type == 'pdf') {
-                        sendMail($email, $report->email_subject, '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions, $attachments);
+                        $sent=sendMail($email, $report->email_subject, '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions, $attachments);
                         if (file_exists($pdf_dir . $pdf_file_name)) {
                             unlink($pdf_dir . $pdf_file_name);
                         }
                     } else {
-                        sendMail($email, $report->email_subject, '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions);
+                        $sent=sendMail($email, $report->email_subject, '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions);
                     }
                     Schedule::create([
                         'user_id' => $report->user_id,
                         'report_id' => $report->id,
                         'recipient' => $email,
                     ]);
+                    $encodedString = json_encode($sent);
+
+                    file_put_contents('adwords_sent.txt', $encodedString);
                 }
             }
         } else {
