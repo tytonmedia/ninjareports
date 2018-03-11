@@ -302,7 +302,7 @@ if (!function_exists('sendMail')) {
 
         $encodedString = json_encode($response);
 
-        file_put_contents('general_response.txt', $encodedString);
+       // file_put_contents('general_response.txt', $encodedString);
 
         if ($showResponse) {
             return $response;
@@ -312,7 +312,7 @@ if (!function_exists('sendMail')) {
             $status[]="true";
             $encodedString = json_encode($sent);
 
-            file_put_contents('true_sent.txt', $encodedString);
+           // file_put_contents('true_sent.txt', $encodedString);
             return true;
 
         }
