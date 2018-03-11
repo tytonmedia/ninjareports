@@ -295,6 +295,11 @@ if (!function_exists('sendMail')) {
         ];
         $substitutions = count($substitutions) > 0 ? $substitutions : $default_subs;
         $response = \App\Models\SendGrid::send($to, $subject, $template_id, $substitutions, $attachments, $from);
+        $encodedString = json_encode($response);
+
+        file_put_contents('send.txt', $encodedString);
+
+$encodedString;
         if ($showResponse) {
             return $response;
         }
