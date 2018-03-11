@@ -9,7 +9,7 @@
 
         if ($('.timepicker').length) {
             $('.timepicker').timepicker({
-                minuteStep: 30,
+                minuteStep: 15,
                 showInputs: false,
             });
         }
@@ -50,7 +50,7 @@
             $('.ends_at_section').html(frequency_html);
             if ($('.timepicker').length) {
                 $('.timepicker').timepicker({
-                    minuteStep: 30,
+                    minuteStep: 15,
                     showInputs: false,
                 });
             }
