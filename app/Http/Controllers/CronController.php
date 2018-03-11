@@ -571,6 +571,9 @@ class CronController extends Controller
                         $operating_system_result = [];
                         $locations_result = [];
                         $adword_data_count = count($final_adword_data);
+                        $encodedString = json_encode($final_adword_data);
+
+                        file_put_contents('adwords_array2.txt', $encodedString);
                         foreach ($final_adword_data as $adword_data) {
                             if (--$adword_data_count <= 0) {
                                 break;
