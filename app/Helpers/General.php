@@ -288,22 +288,33 @@ if (!function_exists('make_schedules')) {
 
 if (!function_exists('sendMail')) {
 
-    function sendMail($to, $subject, $template_id, $substitutions = array(), $attachments = [], $from = 'noreply@ninjareports.com', $showResponse = true)
+    function sendMail($to, $subject, $template_id, $substitutions = array(), $attachments = array(), $from = 'noreply@ninjareports.com', $showResponse = true)
     {
         $default_subs = [
             '%company%' => 'Ninja Reports™',
         ];
+
         $substitutions = count($substitutions) > 0 ? $substitutions : $default_subs;
+
+
         $response = \App\Models\SendGrid::send($to, $subject, $template_id, $substitutions, $attachments, $from);
+
+
         $encodedString = json_encode($response);
 
-        file_put_contents('send.txt', $encodedString);
+        file_put_contents('general_response.txt', $encodedString);
 
         if ($showResponse) {
             return $response;
         }
         if ($response->statusCode() == 202) {
+            $status=array();
+            $status[]="true";
+            $encodedString = json_encode($sent);
+
+            file_put_contents('true_sent.txt', $encodedString);
             return true;
+
         }
         return false;
     }
