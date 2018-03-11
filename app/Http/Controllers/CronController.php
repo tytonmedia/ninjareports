@@ -353,7 +353,7 @@ class CronController extends Controller
                 $encodedString = json_encode($results);
 
                 //Save the JSON string to a text file.
-                //file_put_contents('analytics_array.txt', $encodedString);
+                file_put_contents('analytics_array.txt', $encodedString);
 
                 $insights = $results->totalsForAllResults;
                 $metrics = $results->rows;
@@ -544,6 +544,8 @@ class CronController extends Controller
                 $campaigns_adword_data = str_getcsv($reportDownloadResult->getAsString(), "\n");
 
                 $encodedString = json_encode($campaigns_adword_data);
+
+                file_put_contents('adwords_array.txt', $encodedString);
 
                 $total_clicks = 'No data';
                 $total_impressions = 'No data';
