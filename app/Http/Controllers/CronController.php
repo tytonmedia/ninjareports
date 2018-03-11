@@ -676,6 +676,7 @@ class CronController extends Controller
                         $top_5_campaigns = '<tr><h3><center>No data</center></h3></tr>';
                     }
                 }
+
                 if ($report->attachment_type == 'pdf') {
                     $html = view('reports.templates.adword', compact('report', 'total_clicks', 'total_impressions', 'total_ctr', 'total_cpm', 'total_cpc', 'total_spend', 'devices_graph_url', 'locations_graph_url', 'top_5_campaigns', 'ad_account_title'))->render();
                     $mpdf = new \Mpdf\Mpdf(['tempDir' => $pdf_dir]);
