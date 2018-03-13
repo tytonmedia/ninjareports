@@ -44,13 +44,12 @@ class CronController extends Controller
                 } else {
 
                     $email = $report->user->email;
-                    $subject = 'You\'ve reached your monthly report limit on NinjaReports';
+                    $subject = 'Oh No! You\'ve reached your report limit on Ninja Reports';
                     $timestamp = date('Y-m-d');
                     $daysLeft = (int) date('t', strtotime($timestamp)) - (int) date('j', strtotime($timestamp));
                     $welcome_email_substitutions = [
                         '%reports%' => (string) $reports_sent_count,
                         '%limit%' => (string) $plan->reports,
-                        '%x_days%' => (string) $daysLeft,
 
                     ];
                    sendMail($email, $subject, '99642447-0c92-4931-8038-0c1190f779cd', $welcome_email_substitutions);
