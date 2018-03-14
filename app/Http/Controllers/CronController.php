@@ -41,20 +41,7 @@ class CronController extends Controller
                         $this->report($report, $recipients);
                         update_schedule($report, $report->user_id);
                     }
-                } else if($reports_sent_count >= $plan->reports) {
-
-                    $email = $report->user->email;
-                    $subject = 'Oh No! You\'ve reached your report limit on Ninja Reports';
-                    $timestamp = date('Y-m-d');
-                    $daysLeft = (int) date('t', strtotime($timestamp)) - (int) date('j', strtotime($timestamp));
-                    $limit_email_substitutions = [
-                        '%reports%' => (string) $reports_sent_count,
-                        '%limit%' => (string) $plan->reports,
-
-
-                    ];
-                   sendMail($email, $subject, '99642447-0c92-4931-8038-0c1190f779cd', $limit_email_substitutions);
-                } 
+                }
             }
         }
     }
