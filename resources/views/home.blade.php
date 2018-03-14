@@ -187,7 +187,7 @@
                                             Usage</h4>
                                         <p>
                                             <b>{{ $reports_sent_count }}</b>
-                                            of {{ $plan->reports }}
+                                            of {{ $plan['reports'] }}
                                             Reports
                                             Sent
                                         </p>
@@ -223,7 +223,7 @@
                                             @endif
                                         </div>
                                         <p>
-                                            {{ $plan->reports }}
+                                            {{ $plan['reports'] }}
                                             Reports/Month
                                         </p>
                                     </div>
