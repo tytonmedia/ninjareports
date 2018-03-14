@@ -50,7 +50,7 @@ class CronController extends Controller
                     $limit_email_substitutions = [
                         '%reports%' => (string) $reports_sent_count,
                         '%limit%' => (string) $plan->reports,
-                        '%x_days%' => (string) $daysLeft,
+
 
                     ];
                    sendMail($email, $subject, '99642447-0c92-4931-8038-0c1190f779cd', $limit_email_substitutions);
