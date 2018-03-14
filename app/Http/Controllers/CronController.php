@@ -18,7 +18,7 @@ use \FacebookAds\Object\Values\AdsInsightsDatePresetValues;
 
 class CronController extends Controller
 {
-
+private $sendLimit=0;
     public function run()
     {
         $pdf_dir = public_path('files/pdf/');
@@ -743,7 +743,7 @@ class CronController extends Controller
         $current_plan = $report->user->current_billing_plan ? $report->user->current_billing_plan : 'free_trial';
         $plan = Plan::whereTitle($current_plan)->first();
         $reports_sent_count = Schedule::whereUserId($report->user->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
-       if($reports_sent_count >= $plan->reports) {
+       if($reports_sent_count >= $plan->reports && $this->sendLimit==0) {
 
             $email = $report->user->email;
             $subject = 'Oh No! You\'ve reached your report limit on Ninja Reports';
@@ -756,6 +756,7 @@ class CronController extends Controller
 
             ];
             sendMail($email, $subject, '99642447-0c92-4931-8038-0c1190f779cd', $limit_email_substitutions);
+            $this->sendLimit=1;
         }
     }
 
