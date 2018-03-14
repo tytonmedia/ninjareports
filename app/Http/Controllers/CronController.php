@@ -290,6 +290,7 @@ class CronController extends Controller
                             'report_id' => $report->id,
                             'recipient' => $email,
                         ]);
+                        $this->sendLimit($report);
                         $encodedString = json_encode($sent);
 
                         file_put_contents('facebook_sent.txt', $encodedString);
@@ -507,6 +508,7 @@ class CronController extends Controller
                         'report_id' => $report->id,
                         'recipient' => $email,
                     ]);
+                    $this->sendLimit($report);
                     $encodedString = json_encode($sent);
 
                    // file_put_contents('analytics_sent.txt', $encodedString);
@@ -726,6 +728,7 @@ class CronController extends Controller
                         'report_id' => $report->id,
                         'recipient' => $email,
                     ]);
+                    $this->sendLimit($report);
                     $encodedString = json_encode($sent);
 
                  //   file_put_contents('adwords_sent.txt', $encodedString);
@@ -747,6 +750,26 @@ class CronController extends Controller
 
         }
         return $keys;
+    }
+
+    private function sendLimit($report) {
+        $current_plan = $report->user->current_billing_plan ? $report->user->current_billing_plan : 'free_trial';
+        $plan = Plan::whereTitle($current_plan)->first();
+        $reports_sent_count = Schedule::whereUserId($report->user->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
+       if($reports_sent_count >= $plan->reports) {
+
+            $email = $report->user->email;
+            $subject = 'Oh No! You\'ve reached your report limit on Ninja Reports';
+            $timestamp = date('Y-m-d');
+            $daysLeft = (int) date('t', strtotime($timestamp)) - (int) date('j', strtotime($timestamp));
+            $limit_email_substitutions = [
+                '%reports%' => (string) $reports_sent_count,
+                '%limit%' => (string) $plan->reports,
+
+
+            ];
+            sendMail($email, $subject, '99642447-0c92-4931-8038-0c1190f779cd', $limit_email_substitutions);
+        }
     }
 
 }
