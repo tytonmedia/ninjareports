@@ -5,6 +5,7 @@
     if (session()->has('googlePrice')) {
     $value = session('googlePrice');
     session()->forget('googlePrice'); ?>
+
     <!-- Google Code for Ninja Report Sign Up Conversion Page -->
     <script type="text/javascript">
         /* <![CDATA[ */
@@ -14,7 +15,8 @@
         var google_conversion_currency = "USD";
         var google_remarketing_only = false;
         /* ]]> */
-
+         fbq('track', 'CompleteRegistration');
+         fbq('track', 'Purchase', {value: '{{ $value }}', currency: 'USD'});
     </script>
     <script type="application/javascript">
         ga('require', 'ecommerce');
