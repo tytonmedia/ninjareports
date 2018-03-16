@@ -288,7 +288,7 @@ if (!function_exists('make_schedules')) {
 
 if (!function_exists('sendMail')) {
 
-    function sendMail($to, $subject, $template_id, $substitutions = array(), $attachments = array(), $from = 'noreply@ninjareports.com', $showResponse = true)
+    function sendMail($to, $subject, $template_id, $substitutions = array(), $attachments = array(), $from = 'reports@ninjareports.com', $showResponse = true)
     {
         $default_subs = [
             '%company%' => 'Ninja Reports™',
