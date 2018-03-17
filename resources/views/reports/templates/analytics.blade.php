@@ -152,9 +152,9 @@
       <tr>
         <td height="100%" valign="top">
           <div style="text-align:center;margin:10px 0 30px 0">
-  <h2 style="padding:5px 0;margin:0">Your {{ ucfirst($report->frequency) }} Google Analytics Report</h2>
-<p style="padding:5px 0;margin:0">{{ $ad_account_title }}</p>
-<p style="color:#999;padding:5px 0;margin:0">{{ date('m/d/Y') }}</p>
+  <h2 style="padding:5px 0;margin:0;text-align:center;">Your {{ ucfirst($report->frequency) }} Google Analytics Report</h2>
+<p style="padding:5px 0;margin:0;text-align:center;">{{ $ad_account_title }}</p>
+<p style="color:#999;padding:5px 0;margin:0;text-align:center;">{{ date('m/d/Y') }}</p>
 </div>
         </td>
       </tr>
@@ -196,7 +196,7 @@
             <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
         <td height="100%" valign="top">
-          <div class="box" style="text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
+          <div class="box" style="min-width: 150px;min-height: 40px;min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
 <h2 style="padding:0;margin:0">{{ $total_sessions }}</h2>
 <label style="padding:0;margin:0">Visitors</label>
 </div>
@@ -229,7 +229,7 @@
             <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
         <td height="100%" valign="top">
-          <div class="box" style="text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
+          <div class="box" style="min-width: 150px;min-height: 40px;min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
 <h2 style="padding:0;margin:0">{{ $total_avg_time }}</h2>
 <label style="padding:0;margin:0">Avg. Time on Page</label>
 </div>
@@ -262,7 +262,7 @@
             <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
         <td height="100%" valign="top">
-          <div class="box" style="text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
+          <div class="box" style="min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
 <h2 style="padding:0;margin:0">{{ $total_bounce_rate }}%</h2>
 <label style="padding:0;margin:0">Bounce</label>
 </div>
@@ -322,7 +322,7 @@
             <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
         <td height="100%" valign="top">
-          <div class="box" style="text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
+          <div class="box" style="min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
 <h2 style="padding:0;margin:0">{{ $total_pageviews }}</h2>
 <label style="padding:0;margin:0">Pageviews</label>
 </div>
@@ -355,7 +355,7 @@
             <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
         <td height="100%" valign="top">
-          <div class="box" style="text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
+          <div class="box" style="min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
 <h2 style="padding:0;margin:0">{{ $total_pages_per_visitor }}</h2>
 <label style="padding:0;margin:0">Pages / Visit</label>
 </div>
@@ -388,7 +388,7 @@
             <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
         <td height="100%" valign="top">
-          <div class="box" style="text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
+          <div class="box" style="min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
 <h2 style="padding:0;margin:0">{{ $total_new_visitors }}</h2>
 <label style="padding:0;margin:0">New Visitors</label>
 </div>
