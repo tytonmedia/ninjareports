@@ -150,12 +150,12 @@
       </tr>
     </table><table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
-        <td height="100%" valign="top">
-          <div style="text-align:center;margin:10px 0 30px 0">
-  <h2 style="padding:5px 0;margin:0;text-align:center;">Your {{ ucfirst($report->frequency) }} Google Analytics Report</h2>
-<p style="padding:5px 0;margin:0;text-align:center;">{{ $ad_account_title }}</p>
-<p style="color:#999;padding:5px 0;margin:0;text-align:center;">{{ date('m/d/Y') }}</p>
-</div>
+        <td height="100%" valign="top" style="margin:15px 0;">
+          <table width="100%">
+            <tr align="center"><td><h2 style="padding:5px 0;margin:0;text-align:center;">Your {{ ucfirst($report->frequency) }} Google Analytics Report</h2></td></tr>
+            <tr align="center"><td><p style="padding:5px 0;margin:0;text-align:center;">{{ $ad_account_title }}</p></td></tr>
+           <tr align="center"><td><p style="color:#999;padding:5px 0;margin:0;text-align:center;">{{ date('m/d/Y') }}</p></td></tr>
+          </table>
         </td>
       </tr>
     </table>
@@ -439,6 +439,7 @@
             cellspacing="0"
             align="left"
             border="0"
+            float:left;
             bgcolor="#f2f2f2"
             class="column column-0 of-2
                   empty"
@@ -471,6 +472,7 @@
             cellspacing="0"
             align="left"
             border="0"
+            float:left;
             bgcolor="#f2f2f2"
             class="column column-1 of-2
                   empty"
