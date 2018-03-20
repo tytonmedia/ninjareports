@@ -113,6 +113,7 @@ label.help {font-size:12px;color:#ccc;}
 .white-label-logo {height:50px;width:300px;}
 .help-block {font-size:12px;}
 tr.paused {background:#f2f2f2;opacity: .8;}
+tr.active {background:none;opacity: 1;}
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 /* Styles */
