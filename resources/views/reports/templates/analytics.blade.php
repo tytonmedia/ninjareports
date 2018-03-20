@@ -448,7 +448,7 @@
         <td style="padding:0px;margin:0px;border-spacing:0;max-width:200px;">
             <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
-        <td height="100%" valign="top" width="300px;">
+        <td height="100%" valign="top" width="300">
           <table width="100%" border="1px" style="border:1px solid #cccccc" cellpadding="0" cellspacing="0">
   <tbody><tr><th style="background-color:#cccccc;padding:5px;">DEVICES</th></tr><tr><td width="100%" style="background-color:#ffffff;padding:10px;" background-color="#ffffff">{!! $devices_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$devices_graph_url.'"/>' !!}</td></tr>
 </tbody></table>
@@ -478,10 +478,10 @@
                   empty"
       >
       <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;width:300px" width="300px">
+        <td style="padding:0px;margin:0px;border-spacing:0;width:300px" width="300">
             <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
-        <td height="100%" valign="top" width="300px" style="width:300px;">
+        <td height="100%" valign="top" width="300" style="width:300px;">
           <table width="100%" border="1px" style="1px solid #cccccc" cellpadding="0" cellspacing="0">
   <tbody><tr><th style="background-color:#cccccc;padding:5px;">LOCATIONS</th></tr><tr><td width="100%" style="background-color:#ffffff;padding:10px;" background-color="#ffffff">{!! $locations_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$locations_graph_url.'"/>' !!}</td></tr>
 </tbody></table>
@@ -505,7 +505,7 @@
     </table>
   <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
-        <td height="100%" valign="top" style="text-align:center;">
+        <td height="100%" valign="top" style="text-align:center;padding:10px 0">
           <h2 style="text-align:center;font-size:18px;margin:0 0 10px 0;padding:0 0 10px 0">Top 5 Visitors by Source</h2>
 
   <table width="100%" cellpadding="5" cellspacing="0" style="background:#fff">
