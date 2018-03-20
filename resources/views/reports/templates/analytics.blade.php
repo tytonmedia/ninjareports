@@ -449,7 +449,7 @@
             <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
         <td height="100%" valign="top">
-          <table width="100%" border="1px" style="1px solid #cccccc" cellpadding="0" cellspacing="0">
+          <table width="100%" border="1px" style="border:1px solid #cccccc" cellpadding="0" cellspacing="0">
   <tbody><tr><th style="background-color:#cccccc;padding:5px;">DEVICES</th></tr><tr><td width="100%" style="background-color:#ffffff;padding:10px;" background-color="#ffffff">{!! $devices_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$devices_graph_url.'"/>' !!}</td></tr>
 </tbody></table>
         </td>
@@ -505,27 +505,27 @@
     </table>
   <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
-        <td height="100%" valign="top">
+        <td height="100%" valign="top" style="text-align:center;">
           <h2 style="text-align:center;font-size:18px;margin:0 0 10px 0;padding:0 0 10px 0">Top 5 Visitors by Source</h2>
 
 	<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff">
 		<tbody><tr>
 		<th style="background:#666;color:#fff;padding:5px;">Source</th>
 		<th style="background:#666;color:#fff;padding:5px;">Visitotrs</th>
-		<th style="background:#666;color:#fff;padding:5px;">New %</th>
+		<th style="background:#666;color:#fff;padding:5px;">New</th>
 		<th style="background:#666;color:#fff;padding:5px;">Bounce %</th>
 		<th style="background:#666;color:#fff;padding:5px;">Pages/Visit</th>
-		<th style="background:#666;color:#fff;padding:5px;">Avg. Time</th>
+		<th style="background:#666;color:#fff;padding:5px;">Revenue</th>
 		</tr>
         @if(count($sources_insights) > 0)
         @foreach($sources_insights as $insight)
         <tr>
             <td>{{ $insight[0] }}</td>
             <td>{{ $insight[1] }}</td>
-            <td>{{ $insight[5] }}</td>
-            <td>{{ number_format((float) $insight[4], 3, '.', '') }}</td>
-            <td>{{ number_format((float) $insight[6], 3, '.', '') }}</td>
-            <td>{{ number_format((float) $insight[3], 3, '.', '') }}</td>
+            <td>{{ $insight[6] }}</td>
+            <td>{{ number_format((float) $insight[5], 3, '.', '') }}</td>
+            <td>{{ number_format((float) $insight[7], 3, '.', '') }}</td>
+            <td>{{ number_format((float) $insight[8], 3, '.', '') }}</td>
         </tr>
         @endforeach
         @else
