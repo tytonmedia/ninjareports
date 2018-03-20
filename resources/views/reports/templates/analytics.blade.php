@@ -106,9 +106,9 @@
      <!--End Head user entered-->
   </head>
   <body>
-<center class="wrapper" data-link-color="#1080f2" style="width:600px" data-body-style="font-size: 14px; font-family: arial; color: #000000; background-color: #f2f2f2;">
+<center class="wrapper" data-link-color="#1080f2" style="width:100%" data-body-style="font-size: 14px; font-family: arial; color: #000000; background-color: #f2f2f2;">
       <div class="webkit">
-        <table cellpadding="0" cellspacing="0" border="0" width="600" class="wrapper" bgcolor="#f2f2f2">
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" class="wrapper" bgcolor="#f2f2f2">
           <tr>
             <td valign="top" bgcolor="#f2f2f2" width="100%">
               <table width="100%" role="content-container" class="outer" align="center" cellpadding="0" cellspacing="0" border="0">
@@ -191,31 +191,26 @@
             cellpadding="10"
             cellspacing="0"
             align="center"
-            width="100%"
-            role="module"
-            data-type="columns"
-            data-version="2"
+            width="700"
             style="padding:015px 0px 10px 0px;background-color:#f2f2f2;box-sizing:border-box;"
             bgcolor="#f2f2f2">
-      <tr role='module-content'>
-        <td height="100%" valign="top">
-         <div class="box" style="min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
-<h2 style="padding:0;margin:0;text-align:center">{{ $total_pageviews }}</h2>
-<label style="padding:0;margin:0">Pageviews</label>
-</div>
-       
-        <div class="box" style="min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
-<h2 style="padding:0;margin:0">{{ $total_pages_per_visitor }}</h2>
-<label style="padding:0;margin:0">Pages / Visit</label>
-</div>
-          <div class="box" style="min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
-<h2 style="padding:0;margin:0">{{ $total_new_visitors }}</h2>
-<label style="padding:0;margin:0">New Visitors</label>
-</div>
- 
-
-        </td>
-      </tr>
+   <tr role='module-content'>
+        <td height="100%" valign="top" width="100%" style="width:100%;background:#ffffff;background-color:#ffffff;text-align:center;border:1px solid #cccccc">
+<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">{{ $total_pageviews }}</div>
+<div style="padding:0;margin:0">Pageviews</div>
+     </td></tr>
+          <tr role='module-content'>
+        <td height="100%" valign="top" width="100%" style="width:100%;background:#ffffff;background-color:#ffffff;text-align:center;border:1px solid #cccccc">
+        
+<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">{{ $total_pages_per_visitor }}</div>
+<div style="padding:0;margin:0">Pages / Visit</div>
+        </td></tr>
+            <tr role='module-content'>
+        <td height="100%" valign="top" width="100%" style="width:100%;background:#ffffff;background-color:#ffffff;text-align:center;border:1px solid #cccccc">
+         
+<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">{{ $total_new_visitors }}</div>
+<div style="padding:0;margin:0">New Visitors</div>
+        </td></tr>
     </table>
 
     <table  border="0"
