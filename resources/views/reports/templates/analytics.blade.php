@@ -234,14 +234,10 @@
       <tr role='module-content'>
         <td height="100%" valign="top">
 <div style="width:48%;margin-right:1%;float:left;">
-      <table width="100%" border="1px" style="border:1px solid #cccccc" cellpadding="0" cellspacing="0">
-  <tbody><tr><th style="background-color:#cccccc;padding:5px;">DEVICES</th></tr><tr><td width="100%" style="background-color:#ffffff;padding:10px;" background-color="#ffffff">{!! $devices_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$devices_graph_url.'"/>' !!}</td></tr>
-</tbody></table>
+<h2>DEVICES</h2>{!! $devices_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$devices_graph_url.'"/>' !!}
       </div>
 <div style="width:48%;float:left;">
-      <table width="100%" border="1px" style="1px solid #cccccc" cellpadding="0" cellspacing="0">
-  <tbody><tr><th style="background-color:#cccccc;padding:5px;">LOCATIONS</th></tr><tr><td width="100%" style="background-color:#ffffff;padding:10px;" background-color="#ffffff">{!! $locations_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$locations_graph_url.'"/>' !!}</td></tr>
-</tbody></table>
+ <h2>LOCATIONS</h2>{!! $locations_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$locations_graph_url.'"/>' !!}
       </div>
         </td>
       </tr>
