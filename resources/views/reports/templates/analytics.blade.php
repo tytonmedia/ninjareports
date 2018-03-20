@@ -108,7 +108,7 @@
   <body>
 <center class="wrapper" data-link-color="#1080f2" style="width:600px" data-body-style="font-size: 14px; font-family: arial; color: #000000; background-color: #f2f2f2;">
       <div class="webkit">
-        <table cellpadding="0" cellspacing="0" border="0" width="600" class="wrapper" bgcolor="#f2f2f2">
+        <table cellpadding="20" cellspacing="0" border="0" width="600" class="wrapper" bgcolor="#f2f2f2">
           <tr>
             <td valign="top" bgcolor="#f2f2f2" width="100%">
               <table width="100%" role="content-container" class="outer" align="center" cellpadding="0" cellspacing="0" border="0">
@@ -136,7 +136,7 @@
   <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
         <td height="100%" valign="top">
-          <div class="header" sttyle="background:#1080f2;"></div>
+
         </td>
       </tr>
     </table><table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
@@ -187,8 +187,6 @@
 <label style="padding:0;margin:0">Bounce</label>
 </div>
    
-
-
         </td>
       </tr>
     </table>
@@ -219,7 +217,6 @@
 <h2 style="padding:0;margin:0">{{ $total_new_visitors }}</h2>
 <label style="padding:0;margin:0">New Visitors</label>
 </div>
-
 
         </td>
       </tr>
