@@ -523,9 +523,9 @@
             <td>{{ $insight[0] }}</td>
             <td>{{ $insight[1] }}</td>
             <td>{{ $insight[6] }}</td>
-            <td>{{ number_format((float) $insight[5], 3, '.', '') }}</td>
-            <td>{{ number_format((float) $insight[7], 3, '.', '') }}</td>
-            <td>{{ number_format((float) $insight[8], 3, '.', '') }}</td>
+            <td>{{ number_format((float) $insight[5], 2, '.', '') }}%</td>
+            <td>{{ number_format((float) $insight[7], 2, '.', '') }}</td>
+            <td>${{ number_format((float) $insight[8], 2, '.', '') }}</td>
         </tr>
         @endforeach
         @else
