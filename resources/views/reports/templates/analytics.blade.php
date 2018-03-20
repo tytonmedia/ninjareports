@@ -171,116 +171,24 @@
             bgcolor="#f2f2f2">
       <tr role='module-content'>
         <td height="100%" valign="top">
-            <!--[if (gte mso 9)|(IE)]>
-              <center>
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-spacing:0;border-collapse:collapse;table-layout: fixed;" >
-                  <tr>
-            <![endif]-->
-
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="193.333px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="193.333"
-            style="width:193.333px;border-spacing:0;border-collapse:collapse;margin:0px 5px 0px 0px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor="#f2f2f2"
-            class="column column-0 of-3
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top" width="150px" style="width:150px;">
-          <div class="box" style="float:left;min-width: 150px;min-height: 40px;min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
+<! -- start --/>
+     <div class="box" style="text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
 <h2 style="padding:0;margin:0">{{ $total_sessions }}</h2>
 <label style="padding:0;margin:0">Visitors</label>
 </div>
-        </td>
-      </tr>
-    </table>
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="193.333px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="193.333"
-            style="width:193.333px;border-spacing:0;border-collapse:collapse;margin:0px 5px 0px 5px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor="#f2f2f2"
-            class="column column-1 of-3
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top" width="150px" style="width:150px;">
-          <div class="box" style="min-width: 150px;min-height: 40px;min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
-<h2 style="padding:0;margin:0">{{ $total_avg_time }}</h2>
-<label style="padding:0;margin:0">Avg. Time on Page</label>
+   
+         <div class="box" style="text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
+<h2 style="padding:0;margin:0">${{ $revenue }}</h2>
+<label style="padding:0;margin:0">Revenue</label>
 </div>
-        </td>
-      </tr>
-    </table>
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="193.333px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="193.333"
-            style="width:193.333px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 5px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor="#f2f2f2"
-            class="column column-2 of-3
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top" width="150px" style="width:150px;">
-          <div class="box" style="min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
+    
+     <div class="box" style="text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
 <h2 style="padding:0;margin:0">{{ $total_bounce_rate }}%</h2>
 <label style="padding:0;margin:0">Bounce</label>
 </div>
-        </td>
-      </tr>
-    </table>
-        </td>
-      </tr>
-    </table>
+   
+<! -- end --/>
 
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-            <!--[if (gte mso 9)|(IE)]>
-                  <tr>
-                </table>
-              </center>
-            <![endif]-->
         </td>
       </tr>
     </table>
@@ -297,116 +205,21 @@
             bgcolor="#f2f2f2">
       <tr role='module-content'>
         <td height="100%" valign="top">
-            <!--[if (gte mso 9)|(IE)]>
-              <center>
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-spacing:0;border-collapse:collapse;table-layout: fixed;" >
-                  <tr>
-            <![endif]-->
-
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="193.333px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="193.333"
-            style="width:193.333px;border-spacing:0;border-collapse:collapse;margin:0px 5px 0px 0px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor="#f2f2f2"
-            class="column column-0 of-3
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <div class="box" style="min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
+<! -- start --/>
+         <div class="box" style="min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
 <h2 style="padding:0;margin:0">{{ $total_pageviews }}</h2>
 <label style="padding:0;margin:0">Pageviews</label>
 </div>
-        </td>
-      </tr>
-    </table>
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="193.333px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="193.333"
-            style="width:193.333px;border-spacing:0;border-collapse:collapse;margin:0px 5px 0px 5px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor="#f2f2f2"
-            class="column column-1 of-3
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <div class="box" style="min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
+       
+        <div class="box" style="min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
 <h2 style="padding:0;margin:0">{{ $total_pages_per_visitor }}</h2>
 <label style="padding:0;margin:0">Pages / Visit</label>
 </div>
-        </td>
-      </tr>
-    </table>
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="193.333px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="193.333"
-            style="width:193.333px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 5px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor="#f2f2f2"
-            class="column column-2 of-3
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
           <div class="box" style="min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
 <h2 style="padding:0;margin:0">{{ $total_new_visitors }}</h2>
 <label style="padding:0;margin:0">New Visitors</label>
 </div>
-        </td>
-      </tr>
-    </table>
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-            <!--[if (gte mso 9)|(IE)]>
-                  <tr>
-                </table>
-              </center>
-            <![endif]-->
+   <! -- end --/>
 
         </td>
       </tr>
@@ -423,16 +236,8 @@
             style="padding:015px 0px 15px 0px;background-color:#f2f2f2;box-sizing:border-box;"
             bgcolor="#f2f2f2">
       <tr role='module-content'>
-        <td height="100%" valign="top">
-            <!--[if (gte mso 9)|(IE)]>
-              <center>
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-spacing:0;border-collapse:collapse;table-layout: fixed;" >
-                  <tr>
-            <![endif]-->
+        <td height="100%" valign="top" width="250">
 
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="295.000px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
 
     <table  width="295.000"
             style="width:295.000px;border-spacing:0;border-collapse:collapse;margin:0px 5px 0px 0px;"
@@ -460,12 +265,7 @@
       </tr>
     </table>
 
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="295.000px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
+ 
 
     <table  width="295.000"
             style="width:295.000px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 5px;"
