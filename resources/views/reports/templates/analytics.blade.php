@@ -189,7 +189,7 @@
 <div style="clear: both; margin: 0pt; padding: 0pt; "></div>
     <table  border="0"
             cellpadding="10"
-            cellspacing="0"
+            cellspacing="10"
             align="center"
             width="700"
             style="padding:015px 0px 10px 0px;background-color:#f2f2f2;box-sizing:border-box;"
@@ -217,21 +217,21 @@
             cellpadding="10"
             cellspacing="0"
             align="center"
-            width="700"
+            width="100%"
             style="padding:015px 0px 15px 0px;background-color:#f2f2f2;box-sizing:border-box;"
             bgcolor="#f2f2f2">
       <tr role='module-content'>
         <td height="100%" valign="top">
-<div style="width:49%;margin-right:1%;float:left;display:block">
-      <table border="1px" style="border:1px solid #cccccc" cellpadding="0" cellspacing="0">
+
+      <table border="1px" style="border:1px solid #cccccc;margin-bottom:1%" cellpadding="0" cellspacing="0" width="100%">
   <tbody><tr><th style="background-color:#cccccc;padding:5px;">DEVICES</th></tr><tr><td width="100%" style="background-color:#ffffff;padding:10px;" background-color="#ffffff">{!! $devices_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$devices_graph_url.'"/>' !!}</td></tr>
 </tbody></table>
-      </div>
-<div style="width:49%;float:left;display:block">
-      <table width="100%" border="1px" style="1px solid #cccccc" cellpadding="0" cellspacing="0">
+
+
+    <table border="1px" style="border:1px solid #cccccc;margin-bottom:1%" cellpadding="0" cellspacing="0" width="100%">
   <tbody><tr><th style="background-color:#cccccc;padding:5px;">LOCATIONS</th></tr><tr><td width="100%" style="background-color:#ffffff;padding:10px;" background-color="#ffffff">{!! $locations_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$locations_graph_url.'"/>' !!}</td></tr>
 </tbody></table>
-      </div>
+    
         </td>
       </tr>
     </table>
