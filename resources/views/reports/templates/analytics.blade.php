@@ -106,7 +106,7 @@
      <!--End Head user entered-->
   </head>
   <body>
-    <center class="wrapper" data-link-color="#1080f2" data-body-style="font-size: 14px; font-family: arial; color: #000000; background-color: #f2f2f2;">
+  <center class="wrapper" data-link-color="#1080f2" data-body-style="font-size: 14px; font-family: arial; color: #000000; background-color: #f2f2f2;">
       <div class="webkit">
         <table cellpadding="0" cellspacing="0" border="0" width="100%" class="wrapper" bgcolor="#f2f2f2">
           <tr>
@@ -152,7 +152,7 @@
       <tr>
         <td height="100%" valign="top" style="margin:15px 0;">
           <table width="100%">
-            <tr align="center"><td><h2 style="padding:5px 0;margin:0;text-align:center;">Your {{ ucfirst($report->frequency) }} Google Analytics Report</h2></td></tr>
+            <tr align="center" style="text-align:center"><td><h2 style="padding:5px 0;margin:0;text-align:center;">Your {{ ucfirst($report->frequency) }} Google Analytics Report</h2></td></tr>
             <tr align="center"><td><p style="padding:5px 0;margin:0;text-align:center;">{{ $ad_account_title }}</p></td></tr>
            <tr align="center"><td><p style="color:#999;padding:5px 0;margin:0;text-align:center;">{{ date('m/d/Y') }}</p></td></tr>
           </table>
@@ -195,8 +195,8 @@
         <td style="padding:0px;margin:0px;border-spacing:0;">
             <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
-        <td height="100%" valign="top">
-          <div class="box" style="min-width: 150px;min-height: 40px;min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
+        <td height="100%" valign="top" width="150px" style="width:150px;">
+          <div class="box" style="float:left;min-width: 150px;min-height: 40px;min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
 <h2 style="padding:0;margin:0">{{ $total_sessions }}</h2>
 <label style="padding:0;margin:0">Visitors</label>
 </div>
@@ -228,7 +228,7 @@
         <td style="padding:0px;margin:0px;border-spacing:0;">
             <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
-        <td height="100%" valign="top">
+        <td height="100%" valign="top" width="150px" style="width:150px;">
           <div class="box" style="min-width: 150px;min-height: 40px;min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
 <h2 style="padding:0;margin:0">{{ $total_avg_time }}</h2>
 <label style="padding:0;margin:0">Avg. Time on Page</label>
@@ -261,7 +261,7 @@
         <td style="padding:0px;margin:0px;border-spacing:0;">
             <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
-        <td height="100%" valign="top">
+        <td height="100%" valign="top" width="150px" style="width:150px;">
           <div class="box" style="min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
 <h2 style="padding:0;margin:0">{{ $total_bounce_rate }}%</h2>
 <label style="padding:0;margin:0">Bounce</label>
@@ -445,10 +445,10 @@
                   empty"
       >
       <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
+        <td style="padding:0px;margin:0px;border-spacing:0;max-width:200px;">
             <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
-        <td height="100%" valign="top">
+        <td height="100%" valign="top" width="300px;">
           <table width="100%" border="1px" style="border:1px solid #cccccc" cellpadding="0" cellspacing="0">
   <tbody><tr><th style="background-color:#cccccc;padding:5px;">DEVICES</th></tr><tr><td width="100%" style="background-color:#ffffff;padding:10px;" background-color="#ffffff">{!! $devices_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$devices_graph_url.'"/>' !!}</td></tr>
 </tbody></table>
@@ -478,10 +478,10 @@
                   empty"
       >
       <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
+        <td style="padding:0px;margin:0px;border-spacing:0;width:300px" width="300px">
             <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
-        <td height="100%" valign="top">
+        <td height="100%" valign="top" width="300px" style="width:300px;">
           <table width="100%" border="1px" style="1px solid #cccccc" cellpadding="0" cellspacing="0">
   <tbody><tr><th style="background-color:#cccccc;padding:5px;">LOCATIONS</th></tr><tr><td width="100%" style="background-color:#ffffff;padding:10px;" background-color="#ffffff">{!! $locations_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$locations_graph_url.'"/>' !!}</td></tr>
 </tbody></table>
@@ -508,15 +508,15 @@
         <td height="100%" valign="top" style="text-align:center;">
           <h2 style="text-align:center;font-size:18px;margin:0 0 10px 0;padding:0 0 10px 0">Top 5 Visitors by Source</h2>
 
-	<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff">
-		<tbody><tr>
-		<th style="background:#666;color:#fff;padding:5px;">Source</th>
-		<th style="background:#666;color:#fff;padding:5px;">Visitotrs</th>
-		<th style="background:#666;color:#fff;padding:5px;">New</th>
-		<th style="background:#666;color:#fff;padding:5px;">Bounce %</th>
-		<th style="background:#666;color:#fff;padding:5px;">Pages/Visit</th>
-		<th style="background:#666;color:#fff;padding:5px;">Revenue</th>
-		</tr>
+  <table width="100%" cellpadding="5" cellspacing="0" style="background:#fff">
+    <tbody><tr>
+    <th style="background:#666;color:#fff;padding:5px;">Source</th>
+    <th style="background:#666;color:#fff;padding:5px;">Visitotrs</th>
+    <th style="background:#666;color:#fff;padding:5px;">New</th>
+    <th style="background:#666;color:#fff;padding:5px;">Bounce %</th>
+    <th style="background:#666;color:#fff;padding:5px;">Pages/Visit</th>
+    <th style="background:#666;color:#fff;padding:5px;">Revenue</th>
+    </tr>
         @if(count($sources_insights) > 0)
         @foreach($sources_insights as $insight)
         <tr>
