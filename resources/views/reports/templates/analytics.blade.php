@@ -171,7 +171,7 @@
             bgcolor="#f2f2f2">
       <tr role='module-content'>
         <td height="100%" valign="top">
-<! -- start --/>
+
      <div class="box" style="text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
 <h2 style="padding:0;margin:0">{{ $total_sessions }}</h2>
 <label style="padding:0;margin:0">Visitors</label>
@@ -187,7 +187,7 @@
 <label style="padding:0;margin:0">Bounce</label>
 </div>
    
-<! -- end --/>
+
 
         </td>
       </tr>
@@ -205,7 +205,7 @@
             bgcolor="#f2f2f2">
       <tr role='module-content'>
         <td height="100%" valign="top">
-<! -- start --/>
+
          <div class="box" style="min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
 <h2 style="padding:0;margin:0">{{ $total_pageviews }}</h2>
 <label style="padding:0;margin:0">Pageviews</label>
@@ -219,7 +219,7 @@
 <h2 style="padding:0;margin:0">{{ $total_new_visitors }}</h2>
 <label style="padding:0;margin:0">New Visitors</label>
 </div>
-   <! -- end --/>
+
 
         </td>
       </tr>
