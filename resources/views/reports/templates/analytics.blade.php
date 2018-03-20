@@ -163,25 +163,25 @@
             cellpadding="10"
             cellspacing="0"
             align="center"
-            width="100%"
+            width="700"
             role="module"
             data-type="columns"
             data-version="2"
             style="padding:0px 0px 10px 0px;background-color:#f2f2f2;box-sizing:border-box;"
             bgcolor="#f2f2f2">
       <tr role='module-content'>
-        <td height="100%" valign="top">
-     <div class="box" style="display:block;width:32%;float:left;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
-<h2 style="padding:0;margin:0">{{ $total_sessions }}</h2>
-<label style="padding:0;margin:0">Visitors</label>
+        <td height="100%" valign="top" width="100%" style="width:100%;">
+     <div class="box" style="width:32%;float:left;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
+<div style="padding:0;margin:0;display:block">{{ $total_sessions }}</div>
+<div style="padding:0;margin:0;display:block">Visitors</div>
 </div>
    
-         <div class="box" style="display:block;width:32%;float:left;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
+         <div class="box" style="width:32%;float:left;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
 <h2 style="padding:0;margin:0">${{ $revenue }}</h2>
 <label style="padding:0;margin:0">Revenue</label>
 </div>
     
-     <div class="box" style="display:block;width:32%;float:left;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
+     <div class="box" style="width:32%;float:left;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
 <h2 style="padding:0;margin:0">{{ $total_bounce_rate }}%</h2>
 <label style="padding:0;margin:0">Bounce</label>
 </div>
@@ -202,7 +202,7 @@
             bgcolor="#f2f2f2">
       <tr role='module-content'>
         <td height="100%" valign="top">
-         <div class="box" style="display:block;min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
+         <div class="box" style="min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
 <h2 style="padding:0;margin:0">{{ $total_pageviews }}</h2>
 <label style="padding:0;margin:0">Pageviews</label>
 </div>
@@ -222,29 +222,30 @@
     </table>
 
     <table  border="0"
-            cellpadding="0"
+            cellpadding="10"
             cellspacing="0"
             align="center"
             width="100%"
-            role="module"
-            data-type="columns"
-            data-version="2"
             style="padding:015px 0px 15px 0px;background-color:#f2f2f2;box-sizing:border-box;"
             bgcolor="#f2f2f2">
       <tr role='module-content'>
         <td height="100%" valign="top">
-<div style="width:48%;margin-right:1%;float:left;">
-<h2>DEVICES</h2>{!! $devices_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$devices_graph_url.'"/>' !!}
+<div style="width:49%;margin-right:1%;float:left;display:block">
+      <table width="100%" border="1px" style="border:1px solid #cccccc" cellpadding="0" cellspacing="0">
+  <tbody><tr><th style="background-color:#cccccc;padding:5px;">DEVICES</th></tr><tr><td width="100%" style="background-color:#ffffff;padding:10px;" background-color="#ffffff">{!! $devices_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$devices_graph_url.'"/>' !!}</td></tr>
+</tbody></table>
       </div>
-<div style="width:48%;float:left;">
- <h2>LOCATIONS</h2>{!! $locations_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$locations_graph_url.'"/>' !!}
+<div style="width:49%;float:left;display:block">
+      <table width="100%" border="1px" style="1px solid #cccccc" cellpadding="0" cellspacing="0">
+  <tbody><tr><th style="background-color:#cccccc;padding:5px;">LOCATIONS</th></tr><tr><td width="100%" style="background-color:#ffffff;padding:10px;" background-color="#ffffff">{!! $locations_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$locations_graph_url.'"/>' !!}</td></tr>
+</tbody></table>
       </div>
         </td>
       </tr>
     </table>
   <table class="module" role="module" data-type="code" border="0" cellpadding="10" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
-        <td height="100%" valign="top" style="text-align:center;padding:10px 0;margin:10px 0">
+        <td height="100%" valign="top" style="text-align:center;padding:10px;margin:10px 0">
           <h2 style="text-align:center;font-size:18px;margin:10px0 0 10px 0;padding:10px 0 10px 0">Top 5 Visitors by Source</h2>
 
   <table width="100%" cellpadding="5" cellspacing="0" style="background:#fff">
@@ -294,4 +295,5 @@
         </table>
       </div>
     </center>
+  </body>
 </html>
