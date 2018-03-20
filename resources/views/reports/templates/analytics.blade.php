@@ -20,7 +20,7 @@
       img {-ms-interpolation-mode: bicubic;}
     </style>
     <![endif]-->
-
+    <link href="{{ asset('css/pdf.css') }}" rel="stylesheet">
     <style type="text/css">
       body, p, div {
         font-family: arial;
