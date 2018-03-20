@@ -171,17 +171,17 @@
             bgcolor="#f2f2f2">
       <tr role='module-content'>
         <td height="100%" valign="top">
-     <div class="box" style="width:32%;float:left;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
+     <div class="box" style="display:block;width:32%;float:left;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
 <h2 style="padding:0;margin:0">{{ $total_sessions }}</h2>
 <label style="padding:0;margin:0">Visitors</label>
 </div>
    
-         <div class="box" style="width:32%;float:left;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
+         <div class="box" style="display:block;width:32%;float:left;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
 <h2 style="padding:0;margin:0">${{ $revenue }}</h2>
 <label style="padding:0;margin:0">Revenue</label>
 </div>
     
-     <div class="box" style="width:32%;float:left;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
+     <div class="box" style="display:block;width:32%;float:left;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
 <h2 style="padding:0;margin:0">{{ $total_bounce_rate }}%</h2>
 <label style="padding:0;margin:0">Bounce</label>
 </div>
@@ -202,7 +202,7 @@
             bgcolor="#f2f2f2">
       <tr role='module-content'>
         <td height="100%" valign="top">
-         <div class="box" style="min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
+         <div class="box" style="display:block;min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
 <h2 style="padding:0;margin:0">{{ $total_pageviews }}</h2>
 <label style="padding:0;margin:0">Pageviews</label>
 </div>
