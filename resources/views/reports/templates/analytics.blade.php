@@ -161,7 +161,7 @@
     </table>
     <table  border="0"
             cellpadding="10"
-            cellspacing="0"
+            cellspacing="10"
             align="center"
             width="700"
             role="module"
@@ -170,26 +170,21 @@
             style="padding:0px 0px 10px 0px;background-color:#f2f2f2;box-sizing:border-box;"
             bgcolor="#f2f2f2">
       <tr role='module-content'>
-        <td height="100%" valign="top" width="100%" style="width:100%;background:#ffffff;background-color:#ffffff">
-     <div class="box" style="width:100%;text-align:center;border:1px solid #cccccc;background:#ffffff;background-color:#ffffff;padding:15px 0;margin-right:1%">
-<div style="padding:0;margin:0;display:block;font-size:30px;">{{ $total_sessions }}</div>
-<div style="padding:0;margin:0;display:block">Visitors</div>
-</div>
+        <td height="100%" valign="top" width="100%" style="width:100%;background:#ffffff;background-color:#ffffff;text-align:center;border:1px solid #cccccc">
+<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">{{ $total_sessions }}</div>
+<div style="padding:0;margin:0;display:block;text-align:center">Visitors</div>
       </td></tr>
          <tr role='module-content'>
-        <td height="100%" valign="top" width="100%" style="width:100%;background:#ffffff;background-color:#ffffff">
-         <div class="box" style="width:100%;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
-<div style="padding:0;margin:0;display:block;font-size:30px;">${{ $revenue }}</div>
-<div> style="padding:0;margin:0">Revenue</div>
-</div>
+        <td height="100%" valign="top" width="100%" style="width:100%;background:#ffffff;background-color:#ffffff;text-align:center;border:1px solid #cccccc">
+<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">${{ $revenue }}</div>
+<div style="padding:0;margin:0;text-align:center">Revenue</div>
        </td></tr>
         <tr role='module-content'>
-        <td height="100%" valign="top" width="100%" style="width:100%;">
+        <td height="100%" valign="top" width="100%" style="width:100%;background:#ffffff;background-color:#ffffff;text-align:center;border:1px solid #cccccc">
     
-     <div class="box" style="width:100%;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
-<div style="padding:0;margin:0;display:block;font-size:30px;">{{ $total_bounce_rate }}%</div>
+   
+<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">{{ $total_bounce_rate }}%</div>
 <div style="padding:0;margin:0">Bounce</div>
-</div>
           </td></tr></table>
 <div style="clear: both; margin: 0pt; padding: 0pt; "></div>
     <table  border="0"
@@ -205,7 +200,7 @@
       <tr role='module-content'>
         <td height="100%" valign="top">
          <div class="box" style="min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
-<h2 style="padding:0;margin:0">{{ $total_pageviews }}</h2>
+<h2 style="padding:0;margin:0;text-align:center">{{ $total_pageviews }}</h2>
 <label style="padding:0;margin:0">Pageviews</label>
 </div>
        
@@ -227,13 +222,13 @@
             cellpadding="10"
             cellspacing="0"
             align="center"
-            width="100%"
+            width="700"
             style="padding:015px 0px 15px 0px;background-color:#f2f2f2;box-sizing:border-box;"
             bgcolor="#f2f2f2">
       <tr role='module-content'>
         <td height="100%" valign="top">
 <div style="width:49%;margin-right:1%;float:left;display:block">
-      <table width="100%" border="1px" style="border:1px solid #cccccc" cellpadding="0" cellspacing="0">
+      <table border="1px" style="border:1px solid #cccccc" cellpadding="0" cellspacing="0">
   <tbody><tr><th style="background-color:#cccccc;padding:5px;">DEVICES</th></tr><tr><td width="100%" style="background-color:#ffffff;padding:10px;" background-color="#ffffff">{!! $devices_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$devices_graph_url.'"/>' !!}</td></tr>
 </tbody></table>
       </div>
