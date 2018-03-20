@@ -228,7 +228,7 @@
 </tbody></table>
 
 
-      <table width="100%" border="1px" style="1px solid #cccccc" cellpadding="0" cellspacing="0">
+    <table border="1px" style="border:1px solid #cccccc;margin-bottom:1%" cellpadding="0" cellspacing="0" width="100%">
   <tbody><tr><th style="background-color:#cccccc;padding:5px;">LOCATIONS</th></tr><tr><td width="100%" style="background-color:#ffffff;padding:10px;" background-color="#ffffff">{!! $locations_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$locations_graph_url.'"/>' !!}</td></tr>
 </tbody></table>
     
