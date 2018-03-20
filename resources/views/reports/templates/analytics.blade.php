@@ -108,7 +108,7 @@
   <body>
 <center class="wrapper" data-link-color="#1080f2" style="width:600px" data-body-style="font-size: 14px; font-family: arial; color: #000000; background-color: #f2f2f2;">
       <div class="webkit">
-        <table cellpadding="20" cellspacing="0" border="0" width="600" class="wrapper" bgcolor="#f2f2f2">
+        <table cellpadding="0" cellspacing="0" border="0" width="600" class="wrapper" bgcolor="#f2f2f2">
           <tr>
             <td valign="top" bgcolor="#f2f2f2" width="100%">
               <table width="100%" role="content-container" class="outer" align="center" cellpadding="0" cellspacing="0" border="0">
@@ -148,10 +148,10 @@
 </tbody></table>
         </td>
       </tr>
-    </table><table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
+    </table><table class="module" role="module" data-type="code" border="0" cellpadding="10" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
         <td height="100%" valign="top" style="margin:15px 0;">
-          <table width="100%">
+          <table width="100%" cellpadding="">
             <tr align="center" style="text-align:center;margin:10px 0"><td style="text-align:center;padding:10px 0"><h2 style="padding:5px 0;margin:0;text-align:center;">Your {{ ucfirst($report->frequency) }} Google Analytics Report</h2></td></tr>
             <tr align="center" style="text-align:center"><td style="text-align:center;padding:10px 0"><p style="padding:5px 0;margin:0;text-align:center;">{{ $ad_account_title }}</p></td></tr>
            <tr align="center" style="text-align:center"><td style="text-align:center;padding:10px 0"><p style="color:#999;padding:5px 0;margin:0;text-align:center;">{{ date('m/d/Y') }}</p></td></tr>
@@ -160,7 +160,7 @@
       </tr>
     </table>
     <table  border="0"
-            cellpadding="0"
+            cellpadding="10"
             cellspacing="0"
             align="center"
             width="100%"
@@ -171,26 +171,27 @@
             bgcolor="#f2f2f2">
       <tr role='module-content'>
         <td height="100%" valign="top">
-     <div class="box" style="text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
+     <div class="box" style="width:32%;float:left;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
 <h2 style="padding:0;margin:0">{{ $total_sessions }}</h2>
 <label style="padding:0;margin:0">Visitors</label>
 </div>
    
-         <div class="box" style="text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
+         <div class="box" style="width:32%;float:left;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
 <h2 style="padding:0;margin:0">${{ $revenue }}</h2>
 <label style="padding:0;margin:0">Revenue</label>
 </div>
     
-     <div class="box" style="text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
+     <div class="box" style="width:32%;float:left;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
 <h2 style="padding:0;margin:0">{{ $total_bounce_rate }}%</h2>
 <label style="padding:0;margin:0">Bounce</label>
 </div>
+
         </td>
       </tr>
     </table>
-
+<div style="clear: both; margin: 0pt; padding: 0pt; "></div>
     <table  border="0"
-            cellpadding="0"
+            cellpadding="10"
             cellspacing="0"
             align="center"
             width="100%"
@@ -214,7 +215,7 @@
 <h2 style="padding:0;margin:0">{{ $total_new_visitors }}</h2>
 <label style="padding:0;margin:0">New Visitors</label>
 </div>
-
+ 
 
         </td>
       </tr>
@@ -232,12 +233,12 @@
             bgcolor="#f2f2f2">
       <tr role='module-content'>
         <td height="100%" valign="top">
-<div>
+<div style="width:48%;margin-right:1%;float:left;">
       <table width="100%" border="1px" style="border:1px solid #cccccc" cellpadding="0" cellspacing="0">
   <tbody><tr><th style="background-color:#cccccc;padding:5px;">DEVICES</th></tr><tr><td width="100%" style="background-color:#ffffff;padding:10px;" background-color="#ffffff">{!! $devices_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$devices_graph_url.'"/>' !!}</td></tr>
 </tbody></table>
       </div>
-<div>
+<div style="width:48%;float:left;">
       <table width="100%" border="1px" style="1px solid #cccccc" cellpadding="0" cellspacing="0">
   <tbody><tr><th style="background-color:#cccccc;padding:5px;">LOCATIONS</th></tr><tr><td width="100%" style="background-color:#ffffff;padding:10px;" background-color="#ffffff">{!! $locations_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$locations_graph_url.'"/>' !!}</td></tr>
 </tbody></table>
@@ -245,7 +246,7 @@
         </td>
       </tr>
     </table>
-  <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
+  <table class="module" role="module" data-type="code" border="0" cellpadding="10" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
         <td height="100%" valign="top" style="text-align:center;padding:10px 0;margin:10px 0">
           <h2 style="text-align:center;font-size:18px;margin:10px0 0 10px 0;padding:10px 0 10px 0">Top 5 Visitors by Source</h2>
