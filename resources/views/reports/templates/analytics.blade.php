@@ -106,9 +106,9 @@
      <!--End Head user entered-->
   </head>
   <body>
-<center width="600px" class="wrapper" data-link-color="#1080f2" data-body-style="font-size: 14px; font-family: arial; color: #000000; background-color: #f2f2f2;width:600px;max-width:600px">
-      <div class="webkit" style="width:600px;">
-        <table cellpadding="0" cellspacing="0" border="0" width="100%" class="wrapper" bgcolor="#f2f2f2">
+<center class="wrapper" data-link-color="#1080f2" style="width:600px" data-body-style="font-size: 14px; font-family: arial; color: #000000; background-color: #f2f2f2;">
+      <div class="webkit">
+        <table cellpadding="0" cellspacing="0" border="0" width="600" class="wrapper" bgcolor="#f2f2f2">
           <tr>
             <td valign="top" bgcolor="#f2f2f2" width="100%">
               <table width="100%" role="content-container" class="outer" align="center" cellpadding="0" cellspacing="0" border="0">
@@ -171,7 +171,16 @@
             bgcolor="#f2f2f2">
       <tr role='module-content'>
         <td height="100%" valign="top">
-        
+            <!--[if (gte mso 9)|(IE)]>
+              <center>
+                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-spacing:0;border-collapse:collapse;table-layout: fixed;" >
+                  <tr>
+            <![endif]-->
+
+    <!--[if (gte mso 9)|(IE)]>
+      <td width="193.333px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
+    <![endif]-->
+
     <table  width="193.333"
             style="width:193.333px;border-spacing:0;border-collapse:collapse;margin:0px 5px 0px 0px;"
             cellpadding="0"
@@ -183,11 +192,11 @@
                   empty"
       >
       <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;width:150px">
+        <td style="padding:0px;margin:0px;border-spacing:0;">
             <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
         <td height="100%" valign="top" width="150px" style="width:150px;">
-          <div class="box" style="float:left;min-width: 100%;min-height: 40px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
+          <div class="box" style="float:left;min-width: 150px;min-height: 40px;min-width: 150px;min-height: 40px;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px;">
 <h2 style="padding:0;margin:0">{{ $total_sessions }}</h2>
 <label style="padding:0;margin:0">Visitors</label>
 </div>
@@ -197,6 +206,14 @@
         </td>
       </tr>
     </table>
+
+    <!--[if (gte mso 9)|(IE)]>
+      </td>
+    <![endif]-->
+    <!--[if (gte mso 9)|(IE)]>
+      <td width="193.333px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
+    <![endif]-->
+
     <table  width="193.333"
             style="width:193.333px;border-spacing:0;border-collapse:collapse;margin:0px 5px 0px 5px;"
             cellpadding="0"
@@ -390,6 +407,7 @@
                 </table>
               </center>
             <![endif]-->
+
         </td>
       </tr>
     </table>
@@ -431,7 +449,7 @@
         <td style="padding:0px;margin:0px;border-spacing:0;max-width:200px;">
             <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
-        <td height="100%" valign="top" width="300">
+        <td height="100%" valign="top" width="250" style="width:250">
           <table width="100%" border="1px" style="border:1px solid #cccccc" cellpadding="0" cellspacing="0">
   <tbody><tr><th style="background-color:#cccccc;padding:5px;">DEVICES</th></tr><tr><td width="100%" style="background-color:#ffffff;padding:10px;" background-color="#ffffff">{!! $devices_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$devices_graph_url.'"/>' !!}</td></tr>
 </tbody></table>
@@ -461,7 +479,7 @@
                   empty"
       >
       <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;width:300px" width="300">
+        <td style="padding:0px;margin:0px;border-spacing:0;width:250px" width="250">
             <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
         <td height="100%" valign="top" width="300" style="width:300px;">
@@ -538,5 +556,4 @@
         </table>
       </div>
     </center>
-  </body>
 </html>
