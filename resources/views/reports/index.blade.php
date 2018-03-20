@@ -42,7 +42,7 @@
 									@foreach($all_reports as $report)
 									@php($emails = $report->recipients ? explode(',', $report->recipients) : [])
 									@php($is_paused = $report->is_paused)
-									<tr {!! $paused || $is_paused ? 'class="active"':'class="paused"' !!}>
+									<tr class="{{ $is_paused ? 'active' : 'paused' }}">
 										<td><a href="{{ route('reports.edit', $report->id) }}"><strong>{{ $report->title }}</strong></a></td>
 										<td>{!! $paused || $is_paused ? '<button class="btn btn-xs btn-danger">Paused</button>':'<button class="btn btn-xs btn-success">Active</button>' !!}</td>
 										<td>{{ $report->ad_account->title }}</td>
