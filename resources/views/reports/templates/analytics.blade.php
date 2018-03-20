@@ -170,25 +170,27 @@
             style="padding:0px 0px 10px 0px;background-color:#f2f2f2;box-sizing:border-box;"
             bgcolor="#f2f2f2">
       <tr role='module-content'>
-        <td height="100%" valign="top" width="100%" style="width:100%;">
-     <div class="box" style="width:32%;float:left;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
-<div style="padding:0;margin:0;display:block">{{ $total_sessions }}</div>
+        <td height="100%" valign="top" width="100%" style="width:100%;background:#ffffff;background-color:#ffffff">
+     <div class="box" style="width:100%;text-align:center;border:1px solid #cccccc;background:#ffffff;background-color:#ffffff;padding:15px 0;margin-right:1%">
+<div style="padding:0;margin:0;display:block;font-size:30px;">{{ $total_sessions }}</div>
 <div style="padding:0;margin:0;display:block">Visitors</div>
 </div>
-   
-         <div class="box" style="width:32%;float:left;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
-<h2 style="padding:0;margin:0">${{ $revenue }}</h2>
-<label style="padding:0;margin:0">Revenue</label>
+      </td></tr>
+         <tr role='module-content'>
+        <td height="100%" valign="top" width="100%" style="width:100%;background:#ffffff;background-color:#ffffff">
+         <div class="box" style="width:100%;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
+<div style="padding:0;margin:0;display:block;font-size:30px;">${{ $revenue }}</div>
+<div> style="padding:0;margin:0">Revenue</div>
 </div>
+       </td></tr>
+        <tr role='module-content'>
+        <td height="100%" valign="top" width="100%" style="width:100%;">
     
-     <div class="box" style="width:32%;float:left;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
-<h2 style="padding:0;margin:0">{{ $total_bounce_rate }}%</h2>
-<label style="padding:0;margin:0">Bounce</label>
+     <div class="box" style="width:100%;text-align:center;border:1px solid #ccc;background:#fff;background-color:#fff;padding:15px 0;margin-right:1%">
+<div style="padding:0;margin:0;display:block;font-size:30px;">{{ $total_bounce_rate }}%</div>
+<div style="padding:0;margin:0">Bounce</div>
 </div>
-
-        </td>
-      </tr>
-    </table>
+          </td></tr></table>
 <div style="clear: both; margin: 0pt; padding: 0pt; "></div>
     <table  border="0"
             cellpadding="10"
