@@ -445,7 +445,7 @@ private $sendLimit=0;
                 }
 
                 if ($report->attachment_type == 'pdf') {
-                    $html = view('reports.templates.analytics', compact('report', 'sources_insights', 'total_sessions', 'total_avg_time', 'total_bounce_rate', 'total_pageviews', 'total_pages_per_visitor', 'total_new_visitors', 'devices_graph_url', 'locations_graph_url', 'ad_account_title'))->render();
+                    $html = view('reports.templates.analytics', compact('report', 'sources_insights', 'total_sessions', 'revenue', 'total_bounce_rate', 'total_pageviews', 'total_pages_per_visitor', 'total_new_visitors', 'devices_graph_url', 'locations_graph_url', 'ad_account_title'))->render();
                     $mpdf = new \Mpdf\Mpdf(['tempDir' => $pdf_dir]);
                     $mpdf->WriteHTML($html);
                     $mpdf->Output($pdf_dir . $pdf_file_name, 'F');
