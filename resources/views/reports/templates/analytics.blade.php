@@ -106,7 +106,7 @@
      <!--End Head user entered-->
   </head>
   <body>
-<center class="wrapper" data-link-color="#1080f2" data-body-style="font-size: 14px; font-family: arial; color: #000000; background-color: #f2f2f2;">
+<center class="wrapper" data-link-color="#1080f2" style="width:600px" data-body-style="font-size: 14px; font-family: arial; color: #000000; background-color: #f2f2f2;">
       <div class="webkit">
         <table cellpadding="0" cellspacing="0" border="0" width="600" class="wrapper" bgcolor="#f2f2f2">
           <tr>
@@ -407,6 +407,7 @@
                 </table>
               </center>
             <![endif]-->
+
         </td>
       </tr>
     </table>
@@ -448,7 +449,7 @@
         <td style="padding:0px;margin:0px;border-spacing:0;max-width:200px;">
             <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
-        <td height="100%" valign="top" width="300">
+        <td height="100%" valign="top" width="250" style="width:250">
           <table width="100%" border="1px" style="border:1px solid #cccccc" cellpadding="0" cellspacing="0">
   <tbody><tr><th style="background-color:#cccccc;padding:5px;">DEVICES</th></tr><tr><td width="100%" style="background-color:#ffffff;padding:10px;" background-color="#ffffff">{!! $devices_graph_url == 'no_data' ? 'No data': '<img style="max-width: 100%" src="'.$devices_graph_url.'"/>' !!}</td></tr>
 </tbody></table>
@@ -478,7 +479,7 @@
                   empty"
       >
       <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;width:300px" width="300">
+        <td style="padding:0px;margin:0px;border-spacing:0;width:250px" width="250">
             <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
         <td height="100%" valign="top" width="300" style="width:300px;">
