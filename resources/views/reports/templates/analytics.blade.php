@@ -505,7 +505,7 @@
     </table>
   <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
-        <td height="100%" valign="top" style="text-align:center;">
+        <td height="100%" valign="top" style="text-align:center;padding:10px 0">
           <h2 style="text-align:center;font-size:18px;margin:0 0 10px 0;padding:0 0 10px 0">Top 5 Visitors by Source</h2>
 
   <table width="100%" cellpadding="5" cellspacing="0" style="background:#fff">
