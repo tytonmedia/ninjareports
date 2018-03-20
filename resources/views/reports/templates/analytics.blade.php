@@ -106,7 +106,7 @@
      <!--End Head user entered-->
   </head>
   <body>
-  <center class="wrapper" data-link-color="#1080f2" data-body-style="font-size: 14px; font-family: arial; color: #000000; background-color: #f2f2f2;">
+<center class="wrapper" data-link-color="#1080f2" data-body-style="font-size: 14px; font-family: arial; color: #000000; background-color: #f2f2f2;">
       <div class="webkit">
         <table cellpadding="0" cellspacing="0" border="0" width="100%" class="wrapper" bgcolor="#f2f2f2">
           <tr>
@@ -152,9 +152,9 @@
       <tr>
         <td height="100%" valign="top" style="margin:15px 0;">
           <table width="100%">
-            <tr align="center" style="text-align:center"><td><h2 style="padding:5px 0;margin:0;text-align:center;">Your {{ ucfirst($report->frequency) }} Google Analytics Report</h2></td></tr>
-            <tr align="center"><td><p style="padding:5px 0;margin:0;text-align:center;">{{ $ad_account_title }}</p></td></tr>
-           <tr align="center"><td><p style="color:#999;padding:5px 0;margin:0;text-align:center;">{{ date('m/d/Y') }}</p></td></tr>
+            <tr align="center" style="text-align:center;margin:10px 0"><td style="text-align:center;padding:10px 0"><h2 style="padding:5px 0;margin:0;text-align:center;">Your {{ ucfirst($report->frequency) }} Google Analytics Report</h2></td></tr>
+            <tr align="center" style="text-align:center"><td style="text-align:center;padding:10px 0"><p style="padding:5px 0;margin:0;text-align:center;">{{ $ad_account_title }}</p></td></tr>
+           <tr align="center" style="text-align:center"><td style="text-align:center;padding:10px 0"><p style="color:#999;padding:5px 0;margin:0;text-align:center;">{{ date('m/d/Y') }}</p></td></tr>
           </table>
         </td>
       </tr>
@@ -555,5 +555,4 @@
         </table>
       </div>
     </center>
-  </body>
 </html>
