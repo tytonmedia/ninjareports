@@ -56,6 +56,7 @@
 											@endif
 										</td>
 										<td>
+												@php(date_default_timezone_set($report->user->timezone))
 											@if(strtotime($report->sent_at) < strtotime("-1 hour"))
 											<span class="recent">
 											@endif
