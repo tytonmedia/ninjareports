@@ -195,19 +195,19 @@
             bgcolor="#f2f2f2">
    <tr role='module-content'>
         <td height="100%" valign="top" width="100%" style="width:100%;background:#ffffff;background-color:#ffffff;text-align:center;border:1px solid #cccccc">
-<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">{{ $total_spend }}</div>
+<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">${{ $total_spend }}</div>
 <div style="padding:0;margin:0">Spend($)</div>
      </td></tr>
           <tr role='module-content'>
         <td height="100%" valign="top" width="100%" style="width:100%;background:#ffffff;background-color:#ffffff;text-align:center;border:1px solid #cccccc">
         
-<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">{{ $total_cpm }}</div>
+<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">${{ $total_cpm }}</div>
 <div style="padding:0;margin:0">Avg. CPM</div>
         </td></tr>
             <tr role='module-content'>
         <td height="100%" valign="top" width="100%" style="width:100%;background:#ffffff;background-color:#ffffff;text-align:center;border:1px solid #cccccc">
          
-<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">{{ $total_cpc }}</div>
+<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">${{ $total_cpc }}</div>
 <div style="padding:0;margin:0">Avg. CPC ($)</div>
         </td></tr>
     </table>
