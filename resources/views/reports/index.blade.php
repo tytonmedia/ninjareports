@@ -56,7 +56,7 @@
 											@endif
 										</td>
 										<td>
-											@if(strtotime($report->sent_at) < strtotime("-1 hours"))
+											@if(strtotime($report->sent_at) < strtotime("-1 hour"))
 											<span class="recent">
 											@endif
 											{{ $report->sent_at ? $report->sent_at->diffForHumans() : '-' }}
