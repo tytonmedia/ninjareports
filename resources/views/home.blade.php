@@ -75,8 +75,7 @@
                                 <div class="col-md-8 col-sm-8 col-xs-12">
                                     <h1 class="title">
                                         Good
-                                        Day, {{ auth()->user()->name }}
-                                        !</h1>
+                                        Day, {{ auth()->user()->name }}!</h1>
                                     <p>
                                         Welcome
                                         to
@@ -88,8 +87,8 @@
                                         started,
                                         integrate
                                         an
-                                        app
-                                        and
+                                        application, sync your account
+                                        and then
                                         click
                                         the
                                         create
