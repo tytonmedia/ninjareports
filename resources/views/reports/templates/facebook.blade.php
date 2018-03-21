@@ -153,7 +153,7 @@
         <td height="100%" valign="top" style="margin:15px 0;">
           <table width="100%" cellpadding="">
             <tr align="center" style="text-align:center;margin:10px 0"><td style="text-align:center;padding:10px 0"><h2 style="padding:5px 0;margin:0;text-align:center;">Your {{ ucfirst($report->frequency) }} Facebook Ads Report</h2></td></tr>
-            <tr align="center" style="text-align:center"><td style="text-align:center;padding:10px 0"><p style="padding:5px 0;margin:0;text-align:center;">{{ $ad_account_title }}</p></td></tr>
+            <tr align="center" style="text-align:center"><td style="text-align:center;padding:10px 0"><p style="padding:5px 0;margin:0;text-align:center;">Ad Account: {{ $ad_account_title }}</p></td></tr>
            <tr align="center" style="text-align:center"><td style="text-align:center;padding:10px 0"><p style="color:#999;padding:5px 0;margin:0;text-align:center;">{{ date('m/d/Y') }}</p></td></tr>
           </table>
         </td>
