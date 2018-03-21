@@ -659,7 +659,7 @@ private $sendLimit=0;
                         $top_5_campaigns_array = array_slice($final_adword_data, 0, 5);
                     }
                     if (count($top_5_campaigns_array) > 0) {
-                        $top_5_campaigns .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;">Ad Group</th><th style="background:#666;color:#fff;padding:5px;">Clicks</th><th style="background:#666;color:#fff;padding:5px;">Impressions</th><th style="background:#666;color:#fff;padding:5px;">CTR</th><th style="background:#666;color:#fff;padding:5px;">CPM</th><th style="background:#666;color:#fff;padding:5px;">CPC</th></tr>';
+                        $top_5_campaigns .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;">Campaign</th><th style="background:#666;color:#fff;padding:5px;">Clicks</th><th style="background:#666;color:#fff;padding:5px;">Impressions</th><th style="background:#666;color:#fff;padding:5px;">CTR</th><th style="background:#666;color:#fff;padding:5px;">CPM</th><th style="background:#666;color:#fff;padding:5px;">CPC</th></tr>';
                         foreach ($top_5_campaigns_array as $campaign_array) {
                             $ad_cpc = number_format((float) ($campaign_array[6] / 100000), 2);
                             $ad_cpm = number_format((float) ($campaign_array[5] / 100000), 2);
