@@ -182,7 +182,7 @@
         <tr role='module-content'>
         <td height="100%" valign="top" width="100%" style="width:100%;background:#ffffff;background-color:#ffffff;text-align:center;border:1px solid #cccccc">
     
-<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">{{ $total_ctr }}%</div>
+<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">{{ $total_ctr }}</div>
 <div style="padding:0;margin:0">CTR (%)</div>
           </td></tr></table>
 <div style="clear: both; margin: 0pt; padding: 0pt; "></div>
@@ -195,19 +195,19 @@
             bgcolor="#f2f2f2">
    <tr role='module-content'>
         <td height="100%" valign="top" width="100%" style="width:100%;background:#ffffff;background-color:#ffffff;text-align:center;border:1px solid #cccccc">
-<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">{{ $total_spend }}</div>
+<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">${{ $total_spend }}</div>
 <div style="padding:0;margin:0">Spend($)</div>
      </td></tr>
           <tr role='module-content'>
         <td height="100%" valign="top" width="100%" style="width:100%;background:#ffffff;background-color:#ffffff;text-align:center;border:1px solid #cccccc">
         
-<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">{{ $total_cpm }}</div>
+<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">${{ $total_cpm }}</div>
 <div style="padding:0;margin:0">Avg. CPM</div>
         </td></tr>
             <tr role='module-content'>
         <td height="100%" valign="top" width="100%" style="width:100%;background:#ffffff;background-color:#ffffff;text-align:center;border:1px solid #cccccc">
          
-<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">{{ $total_cpc }}</div>
+<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">${{ $total_cpc }}</div>
 <div style="padding:0;margin:0">Avg. CPC ($)</div>
         </td></tr>
     </table>
@@ -237,7 +237,7 @@
   <table class="module" role="module" data-type="code" border="0" cellpadding="10" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
         <td height="100%" valign="top" style="text-align:center;padding:10px;margin:10px 0">
-          <h2 style="text-align:center;font-size:18px;margin:10px0 0 10px 0;padding:10px 0 10px 0">Top 5 Ad Groups Clicks</h2>
+          <h2 style="text-align:center;font-size:18px;margin:10px0 0 10px 0;padding:10px 0 10px 0">Top 5 Ad Groups by Clicks</h2>
 <div style="margin-bottom:25px;border:1px solid #ccc">
   {!! $top_5_campaigns !!}
 </div>
