@@ -55,17 +55,7 @@
 											@endforeach
 											@endif
 										</td>
-										<td>
-												@php(date_default_timezone_set($report->user->timezone))
-											@if(strtotime($report->sent_at) < strtotime("-1 hour"))
-											<span class="recent">
-											@endif
-											{{ $report->sent_at ? $report->sent_at->diffForHumans() : '-' }}
-
-											@if(strtotime($report->sent_at) < strtotime("-1 hours"))
-											</span>
-											@endif
-									</td>
+										<td>{{ $report->sent_at ? $report->sent_at->diffForHumans() : '-' }}</td>
 										<td>
 											<a href="{{ route('reports.edit', $report->id) }}" class="btn btn-xs btn-black margin-top-5">Edit</a>
 											<a onClick="return confirm('Are you sure you want to delete this report?')" href="{{ route('reports.delete', $report->id) }}" class="btn btn-xs btn-black margin-top-5">Delete</a>
