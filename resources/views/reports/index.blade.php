@@ -58,11 +58,12 @@
 										<td>
 											@if(strtotime($report->sent_at) < strtotime("-1 hours"))
 											<span class="recent">
-
+											@endif
 											{{ $report->sent_at ? $report->sent_at->diffForHumans() : '-' }}
-											
+
 											@if(strtotime($report->sent_at) < strtotime("-1 hours"))
 											</span>
+											@endif
 									</td>
 										<td>
 											<a href="{{ route('reports.edit', $report->id) }}" class="btn btn-xs btn-black margin-top-5">Edit</a>
