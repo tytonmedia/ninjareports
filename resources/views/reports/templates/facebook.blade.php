@@ -241,10 +241,10 @@
  @if (is_array($campaigns_insights) && count($campaigns_insights) > 0)
   <table width="100%" cellpadding="5" cellspacing="0" style="background:#fff">
     <tbody>   <tr>
-                <th style="background:#666;color:#fff;padding:5px;">Ad set</th>
+                <th style="background:#666;color:#fff;padding:5px;">Campaign</th>
                 <th style="background:#666;color:#fff;padding:5px;">Impressions</th>
                 <th style="background:#666;color:#fff;padding:5px;">Clicks</th>
-                <th style="background:#666;color:#fff;padding:5px;">Conv.</th>
+                <th style="background:#666;color:#fff;padding:5px;">CPM.</th>
                 <th style="background:#666;color:#fff;padding:5px;">CTR</th>
                 <th style="background:#666;color:#fff;padding:5px;">Avg. CPC</th>
                 <th style="background:#666;color:#fff;padding:5px;">Spend</th>
@@ -255,9 +255,9 @@
             <td style="padding:5px;">{{ $campaign_insight->campaign }}</td>
             <td style="padding:5px;">{{ $campaign_insight->impressions }}</td>
             <td style="padding:5px;">{{ $campaign_insight->clicks }}</td>
-            <td style="padding:5px;">{{ number_format((float)$campaign_insight->cpm, 3, '.', '') }}%</td>
-            <td style="padding:5px;">{{ $campaign_insight->ctr }}</td>
-            <td style="padding:5px;">{{ $campaign_insight->cpc }}</td>
+            <td style="padding:5px;">{{ number_format((float)$campaign_insight->cpm, 2, '.', '') }}%</td>
+            <td style="padding:5px;">{{ $campaign_insight->ctr }}%</td>
+            <td style="padding:5px;">${{ $campaign_insight->cpc }}</td>
             <td style="padding:5px;">${{ $campaign_insight->spend }}</td>
         </tr>
         @endforeach
