@@ -243,7 +243,7 @@
   <table width="100%" cellpadding="5" cellspacing="0" style="background:#fff">
     <tbody><tr>
     <th style="background:#666;color:#fff;padding:5px;">Source</th>
-    <th style="background:#666;color:#fff;padding:5px;">Visitotrs</th>
+    <th style="background:#666;color:#fff;padding:5px;">Visitors</th>
     <th style="background:#666;color:#fff;padding:5px;">New</th>
     <th style="background:#666;color:#fff;padding:5px;">Bounce %</th>
     <th style="background:#666;color:#fff;padding:5px;">Pages/Visit</th>
