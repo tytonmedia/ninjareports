@@ -87,8 +87,8 @@
                                         started,
                                         integrate
                                         an
-                                        app
-                                        and
+                                        application, sync your account
+                                        and then
                                         click
                                         the
                                         create
