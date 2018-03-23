@@ -176,7 +176,7 @@
       </td></tr>
          <tr role='module-content'>
         <td height="100%" valign="top" width="100%" style="width:100%;background:#ffffff;background-color:#ffffff;text-align:center;border:1px solid #cccccc">
-<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">${{ $revenue }}</div>
+<div style="padding:0;margin:0;display:block;font-size:30px;text-align:center">${{ $total_revenue }}</div>
 <div style="padding:0;margin:0;text-align:center">Revenue</div>
        </td></tr>
         <tr role='module-content'>
