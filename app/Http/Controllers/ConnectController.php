@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use Illuminate\Support\Facades\Input;
 use Session;
+use Illuminate\Support\Facades\Log;
 
 class ConnectController extends Controller
 {
@@ -39,8 +40,10 @@ class ConnectController extends Controller
         } catch (\Facebook\Exceptions\FacebookResponseException $e) {
             Session::flash('alert-danger', $e->getMessage());
             return redirect()->route('accounts.index');
+            Log::info($e->getMessage());
         } catch (\Facebook\Exceptions\FacebookSDKException $e) {
             Session::flash('alert-danger', $e->getMessage());
+            Log::info($e->getMessage());
             return redirect()->route('accounts.index');
         }
 
@@ -51,9 +54,11 @@ class ConnectController extends Controller
                 echo "Error Code: " . $helper->getErrorCode() . "\n";
                 echo "Error Reason: " . $helper->getErrorReason() . "\n";
                 echo "Error Description: " . $helper->getErrorDescription() . "\n";
+                 Log::info($helper->getError());
             } else {
                 Session::flash('alert-danger', 'Bad Request.');
                 return redirect()->route('accounts.index');
+
             }
             exit;
         }
@@ -74,9 +79,11 @@ class ConnectController extends Controller
             $user = $fb->get('/me?fields=email', (string) $accessToken);
         } catch (\Facebook\Exceptions\FacebookResponseException $e) {
             Session::flash('alert-danger', 'Graph returned an error: ' . $e->getMessage());
+             Log::info($e->getMessage());
             return redirect()->route('accounts.index');
         } catch (\Facebook\Exceptions\FacebookSDKException $e) {
             Session::flash('alert-danger', 'Facebook SDK returned an error: ' . $e->getMessage());
+            Log::info($e->getMessage());
             return redirect()->route('accounts.index');
         }
         Session::put('fb_access_token', 1);
@@ -129,6 +136,7 @@ class ConnectController extends Controller
             Account::where('id', $account->id)->update($account_update_array);
         } else {
             Account::create($account_update_array);
+
         }
         return redirect()->route('accounts.index');
     }
