@@ -26,7 +26,7 @@ class ConnectController extends Controller
     {
         $fb = fb_connect();
         $helper = $fb->getRedirectLoginHelper();
-        $permissions = ['email', 'ads_read']; // Optional permissions
+        $permissions = ['email', 'ads_read','ads_management']; // Optional permissions
         $loginUrl = $helper->getLoginUrl(route('connect.facebook.callback'), $permissions);
         return redirect($loginUrl);
     }
@@ -57,6 +57,7 @@ class ConnectController extends Controller
                  Log::info($helper->getError());
             } else {
                 Session::flash('alert-danger', 'Bad Request.');
+                Log::info('bad request');
                 return redirect()->route('accounts.index');
 
             }
