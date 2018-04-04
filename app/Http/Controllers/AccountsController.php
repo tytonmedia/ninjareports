@@ -9,7 +9,6 @@ use App\Models\Account;
 use App\Models\AdAccount;
 use App\Models\AnalyticProperty;
 use App\Models\AnalyticView;
-use Illuminate\Support\Facades\log;
 use Session;
 
 class AccountsController extends Controller
@@ -20,11 +19,11 @@ class AccountsController extends Controller
         $current_plan = auth()->user()->current_billing_plan ? auth()->user()->current_billing_plan : 'free_trial';
         $plan = Plan::whereTitle($current_plan)->first();
         $reports_sent_count = Schedule::whereUserId(auth()->user()->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
-        $reports_sent_count = $reports_sent_count > $plan['reports'] ? $plan['reports'] : $reports_sent_count;
+        $reports_sent_count = $reports_sent_count > $plan->reports ? $plan->reports : $reports_sent_count;
 
 
         $paused = false;
-        if ($reports_sent_count >= $plan['reports']) {
+        if ($reports_sent_count >= $plan->reports) {
             $paused = true;
         }
         return view('accounts.index', compact('accounts','paused'));
@@ -64,11 +63,11 @@ class AccountsController extends Controller
             $current_plan = auth()->user()->current_billing_plan ? auth()->user()->current_billing_plan : 'free_trial';
             $plan = Plan::whereTitle($current_plan)->first();
             $reports_sent_count = Schedule::whereUserId(auth()->user()->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
-            $reports_sent_count = $reports_sent_count > $plan['reports'] ? $plan['reports'] : $reports_sent_count;
+            $reports_sent_count = $reports_sent_count > $plan->reports ? $plan->reports : $reports_sent_count;
 
 
             $paused = false;
-            if ($reports_sent_count >= $plan['reports']) {
+            if ($reports_sent_count >= $plan->reports) {
                 $paused = true;
             }
             return view('accounts.settings', compact('ad_accounts_html', 'type','paused'));
@@ -81,9 +80,6 @@ class AccountsController extends Controller
     public function sync($type)
     {
         $html = '';
-         if ($type == 'stripe') {
-
-        }
         if ($type == 'facebook') {
             $fb = fb_connect();
             try {
@@ -138,7 +134,6 @@ class AccountsController extends Controller
                 ->build();
             $adWordsServices = new \Google\AdsApi\AdWords\AdWordsServices();
             $customerService = $adWordsServices->get($session, \Google\AdsApi\AdWords\v201710\mcm\CustomerService::class);
-            $managedCustomerService = $adWordsServices->get($session, \Google\AdsApi\AdWords\v201710\mcm\ManagedCustomerService::class);
             if ($customerService->getCustomers() && count($customerService->getCustomers()) > 0) {
                 $accounts = $customerService->getCustomers();
                 $adaccounts = [];
@@ -149,21 +144,8 @@ class AccountsController extends Controller
                     ];
                 }
                 $status = 'success';
-            } else if($managedCustomerService->getCustomers() && count($managedCustomerService->getCustomers()) > 0) {
-                $adaccounts = [];
-                foreach ($accounts as $account) {
-                    $adaccounts[] = [
-                        'id' => $account->getCustomerId(),
-                        'name' => $account->getDescriptiveName(),
-                    ];
-                }
-                
-                 $status = 'success';
-
             } else {
-
-                     $status = 'error';
-                Log::info('error');
+                $status = 'error';
             }
         }
         if ($status == 'success') {
