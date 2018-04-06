@@ -86,7 +86,6 @@
 										</div>
 										<div class="col-md-5">
 											<input type="text" name="ends_at" readonly class="custom-readonly form-control timepicker" />
-											<div class="help-block"><a style="font-size: 12px" href="{{ url('settings') }}">Set Timezone</a> to send reports at the correct time.</div>
 										</div>
 									</div>
 								</div>
@@ -146,6 +145,7 @@
 									</div>
 									<div class="col-md-9">
 										<input class="btn btn-lg btn-primary" type="submit" name="submit" value="Create Report" />
+										<a class="btn btn-lg btn-success" href="#" style="display:none;" id="test_report">Send Test Report</a>
 									</div>
 								</div>
 							</div>
