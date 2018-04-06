@@ -32,6 +32,20 @@ class ReportsController extends Controller
         return view('reports.index', compact('all_reports', 'paused'));
     }
 
+    public function testreport($account_type)
+    {
+            $email_substitutions = [];
+
+        if($account_type == 'analytics') {
+           $sent = sendMail(auth()->user()->email, '[Example] Google Analytics Ninja Report', '05815a19-59be-45be-b111-72a614698248', $email_substitutions);
+        } else if($account_type == 'facebook_ads') {
+             $sent = sendMail(auth()->user()->email, '[Example] Facebook Ads Ninja Report', 'b7326642-541d-4ce0-901a-9a88dacfd07e', $email_substitutions);
+        } else if($account_type == 'adwords') {
+            $sent =  sendMail(auth()->user()->email, '[Example] Google Adwords Ninja Report', '62a56c1a-1720-49a7-aaf1-8fef14ae00fb', $email_substitutions);
+        }
+            dd($sent);
+    }
+
     public function create()
     {
         validateTokens();
@@ -40,11 +54,11 @@ class ReportsController extends Controller
         $current_plan = auth()->user()->current_billing_plan ? auth()->user()->current_billing_plan : 'free_trial';
         $plan = Plan::whereTitle($current_plan)->first();
         $reports_sent_count = Schedule::whereUserId(auth()->user()->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
-        $reports_sent_count = $reports_sent_count > $plan->reports ? $plan->reports : $reports_sent_count;
+        $reports_sent_count = $reports_sent_count > $plan['reports'] ? $plan['reports'] : $reports_sent_count;
 
 
         $paused = false;
-        if ($reports_sent_count >= $plan->reports) {
+        if ($reports_sent_count >= $plan['reports']) {
             $paused = true;
         }
         if ($accounts->count() > 0) {

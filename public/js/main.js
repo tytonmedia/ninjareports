@@ -80,6 +80,36 @@
             });
         });
 
+        // send test email button and confirmation
+        
+          $(document).on('click', '#test_report', function () {
+             toastr.remove();
+             var btn = $(this);
+             var loader = btn.find('.nr-loader');
+            var value = $('.ad-account-types').val();
+            //alert(value);
+             loader.removeClass('hidden');
+             $.ajax({
+                url: site_url + 'reports/testreport/' + value,
+                success: function (response) {
+                    if (response.status == 'success') {
+                      alert('test email sent!');
+                       $('#test_report').hide();
+                    } else {
+                        toastr.error('Something went wrong. Please try again.');
+                       alert(response.status);
+                    }
+                },
+                error: function () {
+                     loader.addClass('hidden');
+                    toastr.error('Something went wrong. Please try again.');
+                }
+            });
+        });
+
+
+
+
         // Sync Facebook Ad Accounts
         $(document).on('click', '.nr_sync_ad_accounts_button', function () {
             toastr.remove();
@@ -122,8 +152,10 @@
                         if (response.status == 'success') {
                             $('.sub_accounts_html').html(response.html);
                             $('.nr-ad-account').change();
+                            $('#test_report').show();
                         } else {
                             toastr.error('Something went wrong. Please try again.');
+                            $('#test_report').hide();
                         }
                     },
                     error: function () {
@@ -131,6 +163,8 @@
                         toastr.error('Something went wrong. Please try again.');
                     }
                 });
+            } else {
+                $('#test_report').hide();
             }
         });
 
@@ -149,8 +183,10 @@
                         if (response.status == 'success') {
                             $('.properties_html').html(response.html);
                             $('.nr-ad-property').change();
+                            $('#test_report').show();
                         } else {
                             toastr.error('Something went wrong. Please try again.');
+                            $('#test_report').hide();
                         }
                     },
                     error: function () {
@@ -176,8 +212,10 @@
                         loader.addClass('hidden');
                         if (response.status == 'success') {
                             $('.views_html').html(response.html);
+                            $('#test_report').show();
                         } else {
                             toastr.error('Something went wrong. Please try again.');
+                            $('#test_report').hide();
                         }
                     },
                     error: function () {
