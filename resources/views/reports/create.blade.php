@@ -146,6 +146,7 @@
 									</div>
 									<div class="col-md-9">
 										<input class="btn btn-lg btn-primary" type="submit" name="submit" value="Create Report" />
+										<a class="btn btn-link" href="#" id="test_report" style="display:none;">Send Example Report</a>
 									</div>
 								</div>
 							</div>

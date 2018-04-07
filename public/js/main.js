@@ -86,10 +86,8 @@
              var btn = $(this);
              var loader = btn.find('.nr-loader');
             var value = $('.ad-account-types').val();
-            //alert(value);
              loader.removeClass('hidden');
              var ajaxurl = site_url + 'reports/tester/' + value;
-          //   alert(ajaxurl);
              $.ajax({
                 url: ajaxurl,
                 success: function (response) {
@@ -124,8 +122,10 @@
                     if (response.status == 'success') {
                         toastr.success('Properties synchronized.');
                         $('.synchronized_ad_accounts').html(response.html);
+                        $('#test_report').show();
                     } else {
                         toastr.error('Something went wrong. Please try again.');
+                        $('#test_report').hide();
                     }
                 },
                 error: function () {
@@ -152,8 +152,10 @@
                         if (response.status == 'success') {
                             $('.sub_accounts_html').html(response.html);
                             $('.nr-ad-account').change();
+                            $('#test_report').show();
                         } else {
                             toastr.error('Something went wrong. Please try again.');
+                            $('#test_report').hide();
                         }
                     },
                     error: function () {
@@ -179,8 +181,10 @@
                         if (response.status == 'success') {
                             $('.properties_html').html(response.html);
                             $('.nr-ad-property').change();
+                            $('#test_report').show();
                         } else {
                             toastr.error('Something went wrong. Please try again.');
+                            $('#test_report').hide();
                         }
                     },
                     error: function () {
