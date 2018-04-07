@@ -81,7 +81,6 @@
         });
 
         // send test email button and confirmation
-        
           $(document).on('click', '#test_report', function () {
              toastr.remove();
              var btn = $(this);
@@ -110,9 +109,6 @@
                 }
             });
         });
-
-
-
 
         // Sync Facebook Ad Accounts
         $(document).on('click', '.nr_sync_ad_accounts_button', function () {
@@ -156,10 +152,8 @@
                         if (response.status == 'success') {
                             $('.sub_accounts_html').html(response.html);
                             $('.nr-ad-account').change();
-                            $('#test_report').show();
                         } else {
                             toastr.error('Something went wrong. Please try again.');
-                            $('#test_report').hide();
                         }
                     },
                     error: function () {
@@ -167,8 +161,6 @@
                         toastr.error('Something went wrong. Please try again.');
                     }
                 });
-            } else {
-                $('#test_report').hide();
             }
         });
 
@@ -187,10 +179,8 @@
                         if (response.status == 'success') {
                             $('.properties_html').html(response.html);
                             $('.nr-ad-property').change();
-                            $('#test_report').show();
                         } else {
                             toastr.error('Something went wrong. Please try again.');
-                            $('#test_report').hide();
                         }
                     },
                     error: function () {
@@ -216,10 +206,8 @@
                         loader.addClass('hidden');
                         if (response.status == 'success') {
                             $('.views_html').html(response.html);
-                            $('#test_report').show();
                         } else {
                             toastr.error('Something went wrong. Please try again.');
-                            $('#test_report').hide();
                         }
                     },
                     error: function () {
