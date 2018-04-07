@@ -80,6 +80,36 @@
             });
         });
 
+        // send test email button and confirmation
+          $(document).on('click', '#test_report', function () {
+             toastr.remove();
+             var btn = $(this);
+             var loader = btn.find('.nr-loader');
+            var value = $('.ad-account-types').val();
+            //alert(value);
+             loader.removeClass('hidden');
+             var ajaxurl = site_url + 'reports/tester/' + value;
+          //   alert(ajaxurl);
+             $.ajax({
+                url: ajaxurl,
+                success: function (response) {
+                    if (response.status == 'success') {
+                      //alert('test email sent!');
+
+                      toastr.success('Test report send to the account email on file.');
+                       $('#test_report').hide();
+                    } else {
+                        toastr.error('Something went wrong. Please try again.');
+                       alert(response);
+                    }
+                },
+                error: function () {
+                     loader.addClass('hidden');
+                    toastr.error('Something went wrong. Please try again.');
+                }
+            });
+        });
+
         // Sync Facebook Ad Accounts
         $(document).on('click', '.nr_sync_ad_accounts_button', function () {
             toastr.remove();

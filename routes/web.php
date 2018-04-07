@@ -53,5 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{type}/adaccounts', 'ReportsController@ad_accounts')->name('reports.adaccounts');
         Route::get('{type}/properties/{account}', 'ReportsController@properties')->name('reports.properties');
         Route::get('{type}/properties/{account}/profiles/{property}', 'ReportsController@profiles')->name('reports.profiles');
+        Route::get('tester/{account_type}', 'ReportsController@tester')->name('reports.tester');
+      
     });
 });

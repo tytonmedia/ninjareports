@@ -32,6 +32,26 @@ class ReportsController extends Controller
         return view('reports.index', compact('all_reports', 'paused'));
     }
 
+    public function tester($account_type)
+    {
+            $email_substitutions = [];
+            $status = 'error';
+        if($account_type == 'analytics') {
+           $sent = sendMail(auth()->user()->email, '[Example] Google Analytics Ninja Report', '05815a19-59be-45be-b111-72a614698248', $email_substitutions);
+           $status = 'success';
+        } else if($account_type == 'facebook_ads') {
+             $sent = sendMail(auth()->user()->email, '[Example] Facebook Ads Ninja Report', 'b7326642-541d-4ce0-901a-9a88dacfd07e', $email_substitutions);
+             $status = 'success';
+        } else if($account_type == 'adword') {
+            $sent = sendMail(auth()->user()->email, '[Example] Google Adwords Ninja Report', '62a56c1a-1720-49a7-aaf1-8fef14ae00fb', $email_substitutions);
+            $status = 'success';
+        }
+        return response()->json([
+            'status' => $status,
+            'html' => $sent,
+        ]);
+    }
+  
     public function create()
     {
         validateTokens();
