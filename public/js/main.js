@@ -89,15 +89,19 @@
             var value = $('.ad-account-types').val();
             //alert(value);
              loader.removeClass('hidden');
+             var ajaxurl = site_url + 'reports/tester/' + value;
+          //   alert(ajaxurl);
              $.ajax({
-                url: site_url + 'reports/testreport/' + value,
+                url: ajaxurl,
                 success: function (response) {
                     if (response.status == 'success') {
-                      alert('test email sent!');
+                      //alert('test email sent!');
+
+                      toastr.success('Test report send to the account email on file.');
                        $('#test_report').hide();
                     } else {
                         toastr.error('Something went wrong. Please try again.');
-                       alert(response.status);
+                       alert(response);
                     }
                 },
                 error: function () {
