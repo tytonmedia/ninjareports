@@ -54,7 +54,7 @@ class SparkServiceProvider extends ServiceProvider
         Spark::plan('Free Trial', 'free_trial')
             ->price(0.00)
             ->features([
-                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '15 Reports/month',
+                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '5 Reports/month',
             ]);
 
          Spark::plan('Personal', 'personal')
