@@ -94,7 +94,7 @@
                     if (response.status == 'success') {
                       //alert('test email sent!');
 
-                      toastr.success('Test report send to the account email on file.');
+                      toastr.success('Test report sent to the account email.');
                        $('#test_report').hide();
                     } else {
                         toastr.error('Something went wrong. Please try again.');
