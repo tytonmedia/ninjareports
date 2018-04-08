@@ -19,11 +19,11 @@ class AccountsController extends Controller
         $current_plan = auth()->user()->current_billing_plan ? auth()->user()->current_billing_plan : 'free_trial';
         $plan = Plan::whereTitle($current_plan)->first();
         $reports_sent_count = Schedule::whereUserId(auth()->user()->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
-        $reports_sent_count = $reports_sent_count > $plan['reports'] ? $plan['reports'] : $reports_sent_count;
+        $reports_sent_count = $reports_sent_count > $plan->reports ? $plan->reports : $reports_sent_count;
 
 
         $paused = false;
-        if ($reports_sent_count >= $plan['reports']) {
+        if ($reports_sent_count >= $plan->reports) {
             $paused = true;
         }
         return view('accounts.index', compact('accounts','paused'));
