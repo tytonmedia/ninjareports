@@ -15,7 +15,7 @@ class PlansTableSeeder extends Seeder
         if (!$free_trial) {
             DB::table('plans')->insert([
                 'title' => 'free_trial',
-                'reports' => 15,
+                'reports' => 5,
                 'is_csv' => 0,
                 'is_pdf' => 0,
             ]);

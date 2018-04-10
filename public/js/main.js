@@ -81,23 +81,24 @@
         });
 
         // send test email button and confirmation
-        
           $(document).on('click', '#test_report', function () {
              toastr.remove();
              var btn = $(this);
              var loader = btn.find('.nr-loader');
             var value = $('.ad-account-types').val();
-            //alert(value);
              loader.removeClass('hidden');
+             var ajaxurl = site_url + 'reports/tester/' + value;
              $.ajax({
-                url: site_url + 'reports/testreport/' + value,
+                url: ajaxurl,
                 success: function (response) {
                     if (response.status == 'success') {
-                      alert('test email sent!');
+                      //alert('test email sent!');
+
+                      toastr.success('Example report sent to the account email.');
                        $('#test_report').hide();
                     } else {
                         toastr.error('Something went wrong. Please try again.');
-                       alert(response.status);
+                       alert(response);
                     }
                 },
                 error: function () {
@@ -106,9 +107,6 @@
                 }
             });
         });
-
-
-
 
         // Sync Facebook Ad Accounts
         $(document).on('click', '.nr_sync_ad_accounts_button', function () {
@@ -124,8 +122,10 @@
                     if (response.status == 'success') {
                         toastr.success('Properties synchronized.');
                         $('.synchronized_ad_accounts').html(response.html);
+                        $('#test_report').show();
                     } else {
                         toastr.error('Something went wrong. Please try again.');
+                        $('#test_report').hide();
                     }
                 },
                 error: function () {
@@ -163,8 +163,6 @@
                         toastr.error('Something went wrong. Please try again.');
                     }
                 });
-            } else {
-                $('#test_report').hide();
             }
         });
 
@@ -212,10 +210,8 @@
                         loader.addClass('hidden');
                         if (response.status == 'success') {
                             $('.views_html').html(response.html);
-                            $('#test_report').show();
                         } else {
                             toastr.error('Something went wrong. Please try again.');
-                            $('#test_report').hide();
                         }
                     },
                     error: function () {

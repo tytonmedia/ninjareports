@@ -7,7 +7,6 @@ h2.title {
 .navbar-icon {
     color: #333 ;
 }
-.btn {border-radius:25px;}
 .btn-black {
     background: #000;
     color: #fff;
@@ -21,7 +20,7 @@ button.btn, a.btn-xs {border-radius:25px;}
     color: #fff;
     background:#333;
 }
-
+.btn {border-radius:25px;}
 .btn-create-report {
     padding: 6px 30px;
     font-size: 16px;
