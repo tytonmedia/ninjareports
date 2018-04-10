@@ -331,5 +331,18 @@ class AccountsController extends Controller
         }
         return redirect()->route('accounts.index');
     }
+    
+    public function addelete($id)
+    {
+    	$adaccount = AdAccount::where('id', $id)->where('user_id', auth()->id())->first();
+    	if ($adaccount) {
+            $adaccount->is_active = 0;
+            $adaccount->save();
+    		Session::flash('alert-success', 'Ad Account deleted successfully.');
+    	} else {
+    		Session::flash('alert-danger', 'Something went wrong.');
+    	}
+    	return redirect()->back();
+    }
 
 }

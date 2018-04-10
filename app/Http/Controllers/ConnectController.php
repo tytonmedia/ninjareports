@@ -173,6 +173,7 @@ class ConnectController extends Controller
                 'email' => $user->email,
                 'status' => 1,
                 'is_active' => 1,
+                'token' => $authToken['access_token'],
             ];
             if ($refresh_token) {
                 $account_update_array['token'] = $refresh_token;

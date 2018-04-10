@@ -18,7 +18,7 @@
 					</td>
 					<td>{{ $ad_account->title }}</td>
 					<td>
-						<a class="btn btn-xs btn-danger">Delete</a>
+						<a href="{{ route('adaccount.delete', $ad_account->id) }}" onclick="return confirm('Are you sure?')" class="btn btn-xs btn-danger">Delete</a>
 					</td>
 				</tr>
 				@endforeach
