@@ -10,7 +10,7 @@ use App\Models\AdAccount;
 use App\Models\AnalyticProperty;
 use App\Models\AnalyticView;
 use Session;
-use Log;
+use Illuminate\Support\Facades\Log;
 
 class AccountsController extends Controller
 {
@@ -92,10 +92,10 @@ class AccountsController extends Controller
                 $status = 'success';
             } catch (\Facebook\Exceptions\FacebookResponseException $e) {
                 $status = 'error';
-                Log::error($e);
+                \Log::error($e);
             } catch (\Facebook\Exceptions\FacebookSDKException $e) {
                 $status = 'error';
-                Log::error($e);
+                \Log::error($e);
             }
         }
 
