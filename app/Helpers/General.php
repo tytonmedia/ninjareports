@@ -101,8 +101,8 @@ if (!function_exists('validateTokens')) {
                     $fb = fb_connect();
                     try {
                         $fb->get(
-                            //'/debug_token?input_token=' . $account->token,
-                            'me/?access_token='.$account->token
+                            '/debug_token?input_token=' . $account->token,
+                           // 'me/?access_token='.$account->token
                         );
                         $fb_token_status = true;
                         \Session::put('fb_access_token', 1);
