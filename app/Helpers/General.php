@@ -102,6 +102,7 @@ if (!function_exists('validateTokens')) {
                     try {
                         $fb->get(
                             '/debug_token?input_token=' . $account->token,
+                            $account->token
                         );
                         $fb_token_status = true;
                         \Session::put('fb_access_token', 1);
