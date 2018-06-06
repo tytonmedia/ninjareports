@@ -102,7 +102,6 @@ if (!function_exists('validateTokens')) {
                     try {
                         $fb->get(
                             '/debug_token?input_token=' . $account->token,
-                           // 'me/?access_token='.$account->token
                         );
                         $fb_token_status = true;
                         \Session::put('fb_access_token', 1);
@@ -112,7 +111,7 @@ if (!function_exists('validateTokens')) {
                         $fb_token_status = false;
                     }
                     if (!$fb_token_status) {
-                         \App\Models\Account::where('user_id', auth()->user()->id)->where('type', 'facebook')->update(['status' => 0]);
+                        \App\Models\Account::where('user_id', auth()->user()->id)->where('type', 'facebook')->update(['status' => 0]);
                     }
                 }
             }
