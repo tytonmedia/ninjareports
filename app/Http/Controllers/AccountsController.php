@@ -10,7 +10,7 @@ use App\Models\AdAccount;
 use App\Models\AnalyticProperty;
 use App\Models\AnalyticView;
 use Session;
-use Illuminate\Log\Logger;
+use Log;
 
 class AccountsController extends Controller
 {
