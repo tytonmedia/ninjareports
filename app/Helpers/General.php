@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Log\Logger;
+
 if (!function_exists('pr')) {
 
     function pr($e)
@@ -108,7 +111,9 @@ if (!function_exists('validateTokens')) {
                         \Session::put('fb_access_token', 1);
                     } catch (\Facebook\Exceptions\FacebookResponseException $e) {
                         $fb_token_status = false;
+                        Log::error($e);
                     } catch (\Facebook\Exceptions\FacebookSDKException $e) {
+                        Log::error($e);
                         $fb_token_status = false;
                     }
                     if (!$fb_token_status) {
