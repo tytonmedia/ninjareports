@@ -6,6 +6,7 @@ use App\Models\Account;
 use Illuminate\Support\Facades\Input;
 use Session;
 use Illuminate\Support\Facades\Log;
+use App\Models\AdAccount;
 
 class ConnectController extends Controller
 {
@@ -22,6 +23,7 @@ class ConnectController extends Controller
             }
         }
     }
+
     public function facebook()
     {
         $fb = fb_connect();
@@ -54,7 +56,7 @@ class ConnectController extends Controller
                 echo "Error Code: " . $helper->getErrorCode() . "\n";
                 echo "Error Reason: " . $helper->getErrorReason() . "\n";
                 echo "Error Description: " . $helper->getErrorDescription() . "\n";
-                 Log::info($helper->getError());
+                Log::info($helper->getError());
             } else {
                 Session::flash('alert-danger', 'Bad Request.');
                 Log::info('bad request');
@@ -77,10 +79,10 @@ class ConnectController extends Controller
             }
         }
         try {
-            $user = $fb->get('/me?fields=email', (string) $accessToken);
+            $user = $fb->get('/me?fields=email', (string)$accessToken);
         } catch (\Facebook\Exceptions\FacebookResponseException $e) {
             Session::flash('alert-danger', 'Graph returned an error: ' . $e->getMessage());
-             Log::info($e->getMessage());
+            Log::info($e->getMessage());
             return redirect()->route('accounts.index');
         } catch (\Facebook\Exceptions\FacebookSDKException $e) {
             Session::flash('alert-danger', 'Facebook SDK returned an error: ' . $e->getMessage());
@@ -97,7 +99,7 @@ class ConnectController extends Controller
             'email' => $me->getEmail(),
             'status' => 1,
             'is_active' => 1,
-            'token' => (string) $accessToken,
+            'token' => (string)$accessToken,
         ];
         if ($account) {
             Account::where('id', $account->id)->update($account_update_array);
@@ -188,6 +190,66 @@ class ConnectController extends Controller
             Session::flash('alert-danger', 'Invalid State.');
             return redirect()->route('accounts.index');
         }
+    }
+
+    public function stripe()
+    {
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        \Stripe\Stripe::setClientId(env('STRIPE_CLIENT_ID'));
+        $url = \Stripe\OAuth::authorizeUrl([
+            'redirect_uri' => route('connect.stripe.callback'),
+            'scope' => 'read_write'
+        ]);
+        return redirect($url);
+    }
+
+    public function stripeCallback()
+    {
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        \Stripe\Stripe::setClientId(env('STRIPE_CLIENT_ID'));
+        $error = Input::get('error') ? Input::get('error') : '';
+        if ($error) {
+            $error_description = Input::get('error_description');
+            session()->flash('alert-danger', $error_description);
+            return redirect()->route('accounts.index');
+        }
+        $code = Input::get('code') ? Input::get('code') : '';
+        if ($code) {
+            try {
+                $response = \Stripe\OAuth::token([
+                    'grant_type' => 'authorization_code',
+                    'code' => $code,
+                ]);
+                $user = \Stripe\Account::retrieve($response->stripe_user_id);
+                $account = Account::where('type', 'stripe')->where('user_id', auth()->user()->id)->first();
+                $account_update_array = [
+                    'user_id' => auth()->user()->id,
+                    'type' => 'stripe',
+                    'title' => 'Stripe Connect',
+                    'email' => $user->email,
+                    'status' => 1,
+                    'is_active' => 1,
+                    'token' => $response->access_token,
+                ];
+                if ($account) {
+                    Account::where('id', $account->id)->update($account_update_array);
+                } else {
+                    $ninja_account = Account::create($account_update_array);
+                    AdAccount::create([
+                        'user_id' => auth()->user()->id,
+                        'account_id' => $ninja_account->id,
+                        'title' => $user->business_name ? $user->business_name : $user->display_name,
+                        'ad_account_id' => $response->stripe_user_id,
+                        'is_active' => 1
+                    ]);
+                }
+            } catch (\Stripe\Error\OAuth\OAuthBase $e) {
+                session()->flash('alert-danger', $e->getMessage());
+            }
+        } else {
+            session()->flash('alert-danger', 'Something went wrong.');
+        }
+        return redirect()->route('accounts.index');
     }
 
 }

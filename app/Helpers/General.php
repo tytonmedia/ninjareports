@@ -209,6 +209,15 @@ if (!function_exists('adwords_token')) {
     }
 }
 
+if (!function_exists('stripe_token')) {
+    function stripe_token($user_id = 0)
+    {
+        $user_id = $user_id ? $user_id : auth()->user()->id;
+        $token = \App\Models\Account::where('type', 'stripe')->where('user_id', $user_id)->pluck('token')->first();
+        return $token;
+    }
+}
+
 if (!function_exists('adwords_session')) {
     function adwords_session($customerId, $user_id = 0)
     {
