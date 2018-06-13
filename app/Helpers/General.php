@@ -4,8 +4,11 @@ use Illuminate\Log\Logger;
 
 if (!function_exists('pr')) {
 
-    function pr($e)
+    function pr($e, $json = false)
     {
+        if ($json) {
+            return response()->json($e, 200, [], JSON_PRETTY_PRINT);
+        }
         echo '<pre>';
         print_r($e);
         echo '</pre>';
@@ -80,7 +83,7 @@ if (!function_exists('main_path')) {
     /**
      * Get the path to the main folder.
      *
-     * @param  string  $path
+     * @param  string $path
      * @return string
      */
     function main_path($path = '')
@@ -153,7 +156,7 @@ if (!function_exists('analytics_token')) {
     {
         $user_id = $user_id ? $user_id : auth()->user()->id;
         $token = \App\Models\Account::where('type', 'analytics')->where('user_id', $user_id)->pluck('token')->first();
-        $token = (array) json_decode($token);
+        $token = (array)json_decode($token);
         $client = analytics_connect();
         $client->setAccessToken($token);
         if ($client->isAccessTokenExpired()) {
@@ -165,7 +168,7 @@ if (!function_exists('analytics_token')) {
         }
         $token = \App\Models\Account::where('type', 'analytics')->where('user_id', $user_id)->pluck('token')->first();
         if ($token) {
-            return (array) json_decode($token);
+            return (array)json_decode($token);
         }
         return false;
     }
@@ -316,17 +319,17 @@ if (!function_exists('sendMail')) {
 
         $encodedString = json_encode($response);
 
-       // file_put_contents('general_response.txt', $encodedString);
+        // file_put_contents('general_response.txt', $encodedString);
 
         if ($showResponse) {
             return $response;
         }
         if ($response->statusCode() == 202) {
-            $status=array();
-            $status[]="true";
+            $status = array();
+            $status[] = "true";
             $encodedString = json_encode($sent);
 
-           // file_put_contents('true_sent.txt', $encodedString);
+            // file_put_contents('true_sent.txt', $encodedString);
             return true;
 
         }
