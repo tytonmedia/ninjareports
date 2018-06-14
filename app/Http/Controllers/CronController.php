@@ -29,8 +29,8 @@ class CronController extends Controller
         }
         $next_send_time = date('Y-m-d H:i:00');
 
-        //$reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->where('is_paused', 0)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
-        $reports = Report::where('id', 385)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
+        $reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->where('is_paused', 0)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
+        //$reports = Report::where('id', 385)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
         if ($reports && count($reports) > 0) {
             foreach ($reports as $report) {
                 $current_plan = $report->user->current_billing_plan ? $report->user->current_billing_plan : 'free_trial';
@@ -737,7 +737,11 @@ class CronController extends Controller
                         $from_date = strtotime(date('m/d/Y'));
                 }
                 \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-                $balance = \Stripe\Balance::retrieve(['stripe_account' => $report->ad_account->ad_account_id]);
+                try {
+                    $balance = \Stripe\Balance::retrieve(['stripe_account' => $report->ad_account->ad_account_id]);
+                } catch (\Stripe\Error\Permission  $e) {
+                    $report->account()->update(['status' => 0]);
+                }
                 $total_balance = 0;
                 if (isset($balance->available[0]->amount)) {
                     $total_balance = calculateStripeAmount($balance->available[0]->amount);
