@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 set_time_limit(0);
@@ -18,7 +19,8 @@ use \FacebookAds\Object\Values\AdsInsightsDatePresetValues;
 
 class CronController extends Controller
 {
-private $sendLimit=0;
+    private $sendLimit = 0;
+
     public function run()
     {
         $pdf_dir = public_path('files/pdf/');
@@ -28,8 +30,7 @@ private $sendLimit=0;
         $next_send_time = date('Y-m-d H:i:00');
 
         $reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->where('is_paused', 0)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
-        //$reports = Report::where('id', 2)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
-
+        //$reports = Report::where('id', 385)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
         if ($reports && count($reports) > 0) {
             foreach ($reports as $report) {
                 $current_plan = $report->user->current_billing_plan ? $report->user->current_billing_plan : 'free_trial';
@@ -82,7 +83,6 @@ private $sendLimit=0;
                     default:
                         $params['date_preset'] = AdsInsightsDatePresetValues::TODAY;
                 }
-                $fb = fb_connect();
                 \FacebookAds\Api::init(env('FACEBOOK_APP_ID'), env('FACEBOOK_SECRET'), fb_token($report->user_id));
                 try {
                     $fb_ad_account = new AdAccount($report->ad_account->ad_account_id);
@@ -123,8 +123,8 @@ private $sendLimit=0;
                     $top_ad_campaigns = '';
                     if (count($campaigns_insights) > 0) {
                         foreach ($campaigns_insights as $campaign_insight) {
-                            $campaign_insight = (object) $campaign_insight;
-                            $campaign_insight_cpm = number_format((float) $campaign_insight->cpm, 2, '.', '');
+                            $campaign_insight = (object)$campaign_insight;
+                            $campaign_insight_cpm = number_format((float)$campaign_insight->cpm, 2, '.', '');
                             $top_ad_campaigns .= '<tr style="border-bottom:1px solid #ccc"><td style="padding:5px;">' . $campaign_insight->campaign . '</td><td style="padding:5px;">' . $campaign_insight->impressions . '</td><td style="padding:5px;">' . $campaign_insight->clicks . '</td><td style="padding:5px;">$' . $campaign_insight_cpm . '</td><td style="padding:5px;">' . $campaign_insight->ctr . '%</td><td style="padding:5px;">$' . $campaign_insight->cpc . '</td><td style="padding:5px;">$' . $campaign_insight->spend . '</td></tr>';
                         }
                     } else {
@@ -250,27 +250,27 @@ private $sendLimit=0;
                     }
                     foreach ($recipients as $email) {
                         $welcome_email_substitutions = [
-                            '%frequency%' => (string) ucfirst($report->frequency),
-                            '%report_date%' => (string) $reportDate,
-                            '%visitors%' => (string) $total_clicks,
-                            '%avg_time%' => (string) $total_impressions,
-                            '%bounce_rate%' => (string) $total_ctr,
-                            '%page_views%' => (string) $total_spend,
-                            '%page_per_visits%' => (string) $total_cpm,
-                            '%new_visitors%' => (string) $total_cpc,
-                            '%ages_graph_url%' => (string) $ages_graph_url,
-                            '%genders_graph_url%' => (string) $genders_graph_url,
-                            '%top_ad_campaigns%' => (string) $top_ad_campaigns,
+                            '%frequency%' => (string)ucfirst($report->frequency),
+                            '%report_date%' => (string)$reportDate,
+                            '%visitors%' => (string)$total_clicks,
+                            '%avg_time%' => (string)$total_impressions,
+                            '%bounce_rate%' => (string)$total_ctr,
+                            '%page_views%' => (string)$total_spend,
+                            '%page_per_visits%' => (string)$total_cpm,
+                            '%new_visitors%' => (string)$total_cpc,
+                            '%ages_graph_url%' => (string)$ages_graph_url,
+                            '%genders_graph_url%' => (string)$genders_graph_url,
+                            '%top_ad_campaigns%' => (string)$top_ad_campaigns,
                             '%property_url%' => $report->ad_account->title,
                             '%logo_property%' => $logo,
                         ];
                         if ($report->attachment_type == 'pdf') {
-                            $sent=sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions, $attachments);
+                            $sent = sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions, $attachments);
                             if (file_exists($pdf_dir . $pdf_file_name)) {
                                 unlink($pdf_dir . $pdf_file_name);
                             }
                         } else {
-                            $sent=sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions);
+                            $sent = sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions);
                         }
                         Schedule::create([
                             'user_id' => $report->user_id,
@@ -286,7 +286,6 @@ private $sendLimit=0;
                 }
             }
             if ($report->account->type == 'analytics') {
-                $from_date = '';
                 $to_date = date('Y-m-d', strtotime($report->next_send_time));
                 $report->user->timezone ? date_default_timezone_set($report->user->timezone) : '';
                 $reportDate = date("m/d/Y");
@@ -315,10 +314,10 @@ private $sendLimit=0;
                 // Get top 5 sources
                 $top_sources_results = $analytics->data_ga->get(
                     'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounceRate,ga:newUsers,ga:sessionsPerUser,ga:itemRevenue', [
-                        'dimensions' => 'ga:source',
-                        'sort' => '-ga:sessions',
-                        'max-results' => 5,
-                    ]);
+                    'dimensions' => 'ga:source',
+                    'sort' => '-ga:sessions',
+                    'max-results' => 5,
+                ]);
                 $top_5_sources = '';
                 $sources_insights = isset($top_sources_results->rows) ? $top_sources_results->rows : [];
                 if (isset($sources_insights) && count($sources_insights) > 0) {
@@ -326,7 +325,7 @@ private $sendLimit=0;
                     $top_5_sources .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;text-align:left;">Source</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Visits</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">New</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Bounce %</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Pages/Visit</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Revenue</th></tr>';
                     foreach ($sources_insights as $insight) {
                         $new_visitors = round($insight[6], 0) . "";
-                        $pages_per_visit = number_format((float) $insight[7], 2, '.', '');
+                        $pages_per_visit = number_format((float)$insight[7], 2, '.', '');
                         $bounce_rate = round($insight[5], 0);
                         $avg_time = date("H:i:s", strtotime($insight[3]));
                         $revenue = $insight[8];
@@ -343,7 +342,7 @@ private $sendLimit=0;
                 $encodedString = json_encode($results);
 
                 //Save the JSON string to a text file.
-              //  file_put_contents('analytics_array.txt', $encodedString);
+                //  file_put_contents('analytics_array.txt', $encodedString);
 
                 $insights = $results->totalsForAllResults;
                 $metrics = $results->rows;
@@ -462,19 +461,19 @@ private $sendLimit=0;
                 foreach ($recipients as $email) {
 
                     $analytics_email_substitutions = [
-                        '%frequency%' => (string) ucfirst($report->frequency),
-                        '%report_date%' => (string) $reportDate,
-                        '%visitors%' => (string) $total_sessions,
-                        '%avg_time%' => (string) gmdate("H:i:s", strtotime($total_avg_time) * 3600),
-                        '%revenue%' => (string) $total_revenue,
-                        '%bounce_rate%' => (string) $total_bounce_rate,
-                        '%page_views%' => (string) $total_pageviews,
-                        '%page_per_visits%' => (string) $total_pages_per_visitor,
-                        '%new_visitors%' => (string) $total_new_visitors,
-                        '%devices_graph_url%' => (string) $devices_graph_url,
-                        '%locations_graph_url%' => (string) $locations_graph_url,
-                        '%top_5_sources%' => (string) $top_5_sources,
-                        '%property_url%' => (string) $report->property->name,
+                        '%frequency%' => (string)ucfirst($report->frequency),
+                        '%report_date%' => (string)$reportDate,
+                        '%visitors%' => (string)$total_sessions,
+                        '%avg_time%' => (string)gmdate("H:i:s", strtotime($total_avg_time) * 3600),
+                        '%revenue%' => (string)$total_revenue,
+                        '%bounce_rate%' => (string)$total_bounce_rate,
+                        '%page_views%' => (string)$total_pageviews,
+                        '%page_per_visits%' => (string)$total_pages_per_visitor,
+                        '%new_visitors%' => (string)$total_new_visitors,
+                        '%devices_graph_url%' => (string)$devices_graph_url,
+                        '%locations_graph_url%' => (string)$locations_graph_url,
+                        '%top_5_sources%' => (string)$top_5_sources,
+                        '%property_url%' => (string)$report->property->name,
                         '%logo_property%' => $logo,
                     ];
 
@@ -483,12 +482,12 @@ private $sendLimit=0;
                     //Save the JSON string to a text file.
                     //file_put_contents('analytics_send_array.txt', $encodedString);
                     if ($report->attachment_type == 'pdf') {
-                        $sent=sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions, $attachments);
+                        $sent = sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions, $attachments);
                         if (file_exists($pdf_dir . $pdf_file_name)) {
                             unlink($pdf_dir . $pdf_file_name);
                         }
                     } else {
-                        $sent=sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions);
+                        $sent = sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions);
                     }
                     Schedule::create([
                         'user_id' => $report->user_id,
@@ -498,7 +497,7 @@ private $sendLimit=0;
                     $this->sendLimit($report);
                     $encodedString = json_encode($sent);
 
-                   // file_put_contents('analytics_sent.txt', $encodedString);
+                    // file_put_contents('analytics_sent.txt', $encodedString);
                 }
             }
             if ($report->account->type == 'adword') {
@@ -539,7 +538,7 @@ private $sendLimit=0;
 
                 $encodedString = json_encode($campaigns_adword_data);
 
-              //  file_put_contents('adwords_array.txt', $encodedString);
+                //  file_put_contents('adwords_array.txt', $encodedString);
 
                 $total_clicks = 'No data';
                 $total_impressions = 'No data';
@@ -567,7 +566,7 @@ private $sendLimit=0;
                         $adword_data_count = count($final_adword_data);
                         $encodedString = json_encode($final_adword_data);
 
-                      //  file_put_contents('adwords_array2.txt', $encodedString);
+                        //  file_put_contents('adwords_array2.txt', $encodedString);
                         foreach ($final_adword_data as $adword_data) {
                             if (--$adword_data_count <= 0) {
                                 break;
@@ -661,8 +660,8 @@ private $sendLimit=0;
                     if (count($top_5_campaigns_array) > 0) {
                         $top_5_campaigns .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;">Campaign</th><th style="background:#666;color:#fff;padding:5px;">Clicks</th><th style="background:#666;color:#fff;padding:5px;">Impressions</th><th style="background:#666;color:#fff;padding:5px;">CTR</th><th style="background:#666;color:#fff;padding:5px;">CPM</th><th style="background:#666;color:#fff;padding:5px;">CPC</th></tr>';
                         foreach ($top_5_campaigns_array as $campaign_array) {
-                            $ad_cpc = number_format((float) ($campaign_array[6] / 100000), 2);
-                            $ad_cpm = number_format((float) ($campaign_array[5] / 100000), 2);
+                            $ad_cpc = number_format((float)($campaign_array[6] / 100000), 2);
+                            $ad_cpm = number_format((float)($campaign_array[5] / 100000), 2);
                             $top_5_campaigns .= '<tr><td>' . $campaign_array[0] . '</td><td>' . $campaign_array[1] . '</td><td>' . $campaign_array[2] . '</td><td>' . $campaign_array[3] . '</td><td>$' . $ad_cpm . '</td><td>$' . $ad_cpc . '</td></tr>';
                         }
                         $top_5_campaigns .= '</tbody></table>';
@@ -688,27 +687,27 @@ private $sendLimit=0;
 
                 foreach ($recipients as $email) {
                     $welcome_email_substitutions = [
-                        '%frequency%' => (string) ucfirst($report->frequency),
-                        '%report_date%' => (string) $reportDate,
+                        '%frequency%' => (string)ucfirst($report->frequency),
+                        '%report_date%' => (string)$reportDate,
                         '%property_url%' => $report->ad_account->title,
-                        '%clicks%' => (string) $total_clicks,
-                        '%impressions%' => (string) $total_impressions,
-                        '%ctr%' => (string) $total_ctr,
-                        '%spend%' => (string) number_format((float) ($total_spend / 1000000), 2),
-                        '%page_per_visits%' => (string) $total_cpm,
-                        '%new_visitors%' => (string) $total_cpc,
-                        '%devices_graph_url%' => (string) $devices_graph_url,
-                        '%locations_graph_url%' => (string) $locations_graph_url,
-                        '%top_5_campaigns%' => (string) $top_5_campaigns,
+                        '%clicks%' => (string)$total_clicks,
+                        '%impressions%' => (string)$total_impressions,
+                        '%ctr%' => (string)$total_ctr,
+                        '%spend%' => (string)number_format((float)($total_spend / 1000000), 2),
+                        '%page_per_visits%' => (string)$total_cpm,
+                        '%new_visitors%' => (string)$total_cpc,
+                        '%devices_graph_url%' => (string)$devices_graph_url,
+                        '%locations_graph_url%' => (string)$locations_graph_url,
+                        '%top_5_campaigns%' => (string)$top_5_campaigns,
                         '%logo_property%' => $logo,
                     ];
                     if ($report->attachment_type == 'pdf') {
-                        $sent=sendMail($email, $report->email_subject, '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions, $attachments);
+                        $sent = sendMail($email, $report->email_subject, '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions, $attachments);
                         if (file_exists($pdf_dir . $pdf_file_name)) {
                             unlink($pdf_dir . $pdf_file_name);
                         }
                     } else {
-                        $sent=sendMail($email, $report->email_subject, '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions);
+                        $sent = sendMail($email, $report->email_subject, '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions);
                     }
                     Schedule::create([
                         'user_id' => $report->user_id,
@@ -718,11 +717,149 @@ private $sendLimit=0;
                     $this->sendLimit($report);
                     $encodedString = json_encode($sent);
 
-                 //   file_put_contents('adwords_sent.txt', $encodedString);
+                    //   file_put_contents('adwords_sent.txt', $encodedString);
+                }
+            }
+            if ($report->account->type == 'stripe') {
+                $report->user->timezone ? date_default_timezone_set($report->user->timezone) : '';
+                $reportDate = strtotime($report->next_send_time);
+                switch ($report->frequency) {
+                    case "weekly":
+                        $from_date = strtotime('-7 day', $reportDate);
+                        break;
+                    case "monthly":
+                        $from_date = strtotime('-1 month', $reportDate);
+                        break;
+                    case "yearly":
+                        $from_date = strtotime('-1 year', $reportDate);
+                        break;
+                    default:
+                        $from_date = strtotime(date('m/d/Y'));
+                }
+                \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+                try {
+                    $balance = \Stripe\Balance::retrieve(['stripe_account' => $report->ad_account->ad_account_id]);
+                } catch (\Stripe\Error\Permission  $e) {
+                    $report->account()->update(['status' => 0]);
+                }
+                $total_balance = 0;
+                if (isset($balance->available[0]->amount)) {
+                    $total_balance = calculateStripeAmount($balance->available[0]->amount);
+                }
+                $charges = \Stripe\BalanceTransaction::all([
+                    'limit' => 100,
+                    'type' => 'charge',
+                    'created' => [
+                        'gte' => $from_date,
+                        'lte' => $reportDate
+                    ]
+                ], ['stripe_account' => $report->ad_account->ad_account_id]);
+                $refunds = \Stripe\BalanceTransaction::all([
+                    'limit' => 100,
+                    'type' => 'refund',
+                    'created' => [
+                        'gte' => $from_date,
+                        'lte' => $reportDate
+                    ]
+                ], ['stripe_account' => $report->ad_account->ad_account_id]);
+                $disputes = \Stripe\Dispute::all([
+                    'limit' => 100,
+                    'created' => [
+                        'gte' => $from_date,
+                        'lte' => $reportDate
+                    ]
+                ], ['stripe_account' => $report->ad_account->ad_account_id]);
+                $customers = \Stripe\Customer::all([
+                    'limit' => 100,
+                    'created' => [
+                        'gte' => $from_date,
+                        'lte' => $reportDate
+                    ]
+                ], ['stripe_account' => $report->ad_account->ad_account_id]);
+                $payouts = \Stripe\Payout::all([
+                    'limit' => 100,
+                    'created' => [
+                        'gte' => $from_date,
+                        'lte' => $reportDate
+                    ]
+                ], ['stripe_account' => $report->ad_account->ad_account_id]);
+                $payments = \Stripe\BalanceTransaction::all([
+                    'created' => [
+                        'gte' => $from_date,
+                        'lte' => $reportDate
+                    ]
+                ], ['stripe_account' => $report->ad_account->ad_account_id]);
+                $total_charge_amount = 0;
+                $total_refund_amount = 0;
+                $total_dispute_amount = 0;
+                $total_payout_amount = 0;
+                $total_customers = 0;
+                foreach ($charges->autoPagingIterator() as $charge) {
+                    $total_charge_amount += $charge->amount;
+                }
+                foreach ($refunds->autoPagingIterator() as $refund) {
+                    $total_refund_amount += $refund->amount;
+                }
+                if (isset($disputes['data']) && count($disputes['data'])) {
+                    foreach ($disputes['data'] as $dispute) {
+                        $total_dispute_amount += $dispute->amount;
+                    }
+                }
+                if (isset($customers['data']) && count($customers['data'])) {
+                    $total_customers = count($customers['data']);
+                }
+                foreach ($payouts->autoPagingIterator() as $payout) {
+                    $total_payout_amount += $payout->amount;
+                }
+                $stripe_customers_html = view('reports.templates.stripe.customers', compact('customers'))->render();
+                $stripe_transactions_html = view('reports.templates.stripe.transactions', compact('payments'))->render();
+                $attachments = [];
+                if ($report->attachment_type == 'pdf') {
+                    $html = view('reports.templates.stripe', compact('report', 'stripe_transactions_html', 'total_customers', 'total_charge_amount', 'total_refund_amount', 'total_dispute_amount', 'total_payout_amount', 'stripe_customers_html', 'ad_account_title', 'total_balance'))->render();
+                    $mpdf = new \Mpdf\Mpdf(['tempDir' => $pdf_dir]);
+                    $mpdf->WriteHTML($html);
+                    $mpdf->Output($pdf_dir . $pdf_file_name, 'F');
+                    $attachments = [
+                        [
+                            'content' => base64_encode(file_get_contents($pdf_dir . $pdf_file_name)),
+                            'type' => 'text/pdf',
+                            'filename' => $report->title . '.pdf',
+                            'disposition' => 'attachment',
+                        ],
+                    ];
+                }
+                foreach ($recipients as $email) {
+                    $stripe_email_substitutions = [
+                        '%frequency%' => (string)ucfirst($report->frequency),
+                        '%report_date%' => (string)$report->next_send_time,
+                        '%account%' => $ad_account_title,
+                        '%balance%' => (string)calculateStripeAmount($total_balance),
+                        '%refunds%' => (string)calculateStripeAmount($total_refund_amount),
+                        '%disputes%' => (string)calculateStripeAmount($total_dispute_amount),
+                        '%customers%' => (string)$total_customers,
+                        '%charges%' => (string)calculateStripeAmount($total_charge_amount),
+                        '%payouts%' => (string)calculateStripeAmount($total_payout_amount),
+                        '%stripe_customers_html%' => (string)$stripe_customers_html,
+                        '%stripe_transactions_html%' => (string)$stripe_transactions_html,
+                    ];
+                    if ($report->attachment_type == 'pdf') {
+                        sendMail($email, $report->email_subject, '469d4ce7-6c32-4c51-a9dd-c11d2a416eaa', $stripe_email_substitutions, $attachments);
+                        if (file_exists($pdf_dir . $pdf_file_name)) {
+                            unlink($pdf_dir . $pdf_file_name);
+                        }
+                    } else {
+                        sendMail($email, $report->email_subject, '469d4ce7-6c32-4c51-a9dd-c11d2a416eaa', $stripe_email_substitutions);
+                    }
+                    Schedule::create([
+                        'user_id' => $report->user_id,
+                        'report_id' => $report->id,
+                        'recipient' => $email,
+                    ]);
+                    $this->sendLimit($report);
                 }
             }
         } else {
-            Session::flash('alert-danger', 'Report not found.');
+            session()->flash('alert-danger', 'Report not found.');
             return redirect()->route('reports.index');
         }
     }
@@ -739,23 +876,24 @@ private $sendLimit=0;
         return $keys;
     }
 
-    private function sendLimit($report) {
+    private function sendLimit($report)
+    {
         $current_plan = $report->user->current_billing_plan ? $report->user->current_billing_plan : 'free_trial';
         $plan = Plan::whereTitle($current_plan)->first();
         $reports_sent_count = Schedule::whereUserId($report->user->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
-       if($reports_sent_count >= $plan->reports && $this->sendLimit==0) {
+        if ($reports_sent_count >= $plan->reports && $this->sendLimit == 0) {
 
             $email = $report->user->email;
             $subject = 'Oh No! You\'ve reached your report limit on Ninja Reports';
             $timestamp = date('Y-m-d');
-            $daysLeft = (int) date('t', strtotime($timestamp)) - (int) date('j', strtotime($timestamp));
+            $daysLeft = (int)date('t', strtotime($timestamp)) - (int)date('j', strtotime($timestamp));
             $limit_email_substitutions = [
-                '%reports%' => (string) $reports_sent_count,
-                '%limit%' => (string) $plan->reports,
-                '%days_left%' => (string) $daysLeft,
+                '%reports%' => (string)$reports_sent_count,
+                '%limit%' => (string)$plan->reports,
+                '%days_left%' => (string)$daysLeft,
             ];
             sendMail($email, $subject, '99642447-0c92-4931-8038-0c1190f779cd', $limit_email_substitutions);
-            $this->sendLimit=1;
+            $this->sendLimit = 1;
         }
     }
 

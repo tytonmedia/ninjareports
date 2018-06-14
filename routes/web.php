@@ -32,14 +32,16 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     // ConnectController Routes
-    Route::prefix('connect')->group(function () {
-        Route::get('test', 'ConnectController@test')->name('connect.test');
-        Route::get('facebook', 'ConnectController@facebook')->name('connect.facebook');
-        Route::get('facebook/callback', 'ConnectController@facebookCallback')->name('connect.facebook.callback');
-        Route::get('analytics', 'ConnectController@analytics')->name('connect.analytics');
-        Route::get('analytics/callback', 'ConnectController@analyticsCallback')->name('connect.analytics.callback');
-        Route::get('adwords', 'ConnectController@adwords')->name('connect.adwords');
-        Route::get('adwords/callback', 'ConnectController@adwordsCallback')->name('connect.adwords.callback');
+    Route::prefix('connect')->name('connect.')->group(function () {
+        Route::get('test', 'ConnectController@test')->name('test');
+        Route::get('facebook', 'ConnectController@facebook')->name('facebook');
+        Route::get('facebook/callback', 'ConnectController@facebookCallback')->name('facebook.callback');
+        Route::get('analytics', 'ConnectController@analytics')->name('analytics');
+        Route::get('analytics/callback', 'ConnectController@analyticsCallback')->name('analytics.callback');
+        Route::get('adwords', 'ConnectController@adwords')->name('adwords');
+        Route::get('adwords/callback', 'ConnectController@adwordsCallback')->name('adwords.callback');
+        Route::get('stripe', 'ConnectController@stripe')->name('stripe');
+        Route::get('stripe/callback', 'ConnectController@stripeCallback')->name('stripe.callback');
     });
 
     // ReportsController Routes
@@ -55,6 +57,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{type}/properties/{account}', 'ReportsController@properties')->name('reports.properties');
         Route::get('{type}/properties/{account}/profiles/{property}', 'ReportsController@profiles')->name('reports.profiles');
         Route::get('tester/{account_type}', 'ReportsController@tester')->name('reports.tester');
-      
+
     });
 });
