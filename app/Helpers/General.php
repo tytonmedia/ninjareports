@@ -378,3 +378,11 @@ if (!function_exists('getChartUrl')) {
     }
 
 }
+
+if (!function_exists('calculateStripeAmount')) {
+
+    function calculateStripeAmount($amount)
+    {
+        return number_format((float) abs($amount / 100), 2, '.', '');
+    }
+}

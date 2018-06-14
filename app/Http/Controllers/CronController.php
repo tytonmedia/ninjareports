@@ -39,7 +39,7 @@ class CronController extends Controller
                 if ($reports_sent_count < $plan->reports) {
                     $recipients = explode(',', $report->recipients);
                     if (is_array($recipients) && count($recipients) > 0) {
-                        return $this->report($report, $recipients);
+                        $this->report($report, $recipients);
                         update_schedule($report, $report->user_id);
                     }
                 }
@@ -738,6 +738,10 @@ class CronController extends Controller
                 }
                 \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
                 $balance = \Stripe\Balance::retrieve(['stripe_account' => $report->ad_account->ad_account_id]);
+                $total_balance = 0;
+                if (isset($balance->available[0]->amount)) {
+                    $total_balance = calculateStripeAmount($balance->available[0]->amount);
+                }
                 $charges = \Stripe\BalanceTransaction::all([
                     'limit' => 100,
                     'type' => 'charge',
@@ -803,27 +807,52 @@ class CronController extends Controller
                 foreach ($payouts->autoPagingIterator() as $payout) {
                     $total_payout_amount += $payout->amount;
                 }
+                $stripe_customers_html = view('reports.templates.stripe.customers', compact('customers'))->render();
+                $stripe_transactions_html = view('reports.templates.stripe.transactions', compact('payments'))->render();
+                $attachments = [];
                 if ($report->attachment_type == 'pdf') {
-                    try {
-                        $html = view('reports.templates.stripe', compact('report', 'payments', 'total_customers', 'total_charge_amount', 'total_refund_amount', 'total_dispute_amount', 'total_payout_amount', 'customers', 'ad_account_title'))->render();
-                        $mpdf = new \Mpdf\Mpdf(['tempDir' => $pdf_dir]);
-                        $mpdf->WriteHTML($html);
-                        $mpdf->Output($pdf_dir . $pdf_file_name, 'F');
-                        $attachments = [
-                            [
-                                'content' => base64_encode(file_get_contents($pdf_dir . $pdf_file_name)),
-                                'type' => 'text/pdf',
-                                'filename' => $report->title . '.pdf',
-                                'disposition' => 'attachment',
-                            ],
-                        ];
-                    } catch (\Throwable $e) {
-
-                    }
-
-
+                    $html = view('reports.templates.stripe', compact('report', 'stripe_transactions_html', 'total_customers', 'total_charge_amount', 'total_refund_amount', 'total_dispute_amount', 'total_payout_amount', 'stripe_customers_html', 'ad_account_title', 'total_balance'))->render();
+                    $mpdf = new \Mpdf\Mpdf(['tempDir' => $pdf_dir]);
+                    $mpdf->WriteHTML($html);
+                    $mpdf->Output($pdf_dir . $pdf_file_name, 'F');
+                    $attachments = [
+                        [
+                            'content' => base64_encode(file_get_contents($pdf_dir . $pdf_file_name)),
+                            'type' => 'text/pdf',
+                            'filename' => $report->title . '.pdf',
+                            'disposition' => 'attachment',
+                        ],
+                    ];
                 }
-
+                foreach ($recipients as $email) {
+                    $stripe_email_substitutions = [
+                        '%frequency%' => (string)ucfirst($report->frequency),
+                        '%report_date%' => (string)$report->next_send_time,
+                        '%account%' => $ad_account_title,
+                        '%balance%' => (string)calculateStripeAmount($total_balance),
+                        '%refunds%' => (string)calculateStripeAmount($total_refund_amount),
+                        '%disputes%' => (string)calculateStripeAmount($total_dispute_amount),
+                        '%customers%' => (string)$total_customers,
+                        '%charges%' => (string)calculateStripeAmount($total_charge_amount),
+                        '%payouts%' => (string)calculateStripeAmount($total_payout_amount),
+                        '%stripe_customers_html%' => (string)$stripe_customers_html,
+                        '%stripe_transactions_html%' => (string)$stripe_transactions_html,
+                    ];
+                    if ($report->attachment_type == 'pdf') {
+                        sendMail($email, $report->email_subject, '469d4ce7-6c32-4c51-a9dd-c11d2a416eaa', $stripe_email_substitutions, $attachments);
+                        if (file_exists($pdf_dir . $pdf_file_name)) {
+                            unlink($pdf_dir . $pdf_file_name);
+                        }
+                    } else {
+                        sendMail($email, $report->email_subject, '469d4ce7-6c32-4c51-a9dd-c11d2a416eaa', $stripe_email_substitutions);
+                    }
+                    Schedule::create([
+                        'user_id' => $report->user_id,
+                        'report_id' => $report->id,
+                        'recipient' => $email,
+                    ]);
+                    $this->sendLimit($report);
+                }
             }
         } else {
             session()->flash('alert-danger', 'Report not found.');
