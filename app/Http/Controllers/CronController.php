@@ -815,7 +815,7 @@ class CronController extends Controller
                 $stripe_transactions_html = view('reports.templates.stripe.transactions', compact('payments'))->render();
                 $attachments = [];
                 if ($report->attachment_type == 'pdf') {
-                    $html = view('reports.templates.stripe', compact('report', 'stripe_transactions_html', 'total_customers', 'total_charge_amount', 'total_refund_amount', 'total_dispute_amount', 'total_payout_amount', 'stripe_customers_html', 'ad_account_title', 'total_balance'))->render();
+                    $html = view('reports.templates.stripe', compact('report', 'stripe_transactions_html', 'total_customers', 'total_charge_amount', 'total_refund_amount', 'total_dispute_amount', 'total_payout_amount', 'stripe_customers_html', 'ad_account_title', 'total_balance', 'logo'))->render();
                     $mpdf = new \Mpdf\Mpdf(['tempDir' => $pdf_dir]);
                     $mpdf->WriteHTML($html);
                     $mpdf->Output($pdf_dir . $pdf_file_name, 'F');

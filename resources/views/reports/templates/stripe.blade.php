@@ -224,7 +224,7 @@
                                                                                                 border="0"
                                                                                                 style="display:block;max-height:40px;float:left;"
                                                                                                 width="200" height="38"
-                                                                                                src="%logo_property%"
+                                                                                                src="{{ $logo }}"
                                                                                                 alt="ninja reports"/></a>
                                                                                 </td>
                                                                                 <td style="text-align:right;vertical-align:middle;padding:15px; ">
