@@ -841,6 +841,7 @@ class CronController extends Controller
                         '%payouts%' => (string)calculateStripeAmount($total_payout_amount),
                         '%stripe_customers_html%' => (string)$stripe_customers_html,
                         '%stripe_transactions_html%' => (string)$stripe_transactions_html,
+                        '%logo_property%' => $logo,
                     ];
                     if ($report->attachment_type == 'pdf') {
                         sendMail($email, $report->email_subject, '469d4ce7-6c32-4c51-a9dd-c11d2a416eaa', $stripe_email_substitutions, $attachments);
