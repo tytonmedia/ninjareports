@@ -811,8 +811,20 @@ class CronController extends Controller
                 foreach ($payouts->autoPagingIterator() as $payout) {
                     $total_payout_amount += $payout->amount;
                 }
-                $stripe_customers_html = view('reports.templates.stripe.customers', compact('customers'))->render();
-                $stripe_transactions_html = view('reports.templates.stripe.transactions', compact('payments'))->render();
+                $total_payments = 0;
+                if (isset($payments['data']) && count($payments['data'])) {
+                    $total_payments = count($payments['data']);
+                }
+                if ($total_customers) {
+                    $stripe_customers_html = view('reports.templates.stripe.customers', compact('customers'))->render();
+                } else {
+                    $stripe_customers_html = 'No data for this time period';
+                }
+                if ($total_payments) {
+                    $stripe_transactions_html = view('reports.templates.stripe.transactions', compact('payments'))->render();
+                } else {
+                    $stripe_transactions_html = 'No data for this time period';
+                }
                 $attachments = [];
                 if ($report->attachment_type == 'pdf') {
                     $html = view('reports.templates.stripe', compact('report', 'stripe_transactions_html', 'total_customers', 'total_charge_amount', 'total_refund_amount', 'total_dispute_amount', 'total_payout_amount', 'stripe_customers_html', 'ad_account_title', 'total_balance', 'logo'))->render();
@@ -831,7 +843,7 @@ class CronController extends Controller
                 foreach ($recipients as $email) {
                     $stripe_email_substitutions = [
                         '%frequency%' => (string)ucfirst($report->frequency),
-                        '%report_date%' => (string)$report->next_send_time,
+                        '%report_date%' => (string)date('m/d/Y', strtotime($report->next_send_time)),
                         '%account%' => $ad_account_title,
                         '%balance%' => (string)calculateStripeAmount($total_balance),
                         '%refunds%' => (string)calculateStripeAmount($total_refund_amount),
