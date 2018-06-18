@@ -267,7 +267,8 @@
                                                                                 <td>
                                                                                     <div style="text-align:center;margin:5px 0">
                                                                                         <p style="color:#999;padding:5px 0;margin:0">
-                                                                                            {{ date('m/d/Y', strtotime($report->next_send_time)) }}</p>
+                                                                                            {{ date('m/d/Y', strtotime($report->next_send_time))
+                                                                                            }}</p>
                                                                                     </div>
                                                                                 </td>
                                                                             </tr>
