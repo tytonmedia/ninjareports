@@ -16,6 +16,7 @@ use \FacebookAds\Object\Fields\AdsInsightsFields;
 use \FacebookAds\Object\Fields\CampaignFields;
 use \FacebookAds\Object\Values\AdsInsightsBreakdownsValues;
 use \FacebookAds\Object\Values\AdsInsightsDatePresetValues;
+use View;
 
 class CronController extends Controller
 {
@@ -30,7 +31,7 @@ class CronController extends Controller
         $next_send_time = date('Y-m-d H:i:00');
 
         $reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->where('is_paused', 0)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
-        //$reports = Report::where('id', 385)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
+        //$reports = Report::where('id', 1)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
         if ($reports && count($reports) > 0) {
             foreach ($reports as $report) {
                 $current_plan = $report->user->current_billing_plan ? $report->user->current_billing_plan : 'free_trial';
@@ -726,15 +727,19 @@ class CronController extends Controller
                 switch ($report->frequency) {
                     case "weekly":
                         $from_date = strtotime('-7 day', $reportDate);
+                        $report_date = date('m/d/Y', $from_date) . ' - ' . date('m/d/Y', $reportDate);
                         break;
                     case "monthly":
                         $from_date = strtotime('-1 month', $reportDate);
+                        $report_date = date('m/d/Y', $from_date) . ' - ' . date('m/d/Y', $reportDate);
                         break;
                     case "yearly":
                         $from_date = strtotime('-1 year', $reportDate);
+                        $report_date = date('m/d/Y', $from_date) . ' - ' . date('m/d/Y', $reportDate);
                         break;
                     default:
                         $from_date = strtotime(date('m/d/Y'));
+                        $report_date = date('m/d/Y', $reportDate);
                 }
                 \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
                 try {
@@ -827,7 +832,7 @@ class CronController extends Controller
                 }
                 $attachments = [];
                 if ($report->attachment_type == 'pdf') {
-                    $html = view('reports.templates.stripe', compact('report', 'stripe_transactions_html', 'total_customers', 'total_charge_amount', 'total_refund_amount', 'total_dispute_amount', 'total_payout_amount', 'stripe_customers_html', 'ad_account_title', 'total_balance', 'logo'))->render();
+                    $html = view('reports.templates.stripe', compact('report', 'stripe_transactions_html', 'total_customers', 'total_charge_amount', 'total_refund_amount', 'total_dispute_amount', 'total_payout_amount', 'stripe_customers_html', 'ad_account_title', 'total_balance', 'logo', 'report_date'))->render();
                     $mpdf = new \Mpdf\Mpdf(['tempDir' => $pdf_dir]);
                     $mpdf->WriteHTML($html);
                     $mpdf->Output($pdf_dir . $pdf_file_name, 'F');

@@ -1,174 +1,3 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html data-editor-version="2" class="sg-campaigns" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
-    <!--[if !mso]><!-->
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/><!--<![endif]-->
-    <!--[if (gte mso 9)|(IE)]>
-    <xml>
-        <o:OfficeDocumentSettings>
-            <o:AllowPNG/>
-            <o:PixelsPerInch>96</o:PixelsPerInch>
-        </o:OfficeDocumentSettings>
-    </xml>
-    <![endif]-->
-    <!--[if (gte mso 9)|(IE)]>
-    <style type="text/css">
-        body {
-            width: 600px;
-            margin: 0 auto;
-        }
-
-        table {
-            border-collapse: collapse;
-        }
-
-        table, td {
-            mso-table-lspace: 0pt;
-            mso-table-rspace: 0pt;
-        }
-
-        img {
-            -ms-interpolation-mode: bicubic;
-        }
-    </style>
-    <![endif]-->
-
-    <style type="text/css">
-        body, p, div {
-            font-family: arial;
-            font-size: 14px;
-        }
-
-        body {
-            color: #000000;
-        }
-
-        body a {
-            color: #1080f2;
-            text-decoration: none;
-        }
-
-        p {
-            margin: 0;
-            padding: 0;
-        }
-
-        table.wrapper {
-            width: 100% !important;
-            table-layout: fixed;
-            -webkit-font-smoothing: antialiased;
-            -webkit-text-size-adjust: 100%;
-            -moz-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-        }
-
-        img.max-width {
-            max-width: 100% !important;
-        }
-
-        .column.of-2 {
-            width: 50%;
-        }
-
-        .column.of-3 {
-            width: 33.333%;
-        }
-
-        .column.of-4 {
-            width: 25%;
-        }
-
-        @media screen and (max-width: 480px) {
-            .box {
-                margin-bottom: 15px;
-            }
-
-            .preheader .rightColumnContent,
-            .footer .rightColumnContent {
-                text-align: left !important;
-            }
-
-            .preheader .rightColumnContent div,
-            .preheader .rightColumnContent span,
-            .footer .rightColumnContent div,
-            .footer .rightColumnContent span {
-                text-align: left !important;
-            }
-
-            .preheader .rightColumnContent,
-            .preheader .leftColumnContent {
-                font-size: 80% !important;
-                padding: 5px 0;
-            }
-
-            table.wrapper-mobile {
-                width: 100% !important;
-                table-layout: fixed;
-            }
-
-            img.max-width {
-                height: auto !important;
-                max-width: 480px !important;
-            }
-
-            a.bulletproof-button {
-                display: block !important;
-                width: auto !important;
-                font-size: 80%;
-                padding-left: 0 !important;
-                padding-right: 0 !important;
-            }
-
-            .columns {
-                width: 100% !important;
-            }
-
-            .column {
-                display: block !important;
-                width: 100% !important;
-                padding-left: 0 !important;
-                padding-right: 0 !important;
-                margin-left: 0 !important;
-                margin-right: 0 !important;
-            }
-        }
-
-        .box {
-            background: #fff;
-            border: 1px solid #ccc;
-        }
-
-        p {
-            text-align: center;
-        }
-
-        h2 {
-            color: #333;
-        }
-
-        table.data-table th {
-            background: #ccc;
-            padding: 3px;
-        }
-
-        table.data-table td {
-            border-bottom: 1px solid #ccc;
-            padding: 4px 0;
-        }
-
-        }
-    </style>
-    <!--End Head user entered-->
-</head>
-<body>
-<!--[if mso]>
-<center>
-    <table>
-        <tr>
-            <td width="580">
-<![endif]-->
 <div style="max-width:580px; margin:0 auto;">
     <center class="wrapper" data-link-color="#1080f2"
             data-body-style="font-size: 14px; font-family: arial; color: #000000; background-color: #ffffff;">
@@ -183,12 +12,6 @@
                                     <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                         <tr>
                                             <td>
-                                                <!--[if mso]>
-                                                <center>
-                                                    <table>
-                                                        <tr>
-                                                            <td width="600">
-                                                <![endif]-->
                                                 <table width="100%" cellpadding="0" cellspacing="0" border="0"
                                                        style="width: 100%; max-width:600px;" align="center">
                                                     <tr>
@@ -202,8 +25,9 @@
                                                                    style="display: none !important; mso-hide: all; visibility: hidden; opacity: 0; color: transparent; height: 0; width: 0;">
                                                                 <tr>
                                                                     <td role="module-content">
-                                                                        <p>%report_date% - Here is your %frequency%
-                                                                            Facebook Ads Report.</p>
+                                                                        <p>{{ $report_date }} - Here is your
+                                                                            Your {{ ucfirst($report->frequency) }}
+                                                                            Stripe report.</p>
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -267,52 +91,30 @@
                                                                                 <td>
                                                                                     <div style="text-align:center;margin:5px 0">
                                                                                         <p style="color:#999;padding:5px 0;margin:0">
-                                                                                            {{ date('m/d/Y', strtotime($report->next_send_time))
-                                                                                            }}</p>
+                                                                                            {{ $report_date }}
+                                                                                        </p>
                                                                                     </div>
                                                                                 </td>
                                                                             </tr>
-
                                                                             </tbody>
                                                                         </table>
                                                                     </td>
                                                                 </tr>
                                                             </table>
-                                                            <table border="0"
-                                                                   cellpadding="0"
-                                                                   cellspacing="0"
-                                                                   align="center"
-                                                                   width="100%"
-                                                                   role="module"
-                                                                   data-type="columns"
-                                                                   data-version="2"
+                                                            <table border="0" cellpadding="0" cellspacing="0"
+                                                                   align="center" width="100%" role="module"
+                                                                   data-type="columns" data-version="2"
                                                                    style="padding:0px 15px 10px 15px;box-sizing:border-box;"
                                                                    bgcolor="">
                                                                 <tr role='module-content'>
                                                                     <td height="100%" valign="top">
-                                                                        <!--[if (gte mso 9)|(IE)]>
-                                                                        <center>
-                                                                            <table cellpadding="0" cellspacing="0"
-                                                                                   border="0" width="100%"
-                                                                                   style="border-spacing:0;border-collapse:collapse;table-layout: fixed;">
-                                                                                <tr>
-                                                                        <![endif]-->
-
-                                                                        <!--[if (gte mso 9)|(IE)]>
-                                                                        <td width="183.333px" valign="top"
-                                                                            style="padding: 0px 0px 0px 0px;border-collapse: collapse;">
-                                                                        <![endif]-->
 
                                                                         <table width="183.333"
                                                                                style="width:183.333px;border-spacing:0;border-collapse:collapse;margin:0px 5px 0px 0px;"
-                                                                               cellpadding="0"
-                                                                               cellspacing="0"
-                                                                               align="left"
-                                                                               border="0"
-                                                                               bgcolor=""
+                                                                               cellpadding="0" cellspacing="0"
+                                                                               align="left" border="0" bgcolor=""
                                                                                class="column column-0 of-3
-                  empty"
-                                                                        >
+                  empty">
                                                                             <tr>
                                                                                 <td style="padding:0px;margin:0px;border-spacing:0;">
                                                                                     <table class="module" role="module"
@@ -336,24 +138,12 @@
                                                                             </tr>
                                                                         </table>
 
-                                                                        <!--[if (gte mso 9)|(IE)]>
-                                                                        </td>
-                                                                        <![endif]-->
-                                                                        <!--[if (gte mso 9)|(IE)]>
-                                                                        <td width="183.333px" valign="top"
-                                                                            style="padding: 0px 0px 0px 0px;border-collapse: collapse;">
-                                                                        <![endif]-->
-
                                                                         <table width="183.333"
                                                                                style="width:183.333px;border-spacing:0;border-collapse:collapse;margin:0px 5px 0px 5px;"
-                                                                               cellpadding="0"
-                                                                               cellspacing="0"
-                                                                               align="left"
-                                                                               border="0"
-                                                                               bgcolor=""
+                                                                               cellpadding="0" cellspacing="0"
+                                                                               align="left" border="0" bgcolor=""
                                                                                class="column column-1 of-3
-                  empty"
-                                                                        >
+                  empty">
                                                                             <tr>
                                                                                 <td style="padding:0px;margin:0px;border-spacing:0;">
                                                                                     <table class="module" role="module"
@@ -377,24 +167,12 @@
                                                                             </tr>
                                                                         </table>
 
-                                                                        <!--[if (gte mso 9)|(IE)]>
-                                                                        </td>
-                                                                        <![endif]-->
-                                                                        <!--[if (gte mso 9)|(IE)]>
-                                                                        <td width="183.333px" valign="top"
-                                                                            style="padding: 0px 0px 0px 0px;border-collapse: collapse;">
-                                                                        <![endif]-->
-
                                                                         <table width="183.333"
                                                                                style="width:183.333px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 5px;"
-                                                                               cellpadding="0"
-                                                                               cellspacing="0"
-                                                                               align="left"
-                                                                               border="0"
-                                                                               bgcolor=""
+                                                                               cellpadding="0" cellspacing="0"
+                                                                               align="left" border="0" bgcolor=""
                                                                                class="column column-2 of-3
-                  empty"
-                                                                        >
+                  empty">
                                                                             <tr>
                                                                                 <td style="padding:0px;margin:0px;border-spacing:0;">
                                                                                     <table class="module" role="module"
@@ -418,53 +196,23 @@
                                                                             </tr>
                                                                         </table>
 
-                                                                        <!--[if (gte mso 9)|(IE)]>
-                                                                        </td>
-                                                                        <![endif]-->
-                                                                        <!--[if (gte mso 9)|(IE)]>
-                                                                        <tr>
-                                                                            </table>
-                                                                            </center>
-                                                                        <![endif]-->
                                                                     </td>
                                                                 </tr>
                                                             </table>
-
-                                                            <table border="0"
-                                                                   cellpadding="0"
-                                                                   cellspacing="0"
-                                                                   align="center"
-                                                                   width="100%"
-                                                                   role="module"
-                                                                   data-type="columns"
-                                                                   data-version="2"
+                                                            <table border="0" cellpadding="0" cellspacing="0"
+                                                                   align="center" width="100%" role="module"
+                                                                   data-type="columns" data-version="2"
                                                                    style="padding:015px 15px 10px 15px;background-color:#f2f2f2;box-sizing:border-box;"
                                                                    bgcolor="#f2f2f2">
                                                                 <tr role='module-content'>
                                                                     <td height="100%" valign="top">
-                                                                        <!--[if (gte mso 9)|(IE)]>
-                                                                        <center>
-                                                                            <table cellpadding="0" cellspacing="0"
-                                                                                   border="0" width="100%"
-                                                                                   style="border-spacing:0;border-collapse:collapse;table-layout: fixed;">
-                                                                                <tr>
-                                                                        <![endif]-->
-
-                                                                        <!--[if (gte mso 9)|(IE)]>
-                                                                        <td width="183.333px" valign="top"
-                                                                            style="padding: 0px 0px 0px 0px;border-collapse: collapse;">
-                                                                        <![endif]-->
 
                                                                         <table width="183.333"
                                                                                style="width:183.333px;border-spacing:0;border-collapse:collapse;margin:0px 5px 0px 0px;"
-                                                                               cellpadding="0"
-                                                                               cellspacing="0"
-                                                                               align="left"
-                                                                               border="0"
-                                                                               bgcolor="#f2f2f2"
+                                                                               cellpadding="0" cellspacing="0"
+                                                                               align="left" border="0" bgcolor="#f2f2f2"
                                                                                class="column column-0 of-3
-                  empty"
-                                                                        >
+                  empty">
                                                                             <tr>
                                                                                 <td style="padding:0px;margin:0px;border-spacing:0;">
                                                                                     <table class="module" role="module"
@@ -488,24 +236,12 @@
                                                                             </tr>
                                                                         </table>
 
-                                                                        <!--[if (gte mso 9)|(IE)]>
-                                                                        </td>
-                                                                        <![endif]-->
-                                                                        <!--[if (gte mso 9)|(IE)]>
-                                                                        <td width="183.333px" valign="top"
-                                                                            style="padding: 0px 0px 0px 0px;border-collapse: collapse;">
-                                                                        <![endif]-->
-
                                                                         <table width="183.333"
                                                                                style="width:183.333px;border-spacing:0;border-collapse:collapse;margin:0px 5px 0px 5px;"
-                                                                               cellpadding="0"
-                                                                               cellspacing="0"
-                                                                               align="left"
-                                                                               border="0"
-                                                                               bgcolor="#f2f2f2"
+                                                                               cellpadding="0" cellspacing="0"
+                                                                               align="left" border="0" bgcolor="#f2f2f2"
                                                                                class="column column-1 of-3
-                  empty"
-                                                                        >
+                  empty">
                                                                             <tr>
                                                                                 <td style="padding:0px;margin:0px;border-spacing:0;">
                                                                                     <table class="module" role="module"
@@ -529,24 +265,12 @@
                                                                             </tr>
                                                                         </table>
 
-                                                                        <!--[if (gte mso 9)|(IE)]>
-                                                                        </td>
-                                                                        <![endif]-->
-                                                                        <!--[if (gte mso 9)|(IE)]>
-                                                                        <td width="183.333px" valign="top"
-                                                                            style="padding: 0px 0px 0px 0px;border-collapse: collapse;">
-                                                                        <![endif]-->
-
                                                                         <table width="183.333"
                                                                                style="width:183.333px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 5px;"
-                                                                               cellpadding="0"
-                                                                               cellspacing="0"
-                                                                               align="left"
-                                                                               border="0"
-                                                                               bgcolor="#f2f2f2"
+                                                                               cellpadding="0" cellspacing="0"
+                                                                               align="left" border="0" bgcolor="#f2f2f2"
                                                                                class="column column-2 of-3
-                  empty"
-                                                                        >
+                  empty">
                                                                             <tr>
                                                                                 <td style="padding:0px;margin:0px;border-spacing:0;">
                                                                                     <table class="module" role="module"
@@ -570,53 +294,22 @@
                                                                             </tr>
                                                                         </table>
 
-                                                                        <!--[if (gte mso 9)|(IE)]>
-                                                                        </td>
-                                                                        <![endif]-->
-                                                                        <!--[if (gte mso 9)|(IE)]>
-                                                                        <tr>
-                                                                            </table>
-                                                                            </center>
-                                                                        <![endif]-->
                                                                     </td>
                                                                 </tr>
                                                             </table>
-
-                                                            <table border="0"
-                                                                   cellpadding="0"
-                                                                   cellspacing="0"
-                                                                   align="center"
-                                                                   width="100%"
-                                                                   role="module"
-                                                                   data-type="columns"
-                                                                   data-version="2"
+                                                            <table border="0" cellpadding="0" cellspacing="0"
+                                                                   align="center" width="100%" role="module"
+                                                                   data-type="columns" data-version="2"
                                                                    style="padding:15px 15px 15px 15px;background-color:#f2f2f2;box-sizing:border-box;"
                                                                    bgcolor="#f2f2f2">
                                                                 <tr role='module-content'>
                                                                     <td height="100%" valign="top">
-                                                                        <!--[if (gte mso 9)|(IE)]>
-                                                                        <center>
-                                                                            <table cellpadding="0" cellspacing="0"
-                                                                                   border="0" width="100%"
-                                                                                   style="border-spacing:0;border-collapse:collapse;table-layout: fixed;">
-                                                                                <tr>
-                                                                        <![endif]-->
 
-                                                                        <!--[if (gte mso 9)|(IE)]>
-                                                                        <td width="280.000px" valign="top"
-                                                                            style="padding: 0px 0px 0px 0px;border-collapse: collapse;">
-                                                                        <![endif]-->
-
-                                                                        <table
-                                                                                style="width:100%;border-spacing:0;border-collapse:collapse;margin:0px 5px 15px 0px;"
-                                                                                cellpadding="0"
-                                                                                cellspacing="0"
-                                                                                align="left"
-                                                                                border="0"
-                                                                                bgcolor="#f2f2f2"
-                                                                                class="data-table column column-0 of-1
-                  empty"
-                                                                        >
+                                                                        <table style="width:100%;border-spacing:0;border-collapse:collapse;margin:0px 5px 15px 0px;"
+                                                                               cellpadding="0" cellspacing="0"
+                                                                               align="left" border="0" bgcolor="#f2f2f2"
+                                                                               class="data-table column column-0 of-1
+                  empty">
                                                                             <tr>
                                                                                 <td style="padding:0px;margin:0px;border-spacing:0;">
                                                                                     <table class="module" role="module"
@@ -627,11 +320,11 @@
                                                                                         <tr>
                                                                                             <td height="100%"
                                                                                                 valign="top">
-                                                                                                <h2>New Customers</h2>
-                                                                                                {!! $stripe_customers_html !!}
+                                                                                                <h2>New
+                                                                                                    Customers</h2> {!! $stripe_customers_html !!}
 
-                                                                                                <h2>Recent Payments</h2>
-                                                                                                {!! $stripe_transactions_html !!}
+                                                                                                <h2>Recent
+                                                                                                    Payments</h2> {!! $stripe_transactions_html !!}
                                                                                             </td>
                                                                                         </tr>
                                                                                     </table>
@@ -641,47 +334,21 @@
                                                                     </td>
                                                                 </tr>
                                                             </table>
-
                                                         </td>
                                                     </tr>
                                                 </table>
-
-
-                                                <table border="0"
-                                                       cellpadding="0"
-                                                       cellspacing="0"
-                                                       align="center"
-                                                       width="100%"
-                                                       role="module"
-                                                       data-type="columns"
-                                                       data-version="2"
+                                                <table border="0" cellpadding="0" cellspacing="0" align="center"
+                                                       width="100%" role="module" data-type="columns" data-version="2"
                                                        style="padding:0px 0px 25px 0px;background-color:#3f3f3f;box-sizing:border-box;"
                                                        bgcolor="#3f3f3f">
                                                     <tr role='module-content'>
                                                         <td height="100%" valign="top">
-                                                            <!--[if (gte mso 9)|(IE)]>
-                                                            <center>
-                                                                <table cellpadding="0" cellspacing="0" border="0"
-                                                                       width="100%"
-                                                                       style="border-spacing:0;border-collapse:collapse;table-layout: fixed;">
-                                                                    <tr>
-                                                            <![endif]-->
-
-                                                            <!--[if (gte mso 9)|(IE)]>
-                                                            <td width="600.000px" valign="top"
-                                                                style="padding: 0px 0px 0px 0px;border-collapse: collapse;">
-                                                            <![endif]-->
 
                                                             <table width="600.000"
                                                                    style="width:600.000px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 0px;"
-                                                                   cellpadding="0"
-                                                                   cellspacing="0"
-                                                                   align="left"
-                                                                   border="0"
-                                                                   bgcolor="#3f3f3f"
-                                                                   class="column column-0 of-1
-                  empty"
-                                                            >
+                                                                   cellpadding="0" cellspacing="0" align="left"
+                                                                   border="0" bgcolor="#3f3f3f"
+                                                                   class="column column-0 of-1 empty">
                                                                 <tr>
                                                                     <td style="padding:0px;margin:0px;border-spacing:0;">
 
@@ -737,45 +404,24 @@
                                                                                 <a class="Unsubscribe--unsubscribePreferences"
                                                                                    href="[Unsubscribe_Preferences]"
                                                                                    style="color:#ffffff">Unsubscribe
-                                                                                    Preferences</a></p></div>
+                                                                                    Preferences</a></p>
+                                                                        </div>
                                                                     </td>
                                                                 </tr>
                                                             </table>
 
-                                                            <!--[if (gte mso 9)|(IE)]>
-                                                            </td>
-                                                            <![endif]-->
-                                                            <!--[if (gte mso 9)|(IE)]>
-                                                            <tr>
-                                                                </table>
-                                                                </center>
-                                                            <![endif]-->
                                                         </td>
                                                     </tr>
                                                 </table>
-
                                             </td>
                                         </tr>
                                     </table>
-                                    <!--[if mso]>
-                                    </td></tr></table>
-                                    </center>
-                                    <![endif]-->
                                 </td>
                             </tr>
                         </table>
                     </td>
                 </tr>
             </table>
-            </td>
-            </tr>
-            </table>
         </div>
     </center>
 </div>
-<!--[if mso]>
-</td></tr></table>
-</center>
-<![endif]-->
-</body>
-</html>
