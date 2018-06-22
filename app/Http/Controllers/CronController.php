@@ -848,7 +848,7 @@ class CronController extends Controller
                 foreach ($recipients as $email) {
                     $stripe_email_substitutions = [
                         '%frequency%' => (string)ucfirst($report->frequency),
-                        '%report_date%' => (string)date('m/d/Y', strtotime($report->next_send_time)),
+                        '%report_date%' => (string) $report_date,
                         '%account%' => $ad_account_title,
                         '%balance%' => (string)calculateStripeAmount($total_balance),
                         '%refunds%' => (string)calculateStripeAmount($total_refund_amount),
