@@ -297,7 +297,10 @@ if (!function_exists('make_schedules')) {
         if (validateDate($next_send_time)) {
             $next_send_str_time = strtotime($next_send_time);
             date_default_timezone_set('UTC');
-            return date('Y-m-d H:i:s', $next_send_str_time);
+            if ($frequency == 'daily') {
+                return date('Y-m-d H:i:s', $next_send_str_time);
+            }
+            return date('Y-m-d 19:00:00', $next_send_str_time);
         }
         return false;
     }
