@@ -278,7 +278,7 @@ if (!function_exists('make_schedules')) {
         }
         if ($frequency == 'monthly') {
             $frequency_date = $ends_at;
-            if ($frequency_date > $current_date) {
+            if ($frequency_date >= $current_date) {
                 $next_send_time = date('Y-m-') . sprintf('%02d', $frequency_date) . ' 19:00:00';
             } else {
                 $next_send_time = date('Y-') . date('m-', strtotime('first day of +1 month')) . sprintf('%02d', $frequency_date) . ' 19:00:00';
@@ -383,6 +383,6 @@ if (!function_exists('calculateStripeAmount')) {
 
     function calculateStripeAmount($amount)
     {
-        return number_format((float) abs($amount / 100), 2, '.', '');
+        return number_format((float)abs($amount / 100), 2, '.', '');
     }
 }
