@@ -99,6 +99,7 @@ if (!function_exists('validateTokens')) {
         $accounts = \App\Models\Account::where('user_id', auth()->user()->id)->where('status', 1)->get();
         $fb_access_token = \Session::get('fb_access_token');
         $ga_access_token = \Session::get('ga_access_token');
+        $gc_access_token = \Session::get('gc_access_token');
         foreach ($accounts as $account) {
 
             // Check Facebook Token Validation
@@ -203,6 +204,21 @@ if (!function_exists('adwords_connect')) {
     }
 }
 
+if (!function_exists('searchconsole_connect')) {
+    function searchconsole_connect()
+    {
+        $client = new \Google_Client();
+        $client->setAuthConfig(main_path('google.json'));
+        $client->addScope([\Google_Service_Oauth2::USERINFO_EMAIL, \Google_Service_Webmasters::WEBMASTERS_READONLY]);
+        $client->setRedirectUri(route('connect.searchconsole.callback'));
+        $client->setAccessType('offline');
+        $client->setIncludeGrantedScopes(true);
+        $client->setApprovalPrompt('force');
+        return $client;
+    }
+}
+
+
 if (!function_exists('adwords_token')) {
     function adwords_token($user_id = 0)
     {
@@ -217,6 +233,16 @@ if (!function_exists('stripe_token')) {
     {
         $user_id = $user_id ? $user_id : auth()->user()->id;
         $token = \App\Models\Account::where('type', 'stripe')->where('user_id', $user_id)->pluck('token')->first();
+        return $token;
+    }
+}
+
+
+if (!function_exists('searchconsole_token')) {
+    function searchconsole_token($user_id = 0)
+    {
+        $user_id = $user_id ? $user_id : auth()->user()->id;
+        $token = \App\Models\Account::where('type', 'searchconsole')->where('user_id', $user_id)->pluck('token')->first();
         return $token;
     }
 }

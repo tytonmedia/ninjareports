@@ -25,6 +25,10 @@ class Report extends Model
     {
         return $this->hasOne('App\Models\AdAccount', 'id', 'ad_account_id');
     }
+    public function console_property()
+    {
+        return $this->hasOne('App\Models\ConsoleProperty', 'id', 'property_url','permissions');
+    }
 
     public function property()
     {

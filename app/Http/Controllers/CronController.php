@@ -286,7 +286,58 @@ class CronController extends Controller
                 } catch (AuthorizationException $e) {
                 }
             }
-            if ($report->account->type == 'analytics') {
+            if ($report->account->type == 'searchconsole') {
+                $to_date = date('Y-m-d', strtotime($report->next_send_time));
+                $report->user->timezone ? date_default_timezone_set($report->user->timezone) : '';
+                $reportDate = date("m/d/Y");
+                date_default_timezone_set('Europe/London');
+                switch ($report->frequency) {
+                    case "weekly":
+                        $from_date = date('Y-m-d', strtotime('-7 day', strtotime($report->next_send_time)));
+                        $reportDate = date("m/d/Y", strtotime("-7 Days")) . "-" . date("m/d/Y");
+                        break;
+                    case "monthly":
+                        $from_date = date('Y-m-d', strtotime('-1 month', strtotime($report->next_send_time)));
+                        $reportDate = date("m/d/Y", strtotime("-30 Days")) . "-" . date("m/d/Y");
+                        break;
+                    case "yearly":
+                        $from_date = date('Y-m-d', strtotime('-1 year', strtotime($report->next_send_time)));
+                        $reportDate = date("Y");
+                        break;
+                    default:
+                        $from_date = 'today';
+                        $to_date = 'today';
+                }
+
+                $client = searchconsole_connect();
+                $client->setAccessToken(searchconsole_token($report->user_id));
+
+                                //Creating Webmaster Service
+                $webmastersService = new Google_Service_Webmasters($client);
+
+                //Creating Request
+                $request = new Google_Service_Webmasters_SearchAnalyticsQueryRequest();
+                $request->setStartDate($from_date);
+                $request->setEndDate($to_date);
+                $request->setDimensions( array('query') );
+
+                $requestWebsite = $report->property; //The website I have access to
+
+                //Querying Webmaster
+                $qsearch = $webmastersService->searchanalytics->query($requestWebsite, $request);
+                var_dump($qsearch);
+                file_put_contents('C:\wamp64\www\searchconsole_sent.txt', $qsearch);
+                    Schedule::create([
+                        'user_id' => $report->user_id,
+                        'report_id' => $report->id,
+                        'recipient' => $email,
+                    ]);
+                    $this->sendLimit($report);
+
+                    // file_put_contents('analytics_sent.txt', $encodedString);
+                }
+
+                if ($report->account->type == 'analytics') {
                 $to_date = date('Y-m-d', strtotime($report->next_send_time));
                 $report->user->timezone ? date_default_timezone_set($report->user->timezone) : '';
                 $reportDate = date("m/d/Y");

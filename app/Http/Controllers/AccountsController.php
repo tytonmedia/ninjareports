@@ -151,8 +151,62 @@ class AccountsController extends Controller
                 $status = 'error';
             }
         }
+        if ($type == 'searchconsole') {
+          $client = searchconsole_connect();
+            $client->setAccessToken(searchconsole_token());
+            $console = new \Google_Service_Webmasters($client);
+            try {
+                $accounts = $console->sites->listSites()->siteEntry;
+                $consoleaccounts = [];
+                if (count($accounts) > 0) {
+                    foreach ($accounts as $account) {
+                        $consoleaccounts[] = [
+                            'property_url' => $account->siteUrl,
+                            'permissions' => $account->permissionLevel,
+                        ];
+                    }
+                }
+                $status = 'success';
+            } catch (\Google_Service_Exception $e) {
+                $status = 'error';
+                
+            } catch (\Google_Exception $e) {
+                $status = 'error';
+
+            }
+        }
         if ($status == 'success') {
             $account = Account::where('type', $type)->where('user_id', auth()->user()->id)->where('status', 1)->first();
+            // if search console
+             if ($consoleaccounts && count($consoleaccounts) > 0) {
+                 $existing_gc_accounts = ConsoleProperty::where('account_id', $account->id)->where('user_id', auth()->user()->id)->get();
+                $console_accounts = [];
+                if ($existing_gc_accounts && count($existing_gc_accounts) > 0) {
+                    foreach ($existing_gc_accounts as $existing_gc_account) {
+                        $console_accounts[] = $existing_gc_account->account_id;
+                    }
+                }
+                $console_account_create_array = [
+                        'user_id' => auth()->user()->id,
+                        'account_id' => $account->id,
+                        'property_url' => $consoleaccount->property_url,
+                        'permissions' => (string)$consoleaccount->permissions,
+                    ];
+
+                  $local_console_account = ConsoleProperty::where('account_id', $account->id)
+                        ->where('user_id', auth()->user()->id)
+                        ->where('ad_account_id', (string)$consoleaccount['id'])
+                        ->first();
+                    if ($local_console_account) {
+                        ConsoleProperty::where('account_id', $account->id)
+                            ->where('user_id', auth()->user()->id)
+                            ->where('property_url', (string)$consoleaccount['property_url'])
+                            ->update($ad_account_create_array);
+                    } else {
+                        ConsoleProperty::create($console_account_create_array);
+                    }
+             }
+
             if ($adaccounts && count($adaccounts) > 0) {
                 $existing_ad_accounts = AdAccount::where('account_id', $account->id)->where('user_id', auth()->user()->id)->get();
                 $ad_accounts = [];
