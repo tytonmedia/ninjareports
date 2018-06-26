@@ -396,7 +396,7 @@
                                                                              class="module unsubscribe-css__unsubscribe___2CDlR"
                                                                              role="module" data-type="unsubscribe"
                                                                              style="color:#ffffff;font-size:11px;line-height:20px;padding:16px 16px 16px 16px;text-align:center">
-                                                                            <p style="font-family:[Sender_Name];font-size:11px;line-height:20px">
+                                                                            <p style="font-size:11px;line-height:20px">
                                                                                 <a class="Unsubscribe--unsubscribeLink"
                                                                                    href="<%asm_global_unsubscribe_raw_url%>"
                                                                                    style="color:#ffffff">Unsubscribe</a>
