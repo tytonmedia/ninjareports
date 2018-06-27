@@ -144,6 +144,41 @@ class ConnectController extends Controller
         return redirect()->route('accounts.index');
     }
 
+     public function searchconsole()
+    {
+
+        $client = searchconsole_connect();
+        return redirect($client->createAuthUrl());
+    }
+
+    public function searchconsoleCallback()
+    {
+        $client = searchconsole_connect();
+        $code = Input::get('code');
+        $client->authenticate($code);
+        $token = $client->getAccessToken();
+        $client->setAccessToken($token);
+        $user = new \Google_Service_Oauth2($client);
+        Session::put('sc_access_token', 1);
+        $account = Account::where('type', 'searchconsole')->where('user_id', auth()->user()->id)->first();
+        $account_update_array = [
+            'user_id' => auth()->user()->id,
+            'type' => 'searchconsole',
+            'title' => 'Google Search Console',
+            'email' => $user->userinfo->get()->email,
+            'status' => 1,
+            'is_active' => 1,
+            'token' => json_encode($token),
+        ];
+        if ($account) {
+            Account::where('id', $account->id)->update($account_update_array);
+        } else {
+            Account::create($account_update_array);
+
+        }
+        return redirect()->route('accounts.index');
+    }
+
     public function adwords()
     {
         $oauth2 = adwords_connect();

@@ -122,10 +122,9 @@
                     if (response.status == 'success') {
                         toastr.success('Properties synchronized.');
                         $('.synchronized_ad_accounts').html(response.html);
-                        $('#test_report').show();
+                     //   $('#test_report').show();
                     } else {
                         toastr.error('Something went wrong. Please try again.');
-                        $('#test_report').hide();
                     }
                 },
                 error: function () {

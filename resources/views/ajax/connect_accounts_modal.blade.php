@@ -37,6 +37,14 @@
                                     <td>{!! in_array('adword', $accounts) ? '<button class="btn btn-xs btn-default">Connected</button>':'
 										<a class="btn btn-xs btn-black" href="'.route('connect.adwords').'">Connect</a>' !!}</td>
                                 </tr>
+                                   <tr>
+                                    <td>
+                                        <img src="{{ asset('img/searchconsole.png') }}"/>
+                                    </td>
+                                    <td>Google Search Console</td>
+                                    <td>{!! in_array('searchconsole', $accounts) ? '<button class="btn btn-xs btn-default">Connected</button>':'
+                                        <a class="btn btn-xs btn-black" href="'.route('connect.searchconsole').'">Connect</a>' !!}</td>
+                                </tr>
                                 <tr>
                                     <td>
                                         <img src="{{ asset('img/stripe.png') }}"/>

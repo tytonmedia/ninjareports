@@ -13,3 +13,6 @@ yarn-error.log
 google.json
 /nbproject
 /public/files/
+.env.example
+composer.lock
+.env.example
