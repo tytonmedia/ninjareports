@@ -84,9 +84,8 @@
 										<div class="col-md-1">
 											<label class="control-label color-black-bold">at</label>
 										</div>
-										<div class="col-md-5">
+										<div class="col-md-5 input-group">
 											<input type="text" name="ends_at" readonly class="custom-readonly form-control timepicker" />
-											<div class="help-block"><a style="font-size: 12px" href="{{ url('settings') }}">Set Timezone</a> to send reports at the correct time.</div>
 										</div>
 									</div>
 								</div>
@@ -111,7 +110,7 @@
 										<label class="control-label color-black-bold">Attachment</label>
 									</div>
 									<div class="col-md-9">
-										<div id="tab" class="btn-group btn-group-justified" data-toggle="buttons">
+										<div id="tab" class="btn-group btn-group-justified attachment" data-toggle="buttons">
 											<a href="#none" class="btn btn-default{{ old('attachment_type') == 'none' ? ' active': (!old('attachment_type') ? ' active':'') }}"
 											 data-toggle="tab">
 												<input type="radio" name="attachment_type" value="none" {{ old( 'attachment_type')=='none' ? 'checked': (!old(
@@ -131,7 +130,7 @@
 								</div>
 								<div class="form-group">
 									<div class="col-md-3">
-										<label class="control-label color-black-bold">Subject</label>
+										<label class="control-label color-black-bold">Subject Line</label>
 									</div>
 									<div class="col-md-9">
 										<input class="form-control" name="email_subject" value="{{ old('email_subject') }}" />
@@ -146,7 +145,6 @@
 									</div>
 									<div class="col-md-9">
 										<input class="btn btn-lg btn-primary" type="submit" name="submit" value="Create Report" />
-										<a class="btn btn-success btn-lg" href="#" id="test_report" style="display:none;">Send Example Report</a>
 									</div>
 								</div>
 							</div>

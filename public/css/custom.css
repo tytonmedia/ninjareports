@@ -4,6 +4,8 @@ h2.title {
     font-weight: bold;
 }
 #spark-app {padding-bottom:30px;}
+.attachment > .btn:first-child {border-radius: 3px 0px 0px 3px;}
+.attachment > .btn:first-child {border-radius:2px;}
 .navbar-icon {
     color: #333 ;
 }
@@ -96,7 +98,7 @@ ul li.upgrade a, .navbar .dropdown-menu>li.upgrade>a i {color:#1080F2;}
     background-color: #fff;
     opacity: 1;
 }
-label.help {font-size:12px;color:#ccc;}
+label.help {font-size:12px;color:#999;font-family: arial;}
 .table-responsive .reports_table td {
     padding: 20px 5px;
 }
