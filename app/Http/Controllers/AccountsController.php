@@ -162,10 +162,12 @@ class AccountsController extends Controller
                 $consoleaccounts = [];
                 if (count($accounts) > 0) {
                     foreach ($accounts as $account) {
+                        if($account->permissionLevel != 'siteUnverifiedUser') {
                         $consoleaccounts[] = [
                             'siteUrl' => $account->siteUrl,
                             'permissions' => $account->permissionLevel,
                         ];
+                        }
                     }
                 }
                 $status = 'success';
