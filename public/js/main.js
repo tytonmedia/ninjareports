@@ -81,32 +81,32 @@
         });
 
         // send test email button and confirmation
-          $(document).on('click', '#test_report', function () {
-             toastr.remove();
-             var btn = $(this);
-             var loader = btn.find('.nr-loader');
-            var value = $('.ad-account-types').val();
-             loader.removeClass('hidden');
-             var ajaxurl = site_url + 'reports/tester/' + value;
-             $.ajax({
-                url: ajaxurl,
-                success: function (response) {
-                    if (response.status == 'success') {
-                      //alert('test email sent!');
+        //   $(document).on('click', '#test_report', function () {
+        //      toastr.remove();
+        //      var btn = $(this);
+        //      var loader = btn.find('.nr-loader');
+        //     var value = $('.ad-account-types').val();
+        //      loader.removeClass('hidden');
+        //      var ajaxurl = site_url + 'reports/tester/' + value;
+        //      $.ajax({
+        //         url: ajaxurl,
+        //         success: function (response) {
+        //             if (response.status == 'success') {
+        //               //alert('test email sent!');
 
-                      toastr.success('Example report sent to the account email.');
-                       $('#test_report').hide();
-                    } else {
-                        toastr.error('Something went wrong. Please try again.');
-                       alert(response);
-                    }
-                },
-                error: function () {
-                     loader.addClass('hidden');
-                    toastr.error('Something went wrong. Please try again.');
-                }
-            });
-        });
+        //               toastr.success('Example report sent to the account email.');
+        //                $('#test_report').hide();
+        //             } else {
+        //                 toastr.error('Something went wrong. Please try again.');
+        //                alert(response);
+        //             }
+        //         },
+        //         error: function () {
+        //              loader.addClass('hidden');
+        //             toastr.error('Something went wrong. Please try again.');
+        //         }
+        //     });
+        // });
 
         // Sync Facebook Ad Accounts
         $(document).on('click', '.nr_sync_ad_accounts_button', function () {

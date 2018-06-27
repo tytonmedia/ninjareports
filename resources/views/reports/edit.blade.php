@@ -173,7 +173,7 @@
 										<label class="control-label color-black-bold">Attachment</label>
 									</div>
 									<div class="col-md-9">
-										<div id="tab" class="btn-group btn-group-justified" data-toggle="buttons">
+										<div id="tab" class="btn-group btn-group-justified attachment" data-toggle="buttons">
 											<a href="#none" class="btn btn-default{{ old('attachment_type') == 'none' ? ' active': ($report->attachment_type == 'none' ? ' active':'') }}"
 											 data-toggle="tab">
 												<input type="radio" name="attachment_type" value="none" {{ old( 'attachment_type')=='none' ? ' checked': ($report->attachment_type == 'none' ? ' checked': '') }} />None
@@ -192,7 +192,7 @@
 								</div>
 								<div class="form-group">
 									<div class="col-md-3">
-										<label class="control-label color-black-bold">Subject</label>
+										<label class="control-label color-black-bold">Subject Line</label>
 									</div>
 									<div class="col-md-9">
 										<input class="form-control" name="email_subject" value="{{ old('email_subject') ? old('email_subject') : $report->email_subject }}" />
