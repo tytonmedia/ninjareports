@@ -19,7 +19,7 @@
                                     </td>
                                     <td>Facebook Ads</td>
                                     <td>{!! in_array('facebook', $accounts) ? '<button class="btn btn-xs btn-default">Connected</button>':'
-										<a class="btn btn-xs btn-default" disabled="disabled" href="#">Coming Soon...</a>' !!}</td>
+										<a class="btn btn-xs btn-default" disabled="disabled" href="'.route('connect.facebook').'">Coming Soon...</a>' !!}</td>
                                 </tr>
                                 <tr>
                                     <td>
