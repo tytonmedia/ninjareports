@@ -10,7 +10,7 @@
             </div>
             @endif
             @include('common.flash')
-            <div class="panel panel-default panel-accounts">
+            <div class="panel panel-default panel-accounts panel-report-list">
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -74,14 +74,20 @@
                                             <td>{{ date('m/d/Y', strtotime($report->next_send_time)) }} <i>at</i> {{ date('h:i A', strtotime($report->next_send_time)) }}</td>
                                             @endif
                                             <td>
-                                                <a href="{{ route('reports.edit', $report->id) }}"
-                                                   class="btn btn-xs btn-black margin-top-5">Edit</a>
-                                                <a onClick="return confirm('Are you sure you want to delete this report?')"
-                                                   href="{{ route('reports.delete', $report->id) }}"
-                                                   class="btn btn-xs btn-black margin-top-5">Delete</a>
-                                                <button data-report_id="{{ $report->id }}"
-                                                        class="btn btn-black toggle_report margin-top-5"
-                                                        data-status="{{ $is_paused ? 'yes' : 'no' }}">{{ $is_paused ? 'Start' : 'Pause' }}</button>
+                                                <div class="dropdown">
+                                              <button class="btn btn-black dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                Action
+                                                <span class="caret"></span>
+                                              </button>
+                                              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                <li><a href="{{ route('reports.edit', $report->id) }}" class="">Edit</a></li>
+                                                <li>   <button data-report_id="{{ $report->id }}" class="toggle_report"
+                                                                                                    data-status="{{ $is_paused ? 'yes' : 'no' }}">{{ $is_paused ? 'Start' : 'Pause' }}</button></li>
+                                                <li>    <a onClick="return confirm('Are you sure you want to delete this report?')"
+                                                                                               href="{{ route('reports.delete', $report->id) }}"
+                                                                                               class="">Delete</a></li>
+                                              </ul>
+                                            </div>
                                             </td>
                                         </tr>
                                         @endforeach
