@@ -92,10 +92,10 @@ class AccountsController extends Controller
                 $status = 'success';
             } catch (\Facebook\Exceptions\FacebookResponseException $e) {
                 $status = 'error';
-                \Log::error($e);
+                Log::error($e);
             } catch (\Facebook\Exceptions\FacebookSDKException $e) {
                 $status = 'error';
-                \Log::error($e);
+                Log::error($e);
             }
         }
 
@@ -117,8 +117,10 @@ class AccountsController extends Controller
                 $status = 'success';
             } catch (\Google_Service_Exception $e) {
                 $status = 'error';
+                Log::error($e);
             } catch (\Google_Exception $e) {
                 $status = 'error';
+                Log::error($e);
             }
         }
         if ($type == 'adword') {
@@ -305,16 +307,20 @@ class AccountsController extends Controller
                                     $status = 'success';
                                 } catch (\Google_Service_Exception $e) {
                                     $status = 'error';
+                                    Log::error($e);
                                 } catch (\Google_Exception $e) {
                                     $status = 'error';
+                                    Log::error($e);
                                 }
                             }
                         }
                         $status = 'success';
                     } catch (\Google_Service_Exception $e) {
                         $status = 'error';
+                        Log::error($e);
                     } catch (\Google_Exception $e) {
                         $status = 'error';
+                        Log::error($e);
                     }
                 }
             }
