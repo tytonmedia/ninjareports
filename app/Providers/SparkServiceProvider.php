@@ -52,6 +52,7 @@ class SparkServiceProvider extends ServiceProvider
     public function booted()
     {
         Spark::plan('Free Trial', 'free_trial')
+            ->archived()
             ->price(0.00)
             ->features([
                 'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '5 Reports/month',
@@ -64,21 +65,21 @@ class SparkServiceProvider extends ServiceProvider
             ]);    
 
         Spark::plan('Business', 'business')
-            ->price(50.00)
+            ->price(25.00)
             ->features([
                 'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '300 Reports/month', 'Support', 'PDF Attachments',
             ]);
 
         Spark::plan('Premium', 'premium')
-            ->price(100.00)
+            ->price(55.00)
             ->features([
                 'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '800 Reports/month', 'Support', 'PDF Attachments',
             ]);
 
         Spark::plan('White Label', 'white_label')
-            ->price(150.00)
+            ->price(75.00)
             ->features([
-                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '1500 Reports/month', 'Support', 'PDF Attachments', 'Your Own Logo on Reports',
+                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '1500 Reports/month', 'Support', 'PDF Attachments', 'Logo on Reports',
             ]);
     }
 }
