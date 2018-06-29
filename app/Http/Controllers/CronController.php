@@ -33,8 +33,8 @@ class CronController extends Controller
         }
         $next_send_time = date('Y-m-d H:i:00');
 
-        //$reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->where('is_paused', 0)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
-        $reports = Report::where('id', 1)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
+        $reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->where('is_paused', 0)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
+        //$reports = Report::where('id', 1)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
         if ($reports && count($reports) > 0) {
             foreach ($reports as $report) {
                 $current_plan = $report->user->current_billing_plan ? $report->user->current_billing_plan : 'free_trial';
