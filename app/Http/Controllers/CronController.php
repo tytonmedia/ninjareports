@@ -9,6 +9,7 @@ use App\Models\Plan;
 use App\Models\Report;
 use App\Models\Schedule;
 use date;
+use Google\AdsApi\AdWords\v201806\cm\ApiException;
 use Mpdf\MpdfException;
 use Session;
 use \FacebookAds\Http\Exception\AuthorizationException;
@@ -101,11 +102,6 @@ class CronController extends Controller
                     $campaigns = $fb_ad_account->getCampaigns([CampaignFields::ID, CampaignFields::NAME], ['limit' => 5]);
                     $campaigns_insights = [];
                     if ($campaigns && count($campaigns) > 0) {
-                        $encodedString = json_encode($campaigns);
-
-                        //Save the JSON string to a text file.
-                        file_put_contents('facebook_array.txt', $encodedString);
-
                         foreach ($campaigns as $campaign) {
                             $cinsights = $campaign->getInsights($fields, $params);
                             foreach ($cinsights as $insight) {
@@ -496,22 +492,28 @@ class CronController extends Controller
                         $to_date = date('Ymd', strtotime($report->next_send_time));
                         $from_date = date('Ymd', strtotime('-1 year', strtotime($report->next_send_time)));
                         $during = $from_date . ',' . $to_date;
-                        $reportDate = date("Y");
+                        $reportDate = date("Y", strtotime("-1 year")) . "-" . date("Y");
                         break;
                     default:
                         $during = 'TODAY';
                 }
                 $session = adwords_session($report->ad_account->ad_account_id, $report->user_id);
-                $reportQuery = 'SELECT CampaignName, Clicks, Impressions, Ctr, Cost, AverageCpm, AverageCpc , CountryCriteriaId, Device FROM GEO_PERFORMANCE_REPORT DURING ' . $during;
-
                 $reportDownloader = new \Google\AdsApi\AdWords\Reporting\v201806\ReportDownloader($session);
                 $reportSettingsOverride = (new \Google\AdsApi\AdWords\ReportSettingsBuilder())
                     ->includeZeroImpressions(false)
                     ->build();
-                $reportDownloadResult = $reportDownloader->downloadReportWithAwql(
-                    $reportQuery, \Google\AdsApi\AdWords\Reporting\v201806\DownloadFormat::CSV, $reportSettingsOverride);
+                $top_5_campaigns = $this->adwords_top_5_campaigns($during, $reportDownloader, $reportSettingsOverride);
 
-                $campaigns_adword_data = str_getcsv($reportDownloadResult->getAsString(), "\n");
+                $reportQuery = 'SELECT CampaignName, Clicks, Impressions, Ctr, Cost, AverageCpm, AverageCpc , CountryCriteriaId, Device FROM GEO_PERFORMANCE_REPORT DURING ' . $during;
+
+                $campaigns_adword_data = [];
+                try {
+                    $reportDownloadResult = $reportDownloader->downloadReportWithAwql(
+                        $reportQuery, \Google\AdsApi\AdWords\Reporting\v201806\DownloadFormat::CSV, $reportSettingsOverride);
+                    $campaigns_adword_data = str_getcsv($reportDownloadResult->getAsString(), "\n");
+                } catch (ApiException $e) {
+                }
+
                 $total_clicks = 'No data';
                 $total_impressions = 'No data';
                 $total_ctr = 'No data';
@@ -521,7 +523,6 @@ class CronController extends Controller
                 $devices_graph_url = 'no_data';
                 $locations_graph_url = 'no_data';
                 $final_adword_data = [];
-                $top_5_campaigns = '';
                 if (is_array($campaigns_adword_data) && count($campaigns_adword_data) > 0) {
                     foreach ($campaigns_adword_data as $report_data_key => $report_data) {
                         if ($report_data_key === 0 || $report_data_key === 1) {
@@ -529,7 +530,6 @@ class CronController extends Controller
                         }
                         $final_adword_data[] = explode(',', $report_data);
                     }
-                    $top_5_campaigns_array = [];
                     $google_adwords_ads_data = [];
                     if (count($final_adword_data) > 0) {
                         $operating_system_result = [];
@@ -623,19 +623,9 @@ class CronController extends Controller
                         $total_spend = $total_data[4];
                         $total_cpm = number_format(($total_data[5] / 1000000), 2);
                         $total_cpc = number_format(($total_data[6] / 100000), 2);
-                        $top_5_campaigns_array = array_slice($final_adword_data, 0, 5);
+
                     }
-                    if (count($top_5_campaigns_array) > 0) {
-                        $top_5_campaigns .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;">Campaign</th><th style="background:#666;color:#fff;padding:5px;">Clicks</th><th style="background:#666;color:#fff;padding:5px;">Impressions</th><th style="background:#666;color:#fff;padding:5px;">CTR</th><th style="background:#666;color:#fff;padding:5px;">CPM</th><th style="background:#666;color:#fff;padding:5px;">CPC</th></tr>';
-                        foreach ($top_5_campaigns_array as $campaign_array) {
-                            $ad_cpc = number_format((float)($campaign_array[6] / 100000), 2);
-                            $ad_cpm = number_format((float)($campaign_array[5] / 100000), 2);
-                            $top_5_campaigns .= '<tr><td>' . $campaign_array[0] . '</td><td>' . $campaign_array[1] . '</td><td>' . $campaign_array[2] . '</td><td>' . $campaign_array[3] . '</td><td>$' . $ad_cpm . '</td><td>$' . $ad_cpc . '</td></tr>';
-                        }
-                        $top_5_campaigns .= '</tbody></table>';
-                    } else {
-                        $top_5_campaigns = '<tr><h3><center>No data</center></h3></tr>';
-                    }
+
                 }
 
                 if ($report->attachment_type == 'pdf') {
@@ -895,6 +885,43 @@ class CronController extends Controller
         }
 
         return $attachments;
+    }
+
+    public function adwords_top_5_campaigns($during, $reportDownloader, $reportSettingsOverride)
+    {
+        $top_5_campaigns = '';
+        $top_5_campaigns_array = [];
+        $final_top_5_adword_data = [];
+        $top_5_campaigns_report_query = 'SELECT CampaignName, Clicks, Impressions, Ctr, AverageCpm, AverageCpc FROM CAMPAIGN_PERFORMANCE_REPORT DURING ' . $during;
+        try {
+            $reportDownloadResult = $reportDownloader->downloadReportWithAwql(
+                $top_5_campaigns_report_query, \Google\AdsApi\AdWords\Reporting\v201806\DownloadFormat::CSV, $reportSettingsOverride);
+            $top_5_campaigns_adword_data = str_getcsv($reportDownloadResult->getAsString(), "\n");
+            if (is_array($top_5_campaigns_adword_data) && count($top_5_campaigns_adword_data) > 0) {
+                foreach ($top_5_campaigns_adword_data as $report_data_key => $report_data) {
+                    if ($report_data_key === 0 || $report_data_key === 1) {
+                        continue;
+                    }
+                    $final_top_5_adword_data[] = explode(',', $report_data);
+                }
+                if (count($final_top_5_adword_data) > 0) {
+                    $top_5_campaigns_array = array_slice($final_top_5_adword_data, 0, 5);
+                }
+            }
+        } catch (ApiException $e) {
+        }
+        if (count($top_5_campaigns_array) > 0) {
+            $top_5_campaigns .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;">Campaign</th><th style="background:#666;color:#fff;padding:5px;">Clicks</th><th style="background:#666;color:#fff;padding:5px;">Impressions</th><th style="background:#666;color:#fff;padding:5px;">CTR</th><th style="background:#666;color:#fff;padding:5px;">CPM</th><th style="background:#666;color:#fff;padding:5px;">CPC</th></tr>';
+            foreach ($top_5_campaigns_array as $campaign_array) {
+                $ad_cpc = number_format((float)($campaign_array[5] / 100000), 2);
+                $ad_cpm = number_format((float)($campaign_array[4] / 100000), 2);
+                $top_5_campaigns .= '<tr><td>' . $campaign_array[0] . '</td><td>' . $campaign_array[1] . '</td><td>' . $campaign_array[2] . '</td><td>' . $campaign_array[3] . '</td><td>$' . $ad_cpm . '</td><td>$' . $ad_cpc . '</td></tr>';
+            }
+            $top_5_campaigns .= '</tbody></table>';
+        } else {
+            $top_5_campaigns = '<tr><h3><center>No data</center></h3></tr>';
+        }
+        return $top_5_campaigns;
     }
 
 }
