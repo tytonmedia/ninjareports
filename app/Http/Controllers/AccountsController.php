@@ -138,7 +138,7 @@ class AccountsController extends Controller
                 ->withDeveloperToken(env('ADWORDS_TOKEN'))
                 ->build();
             $adWordsServices = new \Google\AdsApi\AdWords\AdWordsServices();
-            $customerService = $adWordsServices->get($session, \Google\AdsApi\AdWords\v201710\mcm\CustomerService::class);
+            $customerService = $adWordsServices->get($session, \Google\AdsApi\AdWords\v201806\mcm\CustomerService::class);
             if ($customerService->getCustomers() && count($customerService->getCustomers()) > 0) {
                 $accounts = $customerService->getCustomers();
                 $adaccounts = [];
