@@ -13,7 +13,7 @@
         "facebook/php-ads-sdk": "2.*",
         "fideloper/proxy": "~3.3",
         "google/apiclient": "^2.0",
-        "googleads/googleads-php-lib": "^32.1",
+        "googleads/googleads-php-lib": "^35.2",
         "laravel/cashier": "~7.0",
         "laravel/framework": "5.5.*",
         "laravel/spark": "*@dev",

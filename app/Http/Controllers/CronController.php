@@ -528,12 +528,12 @@ class CronController extends Controller
                 $session = adwords_session($report->ad_account->ad_account_id, $report->user_id);
                 $reportQuery = 'SELECT CampaignName, Clicks, Impressions, Ctr, Cost, AverageCpm, AverageCpc , CountryCriteriaId, Device FROM GEO_PERFORMANCE_REPORT DURING ' . $during;
 
-                $reportDownloader = new \Google\AdsApi\AdWords\Reporting\v201710\ReportDownloader($session);
+                $reportDownloader = new \Google\AdsApi\AdWords\Reporting\v201806\ReportDownloader($session);
                 $reportSettingsOverride = (new \Google\AdsApi\AdWords\ReportSettingsBuilder())
                     ->includeZeroImpressions(false)
                     ->build();
                 $reportDownloadResult = $reportDownloader->downloadReportWithAwql(
-                    $reportQuery, \Google\AdsApi\AdWords\Reporting\v201710\DownloadFormat::CSV, $reportSettingsOverride);
+                    $reportQuery, \Google\AdsApi\AdWords\Reporting\v201806\DownloadFormat::CSV, $reportSettingsOverride);
 
                 $campaigns_adword_data = str_getcsv($reportDownloadResult->getAsString(), "\n");
 
