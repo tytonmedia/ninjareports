@@ -17,6 +17,7 @@ use \FacebookAds\Object\Fields\CampaignFields;
 use \FacebookAds\Object\Values\AdsInsightsBreakdownsValues;
 use \FacebookAds\Object\Values\AdsInsightsDatePresetValues;
 use View;
+use Illuminate\Support\Facades\Log;
 
 class CronController extends Controller
 {
@@ -89,6 +90,7 @@ class CronController extends Controller
                     $fb_ad_account = new AdAccount($report->ad_account->ad_account_id);
                 } catch (\InvalidArgumentException $e) {
                     echo 'fb error';
+                    Log::error($e);
                 }
 
                 $fields = [AdsInsightsFields::CLICKS, AdsInsightsFields::IMPRESSIONS, AdsInsightsFields::CTR, AdsInsightsFields::CPM, AdsInsightsFields::CPC, AdsInsightsFields::SPEND];
@@ -284,6 +286,7 @@ class CronController extends Controller
                         file_put_contents('facebook_sent.txt', $encodedString);
                     }
                 } catch (AuthorizationException $e) {
+                    Log::error($e);
                 }
             }
             if ($report->account->type == 'analytics') {
@@ -746,6 +749,7 @@ class CronController extends Controller
                     $balance = \Stripe\Balance::retrieve(['stripe_account' => $report->ad_account->ad_account_id]);
                 } catch (\Stripe\Error\Permission  $e) {
                     $report->account()->update(['status' => 0]);
+                    Log::error($e);
                 }
                 $total_balance = 0;
                 if (isset($balance->available[0]->amount)) {
