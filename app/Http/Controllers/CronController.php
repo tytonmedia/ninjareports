@@ -9,6 +9,8 @@ use App\Models\Plan;
 use App\Models\Report;
 use App\Models\Schedule;
 use date;
+use Google\AdsApi\AdWords\v201806\cm\ApiException;
+use Mpdf\MpdfException;
 use Session;
 use \FacebookAds\Http\Exception\AuthorizationException;
 use \FacebookAds\Object\AdAccount;
@@ -31,8 +33,8 @@ class CronController extends Controller
         }
         $next_send_time = date('Y-m-d H:i:00');
 
-        $reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->where('is_paused', 0)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
-        //$reports = Report::where('id', 1)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
+        //$reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->where('is_paused', 0)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
+        $reports = Report::where('id', 1)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
         if ($reports && count($reports) > 0) {
             foreach ($reports as $report) {
                 $current_plan = $report->user->current_billing_plan ? $report->user->current_billing_plan : 'free_trial';
@@ -60,6 +62,7 @@ class CronController extends Controller
             $logo = $logoCheck;
         }
         $ad_account_title = $report->ad_account->title;
+        $attachments = [];
         if ($report) {
             if ($report->account->type == 'facebook') {
 
@@ -99,11 +102,6 @@ class CronController extends Controller
                     $campaigns = $fb_ad_account->getCampaigns([CampaignFields::ID, CampaignFields::NAME], ['limit' => 5]);
                     $campaigns_insights = [];
                     if ($campaigns && count($campaigns) > 0) {
-                        $encodedString = json_encode($campaigns);
-
-                        //Save the JSON string to a text file.
-                        file_put_contents('facebook_array.txt', $encodedString);
-
                         foreach ($campaigns as $campaign) {
                             $cinsights = $campaign->getInsights($fields, $params);
                             foreach ($cinsights as $insight) {
@@ -238,18 +236,11 @@ class CronController extends Controller
                         }
                     }
                     if ($report->attachment_type == 'pdf') {
-                        $html = view('reports.templates.facebook', compact('report', 'campaigns_insights', 'total_clicks', 'total_impressions', 'total_ctr', 'total_cpm', 'total_cpc', 'total_spend', 'ages_graph_url', 'genders_graph_url', 'ad_account_title'))->render();
-                        $mpdf = new \Mpdf\Mpdf(['tempDir' => $pdf_dir]);
-                        $mpdf->WriteHTML($html);
-                        $mpdf->Output($pdf_dir . $pdf_file_name, 'F');
-                        $attachments = [
-                            [
-                                'content' => base64_encode(file_get_contents($pdf_dir . $pdf_file_name)),
-                                'type' => 'text/pdf',
-                                'filename' => $report->title . '.pdf',
-                                'disposition' => 'attachment',
-                            ],
-                        ];
+                        try {
+                            $html = view('reports.templates.facebook', compact('report', 'campaigns_insights', 'total_clicks', 'total_impressions', 'total_ctr', 'total_cpm', 'total_cpc', 'total_spend', 'ages_graph_url', 'genders_graph_url', 'ad_account_title'))->render();
+                            $attachments = $this->generatePdf($html, $pdf_dir, $pdf_file_name, $report);
+                        } catch (\Throwable $e) {
+                        }
                     }
                     foreach ($recipients as $email) {
                         $welcome_email_substitutions = [
@@ -268,12 +259,12 @@ class CronController extends Controller
                             '%logo_property%' => $logo,
                         ];
                         if ($report->attachment_type == 'pdf') {
-                            $sent = sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions, $attachments);
+                            sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions, $attachments);
                             if (file_exists($pdf_dir . $pdf_file_name)) {
                                 unlink($pdf_dir . $pdf_file_name);
                             }
                         } else {
-                            $sent = sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions);
+                            sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions);
                         }
                         Schedule::create([
                             'user_id' => $report->user_id,
@@ -281,9 +272,6 @@ class CronController extends Controller
                             'recipient' => $email,
                         ]);
                         $this->sendLimit($report);
-                        $encodedString = json_encode($sent);
-
-                        file_put_contents('facebook_sent.txt', $encodedString);
                     }
                 } catch (AuthorizationException $e) {
                     Log::error($e);
@@ -342,12 +330,6 @@ class CronController extends Controller
 
                 $results = $analytics->data_ga->get(
                     'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounceRate,ga:newUsers,ga:sessionsPerUser,ga:itemRevenue', ['dimensions' => 'ga:deviceCategory,ga:country']);
-
-                $encodedString = json_encode($results);
-
-                //Save the JSON string to a text file.
-                //  file_put_contents('analytics_array.txt', $encodedString);
-
                 $insights = $results->totalsForAllResults;
                 $metrics = $results->rows;
                 $total_sessions = 'No data';
@@ -448,18 +430,11 @@ class CronController extends Controller
                 }
 
                 if ($report->attachment_type == 'pdf') {
-                    $html = view('reports.templates.analytics', compact('report', 'sources_insights', 'total_sessions', 'total_revenue', 'total_bounce_rate', 'total_pageviews', 'total_pages_per_visitor', 'total_new_visitors', 'devices_graph_url', 'locations_graph_url', 'ad_account_title'))->render();
-                    $mpdf = new \Mpdf\Mpdf(['tempDir' => $pdf_dir]);
-                    $mpdf->WriteHTML($html);
-                    $mpdf->Output($pdf_dir . $pdf_file_name, 'F');
-                    $attachments = [
-                        [
-                            'content' => base64_encode(file_get_contents($pdf_dir . $pdf_file_name)),
-                            'type' => 'text/pdf',
-                            'filename' => $report->title . '.pdf',
-                            'disposition' => 'attachment',
-                        ],
-                    ];
+                    try {
+                        $html = view('reports.templates.analytics', compact('report', 'sources_insights', 'total_sessions', 'total_revenue', 'total_bounce_rate', 'total_pageviews', 'total_pages_per_visitor', 'total_new_visitors', 'devices_graph_url', 'locations_graph_url', 'ad_account_title'))->render();
+                        $attachments = $this->generatePdf($html, $pdf_dir, $pdf_file_name, $report);
+                    } catch (\Throwable $e) {
+                    }
                 }
 
                 foreach ($recipients as $email) {
@@ -480,18 +455,13 @@ class CronController extends Controller
                         '%property_url%' => (string)$report->property->name,
                         '%logo_property%' => $logo,
                     ];
-
-                    $encodedString = json_encode($analytics_email_substitutions);
-
-                    //Save the JSON string to a text file.
-                    //file_put_contents('analytics_send_array.txt', $encodedString);
                     if ($report->attachment_type == 'pdf') {
-                        $sent = sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions, $attachments);
+                        sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions, $attachments);
                         if (file_exists($pdf_dir . $pdf_file_name)) {
                             unlink($pdf_dir . $pdf_file_name);
                         }
                     } else {
-                        $sent = sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions);
+                        sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions);
                     }
                     Schedule::create([
                         'user_id' => $report->user_id,
@@ -499,13 +469,12 @@ class CronController extends Controller
                         'recipient' => $email,
                     ]);
                     $this->sendLimit($report);
-                    $encodedString = json_encode($sent);
-
-                    // file_put_contents('analytics_sent.txt', $encodedString);
                 }
             }
             if ($report->account->type == 'adword') {
-                $report->user->timezone ? date_default_timezone_set($report->user->timezone) : '';
+                if ($report->user->timezone) {
+                    date_default_timezone_set($report->user->timezone);
+                }
                 $reportDate = date("m/d/Y");
                 date_default_timezone_set('Europe/London');
                 switch ($report->frequency) {
@@ -523,26 +492,27 @@ class CronController extends Controller
                         $to_date = date('Ymd', strtotime($report->next_send_time));
                         $from_date = date('Ymd', strtotime('-1 year', strtotime($report->next_send_time)));
                         $during = $from_date . ',' . $to_date;
-                        $reportDate = date("Y");
+                        $reportDate = date("Y", strtotime("-1 year")) . "-" . date("Y");
                         break;
                     default:
                         $during = 'TODAY';
                 }
                 $session = adwords_session($report->ad_account->ad_account_id, $report->user_id);
-                $reportQuery = 'SELECT CampaignName, Clicks, Impressions, Ctr, Cost, AverageCpm, AverageCpc , CountryCriteriaId, Device FROM GEO_PERFORMANCE_REPORT DURING ' . $during;
-
                 $reportDownloader = new \Google\AdsApi\AdWords\Reporting\v201806\ReportDownloader($session);
                 $reportSettingsOverride = (new \Google\AdsApi\AdWords\ReportSettingsBuilder())
                     ->includeZeroImpressions(false)
                     ->build();
-                $reportDownloadResult = $reportDownloader->downloadReportWithAwql(
-                    $reportQuery, \Google\AdsApi\AdWords\Reporting\v201806\DownloadFormat::CSV, $reportSettingsOverride);
+                $top_5_campaigns = $this->adwords_top_5_campaigns($during, $reportDownloader, $reportSettingsOverride);
 
-                $campaigns_adword_data = str_getcsv($reportDownloadResult->getAsString(), "\n");
+                $reportQuery = 'SELECT CampaignName, Clicks, Impressions, Ctr, Cost, AverageCpm, AverageCpc , CountryCriteriaId, Device FROM GEO_PERFORMANCE_REPORT DURING ' . $during;
 
-                $encodedString = json_encode($campaigns_adword_data);
-
-                //  file_put_contents('adwords_array.txt', $encodedString);
+                $campaigns_adword_data = [];
+                try {
+                    $reportDownloadResult = $reportDownloader->downloadReportWithAwql(
+                        $reportQuery, \Google\AdsApi\AdWords\Reporting\v201806\DownloadFormat::CSV, $reportSettingsOverride);
+                    $campaigns_adword_data = str_getcsv($reportDownloadResult->getAsString(), "\n");
+                } catch (ApiException $e) {
+                }
 
                 $total_clicks = 'No data';
                 $total_impressions = 'No data';
@@ -550,11 +520,9 @@ class CronController extends Controller
                 $total_cpm = 'No data';
                 $total_cpc = 'No data';
                 $total_spend = 'No data';
-                $adwords_ads_data = [];
                 $devices_graph_url = 'no_data';
                 $locations_graph_url = 'no_data';
                 $final_adword_data = [];
-                $top_5_campaigns = '';
                 if (is_array($campaigns_adword_data) && count($campaigns_adword_data) > 0) {
                     foreach ($campaigns_adword_data as $report_data_key => $report_data) {
                         if ($report_data_key === 0 || $report_data_key === 1) {
@@ -562,15 +530,11 @@ class CronController extends Controller
                         }
                         $final_adword_data[] = explode(',', $report_data);
                     }
-                    $top_5_campaigns_array = [];
                     $google_adwords_ads_data = [];
                     if (count($final_adword_data) > 0) {
                         $operating_system_result = [];
                         $locations_result = [];
                         $adword_data_count = count($final_adword_data);
-                        $encodedString = json_encode($final_adword_data);
-
-                        //  file_put_contents('adwords_array2.txt', $encodedString);
                         foreach ($final_adword_data as $adword_data) {
                             if (--$adword_data_count <= 0) {
                                 break;
@@ -659,34 +623,17 @@ class CronController extends Controller
                         $total_spend = $total_data[4];
                         $total_cpm = number_format(($total_data[5] / 1000000), 2);
                         $total_cpc = number_format(($total_data[6] / 100000), 2);
-                        $top_5_campaigns_array = array_slice($final_adword_data, 0, 5);
+
                     }
-                    if (count($top_5_campaigns_array) > 0) {
-                        $top_5_campaigns .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;">Campaign</th><th style="background:#666;color:#fff;padding:5px;">Clicks</th><th style="background:#666;color:#fff;padding:5px;">Impressions</th><th style="background:#666;color:#fff;padding:5px;">CTR</th><th style="background:#666;color:#fff;padding:5px;">CPM</th><th style="background:#666;color:#fff;padding:5px;">CPC</th></tr>';
-                        foreach ($top_5_campaigns_array as $campaign_array) {
-                            $ad_cpc = number_format((float)($campaign_array[6] / 100000), 2);
-                            $ad_cpm = number_format((float)($campaign_array[5] / 100000), 2);
-                            $top_5_campaigns .= '<tr><td>' . $campaign_array[0] . '</td><td>' . $campaign_array[1] . '</td><td>' . $campaign_array[2] . '</td><td>' . $campaign_array[3] . '</td><td>$' . $ad_cpm . '</td><td>$' . $ad_cpc . '</td></tr>';
-                        }
-                        $top_5_campaigns .= '</tbody></table>';
-                    } else {
-                        $top_5_campaigns = '<tr><h3><center>No data</center></h3></tr>';
-                    }
+
                 }
 
                 if ($report->attachment_type == 'pdf') {
-                    $html = view('reports.templates.adword', compact('report', 'total_clicks', 'total_impressions', 'total_ctr', 'total_cpm', 'total_cpc', 'total_spend', 'devices_graph_url', 'locations_graph_url', 'top_5_campaigns', 'ad_account_title'))->render();
-                    $mpdf = new \Mpdf\Mpdf(['tempDir' => $pdf_dir]);
-                    $mpdf->WriteHTML($html);
-                    $mpdf->Output($pdf_dir . $pdf_file_name, 'F');
-                    $attachments = [
-                        [
-                            'content' => base64_encode(file_get_contents($pdf_dir . $pdf_file_name)),
-                            'type' => 'text/pdf',
-                            'filename' => $report->title . '.pdf',
-                            'disposition' => 'attachment',
-                        ],
-                    ];
+                    try {
+                        $html = view('reports.templates.adword', compact('report', 'total_clicks', 'total_impressions', 'total_ctr', 'total_cpm', 'total_cpc', 'total_spend', 'devices_graph_url', 'locations_graph_url', 'top_5_campaigns', 'ad_account_title'))->render();
+                        $attachments = $this->generatePdf($html, $pdf_dir, $pdf_file_name, $report);
+                    } catch (\Throwable $e) {
+                    }
                 }
 
                 foreach ($recipients as $email) {
@@ -706,12 +653,12 @@ class CronController extends Controller
                         '%logo_property%' => $logo,
                     ];
                     if ($report->attachment_type == 'pdf') {
-                        $sent = sendMail($email, $report->email_subject, '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions, $attachments);
+                        sendMail($email, $report->email_subject, '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions, $attachments);
                         if (file_exists($pdf_dir . $pdf_file_name)) {
                             unlink($pdf_dir . $pdf_file_name);
                         }
                     } else {
-                        $sent = sendMail($email, $report->email_subject, '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions);
+                        sendMail($email, $report->email_subject, '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions);
                     }
                     Schedule::create([
                         'user_id' => $report->user_id,
@@ -719,13 +666,12 @@ class CronController extends Controller
                         'recipient' => $email,
                     ]);
                     $this->sendLimit($report);
-                    $encodedString = json_encode($sent);
-
-                    //   file_put_contents('adwords_sent.txt', $encodedString);
                 }
             }
             if ($report->account->type == 'stripe') {
-                $report->user->timezone ? date_default_timezone_set($report->user->timezone) : '';
+                if ($report->user->timezone) {
+                    date_default_timezone_set($report->user->timezone);
+                }
                 $reportDate = strtotime($report->next_send_time);
                 switch ($report->frequency) {
                     case "weekly":
@@ -825,34 +771,35 @@ class CronController extends Controller
                     $total_payments = count($payments['data']);
                 }
                 if ($total_customers) {
-                    $stripe_customers_html = view('reports.templates.stripe.customers', compact('customers'))->render();
+                    $stripe_customers_html = '';
+                    try {
+                        $stripe_customers_html = view('reports.templates.stripe.customers', compact('customers'))->render();
+                    } catch (\Throwable $e) {
+                    }
                 } else {
                     $stripe_customers_html = 'No data for this time period';
                 }
                 if ($total_payments) {
-                    $stripe_transactions_html = view('reports.templates.stripe.transactions', compact('payments'))->render();
+                    $stripe_transactions_html = '';
+                    try {
+                        $stripe_transactions_html = view('reports.templates.stripe.transactions', compact('payments'))->render();
+                    } catch (\Throwable $e) {
+                    }
                 } else {
                     $stripe_transactions_html = 'No data for this time period';
                 }
                 $attachments = [];
                 if ($report->attachment_type == 'pdf') {
-                    $html = view('reports.templates.stripe', compact('report', 'stripe_transactions_html', 'total_customers', 'total_charge_amount', 'total_refund_amount', 'total_dispute_amount', 'total_payout_amount', 'stripe_customers_html', 'ad_account_title', 'total_balance', 'logo', 'report_date'))->render();
-                    $mpdf = new \Mpdf\Mpdf(['tempDir' => $pdf_dir]);
-                    $mpdf->WriteHTML($html);
-                    $mpdf->Output($pdf_dir . $pdf_file_name, 'F');
-                    $attachments = [
-                        [
-                            'content' => base64_encode(file_get_contents($pdf_dir . $pdf_file_name)),
-                            'type' => 'text/pdf',
-                            'filename' => $report->title . '.pdf',
-                            'disposition' => 'attachment',
-                        ],
-                    ];
+                    try {
+                        $html = view('reports.templates.stripe', compact('report', 'stripe_transactions_html', 'total_customers', 'total_charge_amount', 'total_refund_amount', 'total_dispute_amount', 'total_payout_amount', 'stripe_customers_html', 'ad_account_title', 'total_balance', 'logo', 'report_date'))->render();
+                        $attachments = $this->generatePdf($html, $pdf_dir, $pdf_file_name, $report);
+                    } catch (\Throwable $e) {
+                    }
                 }
                 foreach ($recipients as $email) {
                     $stripe_email_substitutions = [
                         '%frequency%' => (string)ucfirst($report->frequency),
-                        '%report_date%' => (string) $report_date,
+                        '%report_date%' => (string)$report_date,
                         '%account%' => $ad_account_title,
                         '%balance%' => (string)calculateStripeAmount($total_balance),
                         '%refunds%' => (string)calculateStripeAmount($total_refund_amount),
@@ -917,6 +864,64 @@ class CronController extends Controller
             sendMail($email, $subject, '99642447-0c92-4931-8038-0c1190f779cd', $limit_email_substitutions);
             $this->sendLimit = 1;
         }
+    }
+
+    public function generatePdf($html, $pdf_dir, $pdf_file_name, $report)
+    {
+        $attachments = [];
+        try {
+            $mpdf = new \Mpdf\Mpdf(['tempDir' => $pdf_dir]);
+            $mpdf->WriteHTML($html);
+            $mpdf->Output($pdf_dir . $pdf_file_name, 'F');
+            $attachments = [
+                [
+                    'content' => base64_encode(file_get_contents($pdf_dir . $pdf_file_name)),
+                    'type' => 'text/pdf',
+                    'filename' => $report->title . '.pdf',
+                    'disposition' => 'attachment',
+                ],
+            ];
+        } catch (MpdfException $e) {
+        }
+
+        return $attachments;
+    }
+
+    public function adwords_top_5_campaigns($during, $reportDownloader, $reportSettingsOverride)
+    {
+        $top_5_campaigns = '';
+        $top_5_campaigns_array = [];
+        $final_top_5_adword_data = [];
+        $top_5_campaigns_report_query = 'SELECT CampaignName, Clicks, Impressions, Ctr, AverageCpm, AverageCpc FROM CAMPAIGN_PERFORMANCE_REPORT DURING ' . $during;
+        try {
+            $reportDownloadResult = $reportDownloader->downloadReportWithAwql(
+                $top_5_campaigns_report_query, \Google\AdsApi\AdWords\Reporting\v201806\DownloadFormat::CSV, $reportSettingsOverride);
+            $top_5_campaigns_adword_data = str_getcsv($reportDownloadResult->getAsString(), "\n");
+            if (is_array($top_5_campaigns_adword_data) && count($top_5_campaigns_adword_data) > 0) {
+                foreach ($top_5_campaigns_adword_data as $report_data_key => $report_data) {
+                    if ($report_data_key === 0 || $report_data_key === 1) {
+                        continue;
+                    }
+                    $final_top_5_adword_data[] = explode(',', $report_data);
+                }
+                if (count($final_top_5_adword_data) > 0) {
+                    $top_5_campaigns_array = array_slice($final_top_5_adword_data, 0, 5);
+                }
+            }
+        } catch (ApiException $e) {
+        }
+        if (count($top_5_campaigns_array) > 0) {
+            $top_5_campaigns .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;">Campaign</th><th style="background:#666;color:#fff;padding:5px;">Clicks</th><th style="background:#666;color:#fff;padding:5px;">Impressions</th><th style="background:#666;color:#fff;padding:5px;">CTR</th><th style="background:#666;color:#fff;padding:5px;">CPM</th><th style="background:#666;color:#fff;padding:5px;">CPC</th></tr>';
+            foreach ($top_5_campaigns_array as $campaign_array) {
+                $ad_cpc = number_format((float)($campaign_array[5] / 100000), 2);
+                $ad_cpm = number_format((float)($campaign_array[4] / 100000), 2);
+                $top_5_campaigns .= '<tr><td>' . $campaign_array[0] . '</td><td>' . $campaign_array[1] . '</td><td>' . $campaign_array[2] . '</td><td>' . $campaign_array[3] . '</td><td>$' . $ad_cpm . '</td><td>$' . $ad_cpc . '</td></tr>';
+            }
+            $top_5_campaigns .= '</tbody></table>';
+        } else {
+            $top_5_campaigns = '<tr><h3><center>No data</center></h3></tr>';
+        }
+        return $top_5_campaigns;
     }
 
 }

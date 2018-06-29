@@ -197,6 +197,7 @@ if (!function_exists('adwords_connect')) {
             'redirectUri' => env('GOOGLE_ADWORDS_REDIRECT_URL'),
             'clientId' => env('GOOGLE_ADWORDS_CLIENT_ID'),
             'clientSecret' => env('GOOGLE_ADWORDS_CLIENT_SECRET'),
+            'access_type' => 'offline',
             'scope' => [\Google_Service_Oauth2::USERINFO_EMAIL, 'https://www.googleapis.com/auth/adwords'],
         ]);
         return $oauth2;
