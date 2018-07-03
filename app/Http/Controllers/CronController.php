@@ -33,8 +33,8 @@ class CronController extends Controller
         }
         $next_send_time = date('Y-m-d H:i:00');
 
-        $reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->where('is_paused', 0)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
-        //$reports = Report::where('id', 1)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
+        //$reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->where('is_paused', 0)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
+        $reports = Report::where('id', 2)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
         if ($reports && count($reports) > 0) {
             foreach ($reports as $report) {
                 $current_plan = $report->user->current_billing_plan ? $report->user->current_billing_plan : 'free_trial';
@@ -67,9 +67,10 @@ class CronController extends Controller
             if ($report->account->type == 'facebook') {
 
                 $params = [];
-                $report->user->timezone ? date_default_timezone_set($report->user->timezone) : '';
+                if ($report->user->timezone) {
+                    date_default_timezone_set($report->user->timezone);
+                }
                 $reportDate = date("m/d/Y");
-                date_default_timezone_set('Europe/London');
                 switch ($report->frequency) {
                     case "weekly":
                         $params['date_preset'] = AdsInsightsDatePresetValues::LAST_7D;
@@ -313,7 +314,6 @@ class CronController extends Controller
                 $top_5_sources = '';
                 $sources_insights = isset($top_sources_results->rows) ? $top_sources_results->rows : [];
                 if (isset($sources_insights) && count($sources_insights) > 0) {
-
                     $top_5_sources .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;text-align:left;">Source</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Visits</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">New</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Bounce %</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Pages/Visit</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Revenue</th></tr>';
                     foreach ($sources_insights as $insight) {
                         $new_visitors = round($insight[6], 0) . "";
@@ -827,18 +827,109 @@ class CronController extends Controller
                     $this->sendLimit($report);
                 }
             }
+            if ($report->account->type == 'google-search') {
+                $to_date = date('Y-m-d', strtotime($report->next_send_time));
+                if ($report->user->timezone) {
+                    date_default_timezone_set($report->user->timezone);
+                }
+                $reportDate = date("m/d/Y");
+                switch ($report->frequency) {
+                    case "weekly":
+                        $from_date = date('Y-m-d', strtotime('-7 day', strtotime($report->next_send_time)));
+                        $reportDate = date("m/d/Y", strtotime("-7 Days")) . "-" . date("m/d/Y");
+                        break;
+                    case "monthly":
+                        $from_date = date('Y-m-d', strtotime('-1 month', strtotime($report->next_send_time)));
+                        $reportDate = date("m/d/Y", strtotime("-30 Days")) . "-" . date("m/d/Y");
+                        break;
+                    case "yearly":
+                        $from_date = date('Y-m-d', strtotime('-1 year', strtotime($report->next_send_time)));
+                        $reportDate = date("Y");
+                        break;
+                    default:
+                        $from_date = date('Y-m-d');
+                        $to_date = date('Y-m-d');
+                }
+                //$total_search_data = $this->googleSearchResult($report, $from_date, $to_date);
+                $total_dimensions_search_data = $this->googleSearchResult($report, $from_date, $to_date, 'dimensions');
+                if (is_array($total_dimensions_search_data) && count($total_dimensions_search_data)) {
+                    $all_countries = [];
+                    $all_devices = [];
+                    foreach ($total_dimensions_search_data as $dimensions_search_data) {
+                        $all_countries[] = $dimensions_search_data->keys[0];
+                        $all_devices[] = $dimensions_search_data->keys[1];
+                    }
+                    $countries = [];
+                    if (count($all_countries)) {
+                        $countries = array_values(array_slice(array_unique($all_countries), 0, 5, true));
+                    }
+                    $devices = [];
+                    if (count($all_devices)) {
+                        $devices = array_values(array_unique($all_devices));
+                    }
+                    $all_countries_data = [];
+                    $countries_data_count_array = [];
+                    if (count($countries)) {
+                        foreach ($countries as $country) {
+                            $countries_data_count_array[$country] = 0;
+                            $all_countries_data[$country] = $this->getKeys($total_dimensions_search_data, 'keys', $country, 'array', 1);
+                            foreach ($all_countries_data[$country] as $all_country_data) {
+                                $countries_data_count_array[$country] += $all_country_data->impressions;
+                            }
+                        }
+                    }
+                    $all_devices_data = [];
+                    $devices_data_count_array = [];
+                    if (count($devices)) {
+                        foreach ($devices as $device) {
+                            $devices_data_count_array[$device] = 0;
+                            $all_devices_data[$device] = $this->getKeys($total_dimensions_search_data, 'keys', $device, 'array', 2);
+                            foreach ($all_devices_data[$device] as $all_device_data) {
+                                $devices_data_count_array[$device] += $all_device_data->impressions;
+                            }
+                        }
+                    }
+                    pr($countries_data_count_array);
+                    pr($devices_data_count_array);
+                    $locations_graph_url = '';
+                    if (count($countries_data_count_array) > 0) {
+                        $locations_graph_url = getChartUrl($countries_data_count_array);
+                    }
+                    $devices_graph_url = '';
+                    if (count($devices_data_count_array) > 0) {
+                        $devices_graph_url = getChartUrl($devices_data_count_array);
+                    }
+                    pr($locations_graph_url);
+                    pr($devices_graph_url);
+                }
+                exit;
+            }
         } else {
             session()->flash('alert-danger', 'Report not found.');
             return redirect()->route('reports.index');
         }
     }
 
-    public function getKeys($haystack, $field, $value)
+    public function getKeys($haystack, $field, $value, $return_type = 'keys', $field_key = 0)
     {
         $keys = [];
         foreach ($haystack as $key => $array) {
-            if ($array[$field] === $value) {
-                $keys[] = $key;
+            if ($field_key) {
+                if ($array[$field][$field_key - 1] === $value) {
+                    if ($return_type == 'keys') {
+                        $keys[] = $key;
+                    } else {
+                        $keys[] = $array;
+                    }
+                }
+            } else {
+                if ($array[$field] === $value) {
+                    if ($return_type == 'keys') {
+                        $keys[] = $key;
+                    } else {
+                        $keys[] = $array;
+                    }
+                }
             }
 
         }
@@ -922,6 +1013,21 @@ class CronController extends Controller
             $top_5_campaigns = '<tr><h3><center>No data</center></h3></tr>';
         }
         return $top_5_campaigns;
+    }
+
+    public function googleSearchResult($report, $from_date, $to_date, $type = 'total')
+    {
+        $client = google_search_connect();
+        $client->setAccessToken(google_seach_token($report->user_id));
+        $google_search = new \Google_Service_Webmasters($client);
+        $search_request = new \Google_Service_Webmasters_SearchAnalyticsQueryRequest();
+        $search_request->setStartDate($from_date);
+        $search_request->setEndDate($to_date);
+        if ($type == 'dimensions') {
+            $search_request->setDimensions(['country', 'device']);
+        }
+        $search_data_result = $google_search->searchanalytics->query($report->ad_account->ad_account_id, $search_request)->getRows();
+        return $search_data_result;
     }
 
 }
