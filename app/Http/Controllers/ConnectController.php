@@ -111,7 +111,6 @@ class ConnectController extends Controller
 
     public function analytics()
     {
-
         $client = analytics_connect();
         return redirect($client->createAuthUrl());
     }
@@ -248,6 +247,41 @@ class ConnectController extends Controller
             }
         } else {
             session()->flash('alert-danger', 'Something went wrong.');
+        }
+        return redirect()->route('accounts.index');
+    }
+
+    public function googleSearch()
+    {
+        $client = google_search_connect();
+        return redirect($client->createAuthUrl());
+    }
+
+
+    public function googleSearchCallback()
+    {
+        $client = google_search_connect();
+        $code = Input::get('code');
+        $client->fetchAccessTokenWithAuthCode($code);
+        $token = $client->getAccessToken();
+        $client->setAccessToken($token);
+        $user = new \Google_Service_Oauth2($client);
+        Session::put('gsc_access_token', 1);
+        $account = Account::where('type', 'google-search')->where('user_id', auth()->user()->id)->first();
+        $account_update_array = [
+            'user_id' => auth()->user()->id,
+            'type' => 'google-search',
+            'title' => 'Google Search Console',
+            'email' => $user->userinfo->get()->email,
+            'status' => 1,
+            'is_active' => 1,
+            'token' => json_encode($token),
+        ];
+        if ($account) {
+            Account::where('id', $account->id)->update($account_update_array);
+        } else {
+            Account::create($account_update_array);
+
         }
         return redirect()->route('accounts.index');
     }
