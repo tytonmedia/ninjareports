@@ -31,7 +31,7 @@ class CronController extends Controller
         if (!is_dir($pdf_dir)) {
             mkdir($pdf_dir, 0777, true);
         }
-        $next_send_time = date('Y-m-d H:i:00');
+        $next_send_time = "2018-07-03 23:45:00";//date('Y-m-d H:i:00');
 
         $reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->where('is_paused', 0)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
         //$reports = Report::where('id', 1)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
@@ -278,6 +278,13 @@ class CronController extends Controller
                 }
             }
             if ($report->account->type == 'analytics') {
+        
+       
+                $sg_template_id = "a62644eb-9c36-40bf-90f5-09addbbef798";
+                if($report->template && isset($report->template->template_id)){
+                    $sg_template_id = $report->template->template_id;
+                }
+                
                 $to_date = date('Y-m-d', strtotime($report->next_send_time));
                 $report->user->timezone ? date_default_timezone_set($report->user->timezone) : '';
                 $reportDate = date("m/d/Y");
@@ -456,12 +463,12 @@ class CronController extends Controller
                         '%logo_property%' => $logo,
                     ];
                     if ($report->attachment_type == 'pdf') {
-                        sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions, $attachments);
+                        sendMail($email, $report->email_subject,$sg_template_id, $analytics_email_substitutions, $attachments);
                         if (file_exists($pdf_dir . $pdf_file_name)) {
                             unlink($pdf_dir . $pdf_file_name);
                         }
                     } else {
-                        sendMail($email, $report->email_subject, 'a62644eb-9c36-40bf-90f5-09addbbef798', $analytics_email_substitutions);
+                        sendMail($email, $report->email_subject,$sg_template_id, $analytics_email_substitutions);
                     }
                     Schedule::create([
                         'user_id' => $report->user_id,
