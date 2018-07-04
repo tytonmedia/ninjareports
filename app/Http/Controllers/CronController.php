@@ -850,7 +850,25 @@ class CronController extends Controller
                         $from_date = date('Y-m-d');
                         $to_date = date('Y-m-d');
                 }
-                //$total_search_data = $this->googleSearchResult($report, $from_date, $to_date);
+                $clicks = 0;
+                $impressions = 0;
+                $ctr = 0;
+                $position = 0;
+                $total_search_data = $this->googleSearchResult($report, $from_date, $to_date);
+                if (is_array($total_search_data) && count($total_search_data)) {
+                    foreach ($total_search_data as $total_search) {
+                        $clicks += $total_search->clicks;
+                        $impressions += $total_search->impressions;
+                        $ctr += number_format((float)$total_search->ctr, 4, '.', '');
+                        $position += number_format((float)$total_search->position, 2, '.', '');
+                    }
+                }
+                $total_keywords_search_data = $this->googleSearchResult($report, $from_date, $to_date, 'keywords');
+                $keywords_table_html = $this->get_google_search_top_5($total_keywords_search_data, $ad_account_title);
+                $total_pages_search_data = $this->googleSearchResult($report, $from_date, $to_date, 'pages');
+                $pages_table_html = $this->get_google_search_top_5($total_pages_search_data, $ad_account_title, 'page');
+                $locations_graph_url = '';
+                $devices_graph_url = '';
                 $total_dimensions_search_data = $this->googleSearchResult($report, $from_date, $to_date, 'dimensions');
                 if (is_array($total_dimensions_search_data) && count($total_dimensions_search_data)) {
                     $all_countries = [];
@@ -889,20 +907,52 @@ class CronController extends Controller
                             }
                         }
                     }
-                    pr($countries_data_count_array);
-                    pr($devices_data_count_array);
-                    $locations_graph_url = '';
-                    if (count($countries_data_count_array) > 0) {
+                    if (count($countries_data_count_array)) {
                         $locations_graph_url = getChartUrl($countries_data_count_array);
                     }
-                    $devices_graph_url = '';
-                    if (count($devices_data_count_array) > 0) {
+                    if (count($devices_data_count_array)) {
                         $devices_graph_url = getChartUrl($devices_data_count_array);
                     }
-                    pr($locations_graph_url);
-                    pr($devices_graph_url);
                 }
-                exit;
+                if ($report->attachment_type == 'pdf') {
+                    try {
+                        $html = view('reports.templates.google-search', compact('report', 'clicks', 'impressions', 'ctr', 'position', 'keywords_table_html', 'pages_table_html', 'devices_graph_url', 'locations_graph_url', 'ad_account_title', 'logo', 'reportDate'))->render();
+                        $attachments = $this->generatePdf($html, $pdf_dir, $pdf_file_name, $report);
+                    } catch (\Throwable $e) {
+                    }
+                }
+                foreach ($recipients as $email) {
+
+                    $google_search_email_substitutions = [
+                        '%frequency%' => (string)ucfirst($report->frequency),
+                        '%report_date%' => (string)$reportDate,
+                        '%clicks%' => (string)$clicks,
+                        '%impressions%' => (string)number_format($impressions),
+                        '%ctr%' => (string)$ctr,
+                        '%average_position%' => (string)$position,
+                        '%devices_graph_url%' => (string)$devices_graph_url,
+                        '%locations_graph_url%' => (string)$locations_graph_url,
+                        '%keywords_data_html%' => (string)$keywords_table_html,
+                        '%pages_data_html%' => (string)$pages_table_html,
+                        '%property_url%' => (string)$ad_account_title,
+                        '%logo_property%' => $logo,
+                    ];
+                    if ($report->attachment_type == 'pdf') {
+                        vd($google_search_email_substitutions);
+                        sendMail($email, $report->email_subject, 'cfd85514-181f-4abc-9032-5fe464704c4b', $google_search_email_substitutions, $attachments);
+                        if (file_exists($pdf_dir . $pdf_file_name)) {
+                            unlink($pdf_dir . $pdf_file_name);
+                        }
+                    } else {
+                        sendMail($email, $report->email_subject, 'cfd85514-181f-4abc-9032-5fe464704c4b', $google_search_email_substitutions);
+                    }
+                    Schedule::create([
+                        'user_id' => $report->user_id,
+                        'report_id' => $report->id,
+                        'recipient' => $email,
+                    ]);
+                    $this->sendLimit($report);
+                }
             }
         } else {
             session()->flash('alert-danger', 'Report not found.');
@@ -942,7 +992,6 @@ class CronController extends Controller
         $plan = Plan::whereTitle($current_plan)->first();
         $reports_sent_count = Schedule::whereUserId($report->user->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
         if ($reports_sent_count >= $plan->reports && $this->sendLimit == 0) {
-
             $email = $report->user->email;
             $subject = 'Oh No! You\'ve reached your report limit on Ninja Reports';
             $timestamp = date('Y-m-d');
@@ -1026,8 +1075,48 @@ class CronController extends Controller
         if ($type == 'dimensions') {
             $search_request->setDimensions(['country', 'device']);
         }
+        if ($type == 'keywords') {
+            $search_request->setDimensions(['query']);
+            $search_request->setRowLimit(5);
+        }
+        if ($type == 'pages') {
+            $search_request->setDimensions(['page']);
+            $search_request->setRowLimit(5);
+        }
         $search_data_result = $google_search->searchanalytics->query($report->ad_account->ad_account_id, $search_request)->getRows();
         return $search_data_result;
+    }
+
+    public function get_google_search_top_5($total_search_data, $ad_account_title, $type = 'keyword')
+    {
+        $table_html = 'No Data';
+        if (is_array($total_search_data) && count($total_search_data)) {
+            ob_start();
+            ?>
+            <table width="100%" cellpadding="0" cellspacing="0">
+                <tr style="background:#666;color:#fff">
+                    <th style="background:#666;color:#fff;padding:5px"><?php echo ucfirst($type); ?></th>
+                    <th style="background:#666;color:#fff;padding:5px">Clicks</th>
+                    <th style="background:#666;color:#fff;padding:5px">Imp.</th>
+                    <th style="background:#666;color:#fff;padding:5px">CTR %</th>
+                    <th style="background:#666;color:#fff;padding:5px">Position</th>
+                </tr>
+                <?php foreach ($total_search_data as $data) {
+                    $keydata = $data->keys[0];
+                    ?>
+                    <tr>
+                        <td><?php echo $type == 'keyword' ? $keydata : '<a target="_blank" href="' . $keydata . '">' . str_replace($ad_account_title, '/', $keydata) . '</a>'; ?></td>
+                        <td><?php echo $data->clicks; ?></td>
+                        <td><?php echo $data->impressions; ?></td>
+                        <td><?php echo number_format((float)$data->ctr, 4, '.', ''); ?>%</td>
+                        <td><?php echo number_format((float)$data->position, 2, '.', ' '); ?></td>
+                    </tr>
+                <?php } ?>
+            </table>
+            <?php
+            $table_html = ob_get_clean();
+        }
+        return $table_html;
     }
 
 }
