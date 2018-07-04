@@ -65,6 +65,16 @@
                                         </button>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>
+                                        <img src="{{ asset('img/quickbooks.png') }}"/>
+                                    </td>
+                                    <td>Google Search Console</td>
+                                    <td>
+                                        {!! in_array('google-search', $accounts) ? '<button class="btn btn-xs btn-default">Connected</button>':'
+										<a class="btn btn-xs btn-black" href="'.route('connect.google.search').'">Connect</a>' !!}
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

@@ -42,6 +42,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('adwords/callback', 'ConnectController@adwordsCallback')->name('adwords.callback');
         Route::get('stripe', 'ConnectController@stripe')->name('stripe');
         Route::get('stripe/callback', 'ConnectController@stripeCallback')->name('stripe.callback');
+        Route::get('google-search', 'ConnectController@googleSearch')->name('google.search');
+        Route::get('google-search/callback', 'ConnectController@googleSearchCallback')->name('google.search.callback');
     });
 
     // ReportsController Routes
