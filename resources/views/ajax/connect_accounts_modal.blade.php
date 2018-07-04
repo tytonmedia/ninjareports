@@ -47,6 +47,16 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        <img src="{{ asset('img/google-search.png') }}"/>
+                                    </td>
+                                    <td>Google Search Console</td>
+                                    <td>
+                                        {!! in_array('google-search', $accounts) ? '<button class="btn btn-xs btn-default">Connected</button>':'
+										<a class="btn btn-xs btn-black" href="'.route('connect.google.search').'">Connect</a>' !!}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
                                         <img src="{{ asset('img/salesforce.png') }}"/>
                                     </td>
                                     <td>Salesforce</td>
@@ -63,16 +73,6 @@
                                     <td>
                                         <button disabled="disabled" class="btn btn-xs btn-default">Coming Soon...
                                         </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="{{ asset('img/quickbooks.png') }}"/>
-                                    </td>
-                                    <td>Google Search Console</td>
-                                    <td>
-                                        {!! in_array('google-search', $accounts) ? '<button class="btn btn-xs btn-default">Connected</button>':'
-										<a class="btn btn-xs btn-black" href="'.route('connect.google.search').'">Connect</a>' !!}
                                     </td>
                                 </tr>
                                 </tbody>
