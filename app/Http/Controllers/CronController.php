@@ -31,10 +31,11 @@ class CronController extends Controller
         if (!is_dir($pdf_dir)) {
             mkdir($pdf_dir, 0777, true);
         }
-        $next_send_time = "2018-07-03 23:45:00";//date('Y-m-d H:i:00');
+        $next_send_time = date('Y-m-d H:i:00');
 
         $reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->where('is_paused', 0)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
         //$reports = Report::where('id', 1)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
+        
         if ($reports && count($reports) > 0) {
             foreach ($reports as $report) {
                 $current_plan = $report->user->current_billing_plan ? $report->user->current_billing_plan : 'free_trial';
@@ -353,7 +354,7 @@ class CronController extends Controller
                 if (isset($insights) && $insights) {
                     $total_sessions = number_format($insights['ga:sessions']);
                     $total_pageviews = number_format($insights['ga:pageviews']);
-                    $total_avg_time = $insights['ga:avgTimeOnPage'];
+                    $total_avg_time = (int) $insights['ga:avgTimeOnPage'];
                     $total_bounce_rate = round($insights['ga:bounceRate'], 2);
                     $total_new_visitors = number_format($insights['ga:newUsers']);
                     $total_pages_per_visitor = round($insights['ga:sessionsPerUser'], 2);
@@ -462,6 +463,7 @@ class CronController extends Controller
                         '%property_url%' => (string)$report->property->name,
                         '%logo_property%' => $logo,
                     ];
+                    
                     if ($report->attachment_type == 'pdf') {
                         sendMail($email, $report->email_subject,$sg_template_id, $analytics_email_substitutions, $attachments);
                         if (file_exists($pdf_dir . $pdf_file_name)) {
