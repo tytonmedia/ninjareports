@@ -168,6 +168,7 @@
 
         // Get Google Analytics Properties
         $(document).on('change', '.nr-ad-account', function () {
+            console.log('ya hi');
             toastr.remove();
             var account = $(this).data('type');
             var daily_frequency = $(".frequency option[value='daily']");
@@ -177,6 +178,7 @@
                     text: 'Daily',
                     selected: 'selected'
                 }));
+                $('.frequency').change();
             }
             if (account === 'analytics') {
                 var ad_account_id = $(this).val();
@@ -203,6 +205,7 @@
             }
             if (account === 'google-search') {
                 daily_frequency.remove();
+                $('.frequency').change();
             }
         });
 
