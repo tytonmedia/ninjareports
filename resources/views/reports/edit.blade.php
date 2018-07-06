@@ -80,7 +80,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <select class="form-control frequency" name="frequency">
-                                            @if($account->type != 'google-search')
+                                            @if($report->account->type != 'google-search')
                                                 <option value="daily" {{ $report->frequency == 'daily' ? 'selected':'' }} >
                                                     Daily
                                                 </option>
