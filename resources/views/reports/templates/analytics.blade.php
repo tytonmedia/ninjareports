@@ -239,34 +239,8 @@
       <tr>
         <td height="100%" valign="top" style="text-align:center;padding:10px;margin:10px 0">
           <h2 style="text-align:center;font-size:18px;margin:10px0 0 10px 0;padding:10px 0 10px 0">Top 5 Visitors by Source</h2>
-
-  <table width="100%" cellpadding="5" cellspacing="0" style="background:#fff">
-    <tbody><tr>
-    <th style="background:#666;color:#fff;padding:5px;">Source</th>
-    <th style="background:#666;color:#fff;padding:5px;">Visitors</th>
-    <th style="background:#666;color:#fff;padding:5px;">New</th>
-    <th style="background:#666;color:#fff;padding:5px;">Bounce %</th>
-    <th style="background:#666;color:#fff;padding:5px;">Pages/Visit</th>
-    <th style="background:#666;color:#fff;padding:5px;">Revenue</th>
-    </tr>
-        @if(count($sources_insights) > 0)
-        @foreach($sources_insights as $insight)
-        <tr>
-            <td>{{ $insight[0] }}</td>
-            <td>{{ $insight[1] }}</td>
-            <td>{{ $insight[6] }}</td>
-            <td>{{ number_format((float) $insight[5], 2, '.', '') }}%</td>
-            <td>{{ number_format((float) $insight[7], 2, '.', '') }}</td>
-            <td>${{ number_format((float) $insight[8], 2, '.', '') }}</td>
-        </tr>
-        @endforeach
-        @else
-        <tr>
-        <h3><center>No Data</center></h3>
-        </tr>
-        @endif
-        </tbody></table>
-        </td>
+            {!! $top_5_sources !!}
+          </td>
       </tr>
     </table>
                               </td>

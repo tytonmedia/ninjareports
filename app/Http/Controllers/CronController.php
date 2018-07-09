@@ -31,7 +31,7 @@ class CronController extends Controller
         if (!is_dir($pdf_dir)) {
             mkdir($pdf_dir, 0777, true);
         }
-        $next_send_time = date('Y-m-d H:i:00');
+        $next_send_time = "2018-07-05 00:30:00" ;//date('Y-m-d H:i:00');
 
         $reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->where('is_paused', 0)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
         //$reports = Report::where('id', 1)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
@@ -318,6 +318,7 @@ class CronController extends Controller
                     'sort' => '-ga:sessions',
                     'max-results' => 5,
                 ]);
+              
                 $top_5_sources = '';
                 $sources_insights = isset($top_sources_results->rows) ? $top_sources_results->rows : [];
                 if (isset($sources_insights) && count($sources_insights) > 0) {
@@ -335,9 +336,14 @@ class CronController extends Controller
                 } else {
                     $top_5_sources = '<tr><h3><center>No data</center></h3></tr>';
                 }
+                
 
                 $results = $analytics->data_ga->get(
-                    'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounceRate,ga:newUsers,ga:sessionsPerUser,ga:itemRevenue', ['dimensions' => 'ga:deviceCategory,ga:country']);
+                    'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounceRate,ga:newUsers,ga:sessionsPerUser,ga:itemRevenue', [
+                        'dimensions' => 'ga:deviceCategory,ga:country,ga:date,ga:pagePath'
+                ]);
+                
+                
                 $insights = $results->totalsForAllResults;
                 $metrics = $results->rows;
                 $total_sessions = 'No data';
@@ -363,24 +369,34 @@ class CronController extends Controller
                 if ($metrics && count($metrics) > 0) {
                     $operating_system_result = [];
                     $locations_result = [];
+                    $page_path_result = [];
+                    $date_result = [];
                     foreach ($metrics as $metric) {
                         $operating_system_result[] = $metric[0];
                         $locations_result[] = $metric[1];
+                        $page_path_result[] = $metric[3];
+                        $date_result[] = $metric[2];
                         $google_analytics_ads_data[] = [
                             'operating_system' => $metric[0],
                             'location' => $metric[1],
-                            'sessions' => $metric[2],
-                            'pageviews' => $metric[3],
-                            'avg_time' => $metric[4],
-                            'bounce_rate' => $metric[5],
-                            'new_visitors' => $metric[6],
-                            'pages_per_visitor' => $metric[7],
-                            'total_revenue' => $metric[8],
+                            'date' => $metric[2],
+                            'pagepath' => $metric[3],
+                            'sessions' => $metric[4],
+                            'pageviews' => $metric[5],
+                            'avg_time' => $metric[6],
+                            'bounce_rate' => $metric[7],
+                            'new_visitors' => $metric[8],
+                            'pages_per_visitor' => $metric[9],
+                            'total_revenue' => $metric[10],
                         ];
                     }
 
                     $operating_systems = [];
                     $locations = [];
+                    $page_path = [];
+                    $date_list = [];
+                    
+                    
                     if (count($google_analytics_ads_data) > 0) {
                         if (count($operating_system_result) > 0) {
                             $operating_systems = array_unique($operating_system_result);
@@ -388,6 +404,13 @@ class CronController extends Controller
 
                         if (count($locations_result) > 0) {
                             $locations = array_unique($locations_result);
+                        }
+                        
+                        if (count($page_path_result) > 0) {
+                            $page_path = array_unique($page_path_result);
+                        }
+                        if (count($date_result) > 0) {
+                            $date_list = array_unique($date_result);
                         }
 
                         $operating_systems_keys = [];
@@ -403,7 +426,22 @@ class CronController extends Controller
                                 $locations_keys[$location] = $this->getKeys($google_analytics_ads_data, 'location', $location);
                             }
                         }
-
+                        
+                        $page_path_keys = [];
+                        if (count($page_path) > 0) {
+                            foreach ($page_path as $pathdata) {
+                                $page_path_keys[$pathdata] = $this->getKeys($google_analytics_ads_data, 'pagepath', $pathdata);
+                            }
+                        }
+                        
+                        $date_keys = [];
+                        if (count($date_list) > 0) {
+                            foreach ($date_list as $res) {
+                                $date_keys[$res] = $this->getKeys($google_analytics_ads_data, 'date', $res);
+                            }
+                        }
+                        
+                        
                         $operating_systems_clicks = [];
                         if (count($operating_systems_keys) > 0) {
                             foreach ($operating_systems_keys as $operatingsystemkey => $operating_system_key) {
@@ -426,20 +464,56 @@ class CronController extends Controller
                             }
                         }
 
+                        
+                        $date_clicks = [];
+                        if (count($date_keys) > 0) {
+                            foreach ($date_keys as $key => $val) {
+                                $date_click_data = 0;
+                                foreach ($val as $date_session_key) {
+                                    $date_click_data += $google_analytics_ads_data[$date_session_key]['sessions'];
+                                }
+                                $key_f = \Carbon\Carbon::createFromFormat('Ymd',$key)->format("Y-m-d");
+                                $date_clicks[$key_f] = $date_click_data;
+                                // $date_clicks[] = ["x"=>$key,"y"=>$date_click_data];
+                            }
+                             echo $devices_graph_url = getLineChartUrl($date_clicks);
+                        }
+                       
+                        echo "<pre>"; print_r($date_clicks); exit;
+                        
+                        $path_clicks = [];
+                        if (count($page_path_keys) > 0) {
+                            foreach ($page_path_keys as $pathkey => $path_key) {
+                                $path_click_data = 0;
+                                foreach ($path_key as $path_session_key) {
+                                    $path_click_data += $google_analytics_ads_data[$path_session_key]['sessions'];
+                                }
+                                $path_clicks[$pathkey] = $path_click_data;
+                            }
+                        }
+                        
                         if (count($operating_systems_clicks) > 0) {
-                            $devices_graph_url = getChartUrl($operating_systems_clicks);
+                           // $devices_graph_url = getChartUrl($operating_systems_clicks);
                         }
 
                         if (count($locations_clicks) > 0) {
                             arsort($locations_clicks);
-                            $locations_graph_url = getChartUrl(array_slice($locations_clicks, 0, 5));
+                           // $locations_graph_url = getChartUrl(array_slice($locations_clicks, 0, 5));
+                        }
+                        
+                        if (count($path_clicks) > 0) {
+                            arsort($path_clicks);
+                            $total_click = array_sum($path_clicks);
+                            $path_clicks = array_slice($path_clicks, 0, 5);
+                            $top_5_sources = view('reports.table.page-visit', compact('path_clicks', 'total_click'))->render();
+                            //$locations_graph_url = getChartUrl($path_clicks);
                         }
                     }
                 }
 
                 if ($report->attachment_type == 'pdf') {
                     try {
-                        $html = view('reports.templates.analytics', compact('report', 'sources_insights', 'total_sessions', 'total_revenue', 'total_bounce_rate', 'total_pageviews', 'total_pages_per_visitor', 'total_new_visitors', 'devices_graph_url', 'locations_graph_url', 'ad_account_title'))->render();
+                        $html = view('reports.templates.analytics', compact('report', 'top_5_sources', 'total_sessions', 'total_revenue', 'total_bounce_rate', 'total_pageviews', 'total_pages_per_visitor', 'total_new_visitors', 'devices_graph_url', 'locations_graph_url', 'ad_account_title'))->render();
                         $attachments = $this->generatePdf($html, $pdf_dir, $pdf_file_name, $report);
                     } catch (\Throwable $e) {
                     }
@@ -465,7 +539,7 @@ class CronController extends Controller
                     ];
                     
                     if ($report->attachment_type == 'pdf') {
-                        sendMail($email, $report->email_subject,$sg_template_id, $analytics_email_substitutions, $attachments);
+                        sendMail($email, $report->email_subject."_test_path",$sg_template_id, $analytics_email_substitutions, $attachments);
                         if (file_exists($pdf_dir . $pdf_file_name)) {
                             unlink($pdf_dir . $pdf_file_name);
                         }
