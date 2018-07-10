@@ -282,9 +282,13 @@ class CronController extends Controller
         
        
                 $sg_template_id = "a62644eb-9c36-40bf-90f5-09addbbef798";
+                $report_items = "total_report,graph_click_device,graph_top_location,list_top_visiter";
+                
                 if($report->template && isset($report->template->template_id)){
                     $sg_template_id = $report->template->template_id;
+                    $report_items = $report->template->report_items;
                 }
+                $report_items = explode(",",$report_items);
                 
                 $to_date = date('Y-m-d', strtotime($report->next_send_time));
                 $report->user->timezone ? date_default_timezone_set($report->user->timezone) : '';
@@ -311,33 +315,7 @@ class CronController extends Controller
                 $client = analytics_connect();
                 $client->setAccessToken(analytics_token($report->user_id));
                 $analytics = new \Google_Service_Analytics($client);
-                // Get top 5 sources
-                $top_sources_results = $analytics->data_ga->get(
-                    'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounceRate,ga:newUsers,ga:sessionsPerUser,ga:itemRevenue', [
-                    'dimensions' => 'ga:source',
-                    'sort' => '-ga:sessions',
-                    'max-results' => 5,
-                ]);
-              
-                $top_5_sources = '';
-                $sources_insights = isset($top_sources_results->rows) ? $top_sources_results->rows : [];
-                if (isset($sources_insights) && count($sources_insights) > 0) {
-
-                    $top_5_sources .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;text-align:left;">Source</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Visits</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">New</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Bounce %</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Pages/Visit</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Revenue</th></tr>';
-                    foreach ($sources_insights as $insight) {
-                        $new_visitors = round($insight[6], 0) . "";
-                        $pages_per_visit = number_format((float)$insight[7], 2, '.', '');
-                        $bounce_rate = round($insight[5], 0);
-                        $avg_time = date("H:i:s", strtotime($insight[3]));
-                        $revenue = $insight[8];
-                        $top_5_sources .= '<tr><td>' . $insight[0] . '</td><td>' . $insight[1] . '</td><td>' . $new_visitors . '</td><td>' . $bounce_rate . '%</td><td>' . $pages_per_visit . '</td><td>$' . $revenue . '</td></tr>';
-                    }
-                    $top_5_sources .= '</tbody></table>';
-                } else {
-                    $top_5_sources = '<tr><h3><center>No data</center></h3></tr>';
-                }
                 
-
                 $results = $analytics->data_ga->get(
                     'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounceRate,ga:newUsers,ga:sessionsPerUser,ga:itemRevenue', [
                         'dimensions' => 'ga:deviceCategory,ga:country,ga:date,ga:pagePath'
@@ -398,116 +376,67 @@ class CronController extends Controller
                     
                     
                     if (count($google_analytics_ads_data) > 0) {
-                        if (count($operating_system_result) > 0) {
-                            $operating_systems = array_unique($operating_system_result);
+                        
+                        if (in_array("graph_click_device", $report_items)){
+                            $operating_systems_clicks = $this->getGraphData($operating_system_result,$google_analytics_ads_data,"operating_system","sessions");
+                            if (count($operating_systems_clicks) > 0) {
+                                 $devices_graph_url = getChartUrl($operating_systems_clicks);
+                            }
                         }
+                        
+                        if (in_array("graph_top_location", $report_items)){
+                            $locations_clicks = $this->getGraphData($locations_result,$google_analytics_ads_data,"location","sessions");
+                            if (count($locations_clicks) > 0) {
+                                arsort($locations_clicks);
+                                 $devices_graph_url = getChartUrl($locations_clicks);
+                            }
+                        }
+                        if (in_array("graph_pageview", $report_items)){
+                            $date_clicks = $this->getGraphData($date_result,$google_analytics_ads_data,"date","sessions");
+                            if (count($date_clicks) > 0) {
+                                ksort($date_clicks);
+                                $devices_graph_url = getLineChartUrl($date_clicks,$reportDate);
+                            }
+                        }
+                        if (in_array("list_top_visiter", $report_items)){
+                            // Get top 5 sources
+                            $top_sources_results = $analytics->data_ga->get(
+                                'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounceRate,ga:newUsers,ga:sessionsPerUser,ga:itemRevenue', [
+                                'dimensions' => 'ga:source',
+                                'sort' => '-ga:sessions',
+                                'max-results' => 5,
+                            ]);
 
-                        if (count($locations_result) > 0) {
-                            $locations = array_unique($locations_result);
-                        }
-                        
-                        if (count($page_path_result) > 0) {
-                            $page_path = array_unique($page_path_result);
-                        }
-                        if (count($date_result) > 0) {
-                            $date_list = array_unique($date_result);
-                        }
+                            $top_5_sources = '';
+                            $sources_insights = isset($top_sources_results->rows) ? $top_sources_results->rows : [];
+                            if (isset($sources_insights) && count($sources_insights) > 0) {
 
-                        $operating_systems_keys = [];
-                        if (count($operating_systems) > 0) {
-                            foreach ($operating_systems as $operating_system) {
-                                $operating_systems_keys[$operating_system] = $this->getKeys($google_analytics_ads_data, 'operating_system', $operating_system);
-                            }
-                        }
-
-                        $locations_keys = [];
-                        if (count($locations) > 0) {
-                            foreach ($locations as $location) {
-                                $locations_keys[$location] = $this->getKeys($google_analytics_ads_data, 'location', $location);
-                            }
-                        }
-                        
-                        $page_path_keys = [];
-                        if (count($page_path) > 0) {
-                            foreach ($page_path as $pathdata) {
-                                $page_path_keys[$pathdata] = $this->getKeys($google_analytics_ads_data, 'pagepath', $pathdata);
-                            }
-                        }
-                        
-                        $date_keys = [];
-                        if (count($date_list) > 0) {
-                            foreach ($date_list as $res) {
-                                $date_keys[$res] = $this->getKeys($google_analytics_ads_data, 'date', $res);
-                            }
-                        }
-                        
-                        
-                        $operating_systems_clicks = [];
-                        if (count($operating_systems_keys) > 0) {
-                            foreach ($operating_systems_keys as $operatingsystemkey => $operating_system_key) {
-                                $operating_system_click_data = 0;
-                                foreach ($operating_system_key as $operating_system_session_key) {
-                                    $operating_system_click_data += $google_analytics_ads_data[$operating_system_session_key]['sessions'];
+                                $top_5_sources .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;text-align:left;">Source</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Visits</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">New</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Bounce %</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Pages/Visit</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Revenue</th></tr>';
+                                foreach ($sources_insights as $insight) {
+                                    $new_visitors = round($insight[6], 0) . "";
+                                    $pages_per_visit = number_format((float)$insight[7], 2, '.', '');
+                                    $bounce_rate = round($insight[5], 0);
+                                    $avg_time = date("H:i:s", strtotime($insight[3]));
+                                    $revenue = $insight[8];
+                                    $top_5_sources .= '<tr><td>' . $insight[0] . '</td><td>' . $insight[1] . '</td><td>' . $new_visitors . '</td><td>' . $bounce_rate . '%</td><td>' . $pages_per_visit . '</td><td>$' . $revenue . '</td></tr>';
                                 }
-                                $operating_systems_clicks[$operatingsystemkey] = $operating_system_click_data;
+                                $top_5_sources .= '</tbody></table>';
+                            } else {
+                                $top_5_sources = '<tr><h3><center>No data</center></h3></tr>';
                             }
+                    
                         }
-
-                        $locations_clicks = [];
-                        if (count($locations_keys) > 0) {
-                            foreach ($locations_keys as $locationkey => $location_key) {
-                                $location_click_data = 0;
-                                foreach ($location_key as $location_session_key) {
-                                    $location_click_data += $google_analytics_ads_data[$location_session_key]['sessions'];
-                                }
-                                $locations_clicks[$locationkey] = $location_click_data;
-                            }
-                        }
-
-                        
-                        $date_clicks = [];
-                        if (count($date_keys) > 0) {
-                            foreach ($date_keys as $key => $val) {
-                                $date_click_data = 0;
-                                foreach ($val as $date_session_key) {
-                                    $date_click_data += $google_analytics_ads_data[$date_session_key]['sessions'];
-                                }
-                                $key_f = \Carbon\Carbon::createFromFormat('Ymd',$key)->format("Y-m-d");
-                                $date_clicks[$key_f] = $date_click_data;
-                                // $date_clicks[] = ["x"=>$key,"y"=>$date_click_data];
-                            }
-                             echo $devices_graph_url = getLineChartUrl($date_clicks);
-                        }
-                       
-                        echo "<pre>"; print_r($date_clicks); exit;
-                        
-                        $path_clicks = [];
-                        if (count($page_path_keys) > 0) {
-                            foreach ($page_path_keys as $pathkey => $path_key) {
-                                $path_click_data = 0;
-                                foreach ($path_key as $path_session_key) {
-                                    $path_click_data += $google_analytics_ads_data[$path_session_key]['sessions'];
-                                }
-                                $path_clicks[$pathkey] = $path_click_data;
+                        if(in_array("list_top_pageview", $report_items)){
+                            $path_clicks = $this->getGraphData($page_path_result,$google_analytics_ads_data,"pagepath","sessions");
+                            
+                            if (count($path_clicks) > 0) {
+                                arsort($path_clicks);
+                                $total_click = array_sum($path_clicks);
+                                $path_clicks = array_slice($path_clicks, 0, 5);
+                                $top_5_sources = view('reports.table.page-visit', compact('path_clicks', 'total_click'))->render();
                             }
                         }
                         
-                        if (count($operating_systems_clicks) > 0) {
-                           // $devices_graph_url = getChartUrl($operating_systems_clicks);
-                        }
-
-                        if (count($locations_clicks) > 0) {
-                            arsort($locations_clicks);
-                           // $locations_graph_url = getChartUrl(array_slice($locations_clicks, 0, 5));
-                        }
-                        
-                        if (count($path_clicks) > 0) {
-                            arsort($path_clicks);
-                            $total_click = array_sum($path_clicks);
-                            $path_clicks = array_slice($path_clicks, 0, 5);
-                            $top_5_sources = view('reports.table.page-visit', compact('path_clicks', 'total_click'))->render();
-                            //$locations_graph_url = getChartUrl($path_clicks);
-                        }
                     }
                 }
 
@@ -1005,6 +934,34 @@ class CronController extends Controller
             $top_5_campaigns = '<tr><h3><center>No data</center></h3></tr>';
         }
         return $top_5_campaigns;
+    }
+    
+    public function getGraphData($data_result,$google_analytics_ads_data,$key_field_name,$result_field_name){
+        $data_clicks = [];
+        
+        if (count($data_result) > 0) {
+           $data_unique = array_unique($data_result);
+           
+           $data_keys = [];
+           foreach ($data_unique as $data_item) {
+               $data_keys[$data_item] = $this->getKeys($google_analytics_ads_data,$key_field_name, $data_item);
+           }
+           
+           
+           foreach ($data_keys as $key => $values) {
+               $click_count = 0;
+               foreach ($values as $val) {
+                  $click_count += $google_analytics_ads_data[$val][$result_field_name];
+               }
+               if($key_field_name=="date"){
+                   $j_key = \Carbon\Carbon::createFromFormat('Ymd',$key)->format("Y-m-d");
+               }else{
+                   $j_key = $key;
+               }
+               $data_clicks[$j_key] = $click_count;
+           }
+        }
+        return $data_clicks;
     }
 
 }
