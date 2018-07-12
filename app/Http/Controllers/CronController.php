@@ -318,9 +318,8 @@ class CronController extends Controller
                 
                 $results = $analytics->data_ga->get(
                     'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounceRate,ga:newUsers,ga:sessionsPerUser,ga:itemRevenue', [
-                        'dimensions' => 'ga:deviceCategory,ga:country,ga:date,ga:pagePath'
+                        'dimensions' => 'ga:deviceCategory,ga:country,ga:date,ga:pagePath,ga:medium'
                 ]);
-                
                 
                 $insights = $results->totalsForAllResults;
                 $metrics = $results->rows;
@@ -332,8 +331,13 @@ class CronController extends Controller
                 $total_pages_per_visitor = 'No data';
                 $total_revenue = 'No data';
                 $google_analytics_ads_data = [];
-                $locations_graph_url = 'no_data';
-                $devices_graph_url = 'no_data';
+                $locations_graph_url = '';
+                $devices_graph_url = '';
+                $pageview_graph_url = '';
+                $channel_graph_url = '';
+                $top_5_campaigns = '';
+                $top_5_sources = '';
+                $top_5_pageview = '';
 
                 if (isset($insights) && $insights) {
                     $total_sessions = number_format($insights['ga:sessions']);
@@ -349,32 +353,31 @@ class CronController extends Controller
                     $locations_result = [];
                     $page_path_result = [];
                     $date_result = [];
+                    $medium_result = [];
+                    
                     foreach ($metrics as $metric) {
                         $operating_system_result[] = $metric[0];
                         $locations_result[] = $metric[1];
                         $page_path_result[] = $metric[3];
                         $date_result[] = $metric[2];
+                        $medium_result[] = $metric[4];
                         $google_analytics_ads_data[] = [
                             'operating_system' => $metric[0],
                             'location' => $metric[1],
                             'date' => $metric[2],
                             'pagepath' => $metric[3],
-                            'sessions' => $metric[4],
-                            'pageviews' => $metric[5],
-                            'avg_time' => $metric[6],
-                            'bounce_rate' => $metric[7],
-                            'new_visitors' => $metric[8],
-                            'pages_per_visitor' => $metric[9],
-                            'total_revenue' => $metric[10],
+                            'medium' => $metric[4],
+                            'sessions' => $metric[5],
+                            'pageviews' => $metric[6],
+                            'avg_session' => $metric[7],
+                            'avg_time' => $metric[8],
+                            'bounce_rate' => $metric[9],
+                            'new_visitors' => $metric[10],
+                            'pages_per_visitor' => $metric[11],
+                            'total_revenue' => $metric[12],
                         ];
                     }
 
-                    $operating_systems = [];
-                    $locations = [];
-                    $page_path = [];
-                    $date_list = [];
-                    
-                    
                     if (count($google_analytics_ads_data) > 0) {
                         
                         if (in_array("graph_click_device", $report_items)){
@@ -388,15 +391,37 @@ class CronController extends Controller
                             $locations_clicks = $this->getGraphData($locations_result,$google_analytics_ads_data,"location","sessions");
                             if (count($locations_clicks) > 0) {
                                 arsort($locations_clicks);
-                                 $devices_graph_url = getChartUrl($locations_clicks);
+                                 $locations_graph_url = getChartUrl($locations_clicks);
+                            }
+                        }
+                        if (in_array("graph_top_chanels", $report_items)){
+                            $medium_clicks = $this->getGraphData($medium_result,$google_analytics_ads_data,"medium","sessions");
+                            if (count($medium_clicks) > 0) {
+                                arsort($medium_clicks);
+                                $channel_graph_url = getChartUrl($medium_clicks);
                             }
                         }
                         if (in_array("graph_pageview", $report_items)){
                             $date_clicks = $this->getGraphData($date_result,$google_analytics_ads_data,"date","sessions");
                             if (count($date_clicks) > 0) {
                                 ksort($date_clicks);
-                                $devices_graph_url = getLineChartUrl($date_clicks,$reportDate);
+                                $pageview_graph_url = getLineChartUrl($date_clicks,$reportDate);
                             }
+                        }
+                        if (in_array("list_top_campaigns", $report_items)){
+                              $results = $analytics->data_ga->get(
+                                    'ga:' . $report->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounceRate,ga:newUsers,ga:sessionsPerUser,ga:itemRevenue,ga:goalCompletionsAll', [
+                                        'dimensions' => 'ga:medium',
+                                        'sort' => '-ga:sessions',
+                                        'max-results' => 5,
+                              ]);
+                              
+                              $top_5_campaigns = '';
+                              $mediums = isset($results->rows) ? $results->rows : [];
+                              
+                               if (count($mediums) > 0) {
+                                  $top_5_campaigns = view('reports.table.medium-visit', compact('mediums'))->render();
+                              }
                         }
                         if (in_array("list_top_visiter", $report_items)){
                             // Get top 5 sources
@@ -407,23 +432,12 @@ class CronController extends Controller
                                 'max-results' => 5,
                             ]);
 
+                          
                             $top_5_sources = '';
-                            $sources_insights = isset($top_sources_results->rows) ? $top_sources_results->rows : [];
-                            if (isset($sources_insights) && count($sources_insights) > 0) {
-
-                                $top_5_sources .= '<table width="100%" cellpadding="5" cellspacing="0" style="background:#fff"><tbody><tr><th style="background:#666;color:#fff;padding:5px;text-align:left;">Source</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Visits</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">New</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Bounce %</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Pages/Visit</th><th style="background:#666;color:#fff;padding:5px;text-align:left;">Revenue</th></tr>';
-                                foreach ($sources_insights as $insight) {
-                                    $new_visitors = round($insight[6], 0) . "";
-                                    $pages_per_visit = number_format((float)$insight[7], 2, '.', '');
-                                    $bounce_rate = round($insight[5], 0);
-                                    $avg_time = date("H:i:s", strtotime($insight[3]));
-                                    $revenue = $insight[8];
-                                    $top_5_sources .= '<tr><td>' . $insight[0] . '</td><td>' . $insight[1] . '</td><td>' . $new_visitors . '</td><td>' . $bounce_rate . '%</td><td>' . $pages_per_visit . '</td><td>$' . $revenue . '</td></tr>';
-                                }
-                                $top_5_sources .= '</tbody></table>';
-                            } else {
-                                $top_5_sources = '<tr><h3><center>No data</center></h3></tr>';
-                            }
+                            $sources = isset($top_sources_results->rows) ? $top_sources_results->rows : [];
+                            if (isset($sources) && count($sources) > 0) {
+                                $top_5_sources = view('reports.table.source-visit', compact('sources'))->render();
+                            } 
                     
                         }
                         if(in_array("list_top_pageview", $report_items)){
@@ -433,7 +447,7 @@ class CronController extends Controller
                                 arsort($path_clicks);
                                 $total_click = array_sum($path_clicks);
                                 $path_clicks = array_slice($path_clicks, 0, 5);
-                                $top_5_sources = view('reports.table.page-visit', compact('path_clicks', 'total_click'))->render();
+                                $top_5_pageview = view('reports.table.page-visit', compact('path_clicks', 'total_click'))->render();
                             }
                         }
                         
@@ -442,7 +456,7 @@ class CronController extends Controller
 
                 if ($report->attachment_type == 'pdf') {
                     try {
-                        $html = view('reports.templates.analytics', compact('report', 'top_5_sources', 'total_sessions', 'total_revenue', 'total_bounce_rate', 'total_pageviews', 'total_pages_per_visitor', 'total_new_visitors', 'devices_graph_url', 'locations_graph_url', 'ad_account_title'))->render();
+                        $html = view('reports.templates.analytics', compact('report', 'top_5_sources','top_5_campaigns' ,'top_5_pageview', 'devices_graph_url', 'locations_graph_url', 'channel_graph_url','pageview_graph_url' ,'total_sessions', 'total_revenue', 'total_bounce_rate', 'total_pageviews', 'total_pages_per_visitor', 'total_new_visitors', 'ad_account_title'))->render();
                         $attachments = $this->generatePdf($html, $pdf_dir, $pdf_file_name, $report);
                     } catch (\Throwable $e) {
                     }
@@ -462,13 +476,17 @@ class CronController extends Controller
                         '%new_visitors%' => (string)$total_new_visitors,
                         '%devices_graph_url%' => (string)$devices_graph_url,
                         '%locations_graph_url%' => (string)$locations_graph_url,
+                        '%pageview_graph_url%' => (string)$pageview_graph_url,
+                        '%channel_graph_url%' => (string)$channel_graph_url,
                         '%top_5_sources%' => (string)$top_5_sources,
+                        '%top_5_campaigns%' => (string)$top_5_campaigns,
+                        '%top_5_pageview%' => (string)$top_5_pageview,
                         '%property_url%' => (string)$report->property->name,
                         '%logo_property%' => $logo,
                     ];
                     
                     if ($report->attachment_type == 'pdf') {
-                        sendMail($email, $report->email_subject."_test_path",$sg_template_id, $analytics_email_substitutions, $attachments);
+                        sendMail($email, $report->template->name,$sg_template_id, $analytics_email_substitutions, $attachments);
                         if (file_exists($pdf_dir . $pdf_file_name)) {
                             unlink($pdf_dir . $pdf_file_name);
                         }
