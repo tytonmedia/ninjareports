@@ -6,7 +6,6 @@
             <th style="background:#666;color:#fff;padding:5px;text-align:left;">New</th>
             <th style="background:#666;color:#fff;padding:5px;text-align:left;">Bounce %</th>
             <th style="background:#666;color:#fff;padding:5px;text-align:left;">Pages/visit</th>
-            <th style="background:#666;color:#fff;padding:5px;text-align:left;">Conversions</th>
             <th style="background:#666;color:#fff;padding:5px;text-align:left;">Avg. Time</th>
         </tr>
         @if(isset($mediums) && count($mediums) > 0)
@@ -17,7 +16,6 @@
             <td>{{round($medium[6], 0)}}</td>
             <td>{{round($medium[5],0)}}</td>
             <td>{{round($medium[7],0)}}</td>
-            <td>{{100 * ($medium[9]/$medium[1])}}</td>
             <td>{{ date("H:i:s", strtotime($medium[3]))}}</td>
             
             
