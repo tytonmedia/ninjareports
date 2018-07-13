@@ -22,7 +22,6 @@ class CreateTemplateTable extends Migration
             $table->string('account_type')->nullable();
             $table->string('report_items')->nullable();
             $table->text('description')->nullable();
-            $table->tiniint('description')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
