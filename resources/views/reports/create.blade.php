@@ -67,6 +67,18 @@
 								</div>
 								<div class="form-group">
 									<div class="col-md-3">
+										<label class="control-label color-black-bold">Mail Templete</label>
+									</div>
+									<div class="col-md-9">
+										<select class="form-control template_id" name="template_id" id="template_id">
+										</select>
+										<div class="error">
+											@if ($errors->has('template_id')) {{ $errors->first('template_id') }} @endif
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-3">
 										<label class="control-label color-black-bold">Frequency</label>
 									</div>
 									<div class="col-md-3">
@@ -155,6 +167,29 @@
 		</div>
 	</div>
 </div>
-@endsection @section('page_scripts')
+@endsection 
+@section('page_scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
+<script >
+@if(isset($templates))
+   templates = <?php echo json_encode($templates); ?>;
+	
+   $(document).on('change', '.ad-account-types', function () {
+        setTemplateOption();
+   });	
+   setTemplateOption();
+   function setTemplateOption(){
+	   var account_type = $('.ad-account-types').val();
+	   $("#template_id").html("");
+	   
+	   for(var i=0;i<templates.length;i++){
+		   
+		  var selected="";   
+		  if(account_type == templates[i]['account_type']){
+            $("#template_id").append("<option value='" + templates[i]['id'] + "' "+selected+">" + templates[i]['name'] + "</option>");
+		  }
+       }	
+   }
+@endif
+</script>
 @endsection

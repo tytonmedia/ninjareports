@@ -348,6 +348,8 @@ if (!function_exists('sendMail')) {
 
     function sendMail($to, $subject, $template_id, $substitutions = array(), $attachments = array(), $from = 'reports@ninjareports.com', $showResponse = true)
     {
+        
+        
         $default_subs = [
             '%company%' => 'Ninja Reports™',
         ];
@@ -357,7 +359,7 @@ if (!function_exists('sendMail')) {
 
         $response = \App\Models\SendGrid::send($to, $subject, $template_id, $substitutions, $attachments, $from);
 
-
+        
         $encodedString = json_encode($response);
 
         // file_put_contents('general_response.txt', $encodedString);
@@ -415,6 +417,45 @@ if (!function_exists('getChartUrl')) {
         $raw_sig = hash_hmac('sha256', $json, env('CHARTURL_KEY'), true);
         $encoded_sig = base64_encode($raw_sig);
         $url = "https://charturl.com/i/" . env('CHARTURL_TOKEN') . "/" . env('CHARTURL_SLUG') . "?d=" . urlencode($json) . "&s=" . urlencode($encoded_sig);
+        return $url;
+    }
+
+    
+}
+
+if (!function_exists('getLineChartUrl')) {
+
+    function getLineChartUrl($json_array,$reportDate="")
+    {
+        $data_set = [];
+        $encoded_json = '';
+        if (count($json_array) > 0) {
+            foreach ($json_array as $key => $data) {
+                $data_set[]= ["x"=>$key,"y"=>$data]; 
+            }
+            $encoded_json = json_encode($data_set);
+        }
+       
+        $json = '{
+        "options" : {
+          "data" : {
+            "datasets" : [
+              {
+                "label" : "Pageview '.$reportDate.'",
+                "backgroundColor" : "rgba(15, 124, 232, 0.2)",
+                "pointBackgroundColor" : "rgb(48, 79, 185,1)",
+                "data" : '.$encoded_json.'
+              }
+            ]
+          }
+        }
+      }';
+        
+        
+        
+        $raw_sig = hash_hmac('sha256', $json, env('CHARTURL_KEY'), true);
+        $encoded_sig = base64_encode($raw_sig);
+        $url = "https://charturl.com/i/" . env('CHARTURL_TOKEN') . "/line-chart?d=" . urlencode($json) . "&s=" . urlencode($encoded_sig);
         return $url;
     }
 

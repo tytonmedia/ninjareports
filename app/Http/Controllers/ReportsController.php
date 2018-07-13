@@ -9,6 +9,7 @@ use App\Models\AnalyticView;
 use App\Models\Plan;
 use App\Models\Report;
 use App\Models\Schedule;
+use App\Models\Template;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Session;
@@ -61,13 +62,15 @@ class ReportsController extends Controller
         $reports_sent_count = Schedule::whereUserId(auth()->user()->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
         $reports_sent_count = $reports_sent_count > $plan->reports ? $plan->reports : $reports_sent_count;
 
+        $templates = Template::where('status',"active")->get();
+
 
         $paused = false;
         if ($reports_sent_count >= $plan->reports) {
             $paused = true;
         }
         if ($accounts->count() > 0) {
-            return view('reports.create', compact('accounts','paused'));
+            return view('reports.create', compact('accounts','paused','templates'));
         } else {
             Session::flash('alert-danger', 'No account connected. Please connect an account to create a report.');
             return redirect()->route('accounts.index');
@@ -114,12 +117,13 @@ class ReportsController extends Controller
             $reports_sent_count = Schedule::whereUserId(auth()->user()->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
             $reports_sent_count = $reports_sent_count > $plan->reports ? $plan->reports : $reports_sent_count;
 
+            $templates = Template::where('status',"active")->get();
 
             $paused = false;
             if ($reports_sent_count >= $plan->reports) {
                 $paused = true;
             }
-            return view('reports.edit', compact('accounts', 'report', 'ad_accounts_html', 'properties_html', 'profiles_html','paused'));
+            return view('reports.edit', compact('accounts', 'report', 'ad_accounts_html', 'properties_html', 'profiles_html','paused','templates'));
         } else {
             Session::flash('alert-danger', 'Report not found.');
             return redirect()->route('reports.index');
@@ -142,6 +146,7 @@ class ReportsController extends Controller
         if ($request->account_type == 'analytics') {
             $validation_array['property'] = 'required';
             $validation_array['profile'] = 'required';
+            $validation_array['template_id'] = 'required';
         }
         $v = Validator::make($request->all(), $validation_array);
 
@@ -192,6 +197,7 @@ class ReportsController extends Controller
                             'email_subject' => $data->email_subject,
                             'recipients' => $data->recipients,
                             'attachment_type' => $data->attachment_type,
+                            'template_id' => $data->template_id,
                         ]);
                         if ($report && $report->id) {
                             Session::flash('alert-success', 'Report generated successfully.');
@@ -276,6 +282,7 @@ class ReportsController extends Controller
                             'email_subject' => $data->email_subject,
                             'recipients' => $data->recipients,
                             'attachment_type' => $data->attachment_type,
+                            'template_id' => $data->template_id,
                         ]);
                         if ($report) {
                             Session::flash('alert-success', 'Report updated successfully.');
