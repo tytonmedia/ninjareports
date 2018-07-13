@@ -31,7 +31,7 @@ class CronController extends Controller
         if (!is_dir($pdf_dir)) {
             mkdir($pdf_dir, 0777, true);
         }
-        $next_send_time = "2018-07-05 00:30:00" ;//date('Y-m-d H:i:00');
+        $next_send_time = date('Y-m-d H:i:00'); // "2018-07-05 00:30:00" ;
 
         $reports = Report::where('next_send_time', $next_send_time)->where('is_active', 1)->where('is_paused', 0)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
         //$reports = Report::where('id', 1)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
