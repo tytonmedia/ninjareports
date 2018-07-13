@@ -98,7 +98,6 @@ class AccountsController extends Controller
                 Log::error($e);
             }
         }
-
         if ($type == 'analytics') {
             $client = analytics_connect();
             $client->setAccessToken(analytics_token());
@@ -146,6 +145,24 @@ class AccountsController extends Controller
                     $adaccounts[] = [
                         'id' => $account->getCustomerId(),
                         'name' => $account->getDescriptiveName(),
+                    ];
+                }
+                $status = 'success';
+            } else {
+                $status = 'error';
+            }
+        }
+        if ($type == 'google-search') {
+            $client = google_search_connect();
+            $client->setAccessToken(google_seach_token());
+            $google_search = new \Google_Service_Webmasters($client);
+            $sites = $google_search->sites->listSites();
+            $adaccounts = [];
+            if (is_array($sites->getSiteEntry()) && count($sites->getSiteEntry())) {
+                foreach ($sites->getSiteEntry() as $account) {
+                    $adaccounts[] = [
+                        'id' => $account->siteUrl,
+                        'name' => $account->siteUrl,
                     ];
                 }
                 $status = 'success';

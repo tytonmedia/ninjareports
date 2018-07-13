@@ -168,9 +168,19 @@
 
         // Get Google Analytics Properties
         $(document).on('change', '.nr-ad-account', function () {
+            console.log('ya hi');
             toastr.remove();
             var account = $(this).data('type');
-            if (account == 'analytics') {
+            var daily_frequency = $(".frequency option[value='daily']");
+            if (!daily_frequency.length) {
+                $('.frequency').prepend($('<option>', {
+                    value: 'daily',
+                    text: 'Daily',
+                    selected: 'selected'
+                }));
+                $('.frequency').change();
+            }
+            if (account === 'analytics') {
                 var ad_account_id = $(this).val();
                 var loader = $('.analytics-properties-loader');
                 loader.removeClass('hidden');
@@ -178,7 +188,7 @@
                     url: site_url + 'reports/' + account + '/properties/' + ad_account_id,
                     success: function (response) {
                         loader.addClass('hidden');
-                        if (response.status == 'success') {
+                        if (response.status === 'success') {
                             $('.properties_html').html(response.html);
                             $('.nr-ad-property').change();
                             $('#test_report').show();
@@ -192,6 +202,10 @@
                         toastr.error('Something went wrong. Please try again.');
                     }
                 });
+            }
+            if (account === 'google-search') {
+                daily_frequency.remove();
+                $('.frequency').change();
             }
         });
 
@@ -223,13 +237,13 @@
         });
 
         // Start/Pause Reports
-        $(document).on('click', '.toggle_report', function(){
+        $(document).on('click', '.toggle_report', function () {
             toastr.remove();
             var btn = $(this);
             btn.html('<i class="fa fa-spin fa-spinner"></i>');
             var report_id = btn.data('report_id');
             var status = btn.data('status');
-            if(status === 'yes'){
+            if (status === 'yes') {
                 var is_paused = 0;
                 var btn_value = 'Pause';
                 btn.data('status', 'no');
@@ -240,7 +254,7 @@
             }
             $.ajax({
                 type: 'POST',
-                url: site_url + 'reports/' + report_id  + '/pause/' + is_paused,
+                url: site_url + 'reports/' + report_id + '/pause/' + is_paused,
                 success: function (response) {
                     btn.html(btn_value);
                     if (response.status == 'success') {

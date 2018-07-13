@@ -160,13 +160,36 @@ if (!function_exists('analytics_token')) {
         $client = analytics_connect();
         $client->setAccessToken($token);
         if ($client->isAccessTokenExpired()) {
-            $client->refreshToken($token);
+            $client->refreshToken($token['refresh_token']);
             $access_token = $client->getAccessToken();
             \App\Models\Account::where('type', 'analytics')->where('user_id', $user_id)->update([
                 'token' => json_encode($access_token),
             ]);
         }
         $token = \App\Models\Account::where('type', 'analytics')->where('user_id', $user_id)->pluck('token')->first();
+        if ($token) {
+            return (array)json_decode($token);
+        }
+        return false;
+    }
+}
+
+if (!function_exists('google_seach_token')) {
+    function google_seach_token($user_id = 0)
+    {
+        $user_id = $user_id ? $user_id : auth()->user()->id;
+        $token = \App\Models\Account::where('type', 'google-search')->where('user_id', $user_id)->pluck('token')->first();
+        $token = (array)json_decode($token);
+        $client = google_search_connect();
+        $client->setAccessToken($token);
+        if ($client->isAccessTokenExpired()) {
+            $client->refreshToken($token['refresh_token']);
+            $access_token = $client->getAccessToken();
+            \App\Models\Account::where('type', 'google-search')->where('user_id', $user_id)->update([
+                'token' => json_encode($access_token),
+            ]);
+        }
+        $token = \App\Models\Account::where('type', 'google-search')->where('user_id', $user_id)->pluck('token')->first();
         if ($token) {
             return (array)json_decode($token);
         }
@@ -187,7 +210,6 @@ if (!function_exists('analytics_connect')) {
         return $client;
     }
 }
-
 if (!function_exists('adwords_connect')) {
     function adwords_connect()
     {
@@ -203,6 +225,21 @@ if (!function_exists('adwords_connect')) {
         return $oauth2;
     }
 }
+
+if (!function_exists('google_search_connect')) {
+    function google_search_connect()
+    {
+        $client = new \Google_Client();
+        $client->setAuthConfig(main_path('google-search.json'));
+        $client->addScope([\Google_Service_Oauth2::USERINFO_EMAIL, \Google_Service_Webmasters::WEBMASTERS_READONLY]);
+        $client->setRedirectUri(route('connect.google.search.callback'));
+        $client->setAccessType('offline');
+        $client->setIncludeGrantedScopes(true);
+        $client->setApprovalPrompt('force');
+        return $client;
+    }
+}
+
 
 if (!function_exists('adwords_token')) {
     function adwords_token($user_id = 0)

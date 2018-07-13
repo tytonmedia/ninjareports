@@ -51,12 +51,12 @@ class SparkServiceProvider extends ServiceProvider
      */
     public function booted()
     {
-        Spark::plan('Free Trial', 'free_trial')
-            ->archived()
-            ->price(0.00)
-            ->features([
-                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '5 Reports/month',
-            ]);
+//        Spark::plan('Free Trial', 'free_trial')
+//            ->archived()
+//            ->price(0.00)
+//            ->features([
+//                'UNLIMITED Integrations', 'UNLIMITED Recipients per Report', '5 Reports/month',
+//            ]);
 
          Spark::plan('Personal', 'personal')
             ->price(10.00)
