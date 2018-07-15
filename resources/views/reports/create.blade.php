@@ -54,10 +54,11 @@
 										</div>
 									</div>
 								</div>
+									
 								<div class="sub_accounts_html"></div>
 								<div class="properties_html"></div>
 								<div class="views_html"></div>
-								<div class="form-group">
+								<div class="form-group" style="display:none;">
 									<div class="col-md-3"></div>
 									<div class="col-md-9">
 										<div class="error">
@@ -65,9 +66,9 @@
 										</div>
 									</div>
 								</div>
-								<div class="form-group">
+							<div class="form-group">
 									<div class="col-md-3">
-										<label class="control-label color-black-bold">Mail Templete</label>
+										<label class="control-label color-black-bold">Report Template</label>
 									</div>
 									<div class="col-md-9">
 										<select class="form-control template_id" name="template_id" id="template_id">
@@ -77,30 +78,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="form-group">
-									<div class="col-md-3">
-										<label class="control-label color-black-bold">Frequency</label>
-									</div>
-									<div class="col-md-3">
-										<select class="form-control frequency" name="frequency">
-											<option value="daily">Daily</option>
-											<option value="weekly">Weekly</option>
-											<option value="monthly">Monthly</option>
-											<option value="yearly">Yearly</option>
-										</select>
-										<div class="error">
-											@if ($errors->has('frequency')) {{ $errors->first('frequency') }} @endif
-										</div>
-									</div>
-									<div class="ends_at_section">
-										<div class="col-md-1">
-											<label class="control-label color-black-bold">at</label>
-										</div>
-										<div class="col-md-5 input-group">
-											<input type="text" name="ends_at" readonly class="custom-readonly form-control timepicker" />
-										</div>
-									</div>
-								</div>
+						
 							</div>
 							<div class="col-md-6">
 								<h4 class="title">Email Settings</h4>
@@ -137,6 +115,30 @@
 										</div>
 										<div class="error">
 											@if ($errors->has('attachment_type')) {{ $errors->first('attachment_type') }} @endif
+										</div>
+									</div>
+								</div>
+										<div class="form-group">
+									<div class="col-md-3">
+										<label class="control-label color-black-bold">Frequency</label>
+									</div>
+									<div class="col-md-3">
+										<select class="form-control frequency" name="frequency">
+											<option value="daily">Daily</option>
+											<option value="weekly">Weekly</option>
+											<option value="monthly">Monthly</option>
+											<option value="yearly">Yearly</option>
+										</select>
+										<div class="error">
+											@if ($errors->has('frequency')) {{ $errors->first('frequency') }} @endif
+										</div>
+									</div>
+									<div class="ends_at_section">
+										<div class="col-md-1">
+											<label class="control-label color-black-bold">at</label>
+										</div>
+										<div class="col-md-5 input-group">
+											<input type="text" name="ends_at" readonly class="custom-readonly form-control timepicker" />
 										</div>
 									</div>
 								</div>

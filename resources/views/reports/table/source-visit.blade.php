@@ -14,9 +14,9 @@
             <td>{{$insight[0]}}</td>
             <td>{{$insight[1]}}</td>
             <td>{{round($insight[6], 0)}}</td>
-            <td>{{round($insight[5], 0)}}</td>
+            <td>{{round($insight[5], 0)}}%</td>
             <td>{{number_format((float)$insight[7], 2, '.', '')}}</td>
-            <td>{{$insight[8]}}</td>
+            <td>${{$insight[8]}}</td>
             
         </tr>
         @endforeach

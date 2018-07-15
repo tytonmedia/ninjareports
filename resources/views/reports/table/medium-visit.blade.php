@@ -14,7 +14,7 @@
             <td>{{$medium[0]}}</td>
             <td>{{$medium[1]}}</td>
             <td>{{round($medium[6], 0)}}</td>
-            <td>{{round($medium[5],0)}}</td>
+            <td>{{round($medium[5],0)}}%</td>
             <td>{{round($medium[7],0)}}</td>
             <td>{{ date("H:i:s", strtotime($medium[3]))}}</td>
             

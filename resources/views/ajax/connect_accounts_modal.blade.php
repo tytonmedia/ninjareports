@@ -15,14 +15,6 @@
                                 <tbody>
                                 <tr>
                                     <td>
-                                        <img src="{{ asset('img/facebook.png') }}"/>
-                                    </td>
-                                    <td>Facebook Ads</td>
-                                    <td>{!! in_array('facebook', $accounts) ? '<button class="btn btn-xs btn-default">Connected</button>':'
-										<a class="btn btn-xs btn-default" disabled="disabled" href="'.route('connect.facebook').'">Coming Soon...</a>' !!}</td>
-                                </tr>
-                                <tr>
-                                    <td>
                                         <img src="{{ asset('img/analytics.png') }}"/>
                                     </td>
                                     <td>Google Analytics</td>
@@ -54,6 +46,14 @@
                                         {!! in_array('google-search', $accounts) ? '<button class="btn btn-xs btn-default">Connected</button>':'
 										<a class="btn btn-xs btn-black" href="'.route('connect.google.search').'">Connect</a>' !!}
                                     </td>
+                                </tr>
+                                         <tr>
+                                    <td>
+                                        <img src="{{ asset('img/facebook.png') }}"/>
+                                    </td>
+                                    <td>Facebook Ads</td>
+                                    <td>{!! in_array('facebook', $accounts) ? '<button class="btn btn-xs btn-default">Connected</button>':'
+                                        <a class="btn btn-xs btn-default" disabled="disabled" href="#">Coming Soon...</a>' !!}</td>
                                 </tr>
                                 <tr>
                                     <td>
