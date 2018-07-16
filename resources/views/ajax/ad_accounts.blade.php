@@ -1,6 +1,6 @@
 <div class="form-group">
     <div class="col-md-3">
-        <label class="control-label color-black-bold">Property
+        <label class="control-label color-black-bold">Account
             <span class="analytics-properties-loader fa fa-spin fa-spinner margin-left-5 hidden"></span>
         </label>
     </div>
