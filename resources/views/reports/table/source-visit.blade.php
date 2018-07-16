@@ -21,6 +21,6 @@
         </tr>
         @endforeach
         @else
-        <tr><h3><center>No data</center></h3></tr>
+        <tr><td><h3><center>No data</center></h3></td></tr>
         @endif
 </table>

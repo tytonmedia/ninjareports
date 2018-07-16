@@ -41,9 +41,9 @@ class Report extends Model
         return array('created_at', 'updated_at', 'deleted_at', 'sent_at');
     }
 	
-	public function template()
+    public function template()
     {
-        return $this->hasOne('App\Models\Template', 'id', 'template_id');
+        return $this->hasOne('App\Models\Emailtemplate', 'id', 'template_id');
     }
 
 }

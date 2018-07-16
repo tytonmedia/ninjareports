@@ -442,7 +442,7 @@ if (!function_exists('getLineChartUrl')) {
             "datasets" : [
               {
                 "label" : "Pageview '.$reportDate.'",
-                "backgroundColor" : "rgba(15, 124, 232, 0.2)",
+                "backgroundColor" : "#1080f2",,
                 "pointBackgroundColor" : "rgb(48, 79, 185,1)",
                 "data" : '.$encoded_json.'
               }

@@ -15,13 +15,13 @@
             <td>{{$medium[1]}}</td>
             <td>{{round($medium[6], 0)}}</td>
             <td>{{round($medium[5],0)}}%</td>
-            <td>{{round($medium[7],0)}}</td>
+            <td>{{number_format((float)$medium[7], 2, '.', '')}}</td>
             <td>{{ date("H:i:s", strtotime($medium[3]))}}</td>
             
             
         </tr>
         @endforeach
         @else
-        <tr><h3><center>No data</center></h3></tr>
+        <tr><td><h3><center>No data</center></h3></td></tr>
         @endif
 </table>

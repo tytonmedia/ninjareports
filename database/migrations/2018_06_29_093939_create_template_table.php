@@ -13,7 +13,7 @@ class CreateTemplateTable extends Migration
      */
     public function up()
     {
-        Schema::create('template', function (Blueprint $table) {
+        Schema::create('email_templates', function (Blueprint $table) {
             $table->increments('id');
             $table->string('template_id');
             $table->string('name')->nullable();
@@ -35,6 +35,6 @@ class CreateTemplateTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('template');
+        Schema::dropIfExists('email_templates');
     }
 }

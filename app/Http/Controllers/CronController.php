@@ -63,9 +63,21 @@ class CronController extends Controller
         }
         $ad_account_title = $report->ad_account->title;
         $attachments = [];
+        
+        $sg_template_id = "";
+        $report_items = "";
+        if($report->template && isset($report->template->template_id)){
+            $sg_template_id = $report->template->template_id;
+            $report_items = $report->template->report_items;
+        }
+                
         if ($report) {
             if ($report->account->type == 'facebook') {
 
+                if(!$sg_template_id || $sg_template_id == ""){
+                    $sg_template_id = "56c13cc8-0a27-40e0-bd31-86ffdced98ae";
+                }
+                
                 $params = [];
                 if ($report->user->timezone) {
                     date_default_timezone_set($report->user->timezone);
@@ -260,12 +272,12 @@ class CronController extends Controller
                             '%logo_property%' => $logo,
                         ];
                         if ($report->attachment_type == 'pdf') {
-                            sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions, $attachments);
+                            sendMail($email, $report->email_subject, $sg_template_id, $welcome_email_substitutions, $attachments);
                             if (file_exists($pdf_dir . $pdf_file_name)) {
                                 unlink($pdf_dir . $pdf_file_name);
                             }
                         } else {
-                            sendMail($email, $report->email_subject, '56c13cc8-0a27-40e0-bd31-86ffdced98ae', $welcome_email_substitutions);
+                            sendMail($email, $report->email_subject, $sg_template_id, $welcome_email_substitutions);
                         }
                         Schedule::create([
                             'user_id' => $report->user_id,
@@ -280,14 +292,14 @@ class CronController extends Controller
             }
             if ($report->account->type == 'analytics') {
         
-       
-                $sg_template_id = "a62644eb-9c36-40bf-90f5-09addbbef798";
-                $report_items = "total_report,graph_click_device,graph_top_location,list_top_visiter";
-                
-                if($report->template && isset($report->template->template_id)){
-                    $sg_template_id = $report->template->template_id;
-                    $report_items = $report->template->report_items;
+                if(!$sg_template_id || $sg_template_id == ""){
+                    $sg_template_id = "a62644eb-9c36-40bf-90f5-09addbbef798";
                 }
+                
+                if(!$report_items || $report_items == ""){
+                    $report_items = "total_report,graph_click_device,graph_top_location,list_top_visiter";
+                }
+       
                 $report_items = explode(",",$report_items);
                 
                 $to_date = date('Y-m-d', strtotime($report->next_send_time));
@@ -456,8 +468,8 @@ class CronController extends Controller
 
                 if ($report->attachment_type == 'pdf') {
                     try {
-                        $html = view('reports.templates.analytics', compact('report', 'top_5_sources','top_5_campaigns' ,'top_5_pageview', 'devices_graph_url', 'locations_graph_url', 'channel_graph_url','pageview_graph_url' ,'total_sessions', 'total_revenue', 'total_bounce_rate', 'total_pageviews', 'total_pages_per_visitor', 'total_new_visitors', 'ad_account_title'))->render();
-                        $attachments = $this->generatePdf($html, $pdf_dir, $pdf_file_name, $report);
+                       $html = view('reports.templates.analytics', compact('report', 'top_5_sources','top_5_campaigns' ,'top_5_pageview', 'devices_graph_url', 'locations_graph_url', 'channel_graph_url','pageview_graph_url' ,'total_sessions', 'total_revenue', 'total_bounce_rate', 'total_pageviews', 'total_pages_per_visitor', 'total_new_visitors', 'ad_account_title'))->render();
+                       $attachments = $this->generatePdf($html, $pdf_dir, $pdf_file_name, $report);
                     } catch (\Throwable $e) {
                     }
                 }
@@ -502,6 +514,11 @@ class CronController extends Controller
                 }
             }
             if ($report->account->type == 'adword') {
+                
+                if(!$sg_template_id || $sg_template_id == ""){
+                    $sg_template_id = "0a98196e-646c-45ff-af50-5826009e72ab";
+                }
+                
                 if ($report->user->timezone) {
                     date_default_timezone_set($report->user->timezone);
                 }
@@ -683,12 +700,12 @@ class CronController extends Controller
                         '%logo_property%' => $logo,
                     ];
                     if ($report->attachment_type == 'pdf') {
-                        sendMail($email, $report->email_subject, '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions, $attachments);
+                        sendMail($email, $report->email_subject, $sg_template_id, $welcome_email_substitutions, $attachments);
                         if (file_exists($pdf_dir . $pdf_file_name)) {
                             unlink($pdf_dir . $pdf_file_name);
                         }
                     } else {
-                        sendMail($email, $report->email_subject, '0a98196e-646c-45ff-af50-5826009e72ab', $welcome_email_substitutions);
+                        sendMail($email, $report->email_subject, $sg_template_id, $welcome_email_substitutions);
                     }
                     Schedule::create([
                         'user_id' => $report->user_id,
@@ -699,6 +716,12 @@ class CronController extends Controller
                 }
             }
             if ($report->account->type == 'stripe') {
+                
+                
+                if(!$sg_template_id || $sg_template_id == ""){
+                    $sg_template_id = "469d4ce7-6c32-4c51-a9dd-c11d2a416eaa";
+                }
+                
                 if ($report->user->timezone) {
                     date_default_timezone_set($report->user->timezone);
                 }
@@ -842,12 +865,12 @@ class CronController extends Controller
                         '%logo_property%' => $logo,
                     ];
                     if ($report->attachment_type == 'pdf') {
-                        sendMail($email, $report->email_subject, '469d4ce7-6c32-4c51-a9dd-c11d2a416eaa', $stripe_email_substitutions, $attachments);
+                        sendMail($email, $report->email_subject, $sg_template_id, $stripe_email_substitutions, $attachments);
                         if (file_exists($pdf_dir . $pdf_file_name)) {
                             unlink($pdf_dir . $pdf_file_name);
                         }
                     } else {
-                        sendMail($email, $report->email_subject, '469d4ce7-6c32-4c51-a9dd-c11d2a416eaa', $stripe_email_substitutions);
+                        sendMail($email, $report->email_subject,$sg_template_id, $stripe_email_substitutions);
                     }
                     Schedule::create([
                         'user_id' => $report->user_id,
@@ -858,6 +881,11 @@ class CronController extends Controller
                 }
             }
             if ($report->account->type == 'google-search') {
+                
+                if(!$sg_template_id || $sg_template_id == ""){
+                    $sg_template_id = "cfd85514-181f-4abc-9032-5fe464704c4b";
+                }
+                
                 $to_date = date('Y-m-d', strtotime($report->next_send_time));
                 if ($report->user->timezone) {
                     date_default_timezone_set($report->user->timezone);
@@ -969,12 +997,12 @@ class CronController extends Controller
                     ];
                     if ($report->attachment_type == 'pdf') {
                         vd($google_search_email_substitutions);
-                        sendMail($email, $report->email_subject, 'cfd85514-181f-4abc-9032-5fe464704c4b', $google_search_email_substitutions, $attachments);
+                        sendMail($email, $report->email_subject, $sg_template_id, $google_search_email_substitutions, $attachments);
                         if (file_exists($pdf_dir . $pdf_file_name)) {
                             unlink($pdf_dir . $pdf_file_name);
                         }
                     } else {
-                        sendMail($email, $report->email_subject, 'cfd85514-181f-4abc-9032-5fe464704c4b', $google_search_email_substitutions);
+                        sendMail($email, $report->email_subject, $sg_template_id, $google_search_email_substitutions);
                     }
                     Schedule::create([
                         'user_id' => $report->user_id,

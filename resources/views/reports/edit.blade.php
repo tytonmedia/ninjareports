@@ -74,6 +74,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group template_selection hide">
+                                    <div class="col-md-3">
+                                        <label class="control-label color-black-bold">Report Template</label>
+                                    </div>
+                                    <div class="col-md-9">
+					<select class="form-control template_id" name="template_id" id="template_id">
+					</select>
+                                        <div class="error">
+                                            @if ($errors->has('template_id')) {{ $errors->first('template_id') }} @endif
+                                        </div>
+                                    </div>
+				</div>
                                 <div class="form-group">
                                     <div class="col-md-3">
                                         <label class="control-label color-black-bold">Frequency</label>
@@ -274,4 +286,45 @@
 </div>
 @endsection @section('page_scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
+    
+    <script >
+@if(isset($templates))
+   templates = <?php echo json_encode($templates); ?>;
+   selected_template_id = {{$report->template_id}};
+	
+   $(document).on('change', '.ad-account-types', function () {
+        setTemplateOption();
+   });	
+   setTemplateOption();
+   function setTemplateOption(){
+	   var account_type = $('.ad-account-types').val();
+	   $("#template_id").html("");
+           
+           if(account_type == "analytics"){
+               $(".template_selection").removeClass("hide");
+           }else{
+               $(".template_selection").addClass("hide");
+           }
+	   
+           var template_count = 0;
+           
+	   for(var i=0;i<templates.length;i++){
+		var selected="";
+                if(templates[i]['id'] == selected_template_id){
+                    selected = "selected=selected";
+                } 
+                    
+		if(account_type == templates[i]['account_type']){
+                    template_count++;
+                    $("#template_id").append("<option value='" + templates[i]['id'] + "' "+selected+">" + templates[i]['name'] + "</option>");
+		}
+           }	
+           if(template_count > 0){
+               $(".template_selection").removeClass("hide");
+           }else{
+               $(".template_selection").addClass("hide");
+           }
+   }
+@endif
+</script>
 @endsection

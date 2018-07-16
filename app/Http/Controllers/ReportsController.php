@@ -9,7 +9,7 @@ use App\Models\AnalyticView;
 use App\Models\Plan;
 use App\Models\Report;
 use App\Models\Schedule;
-use App\Models\Template;
+use App\Models\Emailtemplate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Session;
@@ -62,7 +62,7 @@ class ReportsController extends Controller
         $reports_sent_count = Schedule::whereUserId(auth()->user()->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
         $reports_sent_count = $reports_sent_count > $plan->reports ? $plan->reports : $reports_sent_count;
 
-        $templates = Template::where('status',"active")->get();
+        $templates = Emailtemplate::where('status',"active")->get();
 
 
         $paused = false;
@@ -117,7 +117,7 @@ class ReportsController extends Controller
             $reports_sent_count = Schedule::whereUserId(auth()->user()->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
             $reports_sent_count = $reports_sent_count > $plan->reports ? $plan->reports : $reports_sent_count;
 
-            $templates = Template::where('status',"active")->get();
+            $templates = Emailtemplate::where('status',"active")->get();
 
             $paused = false;
             if ($reports_sent_count >= $plan->reports) {
@@ -149,6 +149,7 @@ class ReportsController extends Controller
             $validation_array['template_id'] = 'required';
         }
         $v = Validator::make($request->all(), $validation_array);
+        $template_id = $request->get('template_id', 0);
 
         if ($v->fails()) {
             return redirect()->back()->withErrors($v)->withInput();
@@ -197,7 +198,7 @@ class ReportsController extends Controller
                             'email_subject' => $data->email_subject,
                             'recipients' => $data->recipients,
                             'attachment_type' => $data->attachment_type,
-                            'template_id' => $data->template_id,
+                            'template_id' => $template_id,
                         ]);
                         if ($report && $report->id) {
                             Session::flash('alert-success', 'Report generated successfully.');
@@ -234,9 +235,11 @@ class ReportsController extends Controller
         if ($request->account_type == 'analytics') {
             $validation_array['property'] = 'required';
             $validation_array['profile'] = 'required';
+            $validation_array['template_id'] = 'required';
         }
         $v = Validator::make($request->all(), $validation_array);
-
+        $template_id = $request->get('template_id', 0);
+        
         if ($v->fails()) {
             return redirect()->back()->withErrors($v)->withInput();
         } else {
@@ -282,7 +285,7 @@ class ReportsController extends Controller
                             'email_subject' => $data->email_subject,
                             'recipients' => $data->recipients,
                             'attachment_type' => $data->attachment_type,
-                            'template_id' => $data->template_id,
+                            'template_id' => $template_id,
                         ]);
                         if ($report) {
                             Session::flash('alert-success', 'Report updated successfully.');
