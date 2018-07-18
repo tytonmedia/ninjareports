@@ -1,3 +1,5 @@
+
+
 @extends('spark::layouts.app') @section('content') @section('page_styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css"
 /> @endsection
@@ -66,7 +68,7 @@
 										</div>
 									</div>
 								</div>
-                                                                <div class="form-group template_selection hide" >
+							<div class="form-group">
 									<div class="col-md-3">
 										<label class="control-label color-black-bold">Report Template</label>
 									</div>
@@ -137,7 +139,7 @@
 										<div class="col-md-1">
 											<label class="control-label color-black-bold">at</label>
 										</div>
-										<div class="col-md-5 input-group">
+										<div class="col-md-5">
 											<input type="text" name="ends_at" readonly class="custom-readonly form-control timepicker" />
 										</div>
 									</div>
@@ -183,22 +185,14 @@
    function setTemplateOption(){
 	   var account_type = $('.ad-account-types').val();
 	   $("#template_id").html("");
-           
-           
-	   var template_count = 0;
+	   
 	   for(var i=0;i<templates.length;i++){
+		   
 		  var selected="";   
 		  if(account_type == templates[i]['account_type']){
-                    template_count++;
-                    $("#template_id").append("<option value='" + templates[i]['id'] + "' "+selected+">" + templates[i]['name'] + "</option>");
+            $("#template_id").append("<option value='" + templates[i]['id'] + "' "+selected+">" + templates[i]['name'] + "</option>");
 		  }
-           }
-           
-           if(template_count > 0){
-               $(".template_selection").removeClass("hide");
-           }else{
-               $(".template_selection").addClass("hide");
-           }
+       }	
    }
 @endif
 </script>

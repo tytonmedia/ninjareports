@@ -66,7 +66,7 @@
                                 <div class="sub_accounts_html">{!! $ad_accounts_html !!}</div>
                                 <div class="properties_html">{!! $properties_html !!}</div>
                                 <div class="views_html">{!! $profiles_html !!}</div>
-                                <div class="form-group">
+                                <div class="form-group" style="display:none;">
                                     <div class="col-md-3"></div>
                                     <div class="col-md-9">
                                         <div class="error">
@@ -86,7 +86,57 @@
                                         </div>
                                     </div>
 				</div>
+                            
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="title">Email Settings</h4>
+                                <hr/>
                                 <div class="form-group">
+                                    <div class="col-md-3">
+                                        <label class="control-label color-black-bold">Recipients</label>
+                                    </div>
+                                    <div class="col-md-9">
+
+                                        <textarea class="form-control"
+                                                  name="recipients">{{ old('recipients') ? old('recipients') : $report->recipients }}</textarea>
+                                        <label class="help">(Comma seperated emails)</label>
+                                        <div class="error">
+                                            @if ($errors->has('recipients')) {{ $errors->first('recipients') }} @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <label class="control-label color-black-bold">Attachment</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div id="tab" class="btn-group btn-group-justified attachment"
+                                             data-toggle="buttons">
+                                            <a href="#none"
+                                               class="btn btn-default{{ old('attachment_type') == 'none' ? ' active': ($report->attachment_type == 'none' ? ' active':'') }}"
+                                               data-toggle="tab">
+                                                <input type="radio" name="attachment_type"
+                                                       value="none" {{ old( 'attachment_type')=='none' ? ' checked': ($report->attachment_type == 'none' ? ' checked': '') }} />None
+                                            </a>
+                                            <a href="#pdf"
+                                               class="btn btn-default{{ old('attachment_type') == 'pdf' ? ' active':($report->attachment_type == 'pdf' ? ' active': '') }}"
+                                               data-toggle="tab">
+                                                <input type="radio" name="attachment_type"
+                                                       value="pdf" {{ old( 'attachment_type')=='pdf' ? ' checked': ($report->attachment_type == 'pdf' ? ' checked': '') }} />PDF
+                                            </a>
+                                            <a href="#scv"
+                                               class="hidden btn btn-default{{ old('attachment_type') == 'csv' ? ' active':($report->attachment_type == 'csv' ? ' active': '') }}"
+                                               data-toggle="tab">
+                                                <input type="radio" name="attachment_type"
+                                                       value="csv" {{ old( 'attachment_type')=='csv' ? ' checked': ($report->attachment_type == 'csv' ? ' checked': '') }} />CSV
+                                            </a>
+                                        </div>
+                                        <div class="error">
+                                            @if ($errors->has('attachment_type')) {{ $errors->first('attachment_type') }} @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="form-group">
                                     <div class="col-md-3">
                                         <label class="control-label color-black-bold">Frequency</label>
                                     </div>
@@ -204,55 +254,6 @@
                                                 </select>
                                             </div>
                                         @endif
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <h4 class="title">Email Settings</h4>
-                                <hr/>
-                                <div class="form-group">
-                                    <div class="col-md-3">
-                                        <label class="control-label color-black-bold">Recipients</label>
-                                    </div>
-                                    <div class="col-md-9">
-
-                                        <textarea class="form-control"
-                                                  name="recipients">{{ old('recipients') ? old('recipients') : $report->recipients }}</textarea>
-                                        <label class="help">(Comma seperated emails)</label>
-                                        <div class="error">
-                                            @if ($errors->has('recipients')) {{ $errors->first('recipients') }} @endif
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-3">
-                                        <label class="control-label color-black-bold">Attachment</label>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <div id="tab" class="btn-group btn-group-justified attachment"
-                                             data-toggle="buttons">
-                                            <a href="#none"
-                                               class="btn btn-default{{ old('attachment_type') == 'none' ? ' active': ($report->attachment_type == 'none' ? ' active':'') }}"
-                                               data-toggle="tab">
-                                                <input type="radio" name="attachment_type"
-                                                       value="none" {{ old( 'attachment_type')=='none' ? ' checked': ($report->attachment_type == 'none' ? ' checked': '') }} />None
-                                            </a>
-                                            <a href="#pdf"
-                                               class="btn btn-default{{ old('attachment_type') == 'pdf' ? ' active':($report->attachment_type == 'pdf' ? ' active': '') }}"
-                                               data-toggle="tab">
-                                                <input type="radio" name="attachment_type"
-                                                       value="pdf" {{ old( 'attachment_type')=='pdf' ? ' checked': ($report->attachment_type == 'pdf' ? ' checked': '') }} />PDF
-                                            </a>
-                                            <a href="#scv"
-                                               class="hidden btn btn-default{{ old('attachment_type') == 'csv' ? ' active':($report->attachment_type == 'csv' ? ' active': '') }}"
-                                               data-toggle="tab">
-                                                <input type="radio" name="attachment_type"
-                                                       value="csv" {{ old( 'attachment_type')=='csv' ? ' checked': ($report->attachment_type == 'csv' ? ' checked': '') }} />CSV
-                                            </a>
-                                        </div>
-                                        <div class="error">
-                                            @if ($errors->has('attachment_type')) {{ $errors->first('attachment_type') }} @endif
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
