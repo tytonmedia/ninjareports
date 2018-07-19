@@ -414,6 +414,7 @@ class CronController extends Controller
                             }
                         }
                         if (in_array("graph_pageview", $report_items)){
+                            
                             $date_clicks = $this->getGraphData($date_result,$google_analytics_ads_data,"date","sessions");
                             if (count($date_clicks) > 0) {
                                 ksort($date_clicks);
@@ -498,7 +499,7 @@ class CronController extends Controller
                     ];
                     
                     if ($report->attachment_type == 'pdf') {
-                        sendMail($email, $report->template->name,$sg_template_id, $analytics_email_substitutions, $attachments);
+                        sendMail($email, $report->email_subject,$sg_template_id, $analytics_email_substitutions, $attachments);
                         if (file_exists($pdf_dir . $pdf_file_name)) {
                             unlink($pdf_dir . $pdf_file_name);
                         }
