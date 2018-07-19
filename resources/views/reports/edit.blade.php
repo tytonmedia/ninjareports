@@ -79,13 +79,13 @@
                                         <label class="control-label color-black-bold">Report Template</label>
                                     </div>
                                     <div class="col-md-9">
-					<select class="form-control template_id" name="template_id" id="template_id">
-					</select>
+                                        <select class="form-control template_id" name="template_id" id="template_id">
+                                        </select>
                                         <div class="error">
                                             @if ($errors->has('template_id')) {{ $errors->first('template_id') }} @endif
                                         </div>
                                     </div>
-				</div>
+				                </div>
                             
                             </div>
                             <div class="col-md-6">
@@ -300,26 +300,21 @@
    function setTemplateOption(){
 	   var account_type = $('.ad-account-types').val();
 	   $("#template_id").html("");
+        var template_count = 0;
            
-           if(account_type == "analytics"){
-               $(".template_selection").removeClass("hide");
-           }else{
-               $(".template_selection").addClass("hide");
-           }
-	   
-           var template_count = 0;
-           
-	   for(var i=0;i<templates.length;i++){
-		var selected="";
-                if(templates[i]['id'] == selected_template_id){
-                    selected = "selected=selected";
-                } 
+        var template_count = 0;    
+	    for(var i=0;i<templates.length;i++){
+		    var selected="";
+            if(templates[i]['id'] == selected_template_id){
+                selected = "selected=selected";
+            } 
                     
-		if(account_type == templates[i]['account_type']){
-                    template_count++;
-                    $("#template_id").append("<option value='" + templates[i]['id'] + "' "+selected+">" + templates[i]['name'] + "</option>");
-		}
-           }	
+            if(account_type == templates[i]['account_type']){
+                        template_count++;
+                        $("#template_id").append("<option value='" + templates[i]['id'] + "' "+selected+">" + templates[i]['name'] + "</option>");
+            }
+        }	
+        
            if(template_count > 0){
                $(".template_selection").removeClass("hide");
            }else{

@@ -68,7 +68,7 @@
 										</div>
 									</div>
 								</div>
-							<div class="form-group">
+							<div class="form-group template_selection hide">
 									<div class="col-md-3">
 										<label class="control-label color-black-bold">Report Template</label>
 									</div>
@@ -185,13 +185,21 @@
 	   var account_type = $('.ad-account-types').val();
 	   $("#template_id").html("");
 	   
+	   var template_count = 0;
 	   for(var i=0;i<templates.length;i++){
 		   
 		  var selected="";   
 		  if(account_type == templates[i]['account_type']){
+			template_count++;
             $("#template_id").append("<option value='" + templates[i]['id'] + "' "+selected+">" + templates[i]['name'] + "</option>");
 		  }
        }	
+
+		if(template_count > 0){
+            $(".template_selection").removeClass("hide");
+        }else{
+            $(".template_selection").addClass("hide");
+        }
    }
 @endif
 </script>
