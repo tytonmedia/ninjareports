@@ -359,7 +359,6 @@ if (!function_exists('sendMail')) {
 
         $response = \App\Models\SendGrid::send($to, $subject, $template_id, $substitutions, $attachments, $from);
 
-        
         $encodedString = json_encode($response);
 
         // file_put_contents('general_response.txt', $encodedString);
@@ -442,7 +441,7 @@ if (!function_exists('getLineChartUrl')) {
             "datasets" : [
               {
                 "label" : "Pageview '.$reportDate.'",
-                "backgroundColor" : "#1080f2",,
+                "backgroundColor" : "#1080f2",
                 "pointBackgroundColor" : "rgb(48, 79, 185,1)",
                 "data" : '.$encoded_json.'
               }
@@ -456,6 +455,7 @@ if (!function_exists('getLineChartUrl')) {
         $raw_sig = hash_hmac('sha256', $json, env('CHARTURL_KEY'), true);
         $encoded_sig = base64_encode($raw_sig);
         $url = "https://charturl.com/i/" . env('CHARTURL_TOKEN') . "/line-chart?d=" . urlencode($json) . "&s=" . urlencode($encoded_sig);
+        
         return $url;
     }
 
