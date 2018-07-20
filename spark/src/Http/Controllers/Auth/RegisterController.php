@@ -80,13 +80,13 @@ class RegisterController extends Controller
                 $value = "10.00";
                 break;
             case 'business';
-                $value = "50.00";
+                $value = "25.00";
                 break;
             case "premium";
-                $value = "100.00";
+                $value = "55.00";
                 break;
             case "white_label";
-                $value = "150.00";
+                $value = "75.00";
                 break;
 
 
