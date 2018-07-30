@@ -10,7 +10,7 @@
     "require": {
         "php": ">=7.0.0",
         "facebook/graph-sdk": "^5.6",
-        "facebook/php-ads-sdk": "2.*",
+        "facebook/php-business-sdk": "^3.1",
         "fideloper/proxy": "~3.3",
         "google/apiclient": "^2.0",
         "googleads/googleads-php-lib": "^35.2",
