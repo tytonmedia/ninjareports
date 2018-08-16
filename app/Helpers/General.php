@@ -135,7 +135,7 @@ if (!function_exists('fb_connect')) {
         $fb = new \Facebook\Facebook([
             'app_id' => env('FACEBOOK_APP_ID'),
             'app_secret' => env('FACEBOOK_SECRET'),
-            'default_graph_version' => 'v2.11',
+            'default_graph_version' => 'v3.0',
             'persistent_data_handler' => new \App\Libraries\Facebook\FacebookPersistentDataHandler(),
         ]);
         return $fb;
@@ -348,8 +348,8 @@ if (!function_exists('sendMail')) {
 
     function sendMail($to, $subject, $template_id, $substitutions = array(), $attachments = array(), $from = 'reports@ninjareports.com', $showResponse = true)
     {
-        
-        
+
+
         $default_subs = [
             '%company%' => 'Ninja Reports™',
         ];
@@ -419,43 +419,42 @@ if (!function_exists('getChartUrl')) {
         return $url;
     }
 
-    
+
 }
 
 if (!function_exists('getLineChartUrl')) {
 
-    function getLineChartUrl($json_array,$reportDate="")
+    function getLineChartUrl($json_array, $reportDate = "")
     {
         $data_set = [];
         $encoded_json = '';
         if (count($json_array) > 0) {
             foreach ($json_array as $key => $data) {
-                $data_set[]= ["x"=>$key,"y"=>$data]; 
+                $data_set[] = ["x" => $key, "y" => $data];
             }
             $encoded_json = json_encode($data_set);
         }
-       
+
         $json = '{
         "options" : {
           "data" : {
             "datasets" : [
               {
-                "label" : "Pageview '.$reportDate.'",
+                "label" : "Pageview ' . $reportDate . '",
                 "backgroundColor" : "#1080f2",
                 "pointBackgroundColor" : "rgb(48, 79, 185,1)",
-                "data" : '.$encoded_json.'
+                "data" : ' . $encoded_json . '
               }
             ]
           }
         }
       }';
-        
-        
-        
+
+
         $raw_sig = hash_hmac('sha256', $json, env('CHARTURL_KEY'), true);
         $encoded_sig = base64_encode($raw_sig);
         $url = "https://charturl.com/i/" . env('CHARTURL_TOKEN') . "/line-chart?d=" . urlencode($json) . "&s=" . urlencode($encoded_sig);
-        
+
         return $url;
     }
 
