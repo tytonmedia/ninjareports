@@ -669,6 +669,11 @@ class CronController extends Controller
                         $total_impressions = $total_data[2];
                         $total_ctr = $total_data[3];
                         $total_spend = $total_data[4];
+                        if(is_numeric($total_spend)){
+                             $total_spend = $total_data[4];
+                         } else {
+                             $total_spend = 0;
+                         }
                         $total_cpm = number_format(($total_data[5] / 1000000), 2);
                         $total_cpc = number_format(($total_data[6] / 100000), 2);
 
