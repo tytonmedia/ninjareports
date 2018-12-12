@@ -670,7 +670,7 @@ class CronController extends Controller
                         $total_ctr = $total_data[3];
                         $total_spend = $total_data[4];
                         if(is_numeric($total_spend)){
-                             $total_spend = number_format((float)( $total_spend / 1000000), 2)
+                             $total_spend = number_format((float)( $total_spend / 1000000), 2);
                          } else {
                              $total_spend = 0;
                          }
