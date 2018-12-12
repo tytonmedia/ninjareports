@@ -670,7 +670,7 @@ class CronController extends Controller
                         $total_ctr = $total_data[3];
                         $total_spend = $total_data[4];
                         if(is_numeric($total_spend)){
-                             $total_spend = $total_data[4];
+                             $total_spend = number_format((float)( $total_spend / 1000000), 2)
                          } else {
                              $total_spend = 0;
                          }
@@ -697,7 +697,7 @@ class CronController extends Controller
                         '%clicks%' => (string)$total_clicks,
                         '%impressions%' => (string)$total_impressions,
                         '%ctr%' => (string)$total_ctr,
-                        '%spend%' => (string)number_format((float)($total_spend / 1000000), 2),
+                        '%spend%' => (string)$total_spend,
                         '%page_per_visits%' => (string)$total_cpm,
                         '%new_visitors%' => (string)$total_cpc,
                         '%devices_graph_url%' => (string)$devices_graph_url,
