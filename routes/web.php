@@ -49,6 +49,8 @@ Route::group(['middleware' => 'auth'], function () {
     // ReportsController Routes
     Route::prefix('reports')->group(function () {
         Route::get('/', 'ReportsController@index')->name('reports.index');
+        // new demo report
+        Route::get('main', 'ReportsController@reports')->name('reports.main');
         Route::get('create', 'ReportsController@create')->name('reports.create');
         Route::post('store', 'ReportsController@store')->name('reports.store');
         Route::get('edit/{id}', 'ReportsController@edit')->name('reports.edit');
@@ -59,6 +61,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{type}/properties/{account}', 'ReportsController@properties')->name('reports.properties');
         Route::get('{type}/properties/{account}/profiles/{property}', 'ReportsController@profiles')->name('reports.profiles');
         Route::get('tester/{account_type}', 'ReportsController@tester')->name('reports.tester');
-
+        Route::get('choose-template','ReportsController@template')->name('reports.chooseTemplate');
+        Route::get('settings','ReportsController@settings')->name('reports.templateSettings');
     });
 });

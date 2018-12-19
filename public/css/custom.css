@@ -36,7 +36,7 @@ html {
   min-height: 100%;
 }
 .footer {
-	position:absolute;
+  position:absolute;
   bottom: 0;
   margin-top:50px;
   width: 100%;
@@ -163,4 +163,60 @@ footer.footer .socials, footer.footer .footer-right-container{text-align:center 
 /* iPads (portrait) ----------- */
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
 /* Styles */
+}
+
+.col-center-block {
+    float: none !important;
+    display: block;
+    margin: 0 auto;
+    /* margin-left: auto; margin-right: auto; */
+}
+
+.pl-0 {
+    padding-left: 0px !important;
+}
+.pr-0 {
+    padding-right: 0px !important;
+}
+.pt-0 {
+    padding-top: 0px !important;
+}
+
+.p-5 {
+    padding: 5px;
+}
+.p-50 {
+    padding: 50px;
+}
+
+.border-radius-0{
+    border-radius: 0px !important; 
+}
+
+
+.my-10{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.mr-3{
+    margin-right: 3px;
+}
+.ml-5{
+    margin-left: 5px;
+}
+
+.border-none {
+    border: 0;
+}
+
+.color-black {
+    color: black;
+}
+
+.mb-0{
+    margin-bottom: 0px;
+}
+.mt-0{
+    margin-top: 0px;
 }
