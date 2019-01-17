@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class=" greeting-button">
-                                <a href="{{ route('reports.create') }}"
+                                <a href="{{ route('reports.chooseTemplate') }}"
                                    onClick="ga('send', 'event', 'button', 'click', 'create_report');"
                                    class="btn btn-black btn-create-report">Create Report&nbsp;&nbsp;<i
                                         class="fa fa-caret-right" aria-hidden="true"></i></a>
@@ -34,9 +34,8 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
+                                            <th>Template</th>
                                             <th>Status</th>
-                                            <th>Property/Ad Account</th>
-                                            <th>Integration</th>
                                             <th>Frequency</th>
                                             <th>Recipients</th>
                                             <th style="min-width: 100px">Last Sent</th>
@@ -54,11 +53,12 @@
                                         @php($is_paused = $report->is_paused)
                                         <tr class="{{ $is_paused ? 'paused' : 'running' }}">
                                             <td>
-                                                <a href="{{ route('reports.chooseTemplate') }}"><strong>{{ $report->title }}</strong></a>
+                                                <a href="{{ route('reports.editSettings', [
+                                                    'slug' => $report->template->slug, 
+                                                    'id' => $report->id]) }}"><strong>{{ $report->title }}</strong></a>
                                             </td>
                                             <td>{!! $paused || $is_paused ? '<button class="btn btn-xs btn-danger">Paused</button>':'<button class="btn btn-xs btn-success">Active</button>' !!}</td>
-                                            <td>{{ $report->ad_account->title }}</td>
-                                            <td>{{ $report->account->title }}</td>
+                                            <td>{{ ucfirst($report->template->name) }}</td>
                                             <td>{{ ucfirst($report->frequency) }}</td>
                                             <td>
                                                 @if(count($emails) > 0)
@@ -80,12 +80,12 @@
                                                 <span class="caret"></span>
                                               </button>
                                               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                                <li><a href="{{ route('reports.edit', $report->id) }}" class="">Edit</a></li>
-                                                <li>   <button data-report_id="{{ $report->id }}" class="toggle_report"
-                                                                                                    data-status="{{ $is_paused ? 'yes' : 'no' }}">{{ $is_paused ? 'Start' : 'Pause' }}</button></li>
-                                                <li>    <a onClick="return confirm('Are you sure you want to delete this report?')"
-                                                                                               href="{{ route('reports.delete', $report->id) }}"
-                                                                                               class="">Delete</a></li>
+                                                <li><a href="{{ route('reports.editSettings', [
+                                                    'slug' => $report->template->slug, 
+                                                    'id' => $report->id])
+                                                }}" class="">Edit</a></li>
+                                                <li>   <button data-report_id="{{ $report->id }}" class="toggle_report_status" data-status="{{ $is_paused ? 'yes' : 'no' }}">{{ $is_paused ? 'Start' : 'Pause' }}</button></li>
+                                                <li>    <a onClick="return confirm('Are you sure you want to delete this report?')" href="{{ route('reports.remove', $report->id) }}" class="">Delete</a></li>
                                               </ul>
                                             </div>
                                             </td>

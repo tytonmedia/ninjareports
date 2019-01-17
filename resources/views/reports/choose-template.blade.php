@@ -4,208 +4,155 @@
 
     <div class="col-md-11 col-center-block">
         <div class="row">
+            @foreach($templates as $template)
             <div class="col-md-4">
                 <div class="panel panel-default">
-
                     <div class="panel-body">
-                        <img src="/img/repor_template.png" class="img-responsive col-center-block" alt="" srcset="">
-                        <h2>SEO Report</h2>
+                        <img src="{{ $template->logo_url }}" class="img-responsive col-center-block" alt="" srcset="">
+                        <h2>{{$template->name}}</h2>
                         <div class="row my-10">
                             <div class="col-md-6 pr-0">
                                 <p>Required Integrations</p>
                             </div>
                             <div class="col-md-6 pr-0">
-                                <img src="/img/analytics.png" class="mr-3" width="24" height="24" alt="">
-                                <img src="/img/google-search.png" width="24" height="24" alt="">
+                                @foreach($template->integrations as $integration)
+                                <img src="{{$integration->logo_url}}" class="mr-3" width="24" height="24" alt="">
+                                @endforeach
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 pl-0 pr-0">
-                                <button type="button" class="btn btn-link btn-lg btn-block border-none border-radius-0">Send
+                                <button type="button" onclick="sentTestReport(this)" data-template-id="{{$template->id}}" class="btn btn-link btn-lg btn-block border-none border-radius-0">Send
                                     Test Report</button>
                             </div>
                             <div class="col-lg-6 pl-0 pr-0">
-                                <button type="button" class="btn btn-primary btn-lg btn-block border-radius-0" data-toggle="modal" data-target="#myModal">Choose
+                                <button type="button" onclick="chooseReportTemplate(this,'{{$template->slug}}')" data-template-id="{{$template->id}}" class="btn btn-primary btn-lg btn-block border-radius-0">Choose
                                     Report</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="panel panel-default">
-
-                    <div class="panel-body">
-                        <img src="/img/repor_template.png" class="img-responsive col-center-block" alt="" srcset="">
-                        <h2>Google Ads Report</h2>
-                        <div class="row my-10">
-                            <div class="col-md-6 pr-0">
-                                <p>Required Integrations</p>
-                            </div>
-                            <div class="col-md-6 pr-0">
-                                <img src="/img/analytics.png" class="mr-3" width="24" height="24" alt="">
-                                <img src="/img/google-adwords.png" width="24" height="24" alt="">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 pl-0 pr-0">
-                                <button type="button" class="btn btn-link btn-lg btn-block border-none border-radius-0">Send
-                                    Test Report</button>
-                            </div>
-                            <div class="col-lg-6 pl-0 pr-0">
-                                <button type="button" class="btn btn-primary btn-lg btn-block border-radius-0">Choose
-                                    Report</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="panel panel-default">
-
-                    <div class="panel-body">
-                        <img src="/img/repor_template.png" class="img-responsive col-center-block" alt="" srcset="">
-                        <h2>Facebook Ads Report</h2>
-                        <div class="row my-10">
-                            <div class="col-md-6 pr-0">
-                                <p>Required Integrations</p>
-                            </div>
-                            <div class="col-md-6 pr-0">
-                                <img src="/img/analytics.png" class="mr-3" width="24" height="24" alt="">
-                                <img src="/img/facebook.png" width="24" height="24" alt="">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 pl-0 pr-0">
-                                <button type="button" class="btn btn-link btn-lg btn-block border-none border-radius-0">Send
-                                    Test Report</button>
-                            </div>
-                            <div class="col-lg-6 pl-0 pr-0">
-                                <button type="button" class="btn btn-primary btn-lg btn-block border-radius-0">Choose
-                                    Report</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="panel panel-default">
-
-                    <div class="panel-body">
-                        <img src="/img/repor_template.png" class="img-responsive col-center-block" alt="" srcset="">
-                        <h2>Traffic Report</h2>
-                        <div class="row my-10">
-                            <div class="col-md-6 pr-0">
-                                <p>Required Integrations</p>
-                            </div>
-                            <div class="col-md-6 pr-0">
-                                <img src="/img/analytics.png" class="mr-3" width="24" height="24" alt="">
-                                <img src="/img/google-search.png" width="24" height="24" alt="">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 pl-0 pr-0">
-                                <button type="button" class="btn btn-link btn-lg btn-block border-none border-radius-0">Send
-                                    Test Report</button>
-                            </div>
-                            <div class="col-lg-6 pl-0 pr-0">
-                                <button type="button" class="btn btn-primary btn-lg btn-block border-radius-0">Choose
-                                    Report</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="panel panel-default">
-
-                    <div class="panel-body">
-                        <img src="/img/repor_template.png" class="img-responsive col-center-block" alt="" srcset="">
-                        <h2>Ecommerce Report</h2>
-                        <div class="row my-10">
-                            <div class="col-md-6 pr-0">
-                                <p>Required Integrations</p>
-                            </div>
-                            <div class="col-md-6 pr-0">
-                                <img src="/img/analytics.png" class="mr-3" width="24" height="24" alt="">
-                                <img src="/img/google-adwords.png" class="mr-3" width="24" height="24" alt="">
-                                <img src="/img/facebook.png" width="24" height="24" alt="">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 pl-0 pr-0">
-                                <button type="button" class="btn btn-link btn-lg btn-block border-none border-radius-0">Send
-                                    Test Report</button>
-                            </div>
-                            <div class="col-lg-6 pl-0 pr-0">
-                                <button type="button" class="btn btn-primary btn-lg btn-block border-radius-0">Choose
-                                    Report</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="panel panel-default">
-
-                    <div class="panel-body">
-                        <img src="/img/repor_template.png" class="img-responsive col-center-block" alt="" srcset="">
-                        <h2>Goal & Events Report</h2>
-                        <div class="row my-10">
-                            <div class="col-md-6 pr-0">
-                                <p>Required Integrations</p>
-                            </div>
-                            <div class="col-md-6 pr-0">
-                                <img src="/img/analytics.png" width="24" height="24" alt="">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 pl-0 pr-0">
-                                <button type="button" class="btn btn-link btn-lg btn-block border-none border-radius-0">Send
-                                    Test Report</button>
-                            </div>
-                            <div class="col-lg-6 pl-0 pr-0">
-                                <button type="button" class="btn btn-primary btn-lg btn-block border-radius-0">Choose
-                                    Report</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            @endforeach
         </div>
     </div>
 
 </div>
 
-<div class="modal fade color-black" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header border-none">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body p-50 pt-0">
-        <h2 class="mt-0">Woops</h2>
-        <p>The report requires the following integrations</p>
-        <div class="my-10">
-            <div>
-
-                <img src="/img/analytics.png" width="24" height="24" alt=""> <span class="ml-5">Google Analytics</span>
+<div class="modal fade color-black" id="integrationErrorInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-none">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
-            <div>
-
-                <img src="/img/google-search.png" width="24" height="24" alt=""> <span class="ml-5">Google Search</span>
+            <div class="modal-body p-50 pt-0">
+                <h2 class="mt-0">Woops</h2>
+                <p>The report requires the following integrations</p>
+                <div class="my-10" id="required-integrations">
+                   
+                </div>
+                <p class="my-10">
+                    Please head to the integrations tab to connect these data sources
+                </p>
             </div>
         </div>
-        <p class="my-10">
-            Please head to the integrations tab to connect these data sources
-        </p>
-      </div>
     </div>
-  </div>
 </div>
 @endsection
+@section('page_scripts')
+<script>
+
+    var reportTemplates = JSON.parse('<?= json_encode($templates) ?>')
+
+    // function arrayContains(arrayOne,arrayTwo) {
+    //     let containing = false
+    //     arrayOne.forEach(function(item){
+    //         if (arrayTwo.includes(item)) {
+    //             containing = true;
+    //         } else {
+    //             containing = false;
+    //         }
+    //     })
+    //     return containing;
+    // }
+    
+    function sentTestReport(elm){
+        console.log($(elm).data('templateId'))
+    }
+
+    function chooseReportTemplate(elm,slug) {
+        // var that = this;
+        // const slug = slug;
+        var selectedTemplateId = $(elm).data('templateId')
+        var selectedTemplate = reportTemplates.find(function(template){
+            return template.id === selectedTemplateId
+        });
+        // var requiredIntegrationsHtml = ''
+        // console.log(selectedTemplate)
+        // requiredIntegrationsHtml = selectedTemplate.integrations.reduce(function(html,integration){
+        //     return html+'<div class="mb-5">'+
+        //             '<img src="'+integration.logo_url+'" width="24" height="24">'+ 
+        //             '<span class="ml-5">'+integration.name+'</span>'+
+        //             '</div>'   
+        // },'')
+
+        var templateIntegrations = selectedTemplate.integrations
+                .reduce(function(list,integration){
+                    list.push(integration.slug)
+                    return list;
+                },[])
+
+        $('#required-integrations').html('')
+        $(elm).html('Verifying <i class="fa fa-spinner fa-pulse fa-fw"></i>')
+        $.get('<?= url("user/me/integrations") ?>')
+            .done(function(data){
+                var userIntegrations = data.accounts.reduce(function(list,account){
+                    list.push(account.type)
+                    return list;
+                },[])
+                let found = templateIntegrations.every(r=> userIntegrations.includes(r) )
+                // if (arrayContains(templateIntegrations,userIntegrations)) {
+                if (found) {
+                    window.location = "<?= url('reports/settings')?>/"+slug
+                } else {
+                    var unselectedIntegration = templateIntegrations.filter(function(item) {
+                    return !userIntegrations.includes(item) ? true : userIntegrations.splice(userIntegrations.indexOf(item),1) && false;
+                    });
+                    $('#required-integrations').html(checkIntegration(elm,unselectedIntegration))
+                    // $('#required-integrations').html(requiredIntegrationsHtml)
+                    $('#integrationErrorInfoModal').modal('show')
+                    $(elm).text('Choose Report')  
+                }
+            })
+        // setTimeout(function(){
+            
+            
+        // },1000);
+        
+    }
+    function checkIntegration(elm,integration){
+        var selectedTemplateId = $(elm).data('templateId')
+        var selectedTemplate = reportTemplates.find(function(template){
+            return template.id === selectedTemplateId
+        });
+        var requiredIntegrationsHtml = ''
+        
+        selectedTemplate.integrations.forEach(function(item){
+            if (integration.includes(item.slug)) {
+                item.integration="<span style='color:red'>Not Integrated</span>"
+            } else {
+                item.integration="<span style='color:green'>Integrated</span>"
+            }
+        })
+        requiredIntegrationsHtml = selectedTemplate.integrations.reduce(function(html,integration){
+            return html+'<div class="mb-5">'+
+                    '<img src="'+integration.logo_url+'" width="24" height="24">'+ 
+                    '<span class="ml-5">'+integration.name+'</span>'+
+                    '<span class="ml-5">'+integration.integration+'</span>'+
+                    '</div>'   
+        },'')
+        return requiredIntegrationsHtml;
+    }
+</script>
+@endsection
+

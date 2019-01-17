@@ -344,6 +344,71 @@ if (!function_exists('make_schedules')) {
     }
 }
 
+if (!function_exists('set_schedules')) {
+    function set_schedules($frequency, $ends_at, $user_id = 0, $ends_time)
+    {
+        if ($user_id) {
+            $user_timezone = \App\User::find($user_id)->timezone;
+            $user_timezone ? date_default_timezone_set($user_timezone) : '';
+        } else {
+            if (auth()->check()) {
+                auth()->user()->timezone ? date_default_timezone_set(auth()->user()->timezone) : '';
+            }
+        }
+        $next_send_time = '';
+        $current_time = date('H:i:s');
+        $current_day = date('D');
+        $current_date = date('j');
+        $current_month = date('n');
+        if ($frequency == 'daily') {
+            $frequency_time = date('H:i:s', strtotime($ends_at));
+            if ($frequency_time > $current_time) {
+                $next_send_time = date('Y-m-d') . ' ' . $frequency_time;
+            } else {
+                $next_send_time = date('Y-m-d', strtotime('+1 day', time())) . ' ' . $frequency_time;
+            }
+        }
+        if ($frequency == 'weekly') {
+            $frequency_day = $ends_at;
+            $day = strtolower(date('l', strtotime($frequency_day)));
+            if ($frequency_day == $current_day && $ends_time > $current_time) {
+                $next_send_time = date('Y-m-d') .' '.$ends_time;
+            } else {
+                $next_send_time = date('Y-m-d', strtotime('next ' . $day)) .' '.$ends_time;
+            }
+        }
+        if ($frequency == 'monthly') {
+            $frequency_date = $ends_at;
+            if ($frequency_date >= $current_date) {
+                $next_send_time = date('Y-m-') . sprintf('%02d', $frequency_date) .' '.$ends_time;
+            } else {
+                $next_send_time = date('Y-') . date('m-', strtotime('first day of +1 month')) . sprintf('%02d', $frequency_date) .' '.$ends_time;
+            }
+        }
+        if ($frequency == 'yearly') {
+            $yearly_data = explode('-', $ends_at);
+            $frequency_month = $yearly_data[0];
+            $frequency_date = $yearly_data[1];
+            if (($frequency_month > $current_month) || ($frequency_month == $current_month && $frequency_date > $current_date) || ($frequency_month == $current_month && $frequency_date == $current_date && '19:00:00' > $current_time)) {
+                $next_send_time = date('Y-') . sprintf('%02d', $frequency_month) . '-' . sprintf('%02d', $frequency_date) . ' 19:00:00';
+            } else {
+                $next_send_time = date('Y-m-d 19:00:00', strtotime(date('Y-') . sprintf('%02d', $frequency_month) . '-' . sprintf('%02d', $frequency_date) . ' + 1 year'));
+            }
+        }
+        if (validateDate($next_send_time)) {
+            $next_send_str_time = strtotime($next_send_time);
+            date_default_timezone_set('UTC');
+            if ($frequency == 'daily') {
+                return date('Y-m-d H:i:s', $next_send_str_time);
+            }
+            return date("Y-m-d $ends_time", $next_send_str_time);
+        }
+        return false;
+    }
+}
+
+
+
 if (!function_exists('sendMail')) {
 
     function sendMail($to, $subject, $template_id, $substitutions = array(), $attachments = array(), $from = 'reports@ninjareports.com', $showResponse = true)
@@ -465,5 +530,50 @@ if (!function_exists('calculateStripeAmount')) {
     function calculateStripeAmount($amount)
     {
         return number_format((float)abs($amount / 100), 2, '.', '');
+    }
+}
+if (!function_exists('getProperties')) {
+    function getProperties($type, $account, $property_id)
+    {
+        $html = '';
+        $status = 'error';
+        if ($type == 'analytics') {
+            $ad_account = \App\Models\AdAccount::where('ad_account_id', $account)
+                ->where('user_id', auth()->user()->id)
+                ->where('is_active', 1)
+                ->first();
+            if ($ad_account) {
+                $properties = \App\Models\AnalyticProperty::where('ad_account_id', $ad_account->id)
+                    ->where('user_id', auth()->user()->id)
+                    ->where('is_active', 1)
+                    ->get();
+                return view('ajax.ad_account_properties', compact('properties', 'type', 'account','ad_account','property_id'))->render();
+                
+            } 
+        }
+    }
+}
+if (!function_exists('getProfiles')) {
+    function getProfiles($type, $account, $property, $profile_id)
+    {
+        $html = '';
+        $status = 'error';
+        if ($type == 'analytics') {
+            $ad_property = \App\Models\AnalyticProperty::where('property', $property)
+                ->where('user_id', auth()->user()->id)
+                ->where('is_active', 1)
+                ->first();
+            if ($ad_property) {
+                $ad_account = \App\Models\AdAccount::where('id', $ad_property->ad_account_id)
+                ->where('user_id', auth()->user()->id)
+                ->where('is_active', 1)
+                ->first();
+                $profiles = \App\Models\AnalyticView::where('property_id', $ad_property->id)
+                    ->where('user_id', auth()->user()->id)
+                    ->where('is_active', 1)
+                    ->get();
+                return view('ajax.property_profiles', compact('profiles', 'type','ad_account','profile_id'))->render();
+            }
+        }
     }
 }

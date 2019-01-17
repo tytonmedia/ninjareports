@@ -19,6 +19,7 @@
         "laravel/spark": "*@dev",
         "laravel/tinker": "~1.0",
         "mpdf/mpdf": "^7.0",
+        "pragmarx/countries": "^0.5.9",
         "sendgrid/sendgrid": "~6.0"
     },
     "require-dev": {

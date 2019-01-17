@@ -8,11 +8,13 @@ use App\Models\AnalyticProperty;
 use App\Models\AnalyticView;
 use App\Models\Plan;
 use App\Models\Report;
+use App\Models\NinjaReport;
 use App\Models\Schedule;
 use App\Models\Emailtemplate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Session;
+use App\Models\ReportTemplate;
 
 class ReportsController extends Controller
 {
@@ -33,22 +35,7 @@ class ReportsController extends Controller
         return view('reports.index', compact('all_reports', 'paused'));
     }
 
-    public function reports()
-    {
-        $current_plan = auth()->user()->current_billing_plan ? auth()->user()->current_billing_plan : 'free_trial';
-        $plan = Plan::whereTitle($current_plan)->first();
-        $reports_sent_count = Schedule::whereUserId(auth()->user()->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
-        $paused = false;
-        if ($reports_sent_count >= $plan->reports) {
-            $paused = true;
-        }
-        $all_reports = Report::where('user_id', auth()->user()->id)
-            ->where('is_active', 1)
-            ->with('account', 'ad_account')
-            ->orderBy('id', 'desc')
-            ->paginate(15);
-        return view('reports.reports', compact('all_reports', 'paused'));
-    }
+    
 
     public function tester($account_type)
     {
@@ -71,7 +58,7 @@ class ReportsController extends Controller
   
     public function create()
     {
-        validateTokens();
+        // validateTokens();
         $accounts = Account::where('user_id', auth()->user()->id)->where('status', 1)->get();
 
         $current_plan = auth()->user()->current_billing_plan ? auth()->user()->current_billing_plan : 'free_trial';
@@ -96,7 +83,7 @@ class ReportsController extends Controller
 
     public function edit($id)
     {
-        validateTokens();
+        // validateTokens();
         $accounts = Account::where('user_id', auth()->user()->id)->where('status', 1)->get();
         $report = Report::where('id', $id)->where('is_active', 1)->where('user_id', auth()->user()->id)->first();
         if ($report) {
@@ -425,13 +412,257 @@ class ReportsController extends Controller
         ]);
     }
 
+    //// new functions
+    public function reports_index()
+    {
+        $current_plan = auth()->user()->current_billing_plan ? auth()->user()->current_billing_plan : 'free_trial';
+        $plan = Plan::whereTitle($current_plan)->first();
+        $reports_sent_count = Schedule::whereUserId(auth()->user()->id)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
+        $paused = false;
+        if ($reports_sent_count >= $plan->reports) {
+            $paused = true;
+        }
+        $all_reports = NinjaReport::where('user_id', auth()->user()->id)
+            ->where('is_active', 1)
+            ->with('template')
+            ->orderBy('id', 'desc')
+            ->paginate(15);
+        return view('reports.reports', compact('all_reports', 'paused'));
+    }
     public function template()
     {
-        return view('reports.choose-template');
+        $templates =  (new \App\Services\ReportService)->getTemplates();
+        
+        return view('reports.choose-template',compact('templates'));
     }
 
-    public function settings()
+    public function settings($slug)
     {
-        return view('reports.settings');
+        $reportService = new \App\Services\ReportService;
+        $report =  $reportService->getAnalyticSource($slug);
+        $reportTemplate = ReportTemplate::where('slug',$slug)->with('integrations')->first();
+
+        if(!$report->template){
+            return redirect()->route('reports.chooseTemplate');
+        }
+        $reportData = $reportService->getReportObject();
+        $postUrl = route('reports.settingsStore', ['slug' => $report->template->slug]);
+        $edit = false;
+        return view('reports.settings',compact('report','reportData','postUrl','edit','reportTemplate'));
     }
+    public function editSettings($slug, $id)
+    {
+        $reportService = new \App\Services\ReportService;
+        $report =  $reportService->getAnalyticSource($slug);
+        $reportTemplate = ReportTemplate::where('slug',$slug)->with('integrations')->first();
+
+        if(!$report->template){
+            return redirect()->route('reports.chooseTemplate');
+        }
+
+        $reportData = $reportService->getActiveReport($id);
+
+        if ($reportData) {
+            $postUrl = route('reports.updateSettings', ['slug' => $report->template->slug, 'id' => $id]);
+            $edit = true;
+            return view('reports.settings', compact('report', 'reportData','postUrl','edit','reportTemplate'));
+        } else {
+            Session::flash('alert-danger', 'Report not found.');
+            return redirect()->route('reports.index');
+        }
+    }
+    public function settingsStore(Request $request, $slug)
+    {
+        // dd($request->all());
+        $reportService = new \App\Services\ReportService;
+        $template = $reportService->getTemplate($slug);
+        if(!$template){
+            Session::flash('alert-danger', 'Invalid Template Selection.');
+            return response()->error(['redirect' => true, 'url' => route('reports.chooseTemplate')]);
+            
+        }
+        $validation_array = [
+            'title' => 'required|max:191',
+            'recipients' => 'required',
+            'attachment_type' => 'required',
+            'email_subject' => 'required',
+        ];
+        
+        $v = Validator::make($request->all(), $validation_array);
+
+        if ($v->fails()) {
+            $result =  $v->messages();
+            return response()->error($result);
+        }
+           
+        
+        $request->template_id = $template->id;
+        if($request->frequency == 'daily'){
+            $request->ends_at = $request->ends_time;
+        }else{
+            $request->ends_at = $request->ends_at;
+        }
+        $request->frequency_time = date('H:i:s', strtotime($request->ends_time));
+        $request->next_send_time = set_schedules(
+            $request->frequency, 
+            $request->ends_at, 
+            0, 
+            $request->frequency_time
+        );
+        if(!$request->next_send_time){
+            Session::flash('alert-danger', 'Invalid Date Selection.');
+            return response()->error(['redirect' => true, 'url' => route('reports.templateSettings', ['slug'=>$slug])]);
+        }
+        if($request->sources){
+            $status = $reportService->saveNinjaReport($request, auth()->user()->id);
+            if ($status) {
+                Session::flash('alert-success', 'Report generated successfully.');
+                return response()->success(['redirect' => true, 'url' => route('reports.main')]);
+            } else {
+                Session::flash('alert-danger', 'Error creating report. Please try again later.');
+                return response()->error(['redirect' => true, 'url' => route('reports.main')]);
+            }
+
+        }
+        
+    }
+
+    public function updateSettings(Request $request, $slug, $id)
+    {
+        $reportService = new \App\Services\ReportService;
+        if(!$reportService->getReportUser($id)){
+            Session::flash('alert-danger', 'Invalid Selection.');
+            return response()->error(['redirect' => true, 'url' => route('reports.chooseTemplate')]);
+        }
+        $template = $reportService->getTemplate($slug);
+        if(!$template){
+            Session::flash('alert-danger', 'Invalid Template Selection.');
+            return response()->error(['redirect' => true, 'url' => route('reports.chooseTemplate')]);
+        }
+        $validation_array = [
+            'title' => 'required|max:191',
+            'recipients' => 'required',
+            'attachment_type' => 'required',
+            'email_subject' => 'required',
+        ];
+        
+        $v = Validator::make($request->all(), $validation_array);
+
+        if ($v->fails()) {
+            $result =  $v->messages();
+            return response()->error($result);
+        }
+           
+        
+        $request->template_id = $template->id;
+        if($request->frequency == 'daily'){
+            $request->ends_at = $request->ends_time;
+        }else{
+            $request->ends_at = $request->ends_at;
+        }
+        $request->frequency_time = date('H:i:s', strtotime($request->ends_time));
+        $request->next_send_time = set_schedules(
+            $request->frequency, 
+            $request->ends_at, 
+            0, 
+            $request->frequency_time
+        );
+        if(!$request->next_send_time){
+            Session::flash('alert-danger', 'Invalid Date Selection.');
+            return response()->error(['redirect' => true, 'url' => route('reports.templateSettings', ['slug'=>$slug])]);
+        }
+        if($request->sources){
+            $status = $reportService->saveNinjaReport($request, auth()->user()->id, $id);
+            if ($status) {
+                Session::flash('alert-success', 'Report generated successfully.');
+                return response()->success(['redirect' => true, 'url' => route('reports.main')]);
+            } else {
+                Session::flash('alert-danger', 'Error creating report. Please try again later.');
+                return response()->error(['redirect' => true, 'url' => route('reports.main')]);
+            }
+        }
+        
+    }
+    
+    public function getProperties($type, $account)
+    {
+        $html = '';
+        $status = 'error';
+        if ($type == 'analytics') {
+            $ad_account = AdAccount::where('ad_account_id', $account)
+                ->where('user_id', auth()->user()->id)
+                ->where('is_active', 1)
+                ->first();
+            if ($ad_account) {
+                $properties = AnalyticProperty::where('ad_account_id', $ad_account->id)
+                    ->where('user_id', auth()->user()->id)
+                    ->where('is_active', 1)
+                    ->get();
+                $html = view('ajax.ad_account_properties', compact('properties', 'type', 'account','ad_account'))->render();
+                $status = 'success';
+            } else {
+                $status = 'error';
+            }
+        }
+        return response()->json([
+            'status' => $status,
+            'html' => $html,
+        ]);
+    }
+
+    public function getProfiles($type, $account, $property)
+    {
+        $html = '';
+        $status = 'error';
+        if ($type == 'analytics') {
+            $ad_property = AnalyticProperty::where('property', $property)
+                ->where('user_id', auth()->user()->id)
+                ->where('is_active', 1)
+                ->first();
+            if ($ad_property) {
+                $ad_account = AdAccount::where('id', $ad_property->ad_account_id)
+                ->where('user_id', auth()->user()->id)
+                ->where('is_active', 1)
+                ->first();
+                $profiles = AnalyticView::where('property_id', $ad_property->id)
+                    ->where('user_id', auth()->user()->id)
+                    ->where('is_active', 1)
+                    ->get();
+                $html = view('ajax.property_profiles', compact('profiles', 'type','ad_account'))->render();
+                $status = 'success';
+            } else {
+                $status = 'error';
+            }
+        }
+        return response()->json([
+            'status' => $status,
+            'html' => $html,
+        ]);
+    }
+    public function postStatus($id, $is_paused)
+    {
+        $report = NinjaReport::find($id);
+        $status = 'error';
+        if ($report) {
+            $report->is_paused = $is_paused;
+            $report->save();
+            $status = 'success';
+        }
+        return response()->json([
+            'status' => $status,
+        ]);
+    }
+    public function remove($id)
+    {
+        $report = NinjaReport::where('id', $id)->where('is_active', 1)->where('user_id', auth()->user()->id)->first();
+        if ($report) {
+            $report->is_active = 0;
+            $report->save();
+            session()->flash('alert-success', 'Report Deleted Successfully!');
+        } else {
+            session()->flash('alert-danger', 'Something went wrong!');
+        }
+        return redirect()->route('reports.main');
+    }
+    
 }
