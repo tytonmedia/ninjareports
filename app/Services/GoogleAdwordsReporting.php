@@ -5,11 +5,13 @@ namespace App\Services;
 use Google\AdsApi\Common\OAuth2TokenBuilder;
 use Google\AdsApi\Common\SoapSettingsBuilder;
 use Google\AdsApi\AdWords\AdWordsSessionBuilder;
+use Google\AdsApi\AdWords\AdWordsServices;
 
 use Google\AdsApi\AdWords\Query\v201806\ReportQueryBuilder;
 use Google\AdsApi\AdWords\Reporting\v201806\DownloadFormat;
 use Google\AdsApi\AdWords\Reporting\v201806\ReportDefinitionDateRangeType;
 use Google\AdsApi\AdWords\Reporting\v201806\ReportDownloader;
+use Google\AdsApi\AdWords\ReportSettings;
 use Google\AdsApi\AdWords\ReportSettingsBuilder;
 use Google\AdsApi\AdWords\v201806\cm\ReportDefinitionReportType;
 use Google\AdsApi\AdWords\v201806\cm\LocationCriterionService;
@@ -41,7 +43,8 @@ class GoogleAdwordsReporting
                 'Clicks',
                 'Cost',
                 'Ctr',
-                'AverageCpc'
+                'AverageCpc',
+                'AllConversions'
             ])
             ->from(ReportDefinitionReportType::CAMPAIGN_PERFORMANCE_REPORT)
             ->during($startDate,$endDate)
@@ -81,11 +84,58 @@ class GoogleAdwordsReporting
         $reportCSVString = $reportResult->getAsString();
         $reportData = $this->parseCSVReport($reportCSVString);
 
+        $reportData['rows'] = $this->array_merge_duplicates(
+            $reportData['rows'],
+            'Day',
+            function ($currentItem,$duplicateItem) {
+                $currentItem['Cost'] =  (int) $currentItem['Cost'] + (int) $duplicateItem['Cost'];
+                return $currentItem;
+            }
+        );
+
         $formatedReportData = $this->formatParsedData($reportData,[
             'Cost' => [$this,'costFormatter']
         ]);
 
         return $formatedReportData;
+    }
+
+    public function getCampaignConversionsByDayReport($startDate,$endDate)
+    {
+        if (!$this->adwordsSession) {
+            return;
+        }
+        
+        $startDate = str_replace('-','',$startDate);
+        $endDate = str_replace('-','',$endDate);
+
+        $query = (new ReportQueryBuilder())
+            ->select([
+                'Date',
+                'AllConversions'
+            ])
+            ->from(ReportDefinitionReportType::CAMPAIGN_PERFORMANCE_REPORT)
+            ->during($startDate,$endDate)
+            ->build();
+
+        $reportSettings = (new ReportSettingsBuilder())
+                ->includeZeroImpressions(true)
+                ->build();
+
+        $reportResult = $this->runAwql($query,$reportSettings);
+        $reportCSVString = $reportResult->getAsString();
+        $reportData = $this->parseCSVReport($reportCSVString);
+        
+        $reportData['rows'] = $this->array_merge_duplicates(
+            $reportData['rows'],
+            'Day',
+            function ($currentItem,$duplicateItem) {
+                $currentItem['All conv.'] =  (int) $currentItem['All conv.'] + (int) $duplicateItem['All conv.'];
+                return $currentItem;
+            }
+        );
+
+        return $reportData;
     }
 
     public function getAgeGenderDeviceReport($startDate,$endDate)
@@ -224,21 +274,29 @@ class GoogleAdwordsReporting
         $reportResult = $this->runAwql($query);
         $reportData = $this->parseCSVReport($reportResult->getAsString());
 
-        $sortedRows = collect($reportData['rows'])
+        $rows = collect($reportData['rows'])
                         ->sortByDesc('Impressions')
                         ->values()
-                        ->take(10)
-                        ->all();
-        $locationCriterionService = new LocationCriterionService();
+                        ->take(10);
 
+        $locationCriterionService = (new AdWordsServices)->get($this->adwordsSession,LocationCriterionService::class);
         $query = (new ServiceQueryBuilder())
-                ->select(['CanonicalName'])
-                ->limit(0,10)
+                ->select(['CanonicalName','Id'])
+                ->where("Id")->in($rows->pluck('Country/Territory')->all())
                 ->build();
 
-        $countries = $locationCriterionService->query(sprintf('%s', $query));
+        $countries = new \PragmaRX\Countries\Package\Countries;
+        $locations = $locationCriterionService->query(sprintf('%s', $query));
+        $rows = $rows->map(function ($row) use($locations,$countries) {
+            $location = array_first($locations,function ($location) use($row) {
+                return $this->getProtectedValue($location->getLocation(),'id') == $row['Country/Territory'];
+            });
+            $row['CountryName'] = $location? $location->getCanonicalName() : null;
+            $row['CountryISO'] = $countries->where('name.common',$row['CountryName'])->first()->cca3;
+            return $row;
+        });
 
-        dd($countries->getEntries());
+        return $rows->all();
     }
 
     public function costFormatter($data)
@@ -303,16 +361,18 @@ class GoogleAdwordsReporting
         return $reportData;
     }
 
-    public function runAwql($query)
+    public function runAwql($query,ReportSettings $reportSettings=null)
     {
         $reportDownloader = new ReportDownloader($this->adwordsSession);
-        $reportSettingsOverride = (new ReportSettingsBuilder())
-            ->includeZeroImpressions(false)
-            ->build();
+        if (!$reportSettings) {
+            $reportSettings = (new ReportSettingsBuilder())
+                ->includeZeroImpressions(false)
+                ->build();
+        }
         return $reportDownloader->downloadReportWithAwql(
             sprintf('%s', $query),
             DownloadFormat::CSV,
-            $reportSettingsOverride
+            $reportSettings
         );
     }
 
@@ -345,5 +405,25 @@ class GoogleAdwordsReporting
         return $this;
     }
 
+    
+    public function array_merge_duplicates($array,$key,callable $mergeAction)
+    {
+        $result = [];
+        foreach ($array as $item) {
+            $index = array_search($item[$key], array_column($result, $key));
+            if ($index !== false) {
+                $result[$index] = call_user_func_array($mergeAction,[$item,$result[$index]]);
+            } else {
+                $result[] = $item;
+            }
+        }
+        return $result;
+    }
+
+    function getProtectedValue($obj,$name) {
+        $array = (array)$obj;
+        $prefix = chr(0).'*'.chr(0);
+        return $array[$prefix.$name];
+    }
 }
 

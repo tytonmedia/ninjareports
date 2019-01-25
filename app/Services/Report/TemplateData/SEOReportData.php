@@ -61,6 +61,26 @@ class SEOReportData
 
         $profileId = $this->analyticsAccount['profile_id'];
 
+        // orgainic traffic & sessions
+        $organicSessionsResult = $analytics->data_ga->get(
+            'ga:'.$profileId, 
+            $fromDate,
+            $toDate, 
+            'ga:sessions',
+            ['dimensions' => 'ga:date']
+        );
+        $organicSessionsReport = $this->googleAnalyticsService->parseGaData($organicSessionsResult);        
+        $organicSessions = $this->googleAnalyticsService->getReportRows(
+            $organicSessionsReport,
+            [
+                'ga:date' => 'date',
+                'ga:sessions' => 'sessions',
+            ],
+            function ($entry) {
+                $entry['date'] = substr($entry['date'], 0, 4).'-'.substr($entry['date'], 5, 6).'-'.substr($entry['date'], 7, 8);
+                return $entry;
+            }
+        );
         // overall analytics data
         $analyticsResults = $analytics->data_ga->get(
             'ga:'.$profileId, 
@@ -187,6 +207,7 @@ class SEOReportData
         $sessionsByCountryReportRequest->setMetrics([$sessionsMetric]);
         $sessionsByCountryReportRequest->setDimensions([$countryDimension,$countryISODimension]);
         $sessionsByCountryReportRequest->setOrderBys($sessionAscOrder);
+        $sessionsByCountryReportRequest->setPageSize(10);
 
         // organic_sessions_by_source
 
@@ -252,7 +273,17 @@ class SEOReportData
         $topKeywordsQuery->setRowLimit(10);
         
         // $topPages = $searchConsole->searchanalytics->query($siteUrl,$topPagesQuery)->getRows();
-        $topKeywords = $searchConsole->searchanalytics->query($siteUrl,$topKeywordsQuery)->getRows();
+        $topKeywords=[];
+        $topKeywordRows = $searchConsole->searchanalytics->query($siteUrl,$topKeywordsQuery)->getRows();
+        foreach ($topKeywordRows as $row) {
+           $topKeywords[] = [
+               'keyword' => $row->keys[0],
+               'clicks' => $row->clicks,
+               'impressions' => $row->impressions,
+               'ctr' => $row->ctr,
+               'position' => $row->position
+           ];
+        }
         $generalData = $searchConsole->searchanalytics->query($siteUrl,$generalQuery)->getRows();
         
         $this->data = [
@@ -262,7 +293,7 @@ class SEOReportData
             'time_on_page' => gmdate('H:i:s',$analyticsResultsTotal['ga:avgTimeOnPage']),
             'organic_revenue' => null,
             'pages_per_visit' => round($analyticsResultsTotal['ga:pageviewsPerSession']),
-            'organic_traffic_and_session' => null,
+            'organic_traffic_and_session' => $organicSessions,
             'organic_sessions_by_source' => $sessionsBySource,
             'organic_traffic_by_country' => $sessionsByCountry,
             'age_genders_devices' => [
@@ -271,7 +302,7 @@ class SEOReportData
                 'devices' =>$usersByPlatform
             ],
             'top_organic_pages' => $topPages,
-            'top_organic_keywords' => json_decode(json_encode($topKeywords)),
+            'top_organic_keywords' => $topKeywords,
         ];
         return $this;
     }
@@ -327,18 +358,11 @@ class SEOReportData
                     'title' => 'Users by Devices'
                 ]
             );
-
-            $emailData['age_genders_devices'] = "<div>
-                <div style='float: left; width: 33%;'>
-                    <img style='width: 100%;height: auto;' src='$ageChartUrl'>
-                </div>
-                <div style='display: inline-block; width: 33%;'>
-                    <img style='width: 100%;height: auto;' src='$genderChartUrl'>
-                </div>
-                <div style='float: right; width: 33%;'>
-                    <img style='width: 100%;height: auto;' src='$deviceChartUrl'>
-                </div>
-            </div>";
+            $emailData['age_genders_devices_chart_url'] = [
+                'age' => $ageChartUrl,
+                'genders' => $genderChartUrl,
+                'devices' => $deviceChartUrl
+            ];
            
         }
 
@@ -352,7 +376,32 @@ class SEOReportData
                 return $result;
             },[]);
             $url = $this->chartService->getMapChartImageUrl($mapData);
-            $emailData['organic_traffic_by_country'] = "<img src='$url' style='width: 100%;height: auto;' >";
+            // $emailData['organic_traffic_by_country'] = "<img src='$url' style='width: 100%;height: auto;' >";
+            $emailData['organic_traffic_by_country_chart_url'] = $url;
+            /*
+            ob_start();
+            ?>
+            <div>
+                <table style="width: 100%;
+                        max-width: 100%;
+                        margin-bottom: 20px;
+                        border-spacing: 0;
+                        border-collapse: collapse;" class="table-custom">
+                <tr>
+                    <th>Country</th>
+                    <th>Sessions</th>
+                </tr>
+                <?php foreach($this->data['organic_traffic_by_country'] as $row): ?>
+                    <tr>
+                        <td width="230"><?= $row['country'] ?> </td>
+                        <td><?= $row['sessions'] ?></td>
+                    </tr>
+                <?php endforeach ?>
+                </table>
+            </div>
+            <?php
+            $emailData['organic_traffic_by_country_table_html'] = ob_get_clean();
+            */
         }
 
         if ($this->data['organic_sessions_by_source']) {
@@ -361,14 +410,20 @@ class SEOReportData
                 return $result;
             },[]);
             $sessionsBySourceChartUrl = $this->chartService->getDonutChartImageUrl($sessionsBySourceChartData);
-            $emailData['organic_sessions_by_source'] = "<img src='$sessionsBySourceChartUrl' style='width: 100%;height: auto;' >";
+            // $emailData['organic_sessions_by_source'] = "<img src='$sessionsBySourceChartUrl' style='width: 100%;height: auto;' >";
+            $emailData['organic_sessions_by_source_chart_url'] = $sessionsBySourceChartUrl;
         }
 
         if ($this->data['top_organic_pages']) {
+            /*
             ob_start();
             ?>
             <div>
-                <table>
+                <table style="width: 100%;
+                        max-width: 100%;
+                        margin-bottom: 20px;
+                        border-spacing: 0;
+                        border-collapse: collapse;" class="table-custom">
                 <tr>
                     <th>URL</th>
                     <th>Sessions</th>
@@ -379,7 +434,7 @@ class SEOReportData
                 </tr>
                 <?php foreach($this->data['top_organic_pages'] as $row): ?>
                     <tr>
-                        <td><?= $row['page'] ?> </td>
+                        <td width="230"><?= $row['page'] ?> </td>
                         <td><?= $row['sessions'] ?></td>
                         <td><?= $row['pageviews'] ?></td>
                         <td><?= $row['avg_time_on_page'] ?></td>
@@ -391,14 +446,20 @@ class SEOReportData
             </div>
             <?php
             $topOrganicPagesHtml = ob_get_clean();
-            $emailData['top_organic_pages'] = $topOrganicPagesHtml;
+            // $emailData['top_organic_pages_html'] = $topOrganicPagesHtml;
+            */
         }
 
         if ($this->data['top_organic_keywords']) {
+            /*
             ob_start();
             ?>
             <div>
-                <table>
+                <table style="width: 100%;
+                        max-width: 100%;
+                        margin-bottom: 20px;
+                        border-spacing: 0;
+                        border-collapse: collapse;" class="table-custom">
                 <tr>
                     <th>Keyword</th>
                     <th>Click</th>
@@ -408,7 +469,7 @@ class SEOReportData
                 </tr>
                 <?php foreach($this->data['top_organic_keywords'] as $row): ?>
                     <tr>
-                        <td> <?= $row->keys[0] ?> </td>
+                        <td width="230"> <?= $row->keys[0] ?> </td>
                         <td><?= $row->clicks ?></td>
                         <td><?= $row->impressions ?></td>
                         <td><?= $row->ctr ?></td>
@@ -419,7 +480,25 @@ class SEOReportData
             </div>
             <?php
             $topOrganicKeywordsHtml = ob_get_clean();
-            $emailData['top_organic_keywords'] = $topOrganicKeywordsHtml;
+            // $emailData['top_organic_keywords_html'] = $topOrganicKeywordsHtml;
+            */
+        }
+
+        if ($this->data['organic_traffic_and_session']) {
+            $chartData = array_map(function ($item) {
+                return [
+                 'x' => $item['date'],
+                 'y' => $item['sessions']
+                ];
+            },$this->data['organic_traffic_and_session']);
+            $organicSessionsChartUrl = $this->chartService->getLineTimeseriesChartImageUrl($chartData,
+                    [
+                    'title' => 'Orgainic Sessions',
+                    'label-name' => 'sessions',
+                    'line-color' => 'rgb(255, 215, 0)',
+                    'line-area-color' => 'rgba(255, 215, 0,0.2)'
+                    ]);
+            $emailData['organic_traffic_and_session_chart_url'] = $organicSessionsChartUrl;
         }
 
         return $emailData;
@@ -434,6 +513,37 @@ class SEOReportData
         $client->setAccessToken($accessToken);
         $searchConsole = new \Google_Service_Webmasters($client);
         return $searchConsole;
+    }
+
+
+    public function buildHtmlTable($rows)
+    {
+        $keys = array_keys($rows[0]);
+        ob_start();
+        ?>
+        <div>
+            <table style="width: 100%;
+                    max-width: 100%;
+                    margin-bottom: 20px;
+                    border-spacing: 0;
+                    border-collapse: collapse;" class="table-custom">
+            <tr>
+                <?php foreach($keys as $key): ?>
+                    <th><?= $key ?></th>
+                <?php endforeach ?>
+            </tr>
+            <?php foreach($rows as $row): ?>
+                <tr>
+                    <?php foreach($row as $cell): ?>
+                        <td><?= $cell ?></td>
+                    <?php endforeach ?>
+                </tr>
+            <?php endforeach ?>
+            </table>
+        </div>
+        <?php
+        $html = ob_get_clean();
+        return $html;
     }
 
 

@@ -3,7 +3,7 @@
 namespace App\Services\Report;
 
 use App\Models\ReportTemplate;
-use function GuzzleHttp\json_decode;
+use App\Services\PDFGenerator;
  
 class ReportSender
 {
@@ -15,14 +15,24 @@ class ReportSender
 
         $dates = $this->extractReportDates($report);
         $parsedReportAccounts = $this->parseReportAccounts($reportAccounts);
+        $html = null;
+        $attachments = [];
+        $templateId = null;
+        $from = 'reports@ninjareports.com';
 
         switch ($reportTemplate->slug) {
             case 'seo-report':
-                $reportEmailData = app('App\Services\Report\TemplateData\SeoReportData')
+                $templateId = 'd-55d9ef2ca3bc4fc181e12d96fc109ef6';
+                $reportEmailData = app('App\Services\Report\TemplateData\SEOReportData')
                                 ->setAccounts($parsedReportAccounts)
                                 ->generate($dates['from_date'],$dates['to_date'])
                                 ->get('email');
+                dd($reportEmailData);
                 // pdf generation
+                $reportEmailData['report_date'] = $reportEmailData['report_date'];
+                if ($report->attachment_type == 'pdf') {
+                    // $html = view('reports.templates.seo-report',['data' => $reportEmailData])->render();
+                } 
                 break;
             case 'google-ads-report':
                 // $reportEmailData = app('App\Services\Report\TemplateData\GoogleAdsReportData')
@@ -42,7 +52,33 @@ class ReportSender
                 # code...
                 break;
         }
-        dd($reportEmailData);
+
+        if ($html) {
+            $pdfGenerator = new PDFGenerator();
+            $filePath = public_path('files/pdf/'.time().'.pdf');
+            $pdfGenerator->generate($html,$filePath);
+            $attachments = [
+                [ 'file' => $filePath, 'name' => $report->title.'.pdf'],
+            ];
+        }
+
+        foreach ($reportRecipients as $recipient) {
+            (new \App\Services\SendGridService)->sendTransactionalMail([
+                'to' => ['email' => $recipient],
+                'template_id' => $templateId,
+                'template_data' => $reportEmailData,
+                'subject' => $report->email_subject,
+                'attachments' => $attachments
+            ]);
+        }
+
+        if ($attachments) {
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+        }
+
+        // dd($reportEmailData);
     }
 
     public function extractReportDates($report)

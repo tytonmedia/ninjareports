@@ -88,6 +88,58 @@ class ChartService
         return $this->generateChartURL('chartjs-bar-chart',$json);
     }
 
+    public function getLineTimeseriesChartImageUrl($data,$config)
+    {
+        $chartData = [
+            'charturl' => [
+              'type' => 'chartjs',
+              'momentjs' => true
+            ],
+            'options' => [
+                'type' => 'line',
+                'options' => [
+                    'responsive' => true,
+                    'maintainAspectRatio' => false,
+                    'legend' => [
+                        'position' => 'top',
+                        'display' => false
+                    ],
+                    'title' => [
+                        'display' => true,
+                        'text' => $config['title'],
+                    ],
+                    'scales' => [
+                        'xAxes'=>[
+                            [
+                                'type' => 'time',
+                                'distribution' => 'linear'
+                            ]
+                        ],
+                        'yAxes'=>[
+                            [
+                                'ticks' => [
+                                    'suggestedMin'=> 0
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+                'data' => [
+                    'label' => $config['label-name'],
+                    'datasets' => [
+                        [
+                            'backgroundColor' => $config['line-area-color'],
+                            'borderColor' => $config['line-color'],
+                            'data' => $data
+                        ]
+                    ],
+                ],
+            ],
+        ];
+        $json = json_encode($chartData);
+        return $this->generateChartURL('chartjs-timeseries',$json);
+    }
+
 
     public function getMapChartImageUrl($countryData)
     {
