@@ -117,18 +117,18 @@ class ReportSender
         $reportAccountsByType = $reportAccounts->keyBy('ad_account.account.type');
 
         if ($analyticsAccount = array_get($reportAccountsByType,'analytics')) {
-            $tokenData = json_decode($analyticsAccount->ad_account->account->token,true);
+            $accessToken = json_decode($analyticsAccount->ad_account->account->token,true);
             $parsedAccounts['google_analytics'] = [
                 'profile_id' => $analyticsAccount->ad_account->ad_account_id,
-                'access_token' => $tokenData['access_token']
+                'access_token' => $accessToken
             ];
         }
 
         if ($googleSearchAccount = array_get($reportAccountsByType,'google-search')) {
-            $tokenData = json_decode($googleSearchAccount->ad_account->account->token,true);
+            $accessToken = json_decode($googleSearchAccount->ad_account->account->token,true);
             $parsedAccounts['google_search_console'] = [
                 'site_url' =>$googleSearchAccount->ad_account->ad_account_id,
-                'access_token' => $tokenData['access_token']
+                'access_token' => $accessToken
             ];
         }
 

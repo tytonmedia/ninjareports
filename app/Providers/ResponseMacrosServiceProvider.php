@@ -43,6 +43,7 @@ class ResponseMacrosServiceProvider extends ServiceProvider
             }
             return array_merge($responseData,array_except($paginatedData, ['data']));
         });
+        
     }
 
     /**

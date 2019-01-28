@@ -10,22 +10,28 @@ class GoogleAnalyticsService
         
     }
 
-    public function initAnalytics($accessToken)
+    public function getGoogleClient()
     {
         $configFilePath = main_path('google.json');
         $client = new \Google_Client();
         $client->setAuthConfig($configFilePath);
         $client->addScope([\Google_Service_Oauth2::USERINFO_EMAIL, \Google_Service_Analytics::ANALYTICS_READONLY]);
+        $client->setAccessType("offline");        // offline access
+        $client->setIncludeGrantedScopes(true);   // incremental auth
+        $client->setApprovalPrompt('force'); // need for refresh token
+        return $client;
+    }
+
+    public function initAnalytics($accessToken)
+    {
+        $client = $this->getGoogleClient();
         $client->setAccessToken($accessToken);
         return  new \Google_Service_Analytics($client);
     }
 
     public function initAnalyticsReporting($accessToken)
     {
-        $configFilePath = main_path('google.json');
-        $client = new \Google_Client();
-        $client->setAuthConfig($configFilePath);
-        $client->addScope([\Google_Service_Oauth2::USERINFO_EMAIL, \Google_Service_Analytics::ANALYTICS_READONLY]);
+        $client = $this->getGoogleClient();
         $client->setAccessToken($accessToken);
         return new \Google_Service_AnalyticsReporting($client);
     }

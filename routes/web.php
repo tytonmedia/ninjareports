@@ -85,6 +85,7 @@ Route::get('send-report-test',function(){
                 $query->where('slug','seo-report');
             })
             ->first();
+    $report = app('App\Services\Report\ReportAccountTokenReviser')->revise($report);
     (new \App\Services\Report\ReportSender)->send($report);
 });
 
