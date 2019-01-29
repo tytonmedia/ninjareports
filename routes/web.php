@@ -79,12 +79,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('user/me/integrations','Api\UserController@getIntegrations');
 });
 
-Route::get('send-report-test',function(){
-    $report = \App\Models\NinjaReport::with('template','accounts.ad_account.account','user')
-            ->whereHas('template',function ($query) {
-                $query->where('slug','seo-report');
-            })
-            ->first();
+Route::get('send-report-test/{id}',function($id){
+    $report = \App\Models\NinjaReport::with('template','accounts.ad_account.account','user')->find($id);
     $report = app('App\Services\Report\ReportAccountTokenReviser')->revise($report);
     (new \App\Services\Report\ReportSender)->send($report);
 });

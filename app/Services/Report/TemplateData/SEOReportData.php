@@ -370,7 +370,7 @@ class SEOReportData
             $countries = new \PragmaRX\Countries\Package\Countries;
             $mapData =  array_reduce($this->data['organic_traffic_by_country'],function ($result,$item) use($countries) {
                 $country = $countries->where('cca2',$item['country_code'])->first();
-                if ($country) {
+                if ($country->isNotEmpty()) {
                     $result[$country->cca3] = $item['sessions']; 
                 }
                 return $result;

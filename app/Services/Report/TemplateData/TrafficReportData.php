@@ -315,7 +315,7 @@ class TrafficReportData
             $countries = new \PragmaRX\Countries\Package\Countries;
             $mapData =  array_reduce($this->data['users_by_country'],function ($result,$item) use($countries) {
                 $country = $countries->where('cca2',$item['country_code'])->first();
-                if ($country) {
+                if ($country->isNotEmpty()) {
                     $result[$country->cca3] = $item['users']; 
                 }
                 return $result;
