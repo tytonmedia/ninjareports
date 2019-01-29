@@ -119,7 +119,7 @@ class ReportSender
         if ($analyticsAccount = array_get($reportAccountsByType,'analytics')) {
             $accessToken = json_decode($analyticsAccount->ad_account->account->token,true);
             $parsedAccounts['google_analytics'] = [
-                'profile_id' => $analyticsAccount->ad_account->ad_account_id,
+                'profile_id' => $analyticsAccount->profile->view_id,
                 'access_token' => $accessToken
             ];
         }
