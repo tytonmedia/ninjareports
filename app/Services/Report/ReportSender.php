@@ -27,11 +27,10 @@ class ReportSender
                                 ->setAccounts($parsedReportAccounts)
                                 ->generate($dates['from_date'],$dates['to_date'])
                                 ->get('email');
-                dd($reportEmailData);
                 // pdf generation
                 $reportEmailData['report_date'] = $reportEmailData['report_date'];
                 if ($report->attachment_type == 'pdf') {
-                    // $html = view('reports.templates.seo-report',['data' => $reportEmailData])->render();
+                    $html = view('reports.templates.seo-report-new',['data' => $data])->render();
                 } 
                 break;
             case 'google-ads-report':

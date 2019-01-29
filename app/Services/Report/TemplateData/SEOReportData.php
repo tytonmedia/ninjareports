@@ -116,6 +116,7 @@ class SEOReportData
                 function ($entry) {
                     $entry['avg_time_on_page'] = gmdate('H:i:s',$entry['avg_time_on_page']);
                     $entry['bounce_rate'] = round($entry['bounce_rate']);
+                    $entry['revenue'] = null;
                     return $entry;
                 }
             );

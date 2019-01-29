@@ -40,7 +40,7 @@ class SendGridService
         }
 
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('POST', 'https://api.sendgrid.com/v3/mail/send',[
+        $postData = [
             'headers' => [
                 'Authorization' => 'Bearer '.env('SENDGRID_KEY'),
                 'Accept'     => 'application/json'
@@ -51,10 +51,14 @@ class SendGridService
                     'dynamic_template_data' => $data['template_data'],
                 ]],
                 'from' => $from,
-                'template_id' => $data['template_id'],
-                'attachments' => $attachments
+                'template_id' => $data['template_id']
             ]
-        ]);
+        ];
+        if ($attachments) {
+            $postData['json']['attachments'] = $attachments;
+        }
+
+        $response = $client->request('POST', 'https://api.sendgrid.com/v3/mail/send',$postData);
         return $response;
     }
     
