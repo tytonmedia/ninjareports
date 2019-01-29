@@ -30,7 +30,7 @@ class ReportSender
                 // pdf generation
                 $reportEmailData['report_date'] = $dates['report_date'];
                 if ($report->attachment_type == 'pdf') {
-                    $html = view('reports.templates.seo-report-new',['data' => $data])->render();
+                    $html = view('reports.templates.seo-report-new',['data' => $reportEmailData])->render();
                 } 
                 break;
             case 'google-ads-report':
@@ -89,11 +89,11 @@ class ReportSender
         switch ($report->frequency) {
             case "weekly":
                 $fromDate = date('Y-m-d', strtotime('-7 day', strtotime($report->next_send_time)));
-                $reportDate = date("m/d/Y", strtotime("-7 Days")) . "-" . date("m/d/Y");
+                $reportDate = date("m/d/Y", strtotime("-7 Days")) . " - " . date("m/d/Y");
                 break;
             case "monthly":
                 $fromDate = date('Y-m-d', strtotime('-1 month', strtotime($report->next_send_time)));
-                $reportDate = date("m/d/Y", strtotime("-30 Days")) . "-" . date("m/d/Y");
+                $reportDate = date("m/d/Y", strtotime("-30 Days")) . " - " . date("m/d/Y");
                 break;
             case "yearly":
                 $fromDate = date('Y-m-d', strtotime('-1 year', strtotime($report->next_send_time)));
