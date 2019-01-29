@@ -369,9 +369,9 @@ class SEOReportData
         if ($this->data['organic_traffic_by_country']) {
             $countries = new \PragmaRX\Countries\Package\Countries;
             $mapData =  array_reduce($this->data['organic_traffic_by_country'],function ($result,$item) use($countries) {
-                $cca3Code = $countries->where('cca2',$item['country_code'])->first()->cca3;
-                if ($cca3Code) {
-                    $result[$cca3Code] = $item['sessions']; 
+                $country = $countries->where('cca2',$item['country_code'])->first();
+                if ($country) {
+                    $result[$country->cca3] = $item['sessions']; 
                 }
                 return $result;
             },[]);
