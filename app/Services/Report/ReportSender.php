@@ -28,7 +28,7 @@ class ReportSender
                                 ->generate($dates['from_date'],$dates['to_date'])
                                 ->get('email');
                 // pdf generation
-                $reportEmailData['report_date'] = $reportEmailData['report_date'];
+                $reportEmailData['report_date'] = $dates['report_date'];
                 if ($report->attachment_type == 'pdf') {
                     $html = view('reports.templates.seo-report-new',['data' => $data])->render();
                 } 
