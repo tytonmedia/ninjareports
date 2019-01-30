@@ -34,6 +34,7 @@ class ReportSender
                 } 
                 break;
             case 'google-ads-report':
+                $templateId = '';
                 // $reportEmailData = app('App\Services\Report\TemplateData\GoogleAdsReportData')
                 //                 ->setAccounts($parsedReportAccounts)
                 //                 ->generate($dates['from_date'],$dates['to_date'])
@@ -41,6 +42,7 @@ class ReportSender
                 break;
             
             case 'traffic-report':
+                $templateId = 'd-9a2700aa5c404629abf569391c9a92f8';
                 $reportEmailData = app('App\Services\Report\TemplateData\TrafficReportData')
                                 ->setAccounts($parsedReportAccounts)
                                 ->generate($dates['from_date'],$dates['to_date'])
