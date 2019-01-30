@@ -765,7 +765,7 @@
                                             <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;">
                                                 <tr>
                                                     <th align="left">COUNTRY</th>
-                                                    <th align="left">CLICKS</th>
+                                                    <th align="left">SESSIONS</th>
                                                 </tr>
                                                 @foreach($data['organic_traffic_by_country'] as $row)
                                                 <tr>
@@ -958,7 +958,7 @@
                     <tr>
                         <td style="padding-left:30px;padding-top:30px">
                             <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">
-                                AGES, GENDERS, DEVICES BY CLICKS </div>
+                                AGES, GENDERS, DEVICES BY USERS </div>
                         </td>
                     </tr>
                     <tr>

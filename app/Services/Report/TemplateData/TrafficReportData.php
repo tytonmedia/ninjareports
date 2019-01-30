@@ -97,10 +97,16 @@ class TrafficReportData
         $usersByPlatformReportRequest->setDimensions([$OSDimension]);
 
         // visitors_by_source
+        $usersBySourceReportMetrics = $this->googleAnalyticsService->buildMetrics(
+            [
+                ['expression' => 'ga:pageviews'],
+                ['expression' => 'ga:avgTimeOnPage'],
+                ['expression' => 'ga:bounceRate']
+            ]);
         $sourceDimension = $this->googleAnalyticsService->buildDimensionByName('ga:source');
 
         $usersBySourceReportRequest = clone $reportRequest;
-        $usersBySourceReportRequest->setMetrics([$usersMetric]);
+        $usersBySourceReportRequest->setMetrics($usersBySourceReportMetrics);
         $usersBySourceReportRequest->setDimensions([$sourceDimension]);
 
         // users_by_country
@@ -114,13 +120,12 @@ class TrafficReportData
         $usersByCountryReportRequest = clone $reportRequest;
         $usersByCountryReportRequest->setMetrics([$usersMetric]);
         $usersByCountryReportRequest->setDimensions([$countryDimension,$countryISODimension]);
-        $usersByCountryReportRequest->setPageSize(15);
+        $usersByCountryReportRequest->setPageSize(10);
         $usersByCountryReportRequest->setOrderBys($usersDescOrder);
 
         // top_pages
         $topPagesReportMetrics = $this->googleAnalyticsService->buildMetrics(
             [
-                ['expression' => 'ga:sessions'],
                 ['expression' => 'ga:pageviews'],
                 ['expression' => 'ga:avgTimeOnPage'],
                 ['expression' => 'ga:bounceRate']
@@ -128,15 +133,15 @@ class TrafficReportData
 
         $pagePathDimension = $this->googleAnalyticsService->buildDimensionByName('ga:pagePath');
 
-        $sessionsDescOrder = new \Google_Service_AnalyticsReporting_OrderBy();
-        $sessionsDescOrder->setFieldName('ga:sessions');
-        $sessionsDescOrder->setSortOrder('DESCENDING');
+        $pageviewsDescOrder = new \Google_Service_AnalyticsReporting_OrderBy();
+        $pageviewsDescOrder->setFieldName('ga:pageviews');
+        $pageviewsDescOrder->setSortOrder('DESCENDING');
 
         $topPagesReportRequest = clone $reportRequest;
         $topPagesReportRequest->setMetrics($topPagesReportMetrics);
         $topPagesReportRequest->setDimensions([$pagePathDimension]);
         $topPagesReportRequest->setPageSize(10);
-        $topPagesReportRequest->setOrderBys($sessionsDescOrder);
+        $topPagesReportRequest->setOrderBys($pageviewsDescOrder);
 
         // fetching data 
         $reportGroup = (new Batchman($analyticsReporting))
@@ -164,8 +169,21 @@ class TrafficReportData
         $usersByPlatform = $this->googleAnalyticsService->getReportRows(
             $parsedReports['users_by_platform'],['ga:operatingSystem' => 'platform', 'ga:users' => 'users']);
 
-        $usersBySource = $this->googleAnalyticsService->getReportRows(
-            $parsedReports['users_by_source'],['ga:source' => 'source', 'ga:users' => 'users']);
+        $visitorsBySource = $this->googleAnalyticsService->getReportRows(
+            $parsedReports['users_by_source'],
+            [
+                'ga:source' => 'source', 
+                'ga:pageviews' => 'pageviews',
+                'ga:avgTimeOnPage' => 'avg_time_on_page',
+                'ga:bounceRate' => 'bounce_rate'
+            ],
+            function ($entry) {
+                $entry['avg_time_on_page'] = gmdate('H:i:s',$entry['avg_time_on_page']);
+                $entry['bounce_rate'] = round($entry['bounce_rate']);
+                $entry['revenue'] = null;
+                return $entry;
+            }
+        );
 
         $usersByCountry = $this->googleAnalyticsService->getReportRows(
             $parsedReports['users_by_country'],['ga:country' => 'country','ga:countryIsoCode'=> 'country_code','ga:users' => 'users']);
@@ -174,7 +192,6 @@ class TrafficReportData
                 $parsedReports['top_pages'],
                 [
                     'ga:pagePath' => 'page',
-                    'ga:sessions' => 'sessions',
                     'ga:pageviews' => 'pageviews',
                     'ga:avgTimeOnPage' => 'avg_time_on_page',
                     'ga:bounceRate' => 'bounce_rate'
@@ -182,6 +199,7 @@ class TrafficReportData
                 function ($entry) {
                     $entry['avg_time_on_page'] = gmdate('H:i:s',$entry['avg_time_on_page']);
                     $entry['bounce_rate'] = round($entry['bounce_rate']);
+                    $entry['revenue'] = null;
                     return $entry;
                 }
             );
@@ -192,13 +210,13 @@ class TrafficReportData
             'pages_per_visit' => round($generalReport['ga:pageviewsPerSession']),
             'bounce_rate' => round($generalReport['ga:bounceRate']),
             'new_visitors' => $generalReport['ga:newUsers'],
-            'avg_time_on_site' => gmdate('H:i:s',$generalReport['ga:avgTimeOnPage']),
+            'avg_time_on_site' => gmdate('i:s',$generalReport['ga:avgTimeOnPage']),
             'avg_page_load_time' => round($generalReport['ga:avgPageLoadTime'],2),
             'avg_server_response_time' => round($generalReport['ga:avgServerResponseTime'],2),
             'avg_page_download_time' => round($generalReport['ga:avgPageDownloadTime'],2),
             'users_by_country'=> $usersByCountry,
             'top_pages' => $topPages,
-            'visitors_by_source' => $usersBySource,
+            'visitors_by_source' => $visitorsBySource,
             'age_genders_devices' => [
                 'age' => $usersByAge,
                 'genders' => $usersByGender,
@@ -260,55 +278,12 @@ class TrafficReportData
                 ]
             );
 
-            $emailData['age_genders_devices'] = "<div>
-                <div style='float: left; width: 33%;'>
-                    <img style='width: 100%;height: auto;' src='$ageChartUrl'>
-                </div>
-                <div style='display: inline-block; width: 33%;'>
-                    <img style='width: 100%;height: auto;' src='$genderChartUrl'>
-                </div>
-                <div style='float: right; width: 33%;'>
-                    <img style='width: 100%;height: auto;' src='$deviceChartUrl'>
-                </div>
-            </div>";
+            $emailData['age_genders_devices_chart_url'] = [
+                'age' => $ageChartUrl,
+                'genders' => $genderChartUrl,
+                'devices' => $deviceChartUrl
+            ];
            
-        }
-
-        if ($this->data['visitors_by_source']) {
-            $usersBySourceChartData = $this->chartService->generateDonutChartData(
-                $this->data['visitors_by_source'],
-                ['label-key' => 'source','data-key' => 'users']
-            );
-            $usersBySourceChartUrl = $this->chartService->getDonutChartImageUrl($usersBySourceChartData);
-            $emailData['visitors_by_source'] = "<img src='$usersBySourceChartUrl' style='width: 100%;height: auto;' >";
-        }
-
-        if ($this->data['top_pages']) {
-            ob_start();
-            ?>
-            <div>
-                <table>
-                <tr>
-                    <th>URL</th>
-                    <th>Sessions</th>
-                    <th>Pageviews</th>
-                    <th>Avg Time on Page</th>
-                    <th>Bounce Rate (%)</th>
-                </tr>
-                <?php foreach($this->data['top_pages'] as $row): ?>
-                    <tr>
-                        <td><?= $row['page'] ?> </td>
-                        <td><?= $row['sessions'] ?></td>
-                        <td><?= $row['pageviews'] ?></td>
-                        <td><?= $row['avg_time_on_page'] ?></td>
-                        <td><?= $row['bounce_rate'] ?></td>
-                    </tr>
-                <?php endforeach ?>
-                </table>
-            </div>
-            <?php
-            $topPagesHtml = ob_get_clean();
-            $emailData['top_pages'] = $topPagesHtml;
         }
 
         if ($this->data['users_by_country']) {
@@ -321,7 +296,7 @@ class TrafficReportData
                 return $result;
             },[]);
             $url = $this->chartService->getMapChartImageUrl($mapData);
-            $emailData['users_by_country'] = "<img src='$url' style='width: 100%;height: auto;' >";
+            $emailData['users_by_country_chart_url'] = $url;
         }
 
         return $emailData;

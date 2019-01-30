@@ -45,7 +45,11 @@ class ReportSender
                                 ->setAccounts($parsedReportAccounts)
                                 ->generate($dates['from_date'],$dates['to_date'])
                                 ->get('email');
-                # code...
+                
+                $reportEmailData['report_date'] = $dates['report_date'];
+                if ($report->attachment_type == 'pdf') {
+                    $html = view('reports.templates.traffic-report',['data' => $reportEmailData])->render();
+                }
                 break;
             default:
                 # code...
