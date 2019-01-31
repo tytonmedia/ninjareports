@@ -159,7 +159,7 @@ class GoogleAdwordsReporting
 
         $reportResult = $this->runAwql($impressionsByAgeQuery);
         $reportCSVString = $reportResult->getAsString();
-        $impressionsByAgeData['rows'] = $this->parseCSVReport($reportCSVString,['Keyword / Placement' => 'AgeRange']);
+        $impressionsByAgeData = $this->parseCSVReport($reportCSVString,['Keyword / Placement' => 'AgeRange']);
 
 
         $impressionsByGenderQuery = (new ReportQueryBuilder())
@@ -214,7 +214,7 @@ class GoogleAdwordsReporting
 
         return [
             'age' => $impressionsByAgeData['rows'],
-            'gender' => $impressionsByGender,
+            'genders' => $impressionsByGender,
             'devices' => $impressionsByDevice
         ];
 
@@ -233,8 +233,12 @@ class GoogleAdwordsReporting
             ->select([
                 'Criteria',
                 'Clicks',
+                'Impressions',
                 'Ctr',
-                'Impressions'
+                'AverageCpc',
+                'Cost',
+                'AllConversions',
+                'CostPerAllConversion'
             ])
             ->from(ReportDefinitionReportType::KEYWORDS_PERFORMANCE_REPORT)
             ->where('Clicks')->greaterThan(1)
@@ -244,7 +248,12 @@ class GoogleAdwordsReporting
         $reportResult = $this->runAwql($query);
         $reportData = $this->parseCSVReport($reportResult->getAsString());
 
-        $sortedRows = collect($reportData['rows'])
+        $formatedReportData = $this->formatParsedData($reportData,[
+            'Cost' => [$this,'costFormatter'],
+            // 'Cost / all conv.' => [$this,'costFormatter']
+        ]);
+
+        $sortedRows = collect($formatedReportData['rows'])
                         ->sortByDesc('Impressions')
                         ->values()
                         ->take(10)

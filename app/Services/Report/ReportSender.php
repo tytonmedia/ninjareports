@@ -34,11 +34,16 @@ class ReportSender
                 } 
                 break;
             case 'google-ads-report':
-                $templateId = '';
-                // $reportEmailData = app('App\Services\Report\TemplateData\GoogleAdsReportData')
-                //                 ->setAccounts($parsedReportAccounts)
-                //                 ->generate($dates['from_date'],$dates['to_date'])
-                //                 ->get();
+                $templateId = 'd-402d11efa1f345c9acf57605c71834f3';
+                $reportEmailData = app('App\Services\Report\TemplateData\GoogleAdsReportData')
+                                ->setAccounts($parsedReportAccounts)
+                                ->generate($dates['from_date'],$dates['to_date'])
+                                ->get('email');
+                $reportEmailData['report_date'] = $dates['report_date'];
+                if ($report->attachment_type == 'pdf') {
+                    $html = view('reports.templates.google-ads-report',['data' => $reportEmailData])->render();
+                }
+
                 break;
             
             case 'traffic-report':

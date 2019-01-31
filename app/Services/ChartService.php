@@ -177,6 +177,77 @@ class ChartService
         
     }
 
+    public function getComboChartImageUrl($labels,$datasets,$config)
+    {
+        $chartData = [
+            'charturl' => [
+              'type' => 'chartjs',
+              'momentjs' => true
+            ],
+            'options' => [
+                'type' => 'bar',
+                'options' => [
+                    'responsive' => true,
+                    'legend' => [
+                        'position' => 'top',
+                        'display' => true
+                    ],
+                    'title' => [
+                        'display' => true,
+                        'text' => $config['title'],
+                    ],
+                    'scales' => [
+                        'yAxes'=>[
+                            [
+                                'ticks' => [
+                                    'suggestedMin'=> 0
+                                ]
+                            ]
+                        ],
+                        'xAxes'=>[
+                            [
+                                'type' => 'time',
+                                'distribution' => 'linear'
+                            ]
+                        ],
+                    ]
+                ],
+                'data' => [
+                    'labels' => $labels,
+                    'datasets' => $datasets,
+                ],
+            ],
+        ];
+        $json = json_encode($chartData);
+        return $this->generateChartURL('chartjs-combo-chart',$json);
+    }
+
+    public function generateComboChartData($mergedDataset,$labelKey,$datasetKeys,$defaultValue=0)
+    {
+        $dataset = collect($mergedDataset);
+
+        $entries = $dataset->sortBy($labelKey)->groupBy($labelKey);
+        $labels = [];
+        $dataset = [];
+
+        foreach ($datasetKeys as $key) {
+            $dataset[$key] = [];
+        }
+        $datasetLabels = $datasetKeys;
+
+        foreach ($entries as $date => $entry) {
+            $labels[] = $date;
+            $data = $entry->flatMap(function($item) use($labelKey) {
+                unset($item[$labelKey]);
+                return $item;
+            });
+            foreach ($datasetLabels as $label) {
+                $dataset[$label][] =  $data->get($label,$defaultValue);
+            }
+        }
+        return compact('labels','dataset');
+    }
+
 
     public function generateChartURL($slug,$json)
     {
