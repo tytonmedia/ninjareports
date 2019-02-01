@@ -393,8 +393,8 @@ class GoogleAdwordsReporting
     public function initSession($accessToken,$clientCustomerId)
     {
         $config = json_decode(file_get_contents(main_path('google.json')),true);
-        $clientId =$config['web']['client_id'];
-        $clientSecret = $config['web']['client_secret'];
+        $clientId = env('GOOGLE_ADWORDS_CLIENT_ID',$config['web']['client_id']) ;
+        $clientSecret = env('GOOGLE_ADWORDS_CLIENT_SECRET',$config['web']['client_secret']);
 
         $oauth2Token = (new OAuth2TokenBuilder())
             ->withClientId($clientId)
