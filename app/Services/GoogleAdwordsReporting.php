@@ -277,7 +277,6 @@ class GoogleAdwordsReporting
             ])
             ->from(ReportDefinitionReportType::GEO_PERFORMANCE_REPORT)
             ->during($startDate,$endDate)
-            ->where('Clicks')->greaterThan(1)
             ->build();
 
         $reportResult = $this->runAwql($query);
@@ -294,7 +293,7 @@ class GoogleAdwordsReporting
                 ->where("Id")->in($rows->pluck('Country/Territory')->all())
                 ->build();
 
-        $countries = new \PragmaRX\Countries\Package\Countries;
+        $countries = new \PragmaRX\Countries\Package\Countries();
         $locations = $locationCriterionService->query(sprintf('%s', $query));
         $rows = $rows->map(function ($row) use($locations,$countries) {
             $location = array_first($locations,function ($location) use($row) {
