@@ -164,7 +164,7 @@ class GoogleAdsReportData
 
         if ($this->data['performance_by_country']) {
             $mapData =  array_reduce($this->data['performance_by_country'],function ($result,$item) {
-                $result[$item['CountryISO']] = $item['Impressions'];
+                $result[$item['CountryISO']] = $item['Clicks'];
                 return $result;
             },[]);
             $url = $this->chartService->getMapChartImageUrl($mapData);

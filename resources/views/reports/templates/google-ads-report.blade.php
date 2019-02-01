@@ -941,12 +941,12 @@
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;">
                         <tr>
                           <th align="left">COUNTRY</th>
-                          <th align="left">IMPRESSIONS</th>
+                          <th align="left">CLICKS</th>
                         </tr>
                         @foreach($data['performance_by_country'] as $row)
                           <tr>
                             <td>{{$row['CountryName']}}</td>
-                            <td>{{$row['Impressions']}}</td>
+                            <td>{{$row['Clicks']}}</td>
                           </tr>
                         @endforeach
                       </table>

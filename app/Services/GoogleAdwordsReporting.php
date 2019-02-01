@@ -273,18 +273,18 @@ class GoogleAdwordsReporting
         $query = (new ReportQueryBuilder())
             ->select([
                 'CountryCriteriaId',
-                'Impressions'
+                'Clicks'
             ])
             ->from(ReportDefinitionReportType::GEO_PERFORMANCE_REPORT)
             ->during($startDate,$endDate)
-            ->where('Impressions')->greaterThan(1)
+            ->where('Clicks')->greaterThan(1)
             ->build();
 
         $reportResult = $this->runAwql($query);
         $reportData = $this->parseCSVReport($reportResult->getAsString());
 
         $rows = collect($reportData['rows'])
-                        ->sortByDesc('Impressions')
+                        ->sortByDesc('Clicks')
                         ->values()
                         ->take(10);
 
