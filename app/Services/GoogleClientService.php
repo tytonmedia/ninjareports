@@ -11,7 +11,14 @@ class GoogleClientService
         
     }
 
-    public function init($configFilePath)
+    public function init($config)
+    {
+        $client = new \Google_Client($config);
+        $this->client = $client;
+        return $this;
+    }
+    
+    public function initUsingConfig($configFilePath)
     {
         $client = new \Google_Client();
         $client->setAuthConfig($configFilePath);

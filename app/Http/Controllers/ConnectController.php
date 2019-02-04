@@ -164,7 +164,7 @@ class ConnectController extends Controller
             $authToken = $oauth2->fetchAuthToken();
             $user_result = file_get_contents('https://www.googleapis.com/oauth2/v2/userinfo?access_token=' . $authToken['access_token']);
             $user = json_decode($user_result);
-            $refresh_token = isset($authToken['refresh_token']) ? $authToken['refresh_token'] : '';
+            // $refresh_token = isset($authToken['refresh_token']) ? $authToken['refresh_token'] : '';
             Session::put('gadwords_access_token', 1);
             $account = Account::where('type', 'adword')->where('user_id', auth()->user()->id)->first();
             $account_update_array = [
@@ -174,11 +174,11 @@ class ConnectController extends Controller
                 'email' => $user->email,
                 'status' => 1,
                 'is_active' => 1,
-                'token' => $authToken['access_token'],
+                'token' => json_encode($authToken),
             ];
-            if ($refresh_token) {
-                $account_update_array['token'] = $refresh_token;
-            }
+            // if ($refresh_token) {
+            //     $account_update_array['token'] = $refresh_token;
+            // }
             if ($account) {
                 Account::where('id', $account->id)->update($account_update_array);
             } else {

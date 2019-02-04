@@ -4,6 +4,7 @@ namespace App\Services\Report;
 
 use App\Models\ReportTemplate;
 use App\Services\PDFGenerator;
+use App\Services\Report\ReportSenderException;
  
 class ReportSender
 {
@@ -143,10 +144,13 @@ class ReportSender
         }
 
         if ($googleAdwordsAccount = array_get($reportAccountsByType,'adword')) {
-            $token = $googleAdwordsAccount->ad_account->account->token;
+            $accessToken = json_decode($googleAdwordsAccount->ad_account->account->token,true);
+            if (!$accessToken) {
+                throw new ReportSenderException('Report Account Parsing : Invalid adwords token');
+            }
             $parsedAccounts['google_adwords'] = [
                 'client_customer_id' =>$googleAdwordsAccount->ad_account->ad_account_id,
-                'access_token' => $token
+                'access_token' => $accessToken['refresh_token']
             ];
         }
         return $parsedAccounts;

@@ -20,7 +20,7 @@ class ReportAccountTokenReviser
 
         if ($analyticsAccount = $reportAccountsByType->get('analytics')) {
             $accessToken = json_decode($analyticsAccount->ad_account->account->token,true);
-            $revisionResult = $this->googleClientService->init(main_path('google.json'))
+            $revisionResult = $this->googleClientService->initUsingConfig(main_path('google.json'))
                                 ->reviseAccessToken($accessToken);
             if ($revisionResult->revisionAction == 'refresh') {
                 $analyticsAccount->ad_account->account->token = json_encode($revisionResult->accessToken);
@@ -30,7 +30,7 @@ class ReportAccountTokenReviser
 
         if ($googleSearchAccount = $reportAccountsByType->get('google-search')) {
             $accessToken = json_decode($googleSearchAccount->ad_account->account->token,true);
-            $revisionResult = $this->googleClientService->init(main_path('google-search.json'))
+            $revisionResult = $this->googleClientService->initUsingConfig(main_path('google-search.json'))
                                 ->reviseAccessToken($accessToken);
             if ($revisionResult->revisionAction == 'refresh') {
                 $googleSearchAccount->ad_account->account->token = json_encode($revisionResult->accessToken);
@@ -39,7 +39,17 @@ class ReportAccountTokenReviser
         }
 
         if ($googleAdwordsAccount = $reportAccountsByType->get('adword')) {
-            $token = $googleAdwordsAccount->ad_account->account->token;
+            $accessToken = json_decode($googleAdwordsAccount->ad_account->account->token,true);
+            $revisionResult = $this->googleClientService->init([
+                                'client_id' => env('GOOGLE_ADWORDS_CLIENT_ID'),
+                                'client_secret' => env('GOOGLE_ADWORDS_CLIENT_SECRET'),
+                                'redirect_uri' => env('GOOGLE_ADWORDS_REDIRECT_URL'),
+                            ])
+                            ->reviseAccessToken($accessToken);
+            if ($revisionResult->revisionAction == 'refresh') {
+                $googleAdwordsAccount->ad_account->account->token = json_encode($revisionResult->accessToken);
+                $googleAdwordsAccount->ad_account->account->save();
+            }
             
         }
         return $report;
