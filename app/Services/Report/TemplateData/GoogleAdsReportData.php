@@ -56,13 +56,13 @@ class GoogleAdsReportData
         $adwordsCustomerId = $this->accounts['google_adwords']['client_customer_id'];
         $adwordsReporting = $this->googleAdwordsReporting->initSession($adwordsAccessToken,$adwordsCustomerId);
 
+        $topCountriesReportData = $adwordsReporting->getTopCountriesReport($fromDate,$toDate);
         $campaignReportData = $adwordsReporting->getCampaignReport($fromDate,$toDate);
         $spendByDayReportData = $adwordsReporting->getCampaignSpendByDayReport($fromDate,$toDate);
         $conversionsByDayReportData = $adwordsReporting->getCampaignConversionsByDayReport($fromDate,$toDate);
         $demographicsReportData = $adwordsReporting->getAgeGenderDeviceReport($fromDate,$toDate);
         $topKeywordsReportData = $adwordsReporting->getTopKeywordsReport($fromDate,$toDate);
         $topKeywordsReportData = $adwordsReporting->getTopKeywordsReport($fromDate,$toDate);
-        $topCountriesReportData = $adwordsReporting->getTopCountriesReport($fromDate,$toDate);
         /**
          * Google analytics data fetching
          */
