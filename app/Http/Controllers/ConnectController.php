@@ -149,7 +149,7 @@ class ConnectController extends Controller
         $oauth2->setState(sha1(openssl_random_pseudo_bytes(1024)));
         Session::put('adwords_state', $oauth2->getState());
         $config = [
-            'access_type' => 'offline',,
+            'access_type' => 'offline',
             'prompt' => 'consent'
         ];
         return redirect($oauth2->buildFullAuthorizationUri($config));
