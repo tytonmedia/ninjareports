@@ -151,12 +151,19 @@ class ChartService
 
         $mapData = [];
 
-        foreach ($countryData as $countryCode => $value) {
-            $scaledValue = (7 - 1) * ($value - $lowestValue) / ($highestValue - $lowestValue) + 1;
-            $mapData[$countryCode] = [
-                'fillKey' => $shadesByNumber[round($scaledValue) - 1]
+        if (count($countryValues) == 1) {
+            $mapData[key($countryData)] = [
+                'fillKey' => 'darkest'
             ];
+        } else {
+            foreach ($countryData as $countryCode => $value) {
+                $scaledValue = (7 - 1) * ($value - $lowestValue) / ($highestValue - $lowestValue) + 1;
+                $mapData[$countryCode] = [
+                    'fillKey' => $shadesByNumber[round($scaledValue) - 1]
+                ];
+            }
         }
+
         $chartData = array (
             'charturl' => 
             array (

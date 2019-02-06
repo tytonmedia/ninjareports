@@ -59,6 +59,19 @@ class ReportSender
                     $html = view('reports.templates.traffic-report',['data' => $reportEmailData])->render();
                 }
                 break;
+
+            case 'facebook-ads-report':
+                $templateId = 'd-3886dea75e10438287ac9c709a88eb81';
+                $reportEmailData = app('App\Services\Report\TemplateData\FacebookAdsReportData')
+                                ->setAccounts($parsedReportAccounts)
+                                ->generate($dates['from_date'],$dates['to_date'])
+                                ->get('email');
+                
+                $reportEmailData['report_date'] = $dates['report_date'];
+                if ($report->attachment_type == 'pdf') {
+                    $html = view('reports.templates.facebook-ads-report',['data' => $reportEmailData])->render();
+                }
+                break;
             default:
                 # code...
                 break;
@@ -151,6 +164,14 @@ class ReportSender
             $parsedAccounts['google_adwords'] = [
                 'client_customer_id' =>$googleAdwordsAccount->ad_account->ad_account_id,
                 'access_token' => $accessToken['refresh_token']
+            ];
+        }
+
+        if ($facebookAdsAccount = array_get($reportAccountsByType,'facebook')) {
+            $accessToken = $facebookAdsAccount->ad_account->account->token;
+            $parsedAccounts['facebook'] = [
+                'account_id' =>$facebookAdsAccount->ad_account->ad_account_id,
+                'access_token' => $accessToken
             ];
         }
         return $parsedAccounts;

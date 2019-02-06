@@ -24,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('FacebookAdsReporting',function () {
+            return new \App\Services\FacebookAdsReporting('1985172531761844','1cb7cbf3d7dea924cd1fe935ed39653d');
+        });
     }
 }
