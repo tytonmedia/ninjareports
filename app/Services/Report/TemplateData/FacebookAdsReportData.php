@@ -171,12 +171,8 @@ class FacebookAdsReportData
         }
 
         if ($this->data['performance_by_country']) {
-            $countries = new \PragmaRX\Countries\Package\Countries();
-            $mapData =  array_reduce($this->data['performance_by_country'],function ($result,$item) use($countries) {
-                $country = $countries->where('cca2',$item['country'])->first();
-                if ($country->isNotEmpty()) {
-                    $result[$country->cca3] = (int) $item['clicks'];
-                }
+            $mapData =  array_reduce($this->data['performance_by_country'],function ($result,$item) {
+                $result[$item['country_code']] = (int) $item['clicks'];
                 return $result;
             },[]);
             $url = $this->chartService->getMapChartImageUrl($mapData);

@@ -191,8 +191,24 @@ class FacebookAdsReporting
                 'breakdowns' => ['country'],
                 'sort' => ['clicks_descending']
             ]);
+
+        $resultData = $this->getResultData($result);
+
+        $alteredResultData = $resultData;
+
+        $countries = new \PragmaRX\Countries\Package\Countries();
+        $alteredResultData['data'] = array_map(function ($entry) use($countries) {
+            $country = $countries->where('cca2',$entry['country'])->first();
+            $entry['country_name'] = null;
+            $entry['country_code'] = null;
+            if ($country->isNotEmpty()) {
+                $entry['country_name'] = $country->name->common;
+                $entry['country_code'] = $country->cca3;
+            }
+            return $entry;
+        },$resultData['data']);
         
-        return $this->getResultData($result);
+        return $alteredResultData;
     }
 
 }

@@ -545,7 +545,7 @@
                       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                         <tbody>
                           <tr>
-                            <td style="width:550px;"> <img height="auto" src="{{$data['spend_and_clicks_by_day_chart_url']}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
+                            <td style="width:550px;"> <img height="auto" src="{{array_get($data,'spend_and_clicks_by_day_chart_url')}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
                                 width="550" /> </td>
                           </tr>
                         </tbody>
@@ -610,7 +610,7 @@
                       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                         <tbody>
                           <tr>
-                            <td style="width:150px;"> <img height="auto" src="{{$data['age_genders_devices_chart_url']['age']}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
+                            <td style="width:150px;"> <img height="auto" src="{{array_get($data,'age_genders_devices_chart_url.age')}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
                                 width="150" /> </td>
                           </tr>
                         </tbody>
@@ -633,7 +633,7 @@
                       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                         <tbody>
                           <tr>
-                            <td style="width:150px;"> <img height="auto" src="{{$data['age_genders_devices_chart_url']['genders']}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
+                            <td style="width:150px;"> <img height="auto" src="{{array_get($data,'age_genders_devices_chart_url.genders')}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
                                 width="150" /> </td>
                           </tr>
                         </tbody>
@@ -656,7 +656,7 @@
                       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                         <tbody>
                           <tr>
-                            <td style="width:150px;"> <img height="auto" src="{{$data['age_genders_devices_chart_url']['devices']}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
+                            <td style="width:150px;"> <img height="auto" src="{{array_get($data,'age_genders_devices_chart_url.devices')}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
                                 width="150" /> </td>
                           </tr>
                         </tbody>
@@ -810,7 +810,7 @@
                       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                         <tbody>
                           <tr>
-                            <td style="width:250px;"> <img height="auto" src="{{$data['performance_by_country_chart_url']}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
+                            <td style="width:250px;"> <img height="auto" src="{{array_get($data,'performance_by_country_chart_url')}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
                                 width="250" /> </td>
                           </tr>
                         </tbody>
@@ -837,7 +837,7 @@
                         </tr>
                         @foreach ($data['performance_by_country'] as $row)
                         <tr>
-                          <td>{{$row['country']}}</td>
+                          <td>{{$row['country_name']}}</td>
                           <td>{{$row['clicks']}}</td>
                         </tr>
                         @endforeach
