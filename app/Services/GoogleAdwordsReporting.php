@@ -287,6 +287,10 @@ class GoogleAdwordsReporting
                         ->values()
                         ->take(10);
 
+        if ($rows->isEmpty()) {
+            return [];
+        }
+
         $locationCriterionService = (new AdWordsServices)->get($this->adwordsSession,LocationCriterionService::class);
         $query = (new ServiceQueryBuilder())
                 ->select(['CanonicalName','Id'])

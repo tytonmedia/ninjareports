@@ -53,12 +53,12 @@ class FacebookAdsReporting
 
     public function getAccountInstance()
     {
-        return new AdAccount('act_'.$this->accountId);
+        return new AdAccount($this->accountId);
     }
 
     public function getCampaignInstance()
     {
-        return new Campaign('act_'.$this->accountId);
+        return new Campaign($this->accountId);
     }
 
     public function getResultData(Cursor $cursor)
