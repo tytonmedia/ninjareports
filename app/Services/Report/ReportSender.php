@@ -72,6 +72,18 @@ class ReportSender
                     $html = view('reports.templates.facebook-ads-report',['data' => $reportEmailData])->render();
                 }
                 break;
+            case 'pay-per-click-report':
+                $templateId = 'd-814771772eba4b7496ade3cde6229e89';
+                $reportEmailData = app('App\Services\Report\TemplateData\PayPerClickReportData')
+                                ->setAccounts($parsedReportAccounts)
+                                ->generate($dates['from_date'],$dates['to_date'])
+                                ->get('email');
+                
+                $reportEmailData['report_date'] = $dates['report_date'];
+                if ($report->attachment_type == 'pdf') {
+                    $html = view('reports.templates.pay-per-clicks-report',['data' => $reportEmailData])->render();
+                }
+                break;
             default:
                 # code...
                 break;

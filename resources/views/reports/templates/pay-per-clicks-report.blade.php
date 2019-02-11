@@ -564,10 +564,10 @@
                                                             <th align="left">COUNTRY</th>
                                                             <th align="left">CLICKS</th>
                                                          </tr>
-                                                         @foreach($data['ad_performance_by_country'] as $row)
+                                                         @foreach(array_get($data,'ad_performance_by_country') as $row)
                                                          <tr>
-                                                            <td>{{$row['CountryISO']}}</td>
-                                                            <td>{{$row['Clicks']}}</td>
+                                                            <td> {{ array_get($row,'CountryISO')}} </td>
+                                                            <td>{{array_get($row,'Clicks')}}</td>
                                                          </tr>
                                                          @endforeach
                                                       </table>
@@ -653,10 +653,10 @@
                                                             <th align="left">CLICKS</th>
                                                          </tr>
                                                          
-                                                         @foreach($data['fb_performance_by_country'] as $row)
+                                                         @foreach(array_get($data,'fb_performance_by_country')  as $row)
                                                          <tr>
-                                                            <td>{{$row['country_name']}}</td>
-                                                            <td>{{$row['clicks']}}</td>
+                                                            <td>{{array_get($row,'country_name') }}</td>
+                                                            <td>{{array_get($row,'clicks')}}</td>
                                                          </tr>
                                                          @endforeach
                                                       </table>
@@ -1018,14 +1018,14 @@
                                                       <th>ESTIMATED PROFIT($)</th>
                                                    </tr>
                                                    
-                                                   @foreach($data['ad_top_performing_campaigns'] as $row)
+                                                   @foreach(array_get($data,'ad_top_performing_campaigns') as $row)
                                                    <tr>
-                                                      <td>{{$row['Campaign']}}</td>
+                                                      <td>{{array_get($row,'Campaign')}}</td>
                                                       <td></td>
                                                       <td>{{array_get($row,'All conv')}}</td>
                                                       <td></td>
-                                                      <td>{{$row['Avg. CPC']}}</td>
-                                                      <td>{{$row['All conv.']}}</td>
+                                                      <td>{{array_get($row,'Avg. CPC')}}</td>
+                                                      <td>{{array_get($row,'All conv.')}}</td>
                                                       <td></td>
                                                       <td></td>
                                                    </tr>
@@ -1153,11 +1153,11 @@
                                                             <th align="left">GOOLE ADS</th>
                                                          </tr>
                                                         
-                                                        @foreach($data['spend_conversion_by_day'] as $row)
+                                                        @foreach( array_get($data,'spend_conversion_by_day') as $row)
                                                          <tr>
-                                                            <td>{{$row['name']}}</td>
-                                                            <td>{{$row['fb_ads']}}</td>
-                                                            <td>{{$row['google_ads']}}</td>
+                                                            <td>{{array_get($row,'name') }}</td>
+                                                            <td>{{array_get($row,'fb_ads') }}</td>
+                                                            <td>{{array_get($row,'google_ads') }}</td>
                                                          </tr>
                                                          @endforeach
                                                       </table>
