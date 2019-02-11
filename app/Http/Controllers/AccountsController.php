@@ -123,10 +123,14 @@ class AccountsController extends Controller
             }
         }
         if ($type == 'adword') {
+            $token = adwords_token();
+            if ($adwordsToken = json_decode(adwords_token(),true)) {
+                $token = array_get($adwordsToken,'refresh_token');
+            }
             $oauth2Token = (new \Google\AdsApi\Common\OAuth2TokenBuilder())
                 ->withClientId(env('GOOGLE_ADWORDS_CLIENT_ID'))
                 ->withClientSecret(env('GOOGLE_ADWORDS_CLIENT_SECRET'))
-                ->withRefreshToken(adwords_token())
+                ->withRefreshToken($token)
                 ->build();
             $soapSettings = (new \Google\AdsApi\Common\SoapSettingsBuilder())
                 ->disableSslVerify()

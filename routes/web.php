@@ -108,3 +108,4 @@ Route::get('chart-test',function () {
     $url = (new \App\Services\ChartService)->getDonutChartImageUrl([['Men',10],['Women',30]]);
     echo '<img src="' . $url . '">';
 });
+
