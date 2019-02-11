@@ -137,6 +137,43 @@ class GoogleAdwordsReporting
 
         return $reportData;
     }
+    public function getCampaignClicksByDayReport($startDate,$endDate)
+    {
+        if (!$this->adwordsSession) {
+            return;
+        }
+        
+        $startDate = str_replace('-','',$startDate);
+        $endDate = str_replace('-','',$endDate);
+
+        $query = (new ReportQueryBuilder())
+            ->select([
+                'Date',
+                'Clicks'
+            ])
+            ->from(ReportDefinitionReportType::CAMPAIGN_PERFORMANCE_REPORT)
+            ->during($startDate,$endDate)
+            ->build();
+
+        $reportSettings = (new ReportSettingsBuilder())
+                ->includeZeroImpressions(true)
+                ->build();
+
+        $reportResult = $this->runAwql($query,$reportSettings);
+        $reportCSVString = $reportResult->getAsString();
+        $reportData = $this->parseCSVReport($reportCSVString);
+        
+        $reportData['rows'] = $this->array_merge_duplicates(
+            $reportData['rows'],
+            'Day',
+            function ($currentItem,$duplicateItem) {
+                $currentItem['Clicks'] =  (int) $currentItem['Clicks'] + (int) $duplicateItem['Clicks'];
+                return $currentItem;
+            }
+        );
+
+        return $reportData;
+    }
 
     public function getAgeGenderDeviceReport($startDate,$endDate)
     {

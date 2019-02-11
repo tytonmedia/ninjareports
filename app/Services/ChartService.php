@@ -2,6 +2,8 @@
 
 
 namespace App\Services;
+
+use App\Services\ColorShades;
  
 class ChartService
 {
@@ -141,9 +143,13 @@ class ChartService
     }
 
 
-    public function getMapChartImageUrl($countryData)
+    public function getMapChartImageUrl($countryData,$config=[])
     {
-        $blueShades = $this->getBlueShades();
+        $config = array_merge([
+            'color_shades' => (new ColorShades)->blue()
+        ],$config);
+
+        $colorShades = $config['color_shades'];
         $shadesByNumber = ['lightest','very_light','light','medium','dark','very_dark','darkest'];
         $countryValues = array_values($countryData);
         $highestValue = max($countryValues);
@@ -175,7 +181,7 @@ class ChartService
               'projection' => 'mercator',
               'height' => 400,
               'width' => 600,
-              'fills' => array_merge(['defaultFill' => '#e0e0e0'],$blueShades),
+              'fills' => array_merge(['defaultFill' => '#e0e0e0'],$colorShades),
               'data' => $mapData,
             ),
         );
@@ -279,6 +285,20 @@ class ChartService
             'very_dark' => '#024e7e',
             'darkest' => '#012f4c',
         ];
+    }
+
+
+    public function getShadeByName($name)
+    {
+        switch ($name) {
+            case 'blue':
+                return $this->getBlueShades();
+                break;
+            
+            default:
+                return;
+                break;
+        }
     }
     
 }

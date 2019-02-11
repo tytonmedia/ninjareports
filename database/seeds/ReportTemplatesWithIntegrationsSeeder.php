@@ -57,13 +57,13 @@ class ReportTemplatesWithIntegrationsSeeder extends Seeder
 
         $ecommerceReport->integrations()->attach([$analytics->id,$adwords->id,$facebook->id]);
 
-        $goalAndEventReport = \App\Models\ReportTemplate::create([
-            'name' => 'Goal & Event Report',
-            'slug' => 'goal-and-event-report',
+        $payPerClickReport = \App\Models\ReportTemplate::create([
+            'name' => 'Pay Per Click Report',
+            'slug' => 'pay-per-click-report',
             'logo_path' => 'img/repor_template.png'
         ]);
 
-        $goalAndEventReport->integrations()->attach([$analytics->id]);
+        $payPerClickReport->integrations()->attach([$analytics->id,$adwords->id,$facebook->id]);
 
 
     }
