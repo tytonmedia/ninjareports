@@ -925,18 +925,12 @@
             <tr>
                <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
                   <![endif]-->
-                  <div class="mjGrid90" style="background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;">
+                  <!-- <div class="mjGrid90" style="background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;">
                      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#fff;background-color:#fff;width:100%;">
                         <tbody>
                            <tr>
                               <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
-                                 <!--[if mso | IE]>
-                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                       <td
-                                          class="" style="vertical-align:top;width:600px;"
-                                          >
-                                          <![endif]-->
+                               
                                           <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
                                              <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:#fff;vertical-align:top;" width="100%">
                                                 <tr>
@@ -958,16 +952,12 @@
                                                 </tr>
                                              </table>
                                           </div>
-                                          <!--[if mso | IE]>
-                                       </td>
-                                    </tr>
-                                 </table>
-                                 <![endif]-->
+                                    
                               </td>
                            </tr>
                         </tbody>
                      </table>
-                  </div>
+                  </div> -->
                   <!--[if mso | IE]>
                </td>
             </tr>
@@ -976,7 +966,7 @@
             <tr>
                <td height="30" style="vertical-align:top;height:30px;">
                   <![endif]-->
-                  <div style="height:30px;"> &nbsp; </div>
+                  <!-- <div style="height:30px;"> &nbsp; </div> -->
                   <!--[if mso | IE]>
                </td>
             </tr>
