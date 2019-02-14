@@ -64,7 +64,7 @@ class GoogleAdsReportData
         $topKeywordsReportData = $adwordsReporting->getTopKeywordsReport($fromDate,$toDate);
 
         if ($campaigns = array_get($campaignReportData,'rows')) {
-            $topCampaigns = collect($rows)
+            $topCampaigns = collect($campaigns)
                         ->sortByDesc('Impressions')
                         ->values()
                         ->take(10)
