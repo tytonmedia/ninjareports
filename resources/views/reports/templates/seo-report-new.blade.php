@@ -1244,7 +1244,7 @@
                                     <tr>
                                         <td align="left" style="font-size:0px;padding:0px;word-break:break-word;">
                                             <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">
-                                                All data belongs to www.URL.com </div>
+                                                 </div>
                                         </td>
                                     </tr>
                                 </table>

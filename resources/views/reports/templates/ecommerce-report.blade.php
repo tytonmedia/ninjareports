@@ -1060,7 +1060,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-bottom:1px solid #000;vertical-align:top;" width="100%">
                   <tr>
                     <td align="left" style="font-size:0px;padding:0px;word-break:break-word;">
-                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"> All data belongs to www.URL.com </div>
+                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"> </div>
                     </td>
                   </tr>
                 </table>

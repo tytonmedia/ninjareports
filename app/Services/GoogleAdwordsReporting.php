@@ -287,7 +287,7 @@ class GoogleAdwordsReporting
 
         $formatedReportData = $this->formatParsedData($reportData,[
             'Cost' => [$this,'costFormatter'],
-            // 'Cost / all conv.' => [$this,'costFormatter']
+            'Cost / all conv.' => [$this,'costFormatter']
         ]);
 
         $sortedRows = collect($formatedReportData['rows'])

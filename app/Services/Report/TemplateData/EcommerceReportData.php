@@ -119,9 +119,15 @@ class EcommerceReportData {
             ]);
         $sourceDimension = $this->googleAnalyticsService->buildDimensionByName('ga:source');
 
+        $itemRevenueDescOrder = new \Google_Service_AnalyticsReporting_OrderBy();
+        $itemRevenueDescOrder->setFieldName('ga:itemRevenue');
+        $itemRevenueDescOrder->setSortOrder('DESCENDING');
+
         $topSourcesByRevenueReportRequest = clone $reportRequest;
         $topSourcesByRevenueReportRequest->setMetrics($topSourcesByRevenueReportMetrics);
         $topSourcesByRevenueReportRequest->setDimensions([$sourceDimension]);
+        $topSourcesByRevenueReportRequest->setPageSize(10);
+        $topSourcesByRevenueReportRequest->setOrderBys($itemRevenueDescOrder);
 
         // revenue by day
         $itemRevenueMetric = $this->googleAnalyticsService->buildMetric(['expression' => 'ga:itemRevenue']);
@@ -207,6 +213,8 @@ class EcommerceReportData {
                 'ga:source' => 'source'
             ],function ($entry) {
                 $entry['avg_order_value'] = number_format($entry['avg_order_value'], 2, '.', '');
+                $entry['ecommerce_conversion_rate'] = number_format($entry['ecommerce_conversion_rate'], 2, '.', '');
+                $entry['per_session_value'] = number_format($entry['per_session_value'], 2, '.', '');
                 return $entry;
             });
 

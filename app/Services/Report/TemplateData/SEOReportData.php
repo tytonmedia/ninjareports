@@ -216,6 +216,7 @@ class SEOReportData
         $sessionsBySourceReportRequest->setMetrics([$sessionsMetric]);
         $sessionsBySourceReportRequest->setDimensions([$sourceDimension]);
         $sessionsBySourceReportRequest->setOrderBys($sessionAscOrder);
+        $sessionsBySourceReportRequest->setPageSize(10);
 
         //organic_sessions, organic_pageviews, time_on_page, pages_per_visit
 
@@ -281,8 +282,8 @@ class SEOReportData
                'keyword' => $row->keys[0],
                'clicks' => $row->clicks,
                'impressions' => $row->impressions,
-               'ctr' => $row->ctr,
-               'position' => $row->position
+               'ctr' =>  number_format($row->ctr, 3, '.', ''),
+               'position' => number_format($row->position, 3, '.', '')
            ];
         }
         $generalData = $searchConsole->searchanalytics->query($siteUrl,$generalQuery)->getRows();
@@ -291,7 +292,7 @@ class SEOReportData
             'organic_sessions' => $analyticsResultsTotal['ga:sessions'],
             'organic_pageviews' => $analyticsResultsTotal['ga:pageviews'],
             'organic_impressions' => $generalData? $generalData[0]->impressions : null,
-            'time_on_page' => gmdate('H:i:s',$analyticsResultsTotal['ga:avgTimeOnPage']),
+            'time_on_page' => gmdate('i:s',$analyticsResultsTotal['ga:avgTimeOnPage']),
             'organic_revenue' => null,
             'pages_per_visit' => round($analyticsResultsTotal['ga:pageviewsPerSession']),
             'organic_traffic_and_session' => $organicSessions,
@@ -323,6 +324,18 @@ class SEOReportData
             return;
         }
         $emailData = $this->data;
+
+        if ($this->data['organic_sessions']) {
+            $emailData['organic_sessions'] = number_format($this->data['organic_sessions']);
+        }
+
+        if ($this->data['organic_pageviews']) {
+            $emailData['organic_pageviews'] = number_format($this->data['organic_pageviews']);
+        }
+
+        if ($this->data['organic_impressions']) {
+            $emailData['organic_impressions'] = number_format($this->data['organic_impressions']);
+        }
 
         if ($this->data['age_genders_devices']) {
 

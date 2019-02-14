@@ -61,6 +61,10 @@ class TrafficReportData
         $reportRequest->setViewId("ga:$profileId");
         $reportRequest->setDateRanges($dateRange);
 
+        $pageviewsDescOrder = new \Google_Service_AnalyticsReporting_OrderBy();
+        $pageviewsDescOrder->setFieldName('ga:pageviews');
+        $pageviewsDescOrder->setSortOrder('DESCENDING');
+
         // general analytics data
         $generalReportMetrics = $this->googleAnalyticsService->buildMetrics(
             [
@@ -108,6 +112,8 @@ class TrafficReportData
         $usersBySourceReportRequest = clone $reportRequest;
         $usersBySourceReportRequest->setMetrics($usersBySourceReportMetrics);
         $usersBySourceReportRequest->setDimensions([$sourceDimension]);
+        $usersBySourceReportRequest->setPageSize(10);
+        $usersBySourceReportRequest->setOrderBys($pageviewsDescOrder);
 
         // users_by_country
         $countryDimension = $this->googleAnalyticsService->buildDimensionByName('ga:country');
@@ -132,10 +138,6 @@ class TrafficReportData
             ]);
 
         $pagePathDimension = $this->googleAnalyticsService->buildDimensionByName('ga:pagePath');
-
-        $pageviewsDescOrder = new \Google_Service_AnalyticsReporting_OrderBy();
-        $pageviewsDescOrder->setFieldName('ga:pageviews');
-        $pageviewsDescOrder->setSortOrder('DESCENDING');
 
         $topPagesReportRequest = clone $reportRequest;
         $topPagesReportRequest->setMetrics($topPagesReportMetrics);

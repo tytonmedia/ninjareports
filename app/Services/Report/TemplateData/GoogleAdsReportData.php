@@ -62,7 +62,14 @@ class GoogleAdsReportData
         $conversionsByDayReportData = $adwordsReporting->getCampaignConversionsByDayReport($fromDate,$toDate);
         $demographicsReportData = $adwordsReporting->getAgeGenderDeviceReport($fromDate,$toDate);
         $topKeywordsReportData = $adwordsReporting->getTopKeywordsReport($fromDate,$toDate);
-        $topKeywordsReportData = $adwordsReporting->getTopKeywordsReport($fromDate,$toDate);
+
+        if ($campaigns = array_get($campaignReportData,'rows')) {
+            $topCampaigns = collect($rows)
+                        ->sortByDesc('Impressions')
+                        ->values()
+                        ->take(10)
+                        ->all();
+        }
         /**
          * Google analytics data fetching
          */
@@ -79,7 +86,7 @@ class GoogleAdsReportData
             'conversions_by_day' => $conversionsByDayReportData['rows'],
             'age_genders_devices' => $demographicsReportData,
             'top_keywords' => $topKeywordsReportData,
-            'top_performing_campaigns' => $campaignReportData['rows'],
+            'top_performing_campaigns' => $topCampaigns,
             'performance_by_country'=> $topCountriesReportData
         ];
         return $this;

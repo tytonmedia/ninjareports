@@ -38,7 +38,7 @@ class ReportSenderController extends Controller
                 if (count($recipients) < 0) {
                     continue;
                 }
-
+                $report = app('App\Services\Report\ReportAccountTokenReviser')->revise($report);
                 (new \App\Services\Report\ReportSender)->send($report);
                 update_schedule($report, $report->user_id);
             }
