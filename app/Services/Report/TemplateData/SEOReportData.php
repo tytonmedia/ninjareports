@@ -77,7 +77,7 @@ class SEOReportData
                 'ga:sessions' => 'sessions',
             ],
             function ($entry) {
-                $entry['date'] = substr($entry['date'], 0, 4).'-'.substr($entry['date'], 5, 6).'-'.substr($entry['date'], 7, 8);
+                $entry['date'] = date('Y-m-d',strtotime($entry['date']));
                 return $entry;
             }
         );
@@ -293,8 +293,8 @@ class SEOReportData
             'organic_pageviews' => $analyticsResultsTotal['ga:pageviews'],
             'organic_impressions' => $generalData? $generalData[0]->impressions : null,
             'time_on_page' => gmdate('i:s',$analyticsResultsTotal['ga:avgTimeOnPage']),
-            'organic_revenue' => null,
-            'pages_per_visit' => round($analyticsResultsTotal['ga:pageviewsPerSession']),
+            'organic_revenue' => 'N/A',
+            'pages_per_visit' => number_format($analyticsResultsTotal['ga:pageviewsPerSession'], 2, '.', ''),
             'organic_traffic_and_session' => $organicSessions,
             'organic_sessions_by_source' => $sessionsBySource,
             'organic_traffic_by_country' => $sessionsByCountry,

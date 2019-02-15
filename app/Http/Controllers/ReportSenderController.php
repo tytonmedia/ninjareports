@@ -39,7 +39,17 @@ class ReportSenderController extends Controller
                     continue;
                 }
                 $report = app('App\Services\Report\ReportAccountTokenReviser')->revise($report);
-                (new \App\Services\Report\ReportSender)->send($report);
+                $result = (new \App\Services\Report\ReportSender)->send($report);
+
+                $reportReceivers = $result->getReceivers();
+                foreach ($reportReceivers as $receiver) {
+                    Schedule::create([
+                        'user_id' => $report->user_id,
+                        'report_id' => $report->id,
+                        'recipient' => $receiver->email,
+                    ]);
+                }
+
                 update_schedule($report, $report->user_id);
             }
         }

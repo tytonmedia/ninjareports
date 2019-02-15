@@ -5,6 +5,7 @@ namespace App\Services\Report;
 use App\Models\ReportTemplate;
 use App\Services\PDFGenerator;
 use App\Services\Report\ReportSenderException;
+use App\Services\Report\ReportSenderResult;
  
 class ReportSender
 {
@@ -20,6 +21,8 @@ class ReportSender
         $attachments = [];
         $templateId = null;
         $from = 'reports@ninjareports.com';
+
+        $reportSenderResult = new ReportSenderResult();
 
         switch ($reportTemplate->slug) {
             case 'seo-report':
@@ -110,6 +113,8 @@ class ReportSender
             ];
         }
 
+        $receivers = [];
+        $sentCount = 0;
         foreach ($reportRecipients as $recipient) {
             (new \App\Services\SendGridService)->sendTransactionalMail([
                 'to' => ['email' => $recipient],
@@ -118,7 +123,12 @@ class ReportSender
                 'subject' => $report->email_subject,
                 'attachments' => $attachments
             ]);
+            $receivers[] = (object)['email' => $recipient];
+            $sentCount++;
         }
+
+        $reportSenderResult->setReceivers($receivers);
+        $reportSenderResult->totalSentCount = $sentCount;
 
         if ($attachments) {
             if (file_exists($filePath)) {
@@ -126,6 +136,7 @@ class ReportSender
             }
         }
 
+        return $reportSenderResult;
         // dd($reportEmailData);
     }
 
