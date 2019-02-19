@@ -97,7 +97,7 @@ class SEOReportData
                 $toDate, 
                 'ga:sessions,ga:pageviews,ga:avgTimeOnPage,ga:bounceRate',
                 [
-                    'dimensions' => 'ga:pagePath',
+                    'dimensions' => 'ga:pagePath,ga:hostname',
                     'sort' => '-ga:sessions',
                     'max-results' => 10
                 ]
@@ -111,12 +111,14 @@ class SEOReportData
                     'ga:sessions' => 'sessions',
                     'ga:pageviews' => 'pageviews',
                     'ga:avgTimeOnPage' => 'avg_time_on_page',
-                    'ga:bounceRate' => 'bounce_rate'
+                    'ga:bounceRate' => 'bounce_rate',
+                    'ga:hostname' => 'host'
                 ],
                 function ($entry) {
                     $entry['avg_time_on_page'] = gmdate('H:i:s',$entry['avg_time_on_page']);
                     $entry['bounce_rate'] = round($entry['bounce_rate']);
                     $entry['revenue'] = null;
+                    $entry['url'] = $entry['host'].$entry['page'];
                     return $entry;
                 }
             );

@@ -222,10 +222,12 @@
                                                                 role="presentation" style="border-collapse:separate;line-height:100%;mso-line-height-rule:exactly">
                                                                 <tr>
                                                                     <td align="center" bgcolor="transparent" role="presentation"
-                                                                        style="border:1px solid white;border-radius:3px;cursor:auto;padding:10px 25px;"
+                                                                        style="cursor:auto;padding:10px 25px;"
                                                                         valign="middle">
-                                                                        <p style="background:transparent;color:#ffffff;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;line-height:120%;mso-line-height-rule:exactly;Margin:0;text-decoration:none;text-transform:none;">
-                                                                            GO TO WEBSITE </p>
+                                                                            <p style="background:transparent;color:#ffffff;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;line-height:120%;mso-line-height-rule:exactly;Margin:0;text-decoration:none;text-transform:none;"> 
+                                                                            <span style="font-weight:bolder;display:inline-block;margin-bottom:3px;font-size:15px;">SEO REPORT</span> <br/>
+                                                                            {{$data['report_date']}}
+                                                                            </p>
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -275,7 +277,7 @@
                class="" style="vertical-align:top;width:300px;"
             >
           <![endif]-->
-                            <div class="mj-column-per-50 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                            <!-- <div class="mj-column-per-50 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
                                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;"
                                     width="100%">
                                     <tr>
@@ -285,7 +287,7 @@
                                         </td>
                                     </tr>
                                 </table>
-                            </div>
+                            </div> -->
                             <!--[if mso | IE]>
             </td>
           
@@ -293,7 +295,7 @@
                class="" style="vertical-align:top;width:300px;"
             >
           <![endif]-->
-                            <div class="mj-column-per-50 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                            <!-- <div class="mj-column-per-50 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
                                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;"
                                     width="100%">
                                     <tr>
@@ -303,7 +305,7 @@
                                         </td>
                                     </tr>
                                 </table>
-                            </div>
+                            </div> -->
                             <!--[if mso | IE]>
             </td>
           
@@ -720,7 +722,7 @@
                                     <tr>
                                         <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                                             <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">
-                                                MAP</div>
+                                            ORGANIC TRAFFIC BY COUNTRY</div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1114,7 +1116,7 @@
                                         </tr>
                                         @foreach($data['top_organic_pages'] as $row)
                                         <tr>
-                                            <td width="230">{{$row['page']}}</td>
+                                            <td width="230"><a href="//{{$row['url']}}">{{$row['page']}}</a></td>
                                             <td>{{$row['sessions']}}</td>
                                             <td>{{$row['pageviews']}}</td>
                                             <td>{{$row['avg_time_on_page']}}</td>
