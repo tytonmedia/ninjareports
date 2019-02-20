@@ -67,7 +67,11 @@
                                                 @endforeach
                                                 @endif
                                             </td>
-                                            <td>{{ $report->sent_at ? $report->sent_at->diffForHumans() : '-' }}</td>
+                                            <td>
+                                                <span title="{{ $report->sent_at? $report->sent_at->toDayDateTimeString():'' }}">
+                                                {{ $report->sent_at ? $report->sent_at->diffForHumans() : '-' }}
+                                                </span>
+                                            </td>
                                             @if($report->frequency == 'daily')
                                             <td>{{ $date->format('m/d/Y') }} <i>at</i> {{ $date->format('h:i A') }}</td>
                                             @else

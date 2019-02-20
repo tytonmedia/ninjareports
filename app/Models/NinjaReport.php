@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class NinjaReport extends Model
 {
+    protected $dates = ['sent_at'];
 
     public function user()
     {
