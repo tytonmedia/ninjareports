@@ -63,6 +63,8 @@ class GoogleAdsReportData
         $demographicsReportData = $adwordsReporting->getAgeGenderDeviceReport($fromDate,$toDate);
         $topKeywordsReportData = $adwordsReporting->getTopKeywordsReport($fromDate,$toDate);
 
+        $topCampaigns = [];
+
         if ($campaigns = array_get($campaignReportData,'rows')) {
             $topCampaigns = collect($campaigns)
                         ->sortByDesc('Impressions')

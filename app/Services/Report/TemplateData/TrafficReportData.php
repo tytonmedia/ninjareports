@@ -209,13 +209,13 @@ class TrafficReportData
         $this->data = [
             'users' => $generalReport['ga:users'],
             'pageviews' => $generalReport['ga:pageviews'],
-            'pages_per_visit' => round($generalReport['ga:pageviewsPerSession']),
-            'bounce_rate' => round($generalReport['ga:bounceRate']),
+            'pages_per_visit' => $generalReport['ga:pageviewsPerSession'],
+            'bounce_rate' => $generalReport['ga:bounceRate'],
             'new_visitors' => $generalReport['ga:newUsers'],
-            'avg_time_on_site' => gmdate('i:s',$generalReport['ga:avgTimeOnPage']),
-            'avg_page_load_time' => round($generalReport['ga:avgPageLoadTime'],2),
-            'avg_server_response_time' => round($generalReport['ga:avgServerResponseTime'],2),
-            'avg_page_download_time' => round($generalReport['ga:avgPageDownloadTime'],2),
+            'avg_time_on_site' => $generalReport['ga:avgTimeOnPage'],
+            'avg_page_load_time' => $generalReport['ga:avgPageLoadTime'],
+            'avg_server_response_time' => $generalReport['ga:avgServerResponseTime'],
+            'avg_page_download_time' => $generalReport['ga:avgPageDownloadTime'],
             'users_by_country'=> $usersByCountry,
             'top_pages' => $topPages,
             'visitors_by_source' => $visitorsBySource,
@@ -244,6 +244,42 @@ class TrafficReportData
         }
 
         $emailData = $this->data;
+
+        if ($this->data['users']) {
+            $emailData['users'] = number_format($this->data['users']);
+        }
+
+        if ($this->data['pageviews']) {
+            $emailData['pageviews'] = number_format($this->data['pageviews']);
+        }
+        
+        if ($this->data['pages_per_visit']) {
+            $emailData['pages_per_visit'] = number_format($this->data['pages_per_visit'], 2, '.', '');
+        }
+
+        if ($this->data['bounce_rate']) {
+            $emailData['bounce_rate'] = number_format($this->data['bounce_rate'], 2, '.', '').'%';
+        }
+
+        if ($this->data['new_visitors']) {
+            $emailData['new_visitors'] = number_format($this->data['new_visitors']);
+        }
+
+        if ($this->data['avg_time_on_site']) {
+            $emailData['avg_time_on_site'] = gmdate('i:s',$this->data['avg_time_on_site']);
+        }
+
+        if ($this->data['avg_page_load_time']) {
+            $emailData['avg_page_load_time'] = round($this->data['avg_page_load_time'],2);
+        }
+
+        if ($this->data['avg_server_response_time']) {
+            $emailData['avg_server_response_time'] = round($this->data['avg_server_response_time'],2);
+        }
+
+        if ($this->data['avg_page_download_time']) {
+            $emailData['avg_page_download_time'] = round($this->data['avg_page_download_time'],2);
+        }
 
         if ($this->data['age_genders_devices']) {
             $ageChartData = $this->chartService->generateBarChartData(
