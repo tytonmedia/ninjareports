@@ -4,6 +4,9 @@ namespace App\Services\Report\TemplateData;
 
 use App\Services\GoogleAnalyticsService;
 use App\Services\ChartService;
+use DatePeriod;
+use DateTime;
+use DateInterval;
 
 /**
  * API Request Count
@@ -317,6 +320,8 @@ class SEOReportData
             return $this->data;
         } else if ($type == 'email') {
             return $this->getEmailData();
+        } else if ($type == 'mock') {
+            return $this->getMockData();
         }
     }
 
@@ -518,6 +523,134 @@ class SEOReportData
         }
 
         return $emailData;
+    }
+
+    public function getMockData()
+    {
+        $period = new DatePeriod(
+            new DateTime('2019-01-01'),
+            new DateInterval('P1D'),
+            new DateTime('2019-01-30')
+        );
+
+        $organicSessions = [];
+        $sessionsBySource = [];
+        $sessionsByCountry = [];
+        $usersByAge = [];
+        $usersByGender = [];
+        $usersByPlatform = [];
+        $topPages = [];
+        $topKeywords = [];
+
+        foreach ($period as $date) {
+            $organicSessions[] = [
+                'sessions' => rand(1,100),
+                'date' => $date->format('Y-m-d')
+            ];    
+        }
+
+        foreach (range(0, 10) as $index) {
+            $sessionsBySource[] = [
+                'sessions' => rand(1,100),
+                'source' => "source $index"
+            ];
+        }
+        $countries = \PragmaRX\Countries\Package\Countries::where('geo.area','>',1000000)->all()->random(10);
+
+        foreach ($countries as $country) {
+            $sessionsByCountry[] = [
+                'sessions' => rand(1,100),
+                'country_code' => $country->cca2,
+                'country' => $country->name->common
+            ];
+        }
+
+        $usersByAge = [
+            [
+                'age' => '18-24',
+                'users' => rand(1,100)
+            ],
+            [
+                'age' => '25-34',
+                'users' => rand(1,100)
+            ],
+            [
+                'age' => '35-44',
+                'users' => rand(1,100)
+            ],
+            [
+                'age' => '45-54',
+                'users' => rand(1,100)
+            ],
+            [
+                'age' => '55+',
+                'users' => rand(1,100)
+            ],
+        ];
+
+        $usersByGender = [
+            [
+                'gender' => 'male',
+                'users' => rand(1,100)
+            ],
+            [
+                'gender' => 'female',
+                'users' => rand(1,100)
+            ],
+        ];
+
+        $usersByPlatform = [
+            [
+                'platform' => 'Android',
+                'users' => rand(1,100)
+            ],
+            [
+                'platform' => 'iOS',
+                'users' => rand(1,100)
+            ],
+            [
+                'platform' => 'Linux',
+                'users' => rand(1,100)
+            ],
+            [
+                'platform' => 'Windows',
+                'users' => rand(1,100)
+            ],
+        ];
+
+        foreach (range(0, 5) as $index) {
+            $topPages[] = [
+                'page' => "page $index"
+            ];
+        }
+
+        foreach (range(0, 5) as $index) {
+            $topKeywords[] = [
+                'keyword' => "keyword $index"
+            ];
+        }
+        
+
+        $this->data = [
+            'organic_sessions' => rand(50,200),
+            'organic_pageviews' => rand(200,500),
+            'organic_impressions' => rand(50,200),
+            'time_on_page' => gmdate('i:s'),
+            'organic_revenue' => 'N/A',
+            'pages_per_visit' => 9.8,
+            'organic_traffic_and_session' => $organicSessions,
+            'organic_sessions_by_source' => $sessionsBySource,
+            'organic_traffic_by_country' => $sessionsByCountry,
+            'age_genders_devices' => [
+                'age' => $usersByAge,
+                'genders' => $usersByGender,
+                'devices' =>$usersByPlatform
+            ],
+            'top_organic_pages' => $topPages,
+            'top_organic_keywords' => $topKeywords,
+        ];
+
+        return $this->getEmailData();
     }
 
 

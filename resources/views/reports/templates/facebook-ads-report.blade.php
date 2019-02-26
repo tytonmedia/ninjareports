@@ -293,8 +293,7 @@
                     <td align="left" style="font-size:0px;padding:10px;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;">
                         <tr>
-                          <td style="display:inline-block;"><img width="20px" height="30px" src="https://marketing-image-production.s3.amazonaws.com/uploads/3642e4c0884991d29b5c5e6ef77cee7f206f6666e5d554df58c1cb4d8891b15f5cd416b4cf84b663754ff9609c03b37c0e510adc43a0bd6adb21e5c82d0db98b.png"
-                            /></td>
+                          <td style="display:inline-block;"></td>
                           <td style="font-size:26px;display:inline-block;margin:10px">
                             <mj-text="26px">{{$data['spend']}}</mj-text>
                           </td>
@@ -324,8 +323,7 @@
                     <td align="left" style="font-size:0px;padding:10px;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;">
                         <tr>
-                          <td style="display:inline-block;"><img width="20px" height="30px" src="https://marketing-image-production.s3.amazonaws.com/uploads/3642e4c0884991d29b5c5e6ef77cee7f206f6666e5d554df58c1cb4d8891b15f5cd416b4cf84b663754ff9609c03b37c0e510adc43a0bd6adb21e5c82d0db98b.png"
-                            /></td>
+                          <td style="display:inline-block;"></td>
                           <td style="font-size:26px;display:inline-block;margin:10px">
                             <mj-text>{{$data['impressions']}}</mj-text>
                           </td>
@@ -355,8 +353,7 @@
                     <td align="left" style="font-size:0px;padding:10px;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;">
                         <tr>
-                          <td style="display:inline-block;"><img width="20px" height="30px" src="https://marketing-image-production.s3.amazonaws.com/uploads/3642e4c0884991d29b5c5e6ef77cee7f206f6666e5d554df58c1cb4d8891b15f5cd416b4cf84b663754ff9609c03b37c0e510adc43a0bd6adb21e5c82d0db98b.png"
-                            /></td>
+                          <td style="display:inline-block;"></td>
                           <td style="font-size:26px;display:inline-block;margin:10px">
                             <mj-text>{{$data['ctr']}}</mj-text>
                           </td>
@@ -416,8 +413,7 @@
                     <td align="left" style="font-size:0px;padding:10px;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;">
                         <tr>
-                          <td style="display:inline-block;"><img width="20px" height="30px" src="https://marketing-image-production.s3.amazonaws.com/uploads/3642e4c0884991d29b5c5e6ef77cee7f206f6666e5d554df58c1cb4d8891b15f5cd416b4cf84b663754ff9609c03b37c0e510adc43a0bd6adb21e5c82d0db98b.png"
-                            /></td>
+                          <td style="display:inline-block;"></td>
                           <td style="font-size:26px;display:inline-block;margin:10px">
                             <mj-text>{{$data['clicks']}}</mj-text>
                           </td>
@@ -447,8 +443,7 @@
                     <td align="left" style="font-size:0px;padding:10px;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;">
                         <tr>
-                          <td style="display:inline-block;"><img width="20px" height="30px" src="https://marketing-image-production.s3.amazonaws.com/uploads/3642e4c0884991d29b5c5e6ef77cee7f206f6666e5d554df58c1cb4d8891b15f5cd416b4cf84b663754ff9609c03b37c0e510adc43a0bd6adb21e5c82d0db98b.png"
-                            /></td>
+                          <td style="display:inline-block;"></td>
                           <td style="font-size:26px;display:inline-block;margin:10px">
                             <mj-text>{{$data['avg_cpc']}}</mj-text>
                           </td>
@@ -478,8 +473,7 @@
                     <td align="left" style="font-size:0px;padding:10px;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;">
                         <tr>
-                          <td style="display:inline-block;"><img width="20px" height="30px" src="https://marketing-image-production.s3.amazonaws.com/uploads/3642e4c0884991d29b5c5e6ef77cee7f206f6666e5d554df58c1cb4d8891b15f5cd416b4cf84b663754ff9609c03b37c0e510adc43a0bd6adb21e5c82d0db98b.png"
-                            /></td>
+                          <td style="display:inline-block;"></td>
                           <td style="font-size:26px;display:inline-block;margin:10px">
                             <mj-text>{{$data['frequency']}}</mj-text>
                           </td>

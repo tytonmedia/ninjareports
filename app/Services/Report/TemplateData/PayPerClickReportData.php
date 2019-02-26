@@ -6,6 +6,9 @@ use App\Services\GoogleAdwordsReporting;
 use InvalidArgumentException;
 use App\Services\ChartService;
 use App\Services\GoogleAnalyticsService;
+use DatePeriod;
+use DateTime;
+use DateInterval;
 
 class PayPerClickReportData
 {
@@ -173,6 +176,8 @@ class PayPerClickReportData
             return $this->data;
         } else if ($type == 'email') {
             return $this->getEmailData();
+        } else if ($type == 'mock') {
+            return $this->getMockData();
         }
     }
 
@@ -363,6 +368,226 @@ class PayPerClickReportData
             $emailData['daily_clicks_by_ppc'] = $url;
         }
         return $emailData;
+    }
+
+    public function getMockData()
+    {
+        $period = new DatePeriod(
+            new DateTime('2019-01-01'),
+            new DateInterval('P1D'),
+            new DateTime('2019-01-30')
+        );
+
+        $impressionsByAge = [
+            [
+                'age' => '18-24',
+                'impressions' => rand(1,100)
+            ],
+            [
+                'age' => '25-34',
+                'impressions' => rand(1,100)
+            ],
+            [
+                'age' => '35-44',
+                'impressions' => rand(1,100)
+            ],
+            [
+                'age' => '45-54',
+                'impressions' => rand(1,100)
+            ],
+            [
+                'age' => '55+',
+                'impressions' => rand(1,100)
+            ],
+        ];
+
+        $impressionsByGender = [
+            [
+                'gender' => 'male',
+                'impressions' => rand(1,100)
+            ],
+            [
+                'gender' => 'female',
+                'impressions' => rand(1,100)
+            ],
+        ];
+
+        $impressionsByDevice = [
+            [
+                'impression_device' => 'Android',
+                'impressions' => rand(1,100)
+            ],
+            [
+                'impression_device' => 'iOS',
+                'impressions' => rand(1,100)
+            ],
+            [
+                'impression_device' => 'Linux',
+                'impressions' => rand(1,100)
+            ],
+            [
+                'impression_device' => 'Windows',
+                'impressions' => rand(1,100)
+            ],
+        ];
+
+        $fbDemographicsReportData = [
+            'age' => $impressionsByAge,
+            'genders' => $impressionsByGender,
+            'devices' => $impressionsByDevice
+        ];
+
+        $impressionsByAge = [
+            [
+                'AgeRange' => '18-24',
+                'Impressions' => rand(1,100)
+            ],
+            [
+                'AgeRange' => '25-34',
+                'Impressions' => rand(1,100)
+            ],
+            [
+                'AgeRange' => '35-44',
+                'Impressions' => rand(1,100)
+            ],
+            [
+                'AgeRange' => '45-54',
+                'Impressions' => rand(1,100)
+            ],
+            [
+                'AgeRange' => '55+',
+                'Impressions' => rand(1,100)
+            ],
+        ];
+
+        $impressionsByGender = [
+            [
+                'Gender' => 'male',
+                'Impressions' => rand(1,100)
+            ],
+            [
+                'Gender' => 'female',
+                'Impressions' => rand(1,100)
+            ],
+        ];
+
+        $impressionsByDevice = [
+            [
+                'Device' => 'Android',
+                'Impressions' => rand(1,100)
+            ],
+            [
+                'Device' => 'iOS',
+                'Impressions' => rand(1,100)
+            ],
+            [
+                'Device' => 'Linux',
+                'Impressions' => rand(1,100)
+            ],
+            [
+                'Device' => 'Windows',
+                'Impressions' => rand(1,100)
+            ],
+        ];
+
+        $adsDemographicsReportData = [
+            'age' => $impressionsByAge,
+            'genders' => $impressionsByGender,
+            'devices' => $impressionsByDevice
+        ];
+
+        $countries = \PragmaRX\Countries\Package\Countries::where('geo.area','>',1000000)->all()->random(10);
+
+        foreach ($countries as $country) {
+            $googleAdsTopCountries[] = [
+                'Clicks' => rand(1,100),
+                'CountryISO' => $country->cca3,
+                'CountryName' => $country->name->common
+            ];
+            $fbTopPerformingCountries[] = [
+                'clicks' => rand(1,100),
+                'country_code' => $country->cca3,
+                'country_name' => $country->name->common
+            ];
+        }
+
+        $spendConversion = array( 
+            array (
+               "name" => "Conversions",
+               "fb_ads" => 000000,	
+               "google_ads" => mt_rand(10,50)
+            ),
+            array (
+               "name" => "Clicks",
+               "fb_ads" => mt_rand(50,100),
+               "google_ads" => mt_rand(50,100)
+            ),
+            array (
+               "name" => "Impressions",
+               "fb_ads" => mt_rand(100,500),
+               "google_ads" => mt_rand(100,500)
+            ),
+            array (
+                "name" => "Spend($)",
+                "fb_ads" => mt_rand(500,1000),
+                "google_ads" => mt_rand(500,1000) 
+             )
+         );
+
+         foreach (range(0, 5) as $index) {
+            $fbTopCampaigns[] = [
+                'campaign_name' => "Campaign $index",
+                'clicks' => rand(1,100),
+                'impressions' => rand(100,200),
+                'ctr' => mt_rand(10,20) / 10,
+                'spend' => mt_rand(1,20),
+                'conversions' => mt_rand(0,10)
+            ];
+
+            $googleAdsTopCampaigns[] = [
+                'Campaign' => "Campaign $index",
+                'Clicks' => rand(1,100),
+                'Impressions' => rand(100,200),
+                'CTR' => mt_rand(10,20) / 10,
+                'Cost' => mt_rand(1,20),
+                'All conv.' => mt_rand(0,10),
+                'Cost / all conv.' => mt_rand(10,20) / 10
+            ];
+        }
+
+        foreach ($period as $date) {
+            $adCliksByDay['rows'][] = [
+                'Clicks' => rand(10,50),
+                'Day' => $date->format('Y-m-d')
+            ];
+            $fbClicksByDay[] = [
+                'clicks' => rand(0,50),
+                'date_start' => $date->format('Y-m-d')
+            ];    
+        }
+
+        $this->data = [
+            'impressions' => mt_rand(100,500),
+            'clicks' => mt_rand(50,100),
+            'revenue' => mt_rand(100,500),
+            'spend' =>  mt_rand(1000,2000),
+            'ctr' => mt_rand(100,300) / 10,
+            'avg_cpc' =>  mt_rand(10,20) / 10,
+            'ad_age_genders_devices' => $adsDemographicsReportData,
+            'fb_age_genders_devices' => $fbDemographicsReportData,
+            'ad_performance_by_country'=> $googleAdsTopCountries,
+            'fb_performance_by_country'=> $fbTopPerformingCountries,
+            'spend_conversion_by_day'=> $spendConversion,
+
+            'ad_top_performing_campaigns' => $googleAdsTopCampaigns,
+            'fb_top_performing_campaigns' => $fbTopCampaigns,
+
+            'ad_clicks_by_day' =>$adCliksByDay,
+            'fb_clicks_by_day' =>$fbClicksByDay
+        
+        ];
+
+        return $this->getEmailData();
     }
 }
 

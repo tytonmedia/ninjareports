@@ -235,6 +235,59 @@ class ChartService
         return $this->generateChartURL('chartjs-combo-chart',$json);
     }
 
+    /**
+     * A configurable version getComboChartImageUrl()
+     */
+    public function getFusionChartImageUrl($labels,$datasets,$config)
+    {
+        $chartData = [
+            'charturl' => [
+              'type' => 'chartjs',
+              'momentjs' => true
+            ],
+            'options' => [
+                'type' => 'bar',
+                'options' => [
+                    'responsive' => true,
+                    'legend' => [
+                        'position' => 'top',
+                        'display' => true
+                    ],
+                    'title' => [
+                        'display' => true,
+                        'text' => '',
+                    ],
+                    'scales' => [
+                        'yAxes'=>[
+                            [
+                                'ticks' => [
+                                    'suggestedMin'=> 0
+                                ]
+                            ]
+                        ],
+                        'xAxes'=>[
+                            [
+                                'type' => 'time',
+                                'distribution' => 'linear'
+                            ]
+                        ],
+                    ]
+                ],
+                'data' => [
+                    'labels' => $labels,
+                    'datasets' => $datasets,
+                ],
+            ],
+        ];
+        
+        foreach ($config as $key => $value) {
+            array_set($chartData['options']['options'],$key,$value);
+        }
+
+        $json = json_encode($chartData);
+        return $this->generateChartURL('chartjs-combo-chart',$json);
+    }
+
     public function generateComboChartData($mergedDataset,$labelKey,$datasetKeys,$defaultValue=0)
     {
         $dataset = collect($mergedDataset);

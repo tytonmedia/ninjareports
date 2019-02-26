@@ -291,7 +291,7 @@
                                                    <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                                                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                                                          <tr>
-                                                            <td width="30px" style="padding-left:10px;"> <span><img style="display:block;" width="25" height="37" src="https://marketing-image-production.s3.amazonaws.com/uploads/3642e4c0884991d29b5c5e6ef77cee7f206f6666e5d554df58c1cb4d8891b15f5cd416b4cf84b663754ff9609c03b37c0e510adc43a0bd6adb21e5c82d0db98b.png" /></span>                            </td>
+                                                            <td width="30px" style="padding-left:10px;"></td>
                                                             <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{ array_get($data,'impressions')}}</span></td>
                                                             <td align="right" style="padding-right:5px"><img width="42" height="42" src="https://marketing-image-production.s3.amazonaws.com/uploads/1b03bbe1fc2abec8ad9444327020bcc7d09e224129c58339457b26d39e975cadb5e0247e8a1ff059abfd4faf81678b2a23c7e2726e74c0b0eeb61953529c6af6.jpg" /></td>
                                                          </tr>
@@ -323,7 +323,7 @@
                                                    <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                                                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                                                          <tr style="background-color:#fff;">
-                                                            <td width="30px" style="padding-left:10px"> <span><img style="display:block;" width="25" height="37" src="https://marketing-image-production.s3.amazonaws.com/uploads/3642e4c0884991d29b5c5e6ef77cee7f206f6666e5d554df58c1cb4d8891b15f5cd416b4cf84b663754ff9609c03b37c0e510adc43a0bd6adb21e5c82d0db98b.png" /></span>                            </td>
+                                                            <td width="30px" style="padding-left:10px"></td>
                                                             <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{ array_get($data,'clicks')}}</span></td>
                                                             <td align="right"><img width="42" height="42" src="https://marketing-image-production.s3.amazonaws.com/uploads/178bb3928765099d381b2bd96b5026a980c400caee8ace49e6fa7521a078e07d022b07c01900f4e021135dfba5dbafdec132e871b95f929332fa28301e181634.jpg" /></td>
                                                          </tr>
@@ -355,7 +355,7 @@
                                                    <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                                                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                                                          <tr style="background-color:#fff;">
-                                                            <td width="30px" style="padding-left:10px"> <span><img style="display:block;" width="25" height="37" src="https://marketing-image-production.s3.amazonaws.com/uploads/3642e4c0884991d29b5c5e6ef77cee7f206f6666e5d554df58c1cb4d8891b15f5cd416b4cf84b663754ff9609c03b37c0e510adc43a0bd6adb21e5c82d0db98b.png" /></span>                            </td>
+                                                            <td width="30px" style="padding-left:10px"></td>
                                                             <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{array_get($data,'revenue')}}</span></td>
                                                             <td align="right" style="padding-right:5px"><img width="31" height="44" src="https://marketing-image-production.s3.amazonaws.com/uploads/51020167a6abbf140ec80818dbc61e6b887d1ce6c1e03e0f0a8e2012935a600d2d59c561c99d9f45cdbe7e050c95d1ead9003e98108c2febe37b627b8070565e.png" /></td>
                                                          </tr>
@@ -414,7 +414,7 @@
                                                    <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                                                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                                                          <tr style="background-color:#fff;">
-                                                            <td width="30px" style="padding-left:10px"> <span><img style="display:block;" width="25" height="37" src="https://marketing-image-production.s3.amazonaws.com/uploads/3642e4c0884991d29b5c5e6ef77cee7f206f6666e5d554df58c1cb4d8891b15f5cd416b4cf84b663754ff9609c03b37c0e510adc43a0bd6adb21e5c82d0db98b.png" /></span>                            </td>
+                                                            <td width="30px" style="padding-left:10px"></td>
                                                             <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{ array_get($data,'spend')}}</span></td>
                                                             <td align="right" style="padding-right:5px"><img width="33" height="44" src="https://marketing-image-production.s3.amazonaws.com/uploads/51020167a6abbf140ec80818dbc61e6b887d1ce6c1e03e0f0a8e2012935a600d2d59c561c99d9f45cdbe7e050c95d1ead9003e98108c2febe37b627b8070565e.png" /></td>
                                                          </tr>
@@ -446,7 +446,7 @@
                                                    <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                                                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                                                          <tr style="background-color:#fff;">
-                                                            <td width="30px" style="padding-left:10px"> <span><img style="display:block;" width="25" height="37" src="https://marketing-image-production.s3.amazonaws.com/uploads/3642e4c0884991d29b5c5e6ef77cee7f206f6666e5d554df58c1cb4d8891b15f5cd416b4cf84b663754ff9609c03b37c0e510adc43a0bd6adb21e5c82d0db98b.png" /></span>                            </td>
+                                                            <td width="30px" style="padding-left:10px"></td>
                                                             <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{ array_get($data,'ctr')}} </span></td>
                                                             <td align="right" style="padding-right:5px"><img width="45" height="45" src="https://marketing-image-production.s3.amazonaws.com/uploads/bc54c4cca49ebc1ab50b6e3d7e4c9368d89ee363c2f57571ddafae69ee6372c2da969ee7930bc871caec103e539b753ee76cbd22db7b4cc2fcdd4a3cc5d21249.jpg" /></td>
                                                          </tr>
@@ -478,7 +478,7 @@
                                                    <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                                                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                                                          <tr style="background-color:#fff;">
-                                                            <td width="30px" style="padding-left:10px"> <span><img style="display:block;" width="25" height="37" src="https://marketing-image-production.s3.amazonaws.com/uploads/3642e4c0884991d29b5c5e6ef77cee7f206f6666e5d554df58c1cb4d8891b15f5cd416b4cf84b663754ff9609c03b37c0e510adc43a0bd6adb21e5c82d0db98b.png" /></span>                            </td>
+                                                            <td width="30px" style="padding-left:10px"></td>
                                                             <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{ array_get($data,'avg_cpc')}}</span></td>
                                                             <td align="right" style="padding-right:5px;"><img width="33" height="44" src="https://marketing-image-production.s3.amazonaws.com/uploads/51020167a6abbf140ec80818dbc61e6b887d1ce6c1e03e0f0a8e2012935a600d2d59c561c99d9f45cdbe7e050c95d1ead9003e98108c2febe37b627b8070565e.png" /></td>
                                                          </tr>

@@ -5,8 +5,11 @@ namespace App\Services\Report\TemplateData;
 use App\Services\GoogleAdwordsReporting;
 use InvalidArgumentException;
 use App\Services\ChartService;
+use DatePeriod;
+use DateTime;
+use DateInterval;
 
- 
+
 class GoogleAdsReportData
 {
     private $requiredAccountTypes = ['google_analytics','google_adwords'];
@@ -101,6 +104,8 @@ class GoogleAdsReportData
             return $this->data;
         } else if ($type == 'email') {
             return $this->getEmailData();
+        } else if ($type == 'mock') {
+            return $this->getMockData();
         }
     }
 
@@ -186,7 +191,7 @@ class GoogleAdsReportData
                 'Day',
                 ['All conv.','Cost']
             );
-            $url = $this->chartService->getComboChartImageUrl(
+            $url = $this->chartService->getFusionChartImageUrl(
                 $chartData['labels'],
                 [
                     [
@@ -200,17 +205,153 @@ class GoogleAdsReportData
                         'label' => 'Conversions',
                         'type' => 'bar',
                         'data' => $chartData['dataset']['All conv.'],
-                        'backgroundColor' => '#b71c1c'
+                        'backgroundColor' => '#b71c1c',
+                        'borderWidth' => 2
                     ],
         
                 ],
                 [
-                    'title' => 'Spend vs Conversions By Day'
+                    'title.text' => 'Spend vs Conversions By Day',
+                    'scales.xAxes.0.barPercentage' => 0.2
                 ]
             );
             $emailData['spend_and_conversions_by_day_chart_url'] = $url;
         }
         return $emailData;
+    }
+
+    public function getMockData()
+    {
+        $period = new DatePeriod(
+            new DateTime('2019-01-01'),
+            new DateInterval('P1D'),
+            new DateTime('2019-01-30')
+        );
+
+        $spendByDayReportData = [];
+        $conversionsByDayReportData = [];
+        $demographicsReportData = [];
+        $topKeywordsReportData = [];
+        $topCampaigns = [];
+        $topCountriesReportData = [];
+
+        foreach ($period as $date) {
+            $spendByDayReportData[] = [
+                'Cost' => rand(10,100),
+                'Day' => $date->format('Y-m-d')
+            ];
+            $conversionsByDayReportData[] = [
+                'All conv.' => rand(0,50),
+                'Day' => $date->format('Y-m-d')
+            ];    
+        }
+
+        $impressionsByAge = [
+            [
+                'AgeRange' => '18-24',
+                'Impressions' => rand(1,100)
+            ],
+            [
+                'AgeRange' => '25-34',
+                'Impressions' => rand(1,100)
+            ],
+            [
+                'AgeRange' => '35-44',
+                'Impressions' => rand(1,100)
+            ],
+            [
+                'AgeRange' => '45-54',
+                'Impressions' => rand(1,100)
+            ],
+            [
+                'AgeRange' => '55+',
+                'Impressions' => rand(1,100)
+            ],
+        ];
+
+        $impressionsByGender = [
+            [
+                'Gender' => 'male',
+                'Impressions' => rand(1,100)
+            ],
+            [
+                'Gender' => 'female',
+                'Impressions' => rand(1,100)
+            ],
+        ];
+
+        $impressionsByDevice = [
+            [
+                'Device' => 'Android',
+                'Impressions' => rand(1,100)
+            ],
+            [
+                'Device' => 'iOS',
+                'Impressions' => rand(1,100)
+            ],
+            [
+                'Device' => 'Linux',
+                'Impressions' => rand(1,100)
+            ],
+            [
+                'Device' => 'Windows',
+                'Impressions' => rand(1,100)
+            ],
+        ];
+
+        $demographicsReportData = [
+            'age' => $impressionsByAge,
+            'genders' => $impressionsByGender,
+            'devices' => $impressionsByDevice
+        ];
+
+        foreach (range(0, 5) as $index) {
+            $topKeywordsReportData[] = [
+                'Keyword' => "keyword $index",
+                'Clicks' => rand(1,100),
+                'Impressions' => rand(100,200),
+                'CTR' => mt_rand(10,20) / 10,
+                'Avg. CPC' => mt_rand(10,20) / 10,
+                'All conv.' => mt_rand(0,10),
+                'Cost / all conv.' => mt_rand(10,20) / 10
+            ];
+            $topCampaigns[] = [
+                'Campaign' => "Campaign $index",
+                'Clicks' => rand(1,100),
+                'Impressions' => rand(100,200),
+                'CTR' => mt_rand(10,20) / 10,
+                'Cost' => mt_rand(1,20),
+                'All conv.' => mt_rand(0,10),
+                'Cost / all conv.' => mt_rand(10,20) / 10
+            ];
+        }
+
+        $countries = \PragmaRX\Countries\Package\Countries::where('geo.area','>',1000000)->all()->random(10);
+
+        foreach ($countries as $country) {
+            $topCountriesReportData[] = [
+                'Clicks' => rand(1,100),
+                'CountryISO' => $country->cca3,
+                'CountryName' => $country->name->common
+            ];
+        }
+
+        $this->data = [
+            'spend' => mt_rand(100,200),
+            'impressions' => mt_rand(30,100),
+            'ctr' => mt_rand(10,20) / 10,
+            'clicks' => mt_rand(1,50),
+            'avg_cpc' => mt_rand(10,20) / 10,
+            'conversions' => mt_rand(10,50),
+            'spend_by_day' => $spendByDayReportData,
+            'conversions_by_day' => $conversionsByDayReportData,
+            'age_genders_devices' => $demographicsReportData,
+            'top_keywords' => $topKeywordsReportData,
+            'top_performing_campaigns' => $topCampaigns,
+            'performance_by_country'=> $topCountriesReportData
+        ];
+
+        return $this->getEmailData();
     }
 
     public function invalidAccountsException()

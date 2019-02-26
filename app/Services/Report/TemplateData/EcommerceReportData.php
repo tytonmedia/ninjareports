@@ -7,6 +7,9 @@ use App\Services\GoogleAdwordsReporting;
 use App\Services\GoogleAnalyticsHelpers\Reporting\Batchman;
 use App\Services\ChartService;
 use InvalidArgumentException;
+use DatePeriod;
+use DateTime;
+use DateInterval;
 
 class EcommerceReportData {
 
@@ -275,6 +278,8 @@ class EcommerceReportData {
             return $this->data;
         } else if ($type == 'email') {
             return $this->getEmailData();
+        } else if ($type == 'mock') {
+            return $this->getMockData();
         }
     }
 
@@ -369,6 +374,131 @@ class EcommerceReportData {
 
 
         return $emailData;
+    }
+
+    public function getMockData()
+    {
+        $period = new DatePeriod(
+            new DateTime('2019-01-01'),
+            new DateInterval('P1D'),
+            new DateTime('2019-01-30')
+        );
+
+        $topProducts = [];
+        $topSourcesByRevenue = [];
+        $revenueByDay = [];
+        $countriesByTransactions = [];
+
+        foreach ($period as $date) {
+            $revenueByDay[] = [
+                'revenue' => rand(10,100),
+                'date' => $date->format('Y-m-d')
+            ]; 
+        }
+
+        $countries = \PragmaRX\Countries\Package\Countries::where('geo.area','>',1000000)->all()->random(10);
+
+        foreach ($countries as $country) {
+            $countriesByTransactions[] = [
+                'transactions' => rand(1,100),
+                'country_code' => $country->cca2,
+                'country' => $country->name->common
+            ];
+        }
+
+        foreach (range(0, 5) as $index) {
+            $topProducts[] = [
+                'product' => "product $index",
+                'sale' => rand(1,10),
+                'revenue' => rand(100,200),
+                'sessions' =>  null,
+                'conversion_rate' => null
+            ];
+            $topSourcesByRevenue[] = [
+                'sessions' => mt_rand(50,100),
+                'users' => mt_rand(50,100), 
+                'transactions' => mt_rand(20,50),
+                'avg_order_value' => mt_rand(50,100),
+                'ecommerce_conversion_rate' => mt_rand(10,20) / 10,
+                'per_session_value' => mt_rand(10,20) / 10,
+                'revenue' => mt_rand(10,100),
+                'source' => "source $index"
+            ];
+        }
+
+        $usersByAge = [
+            [
+                'age' => '18-24',
+                'users' => rand(1,100)
+            ],
+            [
+                'age' => '25-34',
+                'users' => rand(1,100)
+            ],
+            [
+                'age' => '35-44',
+                'users' => rand(1,100)
+            ],
+            [
+                'age' => '45-54',
+                'users' => rand(1,100)
+            ],
+            [
+                'age' => '55+',
+                'users' => rand(1,100)
+            ],
+        ];
+
+        $usersByGender = [
+            [
+                'gender' => 'male',
+                'users' => rand(1,100)
+            ],
+            [
+                'gender' => 'female',
+                'users' => rand(1,100)
+            ],
+        ];
+
+        $usersByPlatform = [
+            [
+                'platform' => 'Android',
+                'users' => rand(1,100)
+            ],
+            [
+                'platform' => 'iOS',
+                'users' => rand(1,100)
+            ],
+            [
+                'platform' => 'Linux',
+                'users' => rand(1,100)
+            ],
+            [
+                'platform' => 'Windows',
+                'users' => rand(1,100)
+            ],
+        ];
+
+        $this->data = [
+            'clicks' => mt_rand(1,50),
+            'revenue' => mt_rand(10,100),
+            'spend' => mt_rand(50,100),
+            'ctr' =>  mt_rand(10,20) / 10,
+            'transactions' =>  mt_rand(10,50),
+            'avg_order_value' =>  mt_rand(50,100),
+            'top_products' => $topProducts,
+            'top_revenue_generating_source' => $topSourcesByRevenue,
+            'daily_revenue'=> $revenueByDay,
+            'top_countries_by_transactions' => $countriesByTransactions,
+            'age_genders_devices' => [
+                'age' => $usersByAge,
+                'genders' => $usersByGender,
+                'devices' => $usersByPlatform
+            ],
+            'roi_by_source' => []
+        ];
+        
+        return $this->getEmailData();
     }
 
     public function invalidAccountsException()

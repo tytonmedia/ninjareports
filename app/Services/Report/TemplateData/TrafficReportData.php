@@ -234,6 +234,8 @@ class TrafficReportData
             return $this->data;
         } else if ($type == 'email') {
             return $this->getEmailData();
+        } elseif ($type == 'mock') {
+            return $this->getMockData();
         }
     }
 
@@ -338,6 +340,120 @@ class TrafficReportData
         }
 
         return $emailData;
+    }
+
+    public function getMockData()
+    {
+        $usersByCountry  = [];
+        $topPages = [];
+        $visitorsBySource = [];
+        $usersByAge = [];
+        $usersByGender = [];
+        $usersByPlatform = [];
+
+        $countries = \PragmaRX\Countries\Package\Countries::where('geo.area','>',1000000)->all()->random(10);
+
+        foreach ($countries as $country) {
+            $usersByCountry[] = [
+                'users' => rand(1,100),
+                'country_code' => $country->cca2,
+                'country' => $country->name->common
+            ];
+        }
+
+        foreach (range(0, 5) as $index) {
+            $topPages[] = [
+                'page' => "page $index",
+                'pageviews' => rand(1,100),
+                'avg_time_on_page' => '00:00',
+                'bounce_rate' => mt_rand(100,200) / 10,
+            ];
+        }
+
+        foreach (range(0, 10) as $index) {
+            $visitorsBySource[] = [
+                'pageviews' => rand(1,100),
+                'avg_time_on_page' => '00:00',
+                'bounce_rate' => mt_rand(100,200) / 10,
+                'source' => "source $index"
+            ];
+        }
+
+        $usersByAge = [
+            [
+                'age' => '18-24',
+                'users' => rand(1,100)
+            ],
+            [
+                'age' => '25-34',
+                'users' => rand(1,100)
+            ],
+            [
+                'age' => '35-44',
+                'users' => rand(1,100)
+            ],
+            [
+                'age' => '45-54',
+                'users' => rand(1,100)
+            ],
+            [
+                'age' => '55+',
+                'users' => rand(1,100)
+            ],
+        ];
+
+        $usersByGender = [
+            [
+                'gender' => 'male',
+                'users' => rand(1,100)
+            ],
+            [
+                'gender' => 'female',
+                'users' => rand(1,100)
+            ],
+        ];
+
+        $usersByPlatform = [
+            [
+                'platform' => 'Android',
+                'users' => rand(1,100)
+            ],
+            [
+                'platform' => 'iOS',
+                'users' => rand(1,100)
+            ],
+            [
+                'platform' => 'Linux',
+                'users' => rand(1,100)
+            ],
+            [
+                'platform' => 'Windows',
+                'users' => rand(1,100)
+            ],
+        ];
+
+
+        $this->data = [
+            'users' => mt_rand(50,200),
+            'pageviews' => mt_rand(200,500),
+            'pages_per_visit' => mt_rand(10,20) / 10 ,
+            'bounce_rate' =>  mt_rand(100,200) / 10 ,
+            'new_visitors' => mt_rand(1,50),
+            'avg_time_on_site' => time(),
+            'avg_page_load_time' => mt_rand(20,30) / 10,
+            'avg_server_response_time' => mt_rand(20,30) / 10,
+            'avg_page_download_time' => mt_rand(20,30) / 10,
+            'users_by_country'=> $usersByCountry,
+            'top_pages' => $topPages,
+            'visitors_by_source' => $visitorsBySource,
+            'age_genders_devices' => [
+                'age' => $usersByAge,
+                'genders' => $usersByGender,
+                'devices' =>$usersByPlatform
+            ]
+        ];
+
+        return $this->getEmailData();
     }
 }
 

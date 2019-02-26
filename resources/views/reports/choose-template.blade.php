@@ -22,7 +22,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6 pl-0 pr-0">
-                                <button type="button" onclick="sentTestReport(this)" data-template-id="{{$template->id}}" class="btn btn-link btn-lg btn-block border-none border-radius-0">Send
+                                <button type="button" onclick="sentTestReport(this)" data-template-id="{{$template->slug}}" class="btn btn-link btn-lg btn-block border-none border-radius-0" style="text-decoration:none;">Send
                                     Test Report</button>
                             </div>
                             <div class="col-lg-6 pl-0 pr-0">
@@ -58,6 +58,21 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade color-black" id="testReportInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-none">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body p-50 pt-0">
+                <div class="my-10" id="required-test">
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('page_scripts')
 <script>
@@ -77,7 +92,12 @@
     // }
     
     function sentTestReport(elm){
-        console.log($(elm).data('templateId'))
+        var slug = $(elm).data('templateId');
+        $(elm).html('Sending <i class="fa fa-spinner fa-pulse fa-fw"></i>')
+        $.post( "<?= url("reports/test") ?>",{'slug':slug} ,function( data ) {
+            $(elm).text('SEND TEST REPORT') 
+            swal("Test Report Send", "Report send to your email", "success")
+        });
     }
 
     function chooseReportTemplate(elm,slug) {

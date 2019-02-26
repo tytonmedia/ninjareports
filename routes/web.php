@@ -73,6 +73,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{type}/account_properties/{account}/profiles/{property}', 'ReportsController@getProfiles')->name('reports.getProfiles');
         Route::post('{id}/status/{status}', 'ReportsController@postStatus')->name('reports.postStatus');
         Route::get('remove/{id}', 'ReportsController@remove')->name('reports.remove');
+
+        Route::post('test', 'ReportsController@testReport')->name('reports.test');
         // new report page end
     });
 

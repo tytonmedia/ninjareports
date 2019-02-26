@@ -3,6 +3,9 @@
 namespace App\Services\Report\TemplateData;
 
 use App\Services\ChartService;
+use DatePeriod;
+use DateTime;
+use DateInterval;
 
  
 class FacebookAdsReportData
@@ -92,6 +95,8 @@ class FacebookAdsReportData
             return $this->data;
         } else if ($type == 'email') {
             return $this->getEmailData();
+        } else if ($type == 'mock') {
+            return $this->getMockData();
         }
     }
 
@@ -185,7 +190,7 @@ class FacebookAdsReportData
                 'date_start',
                 ['spend','clicks']
             );
-            $url = $this->chartService->getComboChartImageUrl(
+            $url = $this->chartService->getFusionChartImageUrl(
                 $chartData['labels'],
                 [
                     [
@@ -204,13 +209,129 @@ class FacebookAdsReportData
         
                 ],
                 [
-                    'title' => 'Spend vs Clicks By Day'
+                    'title.text' => 'Spend vs Clicks By Day',
+                    'scales.xAxes.0.barPercentage' => 0.1
                 ]
             );
             $emailData['spend_and_clicks_by_day_chart_url'] = $url;
         }
 
         return $emailData;
+    }
+
+    public function getMockData()
+    {
+        $period = new DatePeriod(
+            new DateTime('2019-01-01'),
+            new DateInterval('P1D'),
+            new DateTime('2019-01-30')
+        );
+
+        foreach ($period as $date) {
+            $spendByDay[] = [
+                'spend' => rand(10,100),
+                'date_start' => $date->format('Y-m-d')
+            ];
+            $clicksByDay[] = [
+                'clicks' => rand(0,50),
+                'date_start' => $date->format('Y-m-d')
+            ];    
+        }
+
+        $impressionsByAge = [
+            [
+                'age' => '18-24',
+                'impressions' => rand(1,100)
+            ],
+            [
+                'age' => '25-34',
+                'impressions' => rand(1,100)
+            ],
+            [
+                'age' => '35-44',
+                'impressions' => rand(1,100)
+            ],
+            [
+                'age' => '45-54',
+                'impressions' => rand(1,100)
+            ],
+            [
+                'age' => '55+',
+                'impressions' => rand(1,100)
+            ],
+        ];
+
+        $impressionsByGender = [
+            [
+                'gender' => 'male',
+                'impressions' => rand(1,100)
+            ],
+            [
+                'gender' => 'female',
+                'impressions' => rand(1,100)
+            ],
+        ];
+
+        $impressionsByDevice = [
+            [
+                'impression_device' => 'Android',
+                'impressions' => rand(1,100)
+            ],
+            [
+                'impression_device' => 'iOS',
+                'impressions' => rand(1,100)
+            ],
+            [
+                'impression_device' => 'Linux',
+                'impressions' => rand(1,100)
+            ],
+            [
+                'impression_device' => 'Windows',
+                'impressions' => rand(1,100)
+            ],
+        ];
+
+        foreach (range(0, 5) as $index) {
+            $topPerformingCampaigns[] = [
+                'campaign_name' => "Campaign $index",
+                'clicks' => rand(1,100),
+                'impressions' => rand(100,200),
+                'ctr' => mt_rand(10,20) / 10,
+                'spend' => mt_rand(1,20),
+                'conversions' => mt_rand(0,10)
+            ];
+        }
+
+        $countries = \PragmaRX\Countries\Package\Countries::where('geo.area','>',1000000)->all()->random(10);
+
+        foreach ($countries as $country) {
+            $topPerformingCountries[] = [
+                'clicks' => rand(1,100),
+                'country_code' => $country->cca3,
+                'country_name' => $country->name->common
+            ];
+        }
+
+
+        $this->data = [
+            'spend' => mt_rand(100,200),
+            'impressions' => mt_rand(100,600),
+            'ctr' =>  mt_rand(10,20) / 10,
+            'clicks' => mt_rand(10,50),
+            'avg_cpc' => mt_rand(10,20) / 10,
+            'frequency' => mt_rand(10,50),
+            'spend_by_day' => $spendByDay,
+            'clicks_by_day' => $clicksByDay,
+            'age_genders_devices' => [
+                'age' => $impressionsByAge,
+                'genders' => $impressionsByGender,
+                'devices' => $impressionsByDevice
+            ],
+            'top_performing_campaigns' => $topPerformingCampaigns,
+            'performance_by_country'=> $topPerformingCountries
+        ];
+
+        return $this->getEmailData();
     }
 
     public function invalidAccountsException()

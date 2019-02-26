@@ -664,5 +664,49 @@ class ReportsController extends Controller
         }
         return redirect()->route('reports.main');
     }
+    public function testReport(Request $request)
+    {
+        $data =  $request->all();      
+        switch ($data['slug']) {
+            case 'seo-report':
+                $emailData = app('App\Services\Report\TemplateData\SEOReportData')->get('mock'); 
+                $templateId = 'd-55d9ef2ca3bc4fc181e12d96fc109ef6';
+                $subject = 'Test SEO Report';
+                break;
+            case 'google-ads-report':
+                $emailData = app('App\Services\Report\TemplateData\GoogleAdsReportData')->get('mock'); 
+                $templateId = 'd-402d11efa1f345c9acf57605c71834f3';
+                $subject = 'Test Google Ads Report';
+                break;
+            case 'facebook-ads-report':
+                $emailData = app('App\Services\Report\TemplateData\FacebookAdsReportData')->get('mock'); 
+                $templateId = 'd-3886dea75e10438287ac9c709a88eb81';
+                $subject = 'Test Facebook Ads Report';
+                break;
+            case 'traffic-report':
+                $emailData = app('App\Services\Report\TemplateData\TrafficReportData')->get('mock'); 
+                $templateId = 'd-9a2700aa5c404629abf569391c9a92f8';
+                $subject = 'Test Traffic Report';
+                break;
+            case 'ecommerce-report':
+                $emailData = app('App\Services\Report\TemplateData\EcommerceReportData')->get('mock'); 
+                $templateId = 'd-6375b7ff468a4eda909d50e02b4d0b7e';
+                $subject = 'Test Ecommerce Report';
+                break;
+            case 'pay-per-click-report':
+                $emailData = app('App\Services\Report\TemplateData\PayPerClickReportData')->get('mock'); 
+                $templateId = 'd-814771772eba4b7496ade3cde6229e89';
+                $subject = 'Test Pay Per Click Report';
+                break;
+           
+        }
+        $response = (new \App\Services\SendGridService)->sendTransactionalMail([
+            'to' => ['email' =>  auth()->user()->email ],
+            'template_id' => $templateId,
+            'template_data' => $emailData,
+            'subject' => $subject,
+        ]);
+    //    return
+    }
     
 }

@@ -353,8 +353,7 @@
                                         <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                                             <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                                                 <tr>
-                                                    <td width="30px" style="padding-left:10px;"> <span><img style="display:block;"
-                                                                width="25" height="37" src="https://marketing-image-production.s3.amazonaws.com/uploads/3642e4c0884991d29b5c5e6ef77cee7f206f6666e5d554df58c1cb4d8891b15f5cd416b4cf84b663754ff9609c03b37c0e510adc43a0bd6adb21e5c82d0db98b.png" /></span>
+                                                    <td width="30px" style="padding-left:10px;">
                                                     </td>
                                                     <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{$data['organic_sessions']}}</span></td>
                                                     <td align="right" style="padding-right:10px;padding-top:5px;"><img
@@ -393,8 +392,7 @@
                                         <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                                             <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                                                 <tr style="background-color:#fff;">
-                                                    <td width="30px" style="padding-left:10px"> <span><img style="display:block;"
-                                                                width="25" height="37" src="https://marketing-image-production.s3.amazonaws.com/uploads/3642e4c0884991d29b5c5e6ef77cee7f206f6666e5d554df58c1cb4d8891b15f5cd416b4cf84b663754ff9609c03b37c0e510adc43a0bd6adb21e5c82d0db98b.png" /></span>
+                                                    <td width="30px" style="padding-left:10px">
                                                     </td>
                                                     <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{$data['organic_pageviews']}}</span></td>
                                                     <td align="right" style="padding-top:5px;padding-right:10px"><img
@@ -432,8 +430,7 @@
                                         <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                                             <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                                                 <tr style="background-color:#fff;">
-                                                    <td width="30px" style="padding-left:10px"> <span><img style="display:block;"
-                                                                width="25" height="37" src="https://marketing-image-production.s3.amazonaws.com/uploads/3642e4c0884991d29b5c5e6ef77cee7f206f6666e5d554df58c1cb4d8891b15f5cd416b4cf84b663754ff9609c03b37c0e510adc43a0bd6adb21e5c82d0db98b.png" /></span>
+                                                    <td width="30px" style="padding-left:10px">
                                                     </td>
                                                     <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{$data['organic_impressions']}}</span></td>
                                                     <td align="right" style="padding-right:10px"><img width="32" height="32"
@@ -501,8 +498,7 @@
                                         <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                                             <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                                                 <tr style="background-color:#fff;">
-                                                    <td width="30px" style="padding-left:10px"> <span><img style="display:block;"
-                                                                width="25" height="37" src="https://marketing-image-production.s3.amazonaws.com/uploads/3642e4c0884991d29b5c5e6ef77cee7f206f6666e5d554df58c1cb4d8891b15f5cd416b4cf84b663754ff9609c03b37c0e510adc43a0bd6adb21e5c82d0db98b.png" /></span>
+                                                    <td width="30px" style="padding-left:10px">
                                                     </td>
                                                     <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{$data['time_on_page']}}</span></td>
                                                     <td align="right" style="padding-right:10px;padding-top:5px"><img
@@ -540,8 +536,7 @@
                                         <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                                             <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                                                 <tr style="background-color:#fff;">
-                                                    <td width="30px" style="padding-left:10px"> <span><img style="display:block;"
-                                                                width="25" height="37" src="https://marketing-image-production.s3.amazonaws.com/uploads/3642e4c0884991d29b5c5e6ef77cee7f206f6666e5d554df58c1cb4d8891b15f5cd416b4cf84b663754ff9609c03b37c0e510adc43a0bd6adb21e5c82d0db98b.png" /></span>
+                                                    <td width="30px" style="padding-left:10px">
                                                     </td>
                                                     <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{$data['organic_revenue']}}</span></td>
                                                     <td align="right" style="padding-right:10px"><img width="30" height="42"
@@ -579,8 +574,7 @@
                                         <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                                             <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                                                 <tr style="background-color:#fff;">
-                                                    <td width="30px" style="padding-left:10px"> <span><img style="display:block;"
-                                                                width="25" height="37" src="https://marketing-image-production.s3.amazonaws.com/uploads/3642e4c0884991d29b5c5e6ef77cee7f206f6666e5d554df58c1cb4d8891b15f5cd416b4cf84b663754ff9609c03b37c0e510adc43a0bd6adb21e5c82d0db98b.png" /></span>
+                                                    <td width="30px" style="padding-left:10px">
                                                     </td>
                                                     <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{$data['pages_per_visit']}}</span></td>
                                                     <td align="right" style="padding-right:5px;padding-top:10px"><img
