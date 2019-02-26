@@ -148,7 +148,7 @@ class PayPerClickReportData
         $this->data = [
             'impressions' => $adImpressions + $fbImpressions,
             'clicks' => $adClicks + $fbClicks,
-            'revenue' => null,
+            'revenue' => 'N/A',
             'spend' =>  $adSpend + $fbSpend,
             'ctr' => (str_replace('%', '', $adCtr) + $fbCtr )/ 2,
             'avg_cpc' => $adAvgCpc + $fbAvgCpc,
