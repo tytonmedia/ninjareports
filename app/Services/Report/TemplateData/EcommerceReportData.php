@@ -292,7 +292,7 @@ class EcommerceReportData {
         $emailData = $this->data;
 
         if ($this->data['clicks']) {
-            $emailData['clicks'] = number_format($this->data['clicks'], 2);
+            $emailData['clicks'] = number_format($this->data['clicks']);
         }
 
         if ($this->data['revenue']) {
@@ -308,7 +308,7 @@ class EcommerceReportData {
         }
 
         if ($this->data['transactions']) {
-            $emailData['transactions'] = number_format($this->data['transactions'], 2);
+            $emailData['transactions'] = number_format($this->data['transactions']);
         }
 
         if ($this->data['avg_order_value']) {
