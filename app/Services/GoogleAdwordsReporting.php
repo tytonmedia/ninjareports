@@ -286,8 +286,9 @@ class GoogleAdwordsReporting
         $reportData = $this->parseCSVReport($reportResult->getAsString());
 
         $formatedReportData = $this->formatParsedData($reportData,[
-            'Cost' => [$this,'costFormatter'],
-            'Cost / all conv.' => [$this,'costFormatter']
+            'Cost' => [$this,'humanReadableCostFormatter'],
+            'Cost / all conv.' => [$this,'humanReadableCostFormatter'],
+            'Avg. CPC' => [$this,'humanReadableCostFormatter']
         ]);
 
         $sortedRows = collect($formatedReportData['rows'])
@@ -351,6 +352,11 @@ class GoogleAdwordsReporting
     public function costFormatter($data)
     {
         return $data / 1000000;
+    }
+
+    public function humanReadableCostFormatter($data)
+    {
+        return number_format($this->costFormatter($data),2);
     }
 
     public function formatParsedData($data,$formatters)
