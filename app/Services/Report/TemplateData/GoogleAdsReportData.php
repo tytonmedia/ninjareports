@@ -118,7 +118,7 @@ class GoogleAdsReportData
         $emailData = $this->data;
 
         if ($this->data['spend']) {
-            $emailData['spend'] = number_format($this->data['spend'], 2, '.', '');
+            $emailData['spend'] = number_format($this->data['spend'], 2);
         }
 
         if ($this->data['impressions']) {

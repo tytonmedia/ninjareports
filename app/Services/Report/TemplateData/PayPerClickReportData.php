@@ -194,7 +194,7 @@ class PayPerClickReportData
             $emailData['clicks'] = number_format($this->data['clicks']);
         }
         if ($this->data['spend']) {
-            $emailData['spend'] = number_format($this->data['spend']);
+            $emailData['spend'] = number_format($this->data['spend'],2);
         }
         if ($this->data['ctr']) {
             $emailData['ctr'] = number_format($this->data['ctr'], 2, '.', '');

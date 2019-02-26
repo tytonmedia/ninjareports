@@ -109,7 +109,7 @@ class FacebookAdsReportData
         $emailData = $this->data;
 
         if ($this->data['spend']) {
-            $emailData['spend'] = number_format($this->data['spend'], 2, '.', '');
+            $emailData['spend'] = number_format($this->data['spend'], 2);
         }
 
         if ($this->data['impressions']) {
@@ -129,7 +129,7 @@ class FacebookAdsReportData
         }
 
         if ($this->data['frequency']) {
-            $emailData['frequency'] = number_format($this->data['frequency'], 2, '.', '');
+            $emailData['frequency'] = number_format($this->data['frequency'], 2);
         }
 
         if ($this->data['age_genders_devices']) {

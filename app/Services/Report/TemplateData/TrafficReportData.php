@@ -256,7 +256,7 @@ class TrafficReportData
         }
         
         if ($this->data['pages_per_visit']) {
-            $emailData['pages_per_visit'] = number_format($this->data['pages_per_visit'], 2, '.', '');
+            $emailData['pages_per_visit'] = number_format($this->data['pages_per_visit'], 2);
         }
 
         if ($this->data['bounce_rate']) {

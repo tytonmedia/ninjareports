@@ -6,6 +6,7 @@ class ReportSenderResult
 {
     public $receivers = [];
     public $totalSentCount = null;
+    public $data = null;
     public function __construct() {
         
     }

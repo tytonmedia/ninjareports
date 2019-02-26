@@ -291,12 +291,28 @@ class EcommerceReportData {
 
         $emailData = $this->data;
 
+        if ($this->data['clicks']) {
+            $emailData['clicks'] = number_format($this->data['clicks'], 2);
+        }
+
+        if ($this->data['revenue']) {
+            $emailData['revenue'] = number_format($this->data['revenue'], 2);
+        }
+
         if ($this->data['spend']) {
-            $emailData['spend'] = number_format($this->data['spend'], 2, '.', '');
+            $emailData['spend'] = number_format($this->data['spend'], 2);
+        }
+
+        if ($this->data['ctr']) {
+            $emailData['ctr'] = number_format($this->data['ctr'], 2);
+        }
+
+        if ($this->data['transactions']) {
+            $emailData['transactions'] = number_format($this->data['transactions'], 2);
         }
 
         if ($this->data['avg_order_value']) {
-            $emailData['avg_order_value'] = number_format($this->data['avg_order_value'], 2, '.', '');
+            $emailData['avg_order_value'] = number_format($this->data['avg_order_value'], 2);
         }
 
         if ($this->data['daily_revenue']) {

@@ -129,6 +129,7 @@ class ReportSender
 
         $reportSenderResult->setReceivers($receivers);
         $reportSenderResult->totalSentCount = $sentCount;
+        $reportSenderResult->data = $reportEmailData;
 
         if ($attachments) {
             if (file_exists($filePath)) {
