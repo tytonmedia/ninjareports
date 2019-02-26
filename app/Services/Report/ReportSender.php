@@ -150,15 +150,15 @@ class ReportSender
         switch ($report->frequency) {
             case "weekly":
                 $fromDate = date('Y-m-d', strtotime('-7 day', strtotime($report->next_send_time)));
-                $reportDate = date("m/d/Y", strtotime("-7 Days")) . " - " . date("m/d/Y");
+                $reportDate =  date('m/d/Y',strtotime($fromDate)). " - " .date('m/d/Y',strtotime($toDate));
                 break;
             case "monthly":
                 $fromDate = date('Y-m-d', strtotime('-1 month', strtotime($report->next_send_time)));
-                $reportDate = date("m/d/Y", strtotime("-30 Days")) . " - " . date("m/d/Y");
+                $reportDate = date('m/d/Y',strtotime($fromDate)). " - " .date('m/d/Y',strtotime($toDate));
                 break;
             case "yearly":
                 $fromDate = date('Y-m-d', strtotime('-1 year', strtotime($report->next_send_time)));
-                $reportDate = date("Y");
+                $reportDate = date("Y",strtotime($fromDate));
                 break;
             default:
                 $fromDate = date('Y-m-d');
