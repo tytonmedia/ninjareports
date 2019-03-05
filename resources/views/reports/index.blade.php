@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class=" greeting-button">
-                                <a href="{{ route('reports.main') }}"
+                                <a href="{{ route('reports.chooseTemplate') }}"
                                    onClick="ga('send', 'event', 'button', 'click', 'create_report');"
                                    class="btn btn-black btn-create-report">Create Report&nbsp;&nbsp;<i
                                         class="fa fa-caret-right" aria-hidden="true"></i></a>

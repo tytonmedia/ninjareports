@@ -53,7 +53,11 @@ Route::group(['middleware' => 'auth'], function () {
         // new report page
         Route::get('main', 'ReportsController@reports_index')->name('reports.main');
         // new report page end
-        Route::get('create', 'ReportsController@create')->name('reports.create');
+        // Route::get('create', 'ReportsController@create')->name('reports.create');
+        Route::get('create', function () {
+            return redirect()->route('reports.chooseTemplate');
+        })->name('reports.create');
+        
         Route::post('store', 'ReportsController@store')->name('reports.store');
         Route::get('edit/{id}', 'ReportsController@edit')->name('reports.edit');
         Route::post('{id}/pause/{status}', 'ReportsController@status')->name('reports.status');

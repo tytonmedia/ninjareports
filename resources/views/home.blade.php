@@ -97,7 +97,7 @@
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12 text-right greeting-button">
                                     @if($active_accounts > 0)
-                                        <a href="{{ route('reports.create') }}"
+                                        <a href="{{ route('reports.chooseTemplate') }}"
                                            class="btn btn-black btn-create-report">Create
                                             Report
                                             &nbsp;&nbsp;<i
