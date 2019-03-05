@@ -1,6 +1,6 @@
 <!-- Left Side Of Navbar -->
 <li>
-    <a href="{{ route('reports.index') }}">Reports</a>
+    <a href="{{ route('reports.main') }}">Reports</a>
 </li>
 <li>
     <a href="{{ route('accounts.index') }}">Integrations</a>

@@ -115,9 +115,11 @@ label.help {font-size:12px;color:#999;font-family: arial;}
 
 .white-label-logo {height:50px;width:300px;}
 .help-block {font-size:12px;}
-tr.paused {background:#f2f2f2;opacity: .8;}
+tr.paused {background:#f2f2f2;}
 .table > tbody > tr.active > td {background:#fff;opacity: 1;}
 button.toggle_report {border:0;background:none;}
+button.toggle_report_status {border:0;background:none;font-size:13px;
+    padding: 3px 10px}
 .panel-report-list .panel-body {
     min-height: 400px;
 }
@@ -198,6 +200,9 @@ footer.footer .socials, footer.footer .footer-right-container{text-align:center 
     margin-top: 10px;
     margin-bottom: 10px;
 }
+.mb-5{
+    margin-bottom: 5px;
+}
 
 .mr-3{
     margin-right: 3px;
@@ -219,4 +224,8 @@ footer.footer .socials, footer.footer .footer-right-container{text-align:center 
 }
 .mt-0{
     margin-top: 0px;
+}
+.analytics_extra{
+    background: #eee;
+    padding: 10px 10px 10px 10px;
 }
