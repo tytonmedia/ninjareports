@@ -167,11 +167,11 @@
                                                 <option {{ old('frequency', $reportData->frequency) == 'monthly' ? "selected":"" }} value="monthly">Monthly</option>
                                             </select>
                                         </div>
-                                        <div class="col-xs-4 pr-0 pl-0 month_date hide">
+                                        <div class="col-xs-3 pr-0 pl-0 month_date hide">
                                             <div class="input-group set_month_date">
                                             </div>
                                         </div>
-                                        <div class="col-xs-4">
+                                        <div class="col-xs-5">
                                             <div class="input-group">
                                                 <div class="input-group-addon">At</div>
                                                 <input id="ends_time" type="text" name="ends_time" readonly class="custom-readonly form-control timepicker" />
