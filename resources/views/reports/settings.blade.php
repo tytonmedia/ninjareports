@@ -111,7 +111,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <textarea name="recipients" id="" class="form-control">{{ old('recipients', $reportData->recipients) }}</textarea>
-                                    <small>comma seprated emails</small>
+                                    <small>comma separated emails</small>
                                     <div class="error error_recipients">
 										@if ($errors->has('recipients')) {{ $errors->first('recipients') }} @endif
 									</div>
