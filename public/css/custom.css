@@ -126,6 +126,9 @@ button.toggle_report_status {border:0;background:none;font-size:13px;
 .panel-report-list .table-responsive {
     min-height: 400px;
 }
+.spark-screen .report-template-block .test-btn-div {
+    width: 45%;
+}
 
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {

@@ -19,7 +19,7 @@ class ReportTemplatesWithIntegrationsSeeder extends Seeder
         $seoReport = \App\Models\ReportTemplate::create([
             'name' => 'SEO Report',
             'slug' => 'seo-report',
-            'logo_path' => 'img/repor_template.png'
+            'logo_path' => 'img/seo_report_template.png'
         ]);
 
         $seoReport->integrations()->attach([$analytics->id,$searchConsole->id]);
@@ -28,7 +28,7 @@ class ReportTemplatesWithIntegrationsSeeder extends Seeder
         $googleAdsReport = \App\Models\ReportTemplate::create([
             'name' => 'Google Ads Report',
             'slug' => 'google-ads-report',
-            'logo_path' => 'img/repor_template.png'
+            'logo_path' => 'img/google_ads_report_template.png'
         ]);
 
         $googleAdsReport->integrations()->attach([$analytics->id,$adwords->id]);
@@ -36,7 +36,7 @@ class ReportTemplatesWithIntegrationsSeeder extends Seeder
         $facebookAdsReport = \App\Models\ReportTemplate::create([
             'name' => 'Facebook Ads Report',
             'slug' => 'facebook-ads-report',
-            'logo_path' => 'img/repor_template.png'
+            'logo_path' => 'img/facebook_ads_report_template.png'
         ]);
 
         $facebookAdsReport->integrations()->attach([$analytics->id,$facebook->id]);
@@ -44,7 +44,7 @@ class ReportTemplatesWithIntegrationsSeeder extends Seeder
         $trafficReport = \App\Models\ReportTemplate::create([
             'name' => 'Traffic Report',
             'slug' => 'traffic-report',
-            'logo_path' => 'img/repor_template.png'
+            'logo_path' => 'img/traffic_report_template.png'
         ]);
 
         $trafficReport->integrations()->attach([$analytics->id,$searchConsole->id]);
@@ -52,7 +52,7 @@ class ReportTemplatesWithIntegrationsSeeder extends Seeder
         $ecommerceReport = \App\Models\ReportTemplate::create([
             'name' => 'Ecommerce Report',
             'slug' => 'ecommerce-report',
-            'logo_path' => 'img/repor_template.png'
+            'logo_path' => 'img/ecommerce_report_template.png'
         ]);
 
         $ecommerceReport->integrations()->attach([$analytics->id,$adwords->id,$facebook->id]);
@@ -60,7 +60,7 @@ class ReportTemplatesWithIntegrationsSeeder extends Seeder
         $payPerClickReport = \App\Models\ReportTemplate::create([
             'name' => 'Pay Per Click Report',
             'slug' => 'pay-per-click-report',
-            'logo_path' => 'img/repor_template.png'
+            'logo_path' => 'img/ppc_report_template.png'
         ]);
 
         $payPerClickReport->integrations()->attach([$analytics->id,$adwords->id,$facebook->id]);

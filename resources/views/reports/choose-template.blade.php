@@ -1,11 +1,18 @@
 @extends('spark::layouts.app')
 @section('content')
 <div class="spark-screen container">
-
+<div class="col-md-11 col-center-block">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 style="margin-top:0">Select a Report Template</h1>
+            <p>Choose a report template below or click <i>send test</i> to recieve a test report sent to your email.</p>
+        </div>
+    </div>
+</div>
     <div class="col-md-11 col-center-block">
         <div class="row">
             @foreach($templates as $template)
-            <div class="col-md-4">
+            <div class="col-md-4 report-template-block">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <img src="{{ $template->logo_url }}" class="img-responsive col-center-block" alt="" srcset="">
@@ -21,9 +28,9 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6 pl-0 pr-0">
+                            <div class="col-lg-6 pl-0 pr-0 test-btn-div">
                                 <button type="button" onclick="sentTestReport(this)" data-template-id="{{$template->slug}}" class="btn btn-link btn-lg btn-block border-none border-radius-0" style="text-decoration:none;">Send
-                                    Test Report</button>
+                                    Test</button>
                             </div>
                             <div class="col-lg-6 pl-0 pr-0">
                                 <button type="button" onclick="chooseReportTemplate(this,'{{$template->slug}}')" data-template-id="{{$template->id}}" class="btn btn-primary btn-lg btn-block border-radius-0">Choose

@@ -1,8 +1,8 @@
 <div class="form-group">
-    <div class="col-md-3">
+    <div class="col-md-4">
         <label class="control-label color-black-bold">Profiles</label>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-8">
         @if($profiles && count($profiles) > 0)
             <select class="form-control" name="sources[{{ $ad_account->account_id }}][profile]">
                 @foreach($profiles as $profile)
