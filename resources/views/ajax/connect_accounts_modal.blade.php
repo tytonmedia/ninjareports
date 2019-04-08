@@ -55,7 +55,7 @@
                                     <td>{!! in_array('facebook', $accounts) ? '<button class="btn btn-xs btn-default">Connected</button>':'
                                         <a class="btn btn-xs btn-black" href="'.route('connect.facebook').'">Connect</a>' !!}</td>
                                 </tr>
-                                <tr>
+                                <tr style="display:none;">
                                     <td>
                                         <img src="{{ asset('img/salesforce.png') }}"/>
                                     </td>
@@ -65,7 +65,8 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
+                               <tr style="display:none;">
+
                                     <td>
                                         <img src="{{ asset('img/quickbooks.png') }}"/>
                                     </td>
