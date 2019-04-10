@@ -29,7 +29,7 @@
                                     <td>{!! in_array('adword', $accounts) ? '<button class="btn btn-xs btn-default">Connected</button>':'
 										<a class="btn btn-xs btn-black" href="'.route('connect.adwords').'">Connect</a>' !!}</td>
                                 </tr>
-                                <tr>
+                                 <tr style="display:none;">
                                     <td>
                                         <img src="{{ asset('img/stripe.png') }}"/>
                                     </td>

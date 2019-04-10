@@ -74,20 +74,14 @@
                             <div class="row greetings">
                                 <div class="col-md-8 col-sm-8 col-xs-12">
                                     <h1 class="title">
-                                        Good
-                                        Day, {{ auth()->user()->name }}!</h1>
+                                        Hello, {{ auth()->user()->name }}!</h1>
                                     <p>
-                                        Welcome
-                                        to
-                                        your
-                                        account
-                                        dashboard.
                                         To
                                         get
                                         started,
                                         integrate
-                                        an
-                                        application, sync your account
+                                        your 
+                                        applications, sync your account
                                         and then
                                         click
                                         the
@@ -119,12 +113,8 @@
                     <div class="panel panel-default panel-grey panel-connect-accounts">
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-md-2 text-center">
-                                    <img class="social-icon img img-responsive"
-                                         src="/img/social_icon.png"
-                                         alt="ninja reports icon">
-                                </div>
-                                <div class="col-md-10">
+                               
+                                <div class="col-md-12">
                                     <h4 class="title">
                                         Connect
                                         your
@@ -132,7 +122,6 @@
                                     <p>
                                         Integrate
                                         your
-                                        favorite
                                         online
                                         applications
                                         with
