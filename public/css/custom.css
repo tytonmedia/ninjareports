@@ -131,6 +131,10 @@ button.toggle_report_status {border:0;background:none;font-size:13px;
 }
 .credit-alert{text-align:center;background:#fce8e8;color:#f00;border:1px solid #f00;padding:5px;font-size:13px;border-radius:3px;margin-top:15px;}
 
+#post_report .input-group-addon {    font-size: 13px;
+    padding: 5px;}
+
+
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 /* Styles */
