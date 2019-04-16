@@ -142,6 +142,19 @@ if (!function_exists('fb_connect')) {
     }
 }
 
+if (!function_exists('fb_connect_version')) {
+    function fb_connect_version($version = 'v3.0')
+    {
+        $fb = new \Facebook\Facebook([
+            'app_id' => env('FACEBOOK_APP_ID'),
+            'app_secret' => env('FACEBOOK_SECRET'),
+            'default_graph_version' => $version,
+            'persistent_data_handler' => new \App\Libraries\Facebook\FacebookPersistentDataHandler(),
+        ]);
+        return $fb;
+    }
+}
+
 if (!function_exists('fb_token')) {
     function fb_token($user_id = 0)
     {

@@ -82,7 +82,7 @@ class AccountsController extends Controller
     {
         $html = '';
         if ($type == 'facebook') {
-            $fb = fb_connect();
+            $fb = fb_connect_version('v3.1');
             try {
                 $response = $fb->get(
                     '/me/adaccounts?fields=account_id,name',
