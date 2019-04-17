@@ -7,15 +7,15 @@ use Google\AdsApi\Common\SoapSettingsBuilder;
 use Google\AdsApi\AdWords\AdWordsSessionBuilder;
 use Google\AdsApi\AdWords\AdWordsServices;
 
-use Google\AdsApi\AdWords\Query\v201806\ReportQueryBuilder;
-use Google\AdsApi\AdWords\Reporting\v201806\DownloadFormat;
-use Google\AdsApi\AdWords\Reporting\v201806\ReportDefinitionDateRangeType;
-use Google\AdsApi\AdWords\Reporting\v201806\ReportDownloader;
+use Google\AdsApi\AdWords\Query\v201809\ReportQueryBuilder;
+use Google\AdsApi\AdWords\Reporting\v201809\DownloadFormat;
+use Google\AdsApi\AdWords\Reporting\v201809\ReportDefinitionDateRangeType;
+use Google\AdsApi\AdWords\Reporting\v201809\ReportDownloader;
 use Google\AdsApi\AdWords\ReportSettings;
 use Google\AdsApi\AdWords\ReportSettingsBuilder;
-use Google\AdsApi\AdWords\v201806\cm\ReportDefinitionReportType;
-use Google\AdsApi\AdWords\v201806\cm\LocationCriterionService;
-use Google\AdsApi\AdWords\Query\v201806\ServiceQueryBuilder;
+use Google\AdsApi\AdWords\v201809\cm\ReportDefinitionReportType;
+use Google\AdsApi\AdWords\v201809\cm\LocationCriterionService;
+use Google\AdsApi\AdWords\Query\v201809\ServiceQueryBuilder;
 
  
 class GoogleAdwordsReporting

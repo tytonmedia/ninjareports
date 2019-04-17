@@ -9,7 +9,7 @@ use App\Models\Plan;
 use App\Models\Report;
 use App\Models\Schedule;
 use date;
-use Google\AdsApi\AdWords\v201806\cm\ApiException;
+use Google\AdsApi\AdWords\v201809\cm\ApiException;
 use Mpdf\MpdfException;
 use Session;
 use \FacebookAds\Http\Exception\AuthorizationException;
@@ -546,7 +546,7 @@ class CronController extends Controller
                         $during = 'TODAY';
                 }
                 $session = adwords_session($report->ad_account->ad_account_id, $report->user_id);
-                $reportDownloader = new \Google\AdsApi\AdWords\Reporting\v201806\ReportDownloader($session);
+                $reportDownloader = new \Google\AdsApi\AdWords\Reporting\v201809\ReportDownloader($session);
                 $reportSettingsOverride = (new \Google\AdsApi\AdWords\ReportSettingsBuilder())
                     ->includeZeroImpressions(false)
                     ->build();
@@ -557,7 +557,7 @@ class CronController extends Controller
                 $campaigns_adword_data = [];
                 try {
                     $reportDownloadResult = $reportDownloader->downloadReportWithAwql(
-                        $reportQuery, \Google\AdsApi\AdWords\Reporting\v201806\DownloadFormat::CSV, $reportSettingsOverride);
+                        $reportQuery, \Google\AdsApi\AdWords\Reporting\v201809\DownloadFormat::CSV, $reportSettingsOverride);
                     $campaigns_adword_data = str_getcsv($reportDownloadResult->getAsString(), "\n");
                 } catch (ApiException $e) {
                 }
@@ -1099,7 +1099,7 @@ class CronController extends Controller
         $top_5_campaigns_report_query = 'SELECT CampaignName, Clicks, Impressions, Ctr, AverageCpm, AverageCpc FROM CAMPAIGN_PERFORMANCE_REPORT DURING ' . $during;
         try {
             $reportDownloadResult = $reportDownloader->downloadReportWithAwql(
-                $top_5_campaigns_report_query, \Google\AdsApi\AdWords\Reporting\v201806\DownloadFormat::CSV, $reportSettingsOverride);
+                $top_5_campaigns_report_query, \Google\AdsApi\AdWords\Reporting\v201809\DownloadFormat::CSV, $reportSettingsOverride);
             $top_5_campaigns_adword_data = str_getcsv($reportDownloadResult->getAsString(), "\n");
             if (is_array($top_5_campaigns_adword_data) && count($top_5_campaigns_adword_data) > 0) {
                 foreach ($top_5_campaigns_adword_data as $report_data_key => $report_data) {
