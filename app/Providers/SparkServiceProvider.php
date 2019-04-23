@@ -71,7 +71,7 @@ class SparkServiceProvider extends ServiceProvider
 				'PDF Attachments',
 			]);
 
-		Spark::plan('Personal', 'prod_EtggijyO0Bnq8C')
+		Spark::plan('Personal', 'plan_EtggfzAXYCmych')
 			->price(15.00)
 			->trialDays(7)
 			->features([
