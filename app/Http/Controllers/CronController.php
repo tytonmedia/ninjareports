@@ -38,7 +38,7 @@ class CronController extends Controller
         $reports = NinjaReport::where('next_send_time', $next_send_time)->where('is_active', 1)->where('is_paused', 0)->with('user')->get();
         Log::debug('count of reports:'.count($reports));
         $reports_sent_count = Schedule::whereUserId(2)->whereBetween('created_at', [date('Y-m-01 00:00:00'), date('Y-m-t 00:00:00')])->count();
-        Log::debug('count of report_sent:'.count($reports_sent_count));
+        
         // $reports = Report::where('id', 2)->with('user', 'account', 'ad_account', 'property', 'profile')->get();
         if ($reports && count($reports) > 0) {
             foreach ($reports as $report) {
