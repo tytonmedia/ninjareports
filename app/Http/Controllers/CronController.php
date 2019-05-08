@@ -334,7 +334,8 @@ class CronController extends Controller
                     $client = analytics_connect();
                     $client->setAccessToken(analytics_token($report->user_id));
                     $analytics = new \Google_Service_Analytics($client);
-                    
+                    Log::debug('analytics_token:'.analytics_token($report->user_id));
+
                     $results = $analytics->data_ga->get(
                         'ga:' . $account->profile->view_id, $from_date, $to_date, 'ga:sessions,ga:pageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounceRate,ga:newUsers,ga:sessionsPerUser,ga:itemRevenue', [
                             'dimensions' => 'ga:deviceCategory,ga:country,ga:date,ga:pagePath,ga:medium'
