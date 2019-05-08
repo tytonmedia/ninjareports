@@ -34,8 +34,8 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Template</th>
                                             <th>Status</th>
+                                            <th>Template</th>
                                             <th>Frequency</th>
                                             <th>Recipients</th>
                                             <th style="min-width: 100px">Last Sent</th>
