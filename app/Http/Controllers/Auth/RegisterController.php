@@ -72,6 +72,7 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'timezone' => $data['timezone'],
         ]);
+        echo $user->current_billing_plan; exit;
           $new_user_substitutions = [
              '%name%' => $user->name,
             '%email%' => $user->email,
