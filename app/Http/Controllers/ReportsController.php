@@ -512,7 +512,9 @@ class ReportsController extends Controller
         if (auth()->check()) {
             auth()->user()->timezone ? date_default_timezone_set(auth()->user()->timezone) : '';
         }
-        $request->next_send_time = date("Y-m-d H:i:s", strtotime($request->ends_time));
+        $user_next_send_time = strtotime(date("Y-m-d H:i:s", strtotime($request->ends_time)));
+        date_default_timezone_set('UTC');
+        $request->next_send_time = date("Y-m-d H:i:s", $user_next_send_time);
         if(!$request->next_send_time){
             Session::flash('alert-danger', 'Invalid Date Selection.');
             return response()->error(['redirect' => true, 'url' => route('reports.templateSettings', ['slug'=>$slug])]);
