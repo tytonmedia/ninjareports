@@ -503,12 +503,13 @@ class ReportsController extends Controller
             $request->ends_at = $request->ends_at;
         }
         $request->frequency_time = date('H:i:s', strtotime($request->ends_time));
-        $request->next_send_time = set_schedules(
-            $request->frequency, 
-            $request->ends_at, 
-            0, 
-            $request->frequency_time
-        );
+        // $request->next_send_time = set_schedules(
+        //     $request->frequency, 
+        //     $request->ends_at, 
+        //     0, 
+        //     $request->frequency_time
+        // );
+        $request->next_send_time = date("Y-m-d H:i:s", strtotime($request->ends_time));
         if(!$request->next_send_time){
             Session::flash('alert-danger', 'Invalid Date Selection.');
             return response()->error(['redirect' => true, 'url' => route('reports.templateSettings', ['slug'=>$slug])]);
