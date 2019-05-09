@@ -503,18 +503,22 @@ class ReportsController extends Controller
             $request->ends_at = $request->ends_at;
         }
         $request->frequency_time = date('H:i:s', strtotime($request->ends_time));
-        // $request->next_send_time = set_schedules(
-        //     $request->frequency, 
-        //     $request->ends_at, 
-        //     0, 
-        //     $request->frequency_time
-        // );
+
         if (auth()->check()) {
             auth()->user()->timezone ? date_default_timezone_set(auth()->user()->timezone) : '';
         }
         $user_next_send_time = strtotime(date("Y-m-d H:i:s", strtotime($request->ends_time)));
         date_default_timezone_set('UTC');
         $request->next_send_time = date("Y-m-d H:i:s", $user_next_send_time);
+        if (strtotime($request->next_send_time) <= strtotime('now')) {
+            $request->next_send_time = set_schedules(
+                $request->frequency, 
+                $request->ends_at, 
+                0, 
+                $request->frequency_time
+            );
+        }
+        
         if(!$request->next_send_time){
             Session::flash('alert-danger', 'Invalid Date Selection.');
             return response()->error(['redirect' => true, 'url' => route('reports.templateSettings', ['slug'=>$slug])]);
