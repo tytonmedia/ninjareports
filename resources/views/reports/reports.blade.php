@@ -34,8 +34,8 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Status</th>
                                             <th>Template</th>
+                                            <th>Status</th>
                                             <th>Frequency</th>
                                             <th>Recipients</th>
                                             <th style="min-width: 100px">Last Sent</th>
@@ -72,11 +72,7 @@
                                                 {{ $report->sent_at ? $report->sent_at->diffForHumans() : '-' }}
                                                 </span>
                                             </td>
-                                            @if($report->frequency == 'daily')
                                             <td>{{ $date->format('m/d/Y') }} <i>at</i> {{ $date->format('h:i A') }}</td>
-                                            @else
-                                            <td>{{ date('m/d/Y', strtotime($report->next_send_time)) }} <i>at</i> {{ date('h:i A', strtotime($report->next_send_time)) }}</td>
-                                            @endif
                                             <td>
                                                 <div class="dropdown">
                                               <button class="btn btn-black dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

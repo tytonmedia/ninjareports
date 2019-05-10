@@ -411,10 +411,11 @@ if (!function_exists('set_schedules')) {
         if (validateDate($next_send_time)) {
             $next_send_str_time = strtotime($next_send_time);
             date_default_timezone_set('UTC');
-            if ($frequency == 'daily') {
-                return date('Y-m-d H:i:s', $next_send_str_time);
-            }
-            return date("Y-m-d $ends_time", $next_send_str_time);
+            // if ($frequency == 'daily') {
+            //     return date('Y-m-d H:i:s', $next_send_str_time);
+            // }
+            // return date("Y-m-d $ends_time", $next_send_str_time);
+            return date('Y-m-d H:i:s', $next_send_str_time);
         }
         return false;
     }

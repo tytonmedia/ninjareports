@@ -507,7 +507,23 @@ class ReportsController extends Controller
         if (auth()->check()) {
             auth()->user()->timezone ? date_default_timezone_set(auth()->user()->timezone) : '';
         }
-        $user_next_send_time = strtotime(date("Y-m-d H:i:s", strtotime($request->ends_time)));
+
+        if ($request->frequency == 'daily') {
+            $user_next_send_time = date("Y-m-d H:i:s",strtotime($request->ends_time));
+        } elseif ($request->frequency == 'weekly') {
+            $user_next_send_time = date("Y-m-d H:i:s",strtotime("$request->ends_at this week, $request->ends_time"));
+        } elseif ($request->frequency == 'monthly') {
+            $current_year = date('Y');
+            $current_month = date('m');
+            if(checkdate($current_month,$request->ends_at,$current_year)){
+                $user_next_send_time = date("Y-m-d H:i:s",strtotime($current_year.'-'.$current_month.'-'.$request->ends_at.' '.$request->ends_time));
+            } else {
+                // if date invalid , then current time is used so it fulfills set_schedules condition
+                $user_next_send_time = date("Y-m-d H:i:s");
+            }
+        }
+        $user_next_send_time = strtotime($user_next_send_time);
+
         date_default_timezone_set('UTC');
         $request->next_send_time = date("Y-m-d H:i:s", $user_next_send_time);
         if (strtotime($request->next_send_time) <= strtotime('now')) {
