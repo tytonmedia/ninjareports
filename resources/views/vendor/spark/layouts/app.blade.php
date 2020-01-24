@@ -122,7 +122,7 @@ src="https://www.facebook.com/tr?id=223802198014729&ev=PageView
             </div>
              <div class="row copyright">
                   <div class="col-md-12" style="text-align:center;">
-                      <p>Copyright 2018 © Ninja Reports - <i>A Tyton Media Company</i></p>
+                      <p>Copyright 2020 © Ninja Reports</p>
              </div>
          </div>
         </div>
