@@ -1293,7 +1293,7 @@
                                                     <tr>
                                                         <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                                                             <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:center;color:#fff;">
-                                                                Copyright 2019 © Ninja Reports - A Tyton Media Company
+                                                                Copyright 2020 © Ninja Reports
                                                             </div>
                                                         </td>
                                                     </tr>
