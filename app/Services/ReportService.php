@@ -90,6 +90,9 @@ class ReportService
         foreach ($request->sources as $accountId => $account) {
             if(isset($account['ad_account_id'])){
                 $adAccount = $this->getAdAccount($account['ad_account_id']);
+                if(!$adAccount){
+                    $adAccount = AdAccount::where('id', $account['ad_account_id'])->where('user_id',Auth::id())->first();
+                }
                 if($adAccount){
                     $ninjaReportAccount = new NinjaReportAccount();
                     $ninjaReportAccount->report_id = $reportId;

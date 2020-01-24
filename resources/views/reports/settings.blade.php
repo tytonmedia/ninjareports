@@ -58,7 +58,7 @@
                                                     selected="selected"
                                                 @endif 
                                             @endforeach 
-                                        @endif value="{{$adAccount->ad_account_id}}">{{$adAccount->title}}</option>
+                                        @endif @if($account->type=='google-search') value="{{$adAccount->id}}" @else value="{{$adAccount->ad_account_id}}" @endif>{{$adAccount->title}}</option>
                                     @endforeach
                                     </select>
                                 </div>
