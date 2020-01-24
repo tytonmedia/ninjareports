@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <h1 style="margin-top:0">Select a Report Template</h1>
-            <p>Choose a report template below or click <i>send test</i> to recieve a test report sent to your email.</p>
+            <p>Choose a report template below or click <i>send test</i> to recieve a test report to your account email.</p>
         </div>
     </div>
 </div>
@@ -103,7 +103,7 @@
         $(elm).html('Sending <i class="fa fa-spinner fa-pulse fa-fw"></i>')
         $.post( "<?= url("reports/test") ?>",{'slug':slug} ,function( data ) {
             $(elm).text('SEND TEST REPORT') 
-            swal("Test Report Send", "Report send to your email", "success")
+            swal("Test Report Sent", "Report sent to your email", "success")
         });
     }
 

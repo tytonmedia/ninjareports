@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 	<meta name="site-url" content="{{ url('/') }}">
     <title>@yield('title', config('app.name'))</title>
@@ -110,7 +111,6 @@ src="https://www.facebook.com/tr?id=223802198014729&ev=PageView
                 <li><a href="https://www.ninjareports.com/"><img src="{{{ asset('img/ninja_small.png') }}}" alt="ninja reports"/></a></li>
                   <li><a target="_blank" href="https://www.facebook.com/ninjareports/">Facebook</a></li>
                   <li><a target="_blank" href="https://twitter.com/ninja_reports">Twitter</a></li>
-                  <li><a target="_blank" href="https://www.youtube.com/channel/UCcjm2lXhxAYGoKS1nCe3vIQ">Youtube</a></li>
                    <li><a target="_blank" href="https://www.linkedin.com/company/ninja-reports">LinkedIn</a></li>
                   <li><a href="https://www.ninjareports.com/blog/">Blog</a></li>
               </ul>
@@ -122,7 +122,7 @@ src="https://www.facebook.com/tr?id=223802198014729&ev=PageView
             </div>
              <div class="row copyright">
                   <div class="col-md-12" style="text-align:center;">
-                      <p>Copyright 2018 © Ninja Reports - <i>A Tyton Media Company</i></p>
+                      <p>Copyright 2020 © Ninja Reports</p>
              </div>
          </div>
         </div>

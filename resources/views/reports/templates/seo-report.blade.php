@@ -1317,7 +1317,7 @@ table.table-custom {
   }
 </style>
 <div class="footer">
-  <p>Copyright 2018 © Ninja Reports - A Tyton Media Company</p>
+  <p>Copyright 2020 © Ninja Reports</p>
   <p><a href="#">Terms</a> - <a href="#">Privacy</a></p>
 </div>
         </td>
