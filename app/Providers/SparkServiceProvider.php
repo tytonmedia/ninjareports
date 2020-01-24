@@ -59,6 +59,8 @@ class SparkServiceProvider extends ServiceProvider
 //            ]);
 		//Spark::useStripe()->noCardUpFront()->trialDays(7);
 
+		Spark::promotion('free_month');
+
 		Spark::plan('Personal', 'personal')
 			->price(10.00)
 			->archived()
