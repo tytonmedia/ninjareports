@@ -9,7 +9,8 @@ class SendGridService
     public function sendTransactionalMail($data)
     {
         $to = [];
-        $from = ['email' => 'reports@ninjareports.com'];
+        $from = ['email' => 'reports@ninjareports.com',
+                   'name' => 'Ninja Reports'];
         $attachments = [];
 
         if (array_key_exists('to',$data)) {
