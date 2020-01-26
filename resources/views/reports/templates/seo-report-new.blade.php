@@ -88,7 +88,7 @@
     <style type="text/css">
         .tdGridMarg {
             padding-right: 5px;
-            background-color: #F2F2F2;
+            background-color: #ffffff;
         }
 
         @media screen and (min-width:480px) {
@@ -156,11 +156,13 @@
 
 
         }
+         .introtext {display:none !important;}
     </style>
 </head>
 
-<body style="background-color:#f2f2f2;">
-    <div style="background-color:#f2f2f2;">
+<body style="background-color:#ffffff;">  
+  <span class="introtext">Hello! Here is your SEO Report for {{$data['report_date']}}.</span>
+    <div style="background-color:#ffffff;">
         <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#1180f3;background-color:#1180f3;width:100%;">
             <tbody>
                 <tr>
