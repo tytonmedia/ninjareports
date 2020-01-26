@@ -77,7 +77,7 @@ class RegisterController extends Controller
                 $value = "0.00";
                 break;
             case 'personal':
-                $value = "10.00";
+                $value = "15.00";
                 break;
             case 'business';
                 $value = "25.00";
