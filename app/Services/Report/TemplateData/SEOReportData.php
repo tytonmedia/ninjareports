@@ -294,6 +294,7 @@ class SEOReportData
         $generalData = $searchConsole->searchanalytics->query($siteUrl,$generalQuery)->getRows();
         
         $this->data = [
+            'domain' => $siteUrl,
             'organic_sessions' => $analyticsResultsTotal['ga:sessions'],
             'organic_pageviews' => $analyticsResultsTotal['ga:pageviews'],
             'organic_impressions' => $generalData? $generalData[0]->impressions : null,
