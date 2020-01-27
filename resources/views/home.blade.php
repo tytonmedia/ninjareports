@@ -9,8 +9,8 @@
     <!-- Google Code for Ninja Report Sign Up Conversion Page -->
     <script type="text/javascript">
         /* <![CDATA[ */
-        var google_conversion_id = 878550381;
-        var google_conversion_label = "zVCpCNuH5n0Q7br2ogM";
+        var google_conversion_id = 673853561;
+        var google_conversion_label = "BsMPCO-i_r8BEPngqMEC";
         var google_conversion_value = "{{ $value }}";
         var google_conversion_currency = "USD";
         var google_remarketing_only = false;
