@@ -287,8 +287,8 @@ class SEOReportData
                'keyword' => $row->keys[0],
                'clicks' => $row->clicks,
                'impressions' => $row->impressions,
-               'ctr' =>  number_format($row->ctr, 3, '.', ''),
-               'position' => number_format($row->position, 3, '.', '')
+               'ctr' =>  number_format(($row->ctr * 100), 2, '.', ''),
+               'position' => number_format($row->position, 1, '.', '')
            ];
         }
         $generalData = $searchConsole->searchanalytics->query($siteUrl,$generalQuery)->getRows();
