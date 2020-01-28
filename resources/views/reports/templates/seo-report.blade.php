@@ -1,1345 +1,1213 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html data-editor-version="2" class="sg-campaigns" xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" /><!--[if !mso]><!-->
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" /><!--<![endif]-->
-    <!--[if (gte mso 9)|(IE)]>
-    <xml>
-    <o:OfficeDocumentSettings>
-    <o:AllowPNG/>
-    <o:PixelsPerInch>96</o:PixelsPerInch>
-    </o:OfficeDocumentSettings>
-    </xml>
-    <![endif]-->
-    <!--[if (gte mso 9)|(IE)]>
-    <style type="text/css">
-      body {width: 800px;margin: 0 auto;}
-      table {border-collapse: collapse;}
-      table, td {mso-table-lspace: 0pt;mso-table-rspace: 0pt;}
-      img {-ms-interpolation-mode: bicubic;}
-    </style>
-    <![endif]-->
-
-    <style type="text/css">
-      body, p, div {
-        font-family: arial,helvetica,sans-serif;
-        font-size: 14px;
-        width:100%;
-      }
-      body {
-        color: #000000;
-      }
-      body a {
-        color: #1188E6;
-        text-decoration: none;
-      }
-      p { margin: 0; padding: 0; }
-      table.wrapper {
-        width:100% !important;
-        table-layout: fixed;
-        -webkit-font-smoothing: antialiased;
-        -webkit-text-size-adjust: 100%;
-        -moz-text-size-adjust: 100%;
-        -ms-text-size-adjust: 100%;
-      }
-      img.max-width {
-        max-width: 100% !important;
-      }
-      .column.of-2 {
-        width: 50%;
-      }
-      .column.of-3 {
-        width: 33.333%;
-      }
-      .column.of-4 {
-        width: 25%;
-      }
-      @media screen and (max-width:480px) {
-        .preheader .rightColumnContent,
-        .footer .rightColumnContent {
-            text-align: left !important;
-        }
-        .preheader .rightColumnContent div,
-        .preheader .rightColumnContent span,
-        .footer .rightColumnContent div,
-        .footer .rightColumnContent span {
-          text-align: left !important;
-        }
-        .preheader .rightColumnContent,
-        .preheader .leftColumnContent {
-          font-size: 80% !important;
-          padding: 5px 0;
-        }
-        table.wrapper-mobile {
-          width: 100% !important;
-          table-layout: fixed;
-        }
-        img.max-width {
-          height: auto !important;
-          max-width: 480px !important;
-        }
-        a.bulletproof-button {
-          display: block !important;
-          width: auto !important;
-          font-size: 80%;
-          padding-left: 0 !important;
-          padding-right: 0 !important;
-        }
-        .columns {
-          width: 100% !important;
-        }
-        .column {
-          display: block !important;
-          width: 100% !important;
-          padding-left: 0 !important;
-          padding-right: 0 !important;
-          margin-left: 0 !important;
-          margin-right: 0 !important;
-        }
-      }
-    </style>
-    <!--user entered Head Start-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-
-<style>
-body{
-  background: #fff;
-}
-h2{
-  background: #fff;
-  margin: 15px 0px 0px;
-  padding: 22px 15px 10px;
-}
-table.column{
-
-  padding: 20px;
-}
-.title p,.title1 p, h2,
-.date p{
-  color: #7d7d7d !important;
-  text-transform: uppercase !important;
-  font-weight: normal !important;
-  font-size: 1.1em !important;
-}
-.responsive-tab{
-  overflow-x: auto;
-  width: 100%;
-}
-table.table-custom {
-  max-width:100%;
-}
-  table.table-custom tr{
-    background: #fafafa;
-  }
-  table.table-custom thead tr{
-    background: #fff;
-  }
-  table.table-custom tr:nth-child(2n){
-    background: #fff;
-  }
-  table.table-custom tr td:first-child{
-    width:220px;
-  }
-  table.table-custom tr td{
-     padding: 0px 10px;
-    color: #a8a8a8;
-  }
-  .text{
-    width: 100%;
-     background: white;
-      float: left;
-  }
-  .text >div {
-      float: left;
-      width: 100%;
-    padding: 15px;
-}
-.heading h2 {
-    font-weight: 100!important;
-    font-family: sans-serif;
-    padding: 0px;
-    position: relative;
-    font-size: 28px !important;
-}
-.heading h2 i.fas.fa-caret-up {
-    display: block;
-    line-height: 0px;
-    position: relative;
-    top: 8px;
-}
-.heading h2 i {
-  font-size: 15px;
-  line-height: 0px;
-  
-}
-.icon {
-    width: 12%;
-    float: left;
-    padding: 10px 0px 0px 10px;
-    font-size: 22px;
-}
-.green {
-    color: green;
-}
-.heading  span{
-  position: absolute;
-  top:2px;
-  left: -16px;
-}
-.orange {
-    color: orange;
-}
-.icon span {
-    width: 15px;
-    color: #E7E6E6;
-    display: block;
-    font-size:  35px;
-    float: left;
-    padding-top: 8px;
-}
-.icon i.fas.fa-tree {
-    color: #D7D7D7;
-    font-size: 35px;
-}
-.heading p {
-    color: #cbcbcb !important;
-    font-size: 12.5px;
-    margin-top: 3px;
-    font-weight: 600;
-    
-}
-.heading {
-    width: 66%;
-    float: left;
-    padding-left: 15px;
-}
-   table.table-custom th{
-     color: #808080;
-     font-weight: bold;
-     padding: 8px 10px;
-     text-align:left;
-   }
-   .bottom-text{
-     color: #7d7d7d;
-     margin: 25px 0px 10px;
-     padding-bottom: 6px;
-     border-bottom: 2px solid #eaeaea;
-     display: block;
-   }
-     .outer table> tbody> tr>td  > table  {
-		  max-width:100% !important;
-	  }
-	  .outer table> tbody> tr>td  > table>tbody> tr >td >table{
-		  width:800px;
-		  margin:0 auto;
-		  max-width:100%;
-	  }
-	  .outer table> tbody> tr>td  > table tr td table:last-of-type,
-	   .outer table> tbody> tr>td  > table tr td .preheader  +table{
-		  width:100%;
-	 }
-	 .outer table> tbody> tr>td  > table tr td .preheader  +table >tbody>tr{
-		   width: 800px;
-    display: flex;
-    margin: 0 auto;
-	   }
-	 .outer table> tbody> tr>td  > table tr td .preheader  +table > tbody>tr>td{
-		    width:100%;
-    display: flex;
-    margin: 0 auto;
-	   }
-	 
-		@media(max-width:700px){
-			.outer table> tbody> tr>td > table{
-				width:100%!important;
-			}
-		table td a{
-		   float:none !important;
-	   }
-			.outer table> tbody> tr>td  > table tr td .preheader  +table >tbody>tr{
-		   width: 100% !important;
-    display: table;
-    margin: 0 auto;
-	   }
-	 .outer table> tbody> tr>td  > table tr td .preheader  +table > tbody>tr>td{
-		  
-  display: table;
-    margin: 0 auto;
-	   }
-			
-		}
-   @media(max-width:767px){
-     table.column{
-       padding: 5px 10px;
-     }
-   }
-  
-</style>
-     <!--End Head user entered-->
-  </head>
-  <body>
-    <center class="wrapper" data-link-color="#1188E6" data-body-style="font-size: 14px; font-family: arial,helvetica,sans-serif; color: #000000; background-color: #fbfbfb;">
-      <div class="webkit">
-        <table cellpadding="0" cellspacing="0" border="0" width="100%" class="wrapper" bgcolor="#fbfbfb">
-          <tr>
-            <td valign="top" bgcolor="#fbfbfb" width="100%">
-              <table width="100%" role="content-container" class="outer" align="center" cellpadding="0" cellspacing="0" border="0">
-                <tr>
-                  <td width="100%">
-                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                      <tr>
-                        <td>
-                          <!--[if mso]>
-                          <center>
-                          <table><tr><td width="800">
-                          <![endif]-->
-                          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="width: 100%; max-width:800px;" align="center">
-                            <tr>
-                              <td role="modules-container" style="padding: 0px 0px 0px 0px; color: #000000; text-align: left;" bgcolor="#fbfbfb" width="100%" align="left">
-                                
-    <table class="module preheader preheader-hide" role="module" data-type="preheader" border="0" cellpadding="0" cellspacing="0" width="100%"
-           style="display: none !important; mso-hide: all; visibility: hidden; opacity: 0; color: transparent; height: 0; width: 0;">
-      <tr>
-        <td role="module-content">
-          <p></p>
-        </td>
-      </tr>
-    </table>
-  
-    <table  border="0"
-            cellpadding="0"
-            cellspacing="0"
-            align="center"
-            width="100%"
-            role="module"
-            data-type="columns"
-            data-version="2"
-            style="padding:18px 20px 18px 20px;background-color:#1180f3;box-sizing:border-box;"
-            bgcolor="#1180f3">
-      <tr role='module-content'>
-        <td height="100%" valign="top">
-            <!--[if (gte mso 9)|(IE)]>
-              <center>
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-spacing:0;border-collapse:collapse;table-layout: fixed;" >
-                  <tr>
-            <![endif]-->
-          
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="253.333px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="253.333"
-            style="width:253.333px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 0px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor="#1180f3"
-            class="column column-0 of-3
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            
-    <table class="wrapper" role="module" data-type="image" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td style="font-size:6px;line-height:10px;padding:0px 0px 0px 0px;" valign="top" align="center">
-          <img class="max-width" border="0" style="display:block;color:#000000;text-decoration:none;font-family:Helvetica, arial, sans-serif;font-size:16px;background:#1180F3;max-width:100% !important;width:100%;height:auto !important;" src="https://marketing-image-production.s3.amazonaws.com/uploads/54b0f45965a00ca522b199729e38fc252df7c23dfb57ba3bc55348556e902a5a075892f5b94483fb963785fe000389d2cc60671ade797db8ed19b72cdfae7faa.png" alt="" width="253.33333333333337">
-        </td>
-      </tr>
-    </table>
-  
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="253.333px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="253.333"
-            style="width:253.333px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 0px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor="#1180f3"
-            class="column column-1 of-3
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <style>
-  @media(max-width:567px){
-    .mobile-hid{
-      display: none;
+<head>
+  <title> </title>
+  <!--[if !mso]><!-- -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--<![endif]-->
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+    #outlook a {
+      padding: 0;
     }
+
+    .ReadMsgBody {
+      width: 100%;
+    }
+
+    .ExternalClass {
+      width: 100%;
+    }
+
+    .ExternalClass * {
+      line-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+
+    table,
+    td {
+      border-collapse: collapse;
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+    }
+
+    img {
+      border: 0;
+      height: auto;
+      line-height: 100%;
+      outline: none;
+      text-decoration: none;
+      -ms-interpolation-mode: bicubic;
+    }
+
+    p {
+      display: block;
+      margin: 13px 0;
+    }
+  table.padded-striped-table {
+    margin-right: 10px;
+    margin-left: 10px;
   }
-</style>
-<p class="mobile-hid" style="width:100%;height:20px;"></p>
-        </td>
-      </tr>
-    </table>
-        </td>
-      </tr>
-    </table>
+  table.padded-striped-table td,th { padding:10px; }
+  table.padded-striped-table tr:nth-child(even) {background-color: #f2f2f2;}
+  </style>
+  <!--[if !mso]><!-->
+  <style type="text/css">
+    @media only screen and (max-width:480px) {
+      @-ms-viewport {
+        width: 320px;
+      }
+      @viewport {
+        width: 320px;
+      }
+    }
+  </style>
+  <!--<![endif]-->
+  <!--[if mso]>
+        <xml>
+        <o:OfficeDocumentSettings>
+          <o:AllowPNG/>
+          <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+        </xml>
+        <![endif]-->
+  <!--[if lte mso 11]>
+        <style type="text/css">
+          .outlook-group-fix { width:100% !important; }
+        </style>
+        <![endif]-->
+  <!--[if !mso]><!-->
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet" type="text/css">
+  <style type="text/css">
+    @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
+  </style>
+  <!--<![endif]-->
+  <style type="text/css">
+      .tdGridMarg{
+        padding-right:5px;
+        background-color:#ffffff;
+      }  
+    @media screen and (min-width:480px) {
+      .mj-column-per-50 {
+        width: 50% !important;
+        max-width: 50%;
+      }
+      .mj-column-per-20 {
+        width: 20% !important;
+        max-width: 20%;
+      }
+      .mj-column-per-80 {
+        width: 80% !important;
+        max-width: 80%;
+      }      
+      .mj-column-per-33 {
+        width: 33.333333333333336% !important;
+        max-width: 33.333333333333336%;
+      }
+      .withMarg.mj-column-per-33{
+        width:31% !important;
+        max-width:31% !important;
+        margin-right:2%;
+      }
+      .mj-column-per-100 {
+        width: 100% !important;
+        max-width: 100%;
+      }
+    }
+  </style>
+  <style type="text/css">
+    @media screen and (max-width:480px) {
+      table.full-width-mobile {
+        width: 100% !important;
+      }
+      td.full-width-mobile {
+        width: auto !important;
+      }
+      .mAlignCenter {
+        margin: 0 auto;
+        display: table;
+        width: auto !important;
+      }
+      .tdGridMarg{
+        display:none;
+      }
+      .mjGrid90{
+        width: 90% !important;
+      }
+      .resPadB20{
+        padding-bottom: 20px;
+      }
 
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="253.333px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
 
-    <table  width="253.333"
-            style="width:253.333px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 0px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor="#1180f3"
-            class="column column-2 of-3
-                  empty"
+
+
+    }
+    .introtext {display:none;}
+  </style>
+</head>
+
+<body style="background-color:#f2f2f2;">
+  <div style="background-color:#f2f2f2;">
+<span class="introtext">Hello! Here is your SEO Report.</span>
+    <!--[if mso | IE]>
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
       >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            <table border="0" cellPadding="0" cellSpacing="0" class="module" data-role="module-button" data-type="button" role="module" style="table-layout:fixed" width="100%"><tbody><tr><td align="center" class="outer-td" style="padding:0px 0px 0px 0px"><table border="0" cellPadding="0" cellSpacing="0" class="button-css__deep-table___2OZyb wrapper-mobile" style="text-align:center"><tbody><tr><td align="center" bgcolor="#1180F3" class="inner-td" style="border-radius:6px;font-size:16px;text-align:center;background-color:inherit"><a style="background-color:#1180F3;border:1px solid #fff;border-color:#fff;border-radius:8px;border-width:1px;color:#ffffff;display:inline-block;font-family:arial,helvetica,sans-serif;font-size:15px;font-weight:normal;letter-spacing:0px;line-height:16px;padding:9px 18px 9px 18px;text-align:center;text-decoration:none;text-transform:uppercase;margin-top:5px;float:right" href="" target="_blank">Go to Website</a></td></tr></tbody></table></td></tr></tbody></table>
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-            <!--[if (gte mso 9)|(IE)]>
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+    <div style="Margin:0px auto;max-width:600px;background:#fff">
+        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#1180f3;background-color:#1180f3;width:100%;">
+      <tbody>
+        <tr>
+          <td>
+            <!--[if mso | IE]>
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+            <div style="Margin:0px auto;max-width:600px;">
+              <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                <tbody>
                   <tr>
-                </table>
-              </center>
-            <![endif]-->
-        </td>
-      </tr>
-    </table>
-  <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <style>
-.title1{
-  margin-top: 60px;
- 
-}
-.date{
-   
-}
-.date p{ 
-  font-size:16px; 
-  color:#4e4e4e;
-  text-align: right;
-  margin-top: -21px;
-  padding-bottom: 6px;
-  font-weight: bold;
-  font-family: 'Open Sans', sans-serif;
-}
-.title1 p{
-  font-size:16px;
-  font-weight: bold;
-  color: #4e4e4e;
-  text-align: left;
-  text-transform: uppercase;
-
-  font-family: 'Open Sans', sans-serif;
-}
-@media(max-width: 767px){
-  .title1 p{
-    margin-bottom: 10px;
-    text-align: left;
-  }
-  .date p{
-    margin-top:0px;
-    text-align:left;
-  }
-}
-</style>
-<div class="title1">
-  <p>Seo Report</p> 
-</div>
-<div class="date">
-  <p>{{$data['report_date']}}</p> 
-</div>
-        </td>
-      </tr>
-    </table>
-    <table class="module"
-           role="module"
-           data-type="divider"
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           width="100%"
-           style="table-layout: fixed;">
-      <tr>
-        <td style="padding:0px 0px 0px 0px;"
-            role="module-content"
-            height="100%"
-            valign="top"
-            bgcolor="">
-          <table border="0"
-                 cellpadding="0"
-                 cellspacing="0"
-                 align="center"
-                 width="100%"
-                 height="2px"
-                 style="line-height:2px; font-size:2px;">
-            <tr>
-              <td
-                style="padding: 0px 0px 2px 0px;"
-                bgcolor="#eaeaea"></td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
-  
-    <table  border="0"
-            cellpadding="0"
-            cellspacing="0"
-            align="center"
-            width="100%"
-            role="module"
-            data-type="columns"
-            data-version="2"
-            style="padding:10px 0px 0px 00px;box-sizing:border-box;"
-            bgcolor="">
-      <tr role='module-content'>
-        <td height="100%" valign="top">
-            <!--[if (gte mso 9)|(IE)]>
-              <center>
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-spacing:0;border-collapse:collapse;table-layout: fixed;" >
-                  <tr>
-            <![endif]-->
+                    <td style="direction:ltr;font-size:0px;padding:5px 0;text-align:center;vertical-align:top;">
+                      <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                
+        <tr>
+      
+            <td
+               class="" style="vertical-align:top;width:300px;"
+            >
+          <![endif]-->
+                      <div class="mAlignCenter mj-column-per-50 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:15px 15px 5px 15px;word-break:break-word;">
+                              <table align="left" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                <tbody>
+                                  <tr>
+                                    <td style="width:200px;"> <img height="auto" src="https://s3-us-west-2.amazonaws.com/ninjareports/ninja+reports+logo+email.png"
+                                        style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;" width="200" /> </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                      <!--[if mso | IE]>
+            </td>
           
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="260.000px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="260.000"
-            style="width:260.000px;border-spacing:0;border-collapse:collapse;margin:0px 5px 0px 0px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor=""
-            class="column column-0 of-3
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <div class="text">
-  <div>
-							<div class="heading">
-								<h2><span><i class="fas fa-caret-up"></i><i class="fas fa-caret-down orange"></i></span>{{$data['organic_sessions']}}</h2>
-								<p>ORGANIC SESSIONS</p>
-							</div>	
- <div class="icon">
-	<span><i class="fas fa-tree"></i></span>
-</div>
-</div>
-</div>
-        </td>
-      </tr>
-    </table>
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="260.000px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="260.000"
-            style="width:260.000px;border-spacing:0;border-collapse:collapse;margin:0px 5px 0px 5px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor=""
-            class="column column-1 of-3
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <div class="text">
-  <div>
-		<div class="heading">
-			<h2><span><i class="fas fa-caret-up green"></i><i class="fas fa-caret-down"></i></span>{{$data['organic_pageviews']}}</h2>
-            <p>ORGANIC PAGEVIEWS</p>
-</div>
-				<div class="icon">
-					<span><i class="fab fa-searchengin"></i></span>
-</div>
-</div>
-</div>
-        </td>
-      </tr>
-    </table>
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="260.000px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="260.000"
-            style="width:260.000px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 5px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor=""
-            class="column column-2 of-3
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <div class="text">
-  <div>
-	<div class="heading">
-      <h2><span><i class="fas fa-caret-up"></i><i class="fas fa-caret-down orange"></i></span>{{$data['organic_impressions']}}</h2>
-		<p>IMPRESSIONS</p>
-</div>
-	<div class="icon">
-		<span><i class="far fa-eye"></i></span>
-</div>
-</div>
-</div>
-        </td>
-      </tr>
-    </table>
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-            <!--[if (gte mso 9)|(IE)]>
-                  <tr>
-                </table>
-              </center>
-            <![endif]-->
-        </td>
-      </tr>
-    </table>
-  
-    <table  border="0"
-            cellpadding="0"
-            cellspacing="0"
-            align="center"
-            width="100%"
-            role="module"
-            data-type="columns"
-            data-version="2"
-            style="padding:10px 0px 0px 00px;box-sizing:border-box;"
-            bgcolor="">
-      <tr role='module-content'>
-        <td height="100%" valign="top">
-            <!--[if (gte mso 9)|(IE)]>
-              <center>
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-spacing:0;border-collapse:collapse;table-layout: fixed;" >
-                  <tr>
-            <![endif]-->
+            <td
+               class="" style="vertical-align:bottom;width:300px;"
+            >
+          <![endif]-->
+                      <div class="mAlignCenter mj-column-per-50 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:bottom;" width="100%">
+                          <tr>
+                            <td align="center" vertical-align="middle" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                              <table align="right" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;mso-line-height-rule:exactly">
+                                <tr>
+                                  <td align="center" bgcolor="transparent" role="presentation" style="border:1px solid transparent;border-radius:3px;cursor:auto;padding:10px 25px;" valign="middle">
+                                    <p style="background:transparent;color:#ffffff;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;line-height:120%;mso-line-height-rule:exactly;Margin:0;text-decoration:none;text-transform:none;"> 
+                                    <span style="display:inline-block;margin-bottom:3px;font-size:15px">SEO REPORT</span> <br/>
+                                      <span>asd{{report_date}}</span>
+                                    </p>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                      <!--[if mso | IE]>
+            </td>
           
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="260.000px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="260.000"
-            style="width:260.000px;border-spacing:0;border-collapse:collapse;margin:0px 5px 0px 0px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor=""
-            class="column column-0 of-3
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <div class="text">
-  <div>
-							<div class="heading">
-								<h2><span><i class="fas fa-caret-up green"></i><i class="fas fa-caret-down "></i></span>{{$data['time_on_page']}}</h2>
-								<p>TIME ON PAGE</p>
-							</div>	
- <div class="icon">
-	<span><i class="far fa-clock"></i></span>
-</div>
-</div>
-</div>
-        </td>
-      </tr>
-    </table>
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="260.000px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="260.000"
-            style="width:260.000px;border-spacing:0;border-collapse:collapse;margin:0px 5px 0px 5px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor=""
-            class="column column-1 of-3
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <div class="text">
-  <div>
-		<div class="heading">
-		<h2><span><i class="fas fa-caret-up "></i><i class="fas fa-caret-down orange"></i></span>{{$data['organic_revenue']}}</h2>
-              <p>ORGANIC REVENUE($)</p>
-</div>
-				<div class="icon">
-					<span><i class="fas fa-dollar-sign"></i></span>
-</div>
-</div>
-</div>
-        </td>
-      </tr>
-    </table>
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="260.000px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="260.000"
-            style="width:260.000px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 5px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor=""
-            class="column column-2 of-3
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <div class="text">
-  <div>
-	<div class="heading">
-		   <h2><span><i class="fas fa-caret-up"></i><i class="fas fa-caret-down orange"></i></span>{{$data['pages_per_visit']}}</h2>
-            <p>PAGES PER EVENT</p>
-</div>
-	<div class="icon">
-		<span><i class="fas fa-search-location"></i></span>
-</div>
-</div>
-</div>
-        </td>
-      </tr>
-    </table>
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-            <!--[if (gte mso 9)|(IE)]>
-                  <tr>
-                </table>
-              </center>
-            <![endif]-->
-        </td>
-      </tr>
-    </table>
-  <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <h2>Organic Traffic and Sessions</h2>
-        </td>
-      </tr>
-    </table>
-    <table  border="0"
-            cellpadding="0"
-            cellspacing="0"
-            align="center"
-            width="100%"
-            role="module"
-            data-type="columns"
-            data-version="2"
-            style="padding:10px 10px 9px 10px;background-color:#ffffff;box-sizing:border-box;"
-            bgcolor="#ffffff">
-      <tr role='module-content'>
-        <td height="100%" valign="top">
-            <!--[if (gte mso 9)|(IE)]>
-              <center>
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-spacing:0;border-collapse:collapse;table-layout: fixed;" >
-                  <tr>
-            <![endif]-->
-          
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="780.000px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="780.000"
-            style="width:780.000px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 0px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor="#ffffff"
-            class="column column-0 of-1
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            
-    <table class="wrapper" role="module" data-type="image" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td style="font-size:6px;line-height:10px;padding:0px 0px 0px 0px;" valign="top" align="center">
-          <img class="max-width" border="0" style="display:block;color:#000000;text-decoration:none;font-family:Helvetica, arial, sans-serif;font-size:16px;max-width:100% !important;width:100%;height:auto !important;" 
-          src="{{$data['organic_traffic_and_session_chart_url']}}" alt="" width="780">
-        </td>
-      </tr>
-    </table>
-  
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-            <!--[if (gte mso 9)|(IE)]>
-                  <tr>
-                </table>
-              </center>
-            <![endif]-->
-        </td>
-      </tr>
-    </table>
-  <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <h2>Map</h2>
-        </td>
-      </tr>
-    </table>
-    <table  border="0"
-            cellpadding="0"
-            cellspacing="0"
-            align="center"
-            width="100%"
-            role="module"
-            data-type="columns"
-            data-version="2"
-            style="padding:0px 0px 0px 0px;background-color:#ffffff;box-sizing:border-box;"
-            bgcolor="#ffffff">
-      <tr role='module-content'>
-        <td height="100%" valign="top">
-            <!--[if (gte mso 9)|(IE)]>
-              <center>
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-spacing:0;border-collapse:collapse;table-layout: fixed;" >
-                  <tr>
-            <![endif]-->
-          
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="400.000px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="400.000"
-            style="width:400.000px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 0px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor="#ffffff"
-            class="column column-0 of-2
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            
-    <table class="wrapper" role="module" data-type="image" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td style="font-size:6px;line-height:10px;padding:0px 0px 0px 0px;" valign="top" align="center">
-          <img class="max-width" border="0" style="display:block;color:#000000;text-decoration:none;font-family:Helvetica, arial, sans-serif;font-size:16px;max-width:100% !important;width:100%;height:auto !important;" 
-            src="{{$data['organic_traffic_by_country_chart_url']}}" alt="" width="400">
-        </td>
-      </tr>
-    </table>
-  
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="400.000px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="400.000"
-            style="width:400.000px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 0px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor="#ffffff"
-            class="column column-1 of-2
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            
-    <table class="wrapper" role="module" data-type="image" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top" align="center">
-            <div class="responsive-tab">
-              {!! $data['organic_traffic_by_country_table_html'] !!}
-            </div>
-        </td>
-      </tr>
-    </table>
-  
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-            <!--[if (gte mso 9)|(IE)]>
-                  <tr>
-                </table>
-              </center>
-            <![endif]-->
-        </td>
-      </tr>
-    </table>
-  <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <h2>Organic Sessions by Source</h2>
-        </td>
-      </tr>
-    </table>
-    <table  border="0"
-            cellpadding="0"
-            cellspacing="0"
-            align="center"
-            width="100%"
-            role="module"
-            data-type="columns"
-            data-version="2"
-            style="padding:10px 10px 9px 10px;background-color:#ffffff;box-sizing:border-box;"
-            bgcolor="#ffffff">
-      <tr role='module-content'>
-        <td height="100%" valign="top">
-            <!--[if (gte mso 9)|(IE)]>
-              <center>
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-spacing:0;border-collapse:collapse;table-layout: fixed;" >
-                  <tr>
-            <![endif]-->
-          
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="780.000px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="780.000"
-            style="width:780.000px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 0px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor="#ffffff"
-            class="column column-0 of-1
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            
-    <table class="wrapper" role="module" data-type="image" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td style="font-size:6px;line-height:10px;padding:0px 0px 0px 0px;" valign="top" align="center">
-          <img class="max-width" border="0" style="display:block;color:#000000;text-decoration:none;font-family:Helvetica, arial, sans-serif;font-size:16px;max-width:100% !important;width:100%;height:auto !important;" 
-            src="{{$data['organic_sessions_by_source_chart_url']}}" alt="" width="780">
-        </td>
-      </tr>
-    </table>
-  
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-            <!--[if (gte mso 9)|(IE)]>
-                  <tr>
-                </table>
-              </center>
-            <![endif]-->
-        </td>
-      </tr>
-    </table>
-  <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <h2>Ages, Gender, Devices</h2>
-        </td>
-      </tr>
-    </table>
-    <table  border="0"
-            cellpadding="0"
-            cellspacing="0"
-            align="center"
-            width="100%"
-            role="module"
-            data-type="columns"
-            data-version="2"
-            style="padding:0px 0px 0px 0px;background-color:#ffffff;box-sizing:border-box;"
-            bgcolor="#ffffff">
-      <tr role='module-content'>
-        <td height="100%" valign="top">
-            <!--[if (gte mso 9)|(IE)]>
-              <center>
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-spacing:0;border-collapse:collapse;table-layout: fixed;" >
-                  <tr>
-            <![endif]-->
-          
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="266.667px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="266.667"
-            style="width:266.667px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 0px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor="#ffffff"
-            class="column column-0 of-3
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            
-    <table class="wrapper" role="module" data-type="image" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td style="font-size:6px;line-height:10px;padding:0px 0px 0px 0px;" valign="top" align="center">
-          <img class="max-width" border="0" style="display:block;color:#000000;text-decoration:none;font-family:Helvetica, arial, sans-serif;font-size:16px;max-width:100% !important;width:100%;height:auto !important;" 
-            src="{{$data['age_genders_devices_chart_url']['age']}}" alt="" width="266.6666666666667">
-        </td>
-      </tr>
-    </table>
-  
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="266.667px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="266.667"
-            style="width:266.667px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 0px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor="#ffffff"
-            class="column column-1 of-3
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            
-    <table class="wrapper" role="module" data-type="image" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td style="font-size:6px;line-height:10px;padding:0px 0px 0px 0px;" valign="top" align="center">
-          <img class="max-width" border="0" style="display:block;color:#000000;text-decoration:none;font-family:Helvetica, arial, sans-serif;font-size:16px;max-width:100% !important;width:100%;height:auto !important;" 
-            src="{{$data['age_genders_devices_chart_url']['genders']}}" alt="" width="266.6666666666667">
-        </td>
-      </tr>
-    </table>
-  
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="266.667px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="266.667"
-            style="width:266.667px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 0px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor="#ffffff"
-            class="column column-2 of-3
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            
-    <table class="wrapper" role="module" data-type="image" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td style="font-size:6px;line-height:10px;padding:0px 0px 0px 0px;" valign="top" align="center">
-          <img class="max-width" border="0" style="display:block;color:#000000;text-decoration:none;font-family:Helvetica, arial, sans-serif;font-size:16px;max-width:100% !important;width:100%;height:auto !important;" 
-            src="{{$data['age_genders_devices_chart_url']['devices']}}" alt="" width="266.6666666666667">
-        </td>
-      </tr>
-    </table>
-  
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-            <!--[if (gte mso 9)|(IE)]>
-                  <tr>
-                </table>
-              </center>
-            <![endif]-->
-        </td>
-      </tr>
-    </table>
-  <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <h2>Top Organic Pages</h2>
-        </td>
-      </tr>
-    </table>
-    <table  border="0"
-            cellpadding="0"
-            cellspacing="0"
-            align="center"
-            width="100%"
-            role="module"
-            data-type="columns"
-            data-version="2"
-            style="padding:0px 10px 0px 10px;background-color:#fff;box-sizing:border-box;"
-            bgcolor="#fff">
-      <tr role='module-content'>
-        <td height="100%" valign="top">
-            <!--[if (gte mso 9)|(IE)]>
-              <center>
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-spacing:0;border-collapse:collapse;table-layout: fixed;" >
-                  <tr>
-            <![endif]-->
-          
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="780.000px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="780.000"
-            style="width:780.000px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 0px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor="#fff"
-            class="column column-0 of-1
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <div class="responsive-tab">
-            {!! $data['top_organic_pages_html'] !!}
-</div>
-        </td>
-      </tr>
-    </table>
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-            <!--[if (gte mso 9)|(IE)]>
-                  <tr>
-                </table>
-              </center>
-            <![endif]-->
-        </td>
-      </tr>
-    </table>
-  <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <h2>Top Key Words</h2>
-        </td>
-      </tr>
-    </table>
-    <table  border="0"
-            cellpadding="0"
-            cellspacing="0"
-            align="center"
-            width="100%"
-            role="module"
-            data-type="columns"
-            data-version="2"
-            style="padding:0px 10px 0px 10px;background-color:#fff;box-sizing:border-box;"
-            bgcolor="#fff">
-      <tr role='module-content'>
-        <td height="100%" valign="top">
-            <!--[if (gte mso 9)|(IE)]>
-              <center>
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-spacing:0;border-collapse:collapse;table-layout: fixed;" >
-                  <tr>
-            <![endif]-->
-          
-    <!--[if (gte mso 9)|(IE)]>
-      <td width="780.000px" valign="top" style="padding: 0px 0px 0px 0px;border-collapse: collapse;" >
-    <![endif]-->
-
-    <table  width="780.000"
-            style="width:780.000px;border-spacing:0;border-collapse:collapse;margin:0px 0px 0px 0px;"
-            cellpadding="0"
-            cellspacing="0"
-            align="left"
-            border="0"
-            bgcolor="#fff"
-            class="column column-0 of-1
-                  empty"
-      >
-      <tr>
-        <td style="padding:0px;margin:0px;border-spacing:0;">
-            <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <div class="responsive-tab">
-          {{$data['top_organic_keywords_html'] or ''}}
-</div>
-        </td>
-      </tr>
-    </table>
-        </td>
-      </tr>
-    </table>
-
-    <!--[if (gte mso 9)|(IE)]>
-      </td>
-    <![endif]-->
-            <!--[if (gte mso 9)|(IE)]>
-                  <tr>
-                </table>
-              </center>
-            <![endif]-->
-        </td>
-      </tr>
-    </table>
-  <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <span class="bottom-text">All data belongs to www.url.com</span>
-        </td>
-      </tr>
-    </table><table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
-      <tr>
-        <td height="100%" valign="top">
-          <style>
-  .footer{
-    padding: 15px 20px;
-    text-align:center;
-    background: #666666;
-    color: #fff;
-    line-height: 24px;
-    font-weight: 500;
-  }
-  .footer a{
-     color: #fff;
-  }
-</style>
-<div class="footer">
-  <p>Copyright 2020 © Ninja Reports</p>
-  <p><a href="#">Terms</a> - <a href="#">Privacy</a></p>
-</div>
-        </td>
-      </tr>
-    </table>
-                              </td>
-                            </tr>
-                          </table>
-                          <!--[if mso]>
-                          </td></tr></table>
-                          </center>
-                          <![endif]-->
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
+        </tr>
+      
+                  </table>
+                <![endif]-->
+                    </td>
+                  </tr>
+                </tbody>
               </table>
+            </div>
+            <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+      <![endif]-->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+ 
+    </div>
+    <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+      <![endif]-->
+    <!-- Row 1 -->
+
+    <!--[if mso | IE]>
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+    <div style="Margin:0px auto;max-width:600px;background:#ffffff">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;background:#ffffff;padding:15px;">
+        <tbody>
+          <tr>
+            <td style="padding:10px 15px;background:#ffffff">
+    <span style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:14px;background:#ffffff">Domain: <strong>{{domain}}</strong></span>
+    </td>
+    </tr>
+    </table>
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0;text-align:center;vertical-align:top;background:#ffffff;border-bottom:1px solid #f2f2f2;border-top:1px solid #f2f2f2">
+
+              <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                
+        <tr>
+      
+            <td
+               class="" style="vertical-align:top;width:200px;"
+            >
+          <![endif]-->
+              <div class="mjGrid90 resPadB20 mj-column-per-33 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;background:#fff;">
+                <table style="background-color:#fff;vertical-align:top;" border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                  <tr>
+                    <td align="left" style="font-size:0px;padding:0;word-break:break-word;">
+                      <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
+                        <tr>
+                          <td style="padding:15px;"><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-wordfont-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:24px; color: #1180f3; line-height: 21px; text-decoration: none;">{{organic_sessions}}</span></td>
+                          <td align="right" style="padding-right:10px;padding-top:5px;"><img width="35" height="35" src="http://cdn.mcauto-images-production.sendgrid.net/a5b536ad3b0d9482/2f4d8311-a40d-4d9f-a56d-fea5676b7e41/35x35.png" /></td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td class="tdGridMarg">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="left" style="font-size:0px;padding:0;word-break:break-word;">
+                      <table cellpadding="0" cellspacing="0" width="100%" border="0" style="background-color:#fff;vertical-align:top;cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;mso-line-height-rule:exactly;table-layout:auto;width:100%;">
+                        <tr>
+                          <td style="padding-left:15px;padding-bottom:10px;color:#3f3f3f; font-size:14px;">ORGANIC SESSIONS</td>
+
+
+                        </tr>
+                      </table>
+                    </td>
+                    <td class="tdGridMarg" style="">&nbsp;</td>
+                  </tr>
+                </table>
+              </div>
+              <!--[if mso | IE]>
+            </td>
+          
+            <td
+               class="" style="vertical-align:top;width:200px;"
+            >
+          <![endif]-->
+              <div class="mjGrid90 resPadB20 mj-column-per-33 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:#fff;vertical-align:top;" width="100%">
+                  <tr>
+                    <td align="left" style="font-size:0px;word-break:break-word;">
+                      <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
+                        <tr style="background-color:#fff;">
+                          <td style="padding:15px;"><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:24px; color: #1180f3; line-height: 21px; text-decoration: none">{{organic_pageviews}}</span></td>
+                          <td align="right" style="padding-top:5px;padding-right:10px"><img width="30" height="30" src="http://cdn.mcauto-images-production.sendgrid.net/a5b536ad3b0d9482/986f641d-caba-441d-9607-7a26e1328d9b/35x35.png" /></td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td class="tdGridMarg">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="left" style="font-size:0px;padding:0;word-break:break-word;">
+                      <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;mso-line-height-rule:exactly;table-layout:auto;width:100%;">
+                        <tr style="background-color:#fff;">
+                          <td style="padding-left:15px;padding-bottom:10px;color:#3f3f3f; font-size:14px;">ORGANIC PAGEVIEWS</td>
+
+                        </tr>
+                      </table>
+                    </td>
+                    <td class="tdGridMarg">&nbsp;</td>
+                  </tr>
+                </table>
+              </div>
+              <!--[if mso | IE]>
+            </td>
+          
+            <td
+               class="" style="vertical-align:top;width:200px;"
+            >
+          <![endif]-->
+              <div class="mjGrid90 mj-column-per-33 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:#fff;vertical-align:top;" width="100%">
+                  <tr>
+                    <td align="left" style="font-size:0px;word-break:break-word;">
+                      <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
+                        <tr style="background-color:#fff;">
+                         
+                          <td style="padding:15px;"><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:24px; color: #1180f3; line-height: 21px; text-decoration: none">{{organic_impressions}}</span></td>
+                          <td align="right" style="padding-right:10px;padding-top:5px"><img width="32" height="32" src="http://cdn.mcauto-images-production.sendgrid.net/a5b536ad3b0d9482/9366d918-970f-464a-95f0-168cd917435f/35x35.png" /></td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="left" style="font-size:0px;padding:0;word-break:break-word;">
+                      <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;mso-line-height-rule:exactly;table-layout:auto;width:100%;">
+                        <tr style="background-color:#fff;">
+                          <td style="padding-left:15px;padding-bottom:10px;color:#3f3f3f; font-size:14px;">IMPRESSIONS</td>
+
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <!--[if mso | IE]>
+            </td>
+          
+        </tr>
+      
+                  </table>
+                <![endif]-->
             </td>
           </tr>
-        </table>
-      </div>
-    </center>
-  </body>
-</html>
+        </tbody>
+      </table>
+    </div>
+    <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+      <![endif]-->
+    <!-- Row 2 -->
+
+    <!--[if mso | IE]>
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+    <div style="Margin:0px auto;max-width:600px;background:#fff">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:5px 0;padding-top:20px;text-align:center;vertical-align:top;background-color:#fff">
+              <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                
+        <tr>
+      
+            <td
+               class="" style="vertical-align:top;width:200px;"
+            >
+          <![endif]-->
+              <div class="mjGrid90 resPadB20 mj-column-per-33 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:#fff;vertical-align:top;" width="100%">
+                  <tr>
+                    <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
+                      <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
+                        <tr style="background-color:#fff;">
+                          
+                          <td style="padding:15px;"><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-wordx;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:24px; color: #1180f3; line-height: 21px; text-decoration: none">{{time_on_page}}</span></td>
+                          <td align="right" style="padding-right:10px;padding-top:5px"><img width="32" height="32" src="https://cdn.mcauto-images-production.sendgrid.net/a5b536ad3b0d9482/8f43fe9c-4292-4ef4-83d3-ff829f5b4957/35x35.png" /></td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td class="tdGridMarg">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="left" style="font-size:0px;padding:0;word-break:break-word;">
+                      <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;mso-line-height-rule:exactly;table-layout:auto;width:100%;">
+                        <tr style="background-color:#fff;">
+                          <td style="padding-left:15px;padding-bottom:10px;color:#3f3f3f; font-size:14px;">TIME ON PAGE</td>
+
+                        </tr>
+                      </table>
+                    </td>
+                    <td class="tdGridMarg">&nbsp;</td>
+                  </tr>
+                </table>
+              </div>
+              <!--[if mso | IE]>
+            </td>
+          
+            <td
+               class="" style="vertical-align:top;width:200px;"
+            >
+          <![endif]-->
+              <div class="mjGrid90 resPadB20 mj-column-per-33 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:#fff;vertical-align:top;" width="100%">
+                  <tr>
+                    <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
+                      <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
+                        <tr style="background-color:#fff;">
+                          
+                          <td style="padding:15px;"><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:24px; color: #1180f3; line-height: 21px; text-decoration: none">{{organic_revenue}}</span></td>
+                          <td align="right" style="padding-right:10px;"><img width="32" height="32" src="http://cdn.mcauto-images-production.sendgrid.net/a5b536ad3b0d9482/8405326e-8cbc-49b3-b351-ad22bcc7f4fe/35x35.png" /></td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td class="tdGridMarg">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="left" style="font-size:0px;padding:0;word-break:break-word;">
+                      <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;mso-line-height-rule:exactly;table-layout:auto;width:100%;">
+                        <tr style="background-color:#fff;">
+                          <td style="padding-left:15px;padding-bottom:10px;color:#3f3f3f; font-size:14px;">ORGANIC REVENUE</td>
+
+                        </tr>
+                      </table>
+                    </td>
+                    <td class="tdGridMarg">&nbsp;</td>
+                  </tr>
+                </table>
+              </div>
+              <!--[if mso | IE]>
+            </td>
+          
+            <td
+               class="" style="vertical-align:top;width:200px;"
+            >
+          <![endif]-->
+              <div class="mjGrid90 mj-column-per-33 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:#fff;vertical-align:top;" width="100%">
+                  <tr>
+                    <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
+                      <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
+                        <tr style="background-color:#fff;">
+                          
+                          <td style="padding:15px;"><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:24px; color: #1180f3; line-height: 21px; text-decoration: none">{{pages_per_visit}}</span></td>
+                          <td align="right" style="padding-right:5px;padding-top:10px"><img width="35" height="35" src="http://cdn.mcauto-images-production.sendgrid.net/a5b536ad3b0d9482/7cdb3ea6-6fbe-4337-8983-857bdbe2f7d3/35x35.png" /></td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="left" style="font-size:0px;padding:0;word-break:break-word;">
+                      <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;mso-line-height-rule:exactly;table-layout:auto;width:100%;">
+                        <tr style="background-color:#fff;">
+                          <td style="padding-left:15px;padding-bottom:10px;color:#3f3f3f; font-size:14px;">PAGES PER VISIT</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <!--[if mso | IE]>
+            </td>
+          
+        </tr>
+      
+                  </table>
+                <![endif]-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+      
+      
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+    <div class="mjGrid90" style="background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;border-top:3px solid #f2f2f2">
+  
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffffff;background-color:#ffffff;width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:15px 0;text-align:center;vertical-align:top;">
+              <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                
+        <tr>
+      
+            <td
+               class="" style="vertical-align:top;width:600px;"
+            >
+          <![endif]-->
+              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:#fff;vertical-align:top;" width="100%">
+                  <tr>
+                    <td align="left" style="font-size:0px;padding:5px 15px;word-break:break-word;">
+                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"><strong>ORGANIC SESSIONS BY DAY</strong></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                        <tbody>
+                          <tr>
+                            <td style="width:100%;"> <img height="auto" src="{{organic_traffic_and_session_chart_url}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
+                                width="550" /> </td>
+
+
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <!--[if mso | IE]>
+            </td>
+          
+
+
+
+        </tr>
+      
+                  </table>
+                <![endif]-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>    
+      
+       <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="30" style="vertical-align:top;height:30px;">
+      
+    <![endif]-->
+
+    <!--[if mso | IE]>
+    
+        </td></tr></table>
+        
+        
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+    <div class="mjGrid90" style="background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;border-top:3px solid #f2f2f2">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#fff;background-color:#fff;width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:3px 0;text-align:center;vertical-align:top;">
+              <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                
+        <tr>
+      
+            <td
+               class="" style="vertical-align:top;width:300px;"
+            >
+          <![endif]-->
+              <div class="mj-column-per-50 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                  <tr>
+                    <td align="left" style="font-size:0px;padding:15px;word-break:break-word;">
+                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"><strong> ORGANIC TRAFFIC BY COUNTRY</strong></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                        <tbody>
+                          <tr>
+                            <td style="width:250px;"> <img height="auto" src="{{organic_traffic_by_country_chart_url}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
+                                width="250" /> </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+
+
+
+
+
+                </table>
+              </div>
+              <!--[if mso | IE]>
+            </td>
+          
+            <td
+               class="" style="vertical-align:top;width:300px;"
+            >
+          <![endif]-->
+              <div class="mj-column-per-50 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                  <tr>
+
+
+
+
+
+                    <td align="left" class="country-tble" style="font-size:0px;padding:10px 5px;word-break:break-word;">
+                      <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;">
+                        <tr>
+                          <th align="left" style="text-align:left;margin:0;padding:3px 0px">COUNTRY</th>
+                          <th align="left" style="text-align:left;margin:0;padding:3px 0px">SESSIONS</th>
+                        </tr>
+                        {{#each organic_traffic_by_country}}
+                        <tr>
+                          <td style="font-size:12px;">{{this.country}}</td>
+                          <td style="font-size:12px;">{{this.sessions}}</td>
+                        </tr>
+                        {{/each}}
+                      </table>
+                    </td>
+
+
+                  </tr>
+
+                </table>
+              </div>
+
+              <!--[if mso | IE]>
+            </td>
+          
+
+
+
+        </tr>
+      
+                  </table>
+                <![endif]-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+
+       <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="30" style="vertical-align:top;height:30px;">
+      
+    <![endif]-->
+ 
+    <!--[if mso | IE]>
+    
+        </td></tr></table>
+
+
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+    <div class="mjGrid90" style="background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;border-top:3px solid #f2f2f2">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#fff;background-color:#fff;width:100%;">
+        <tbody>
+          <tr>
+                    <td align="left" style="font-size:0px;padding:15px;word-break:break-word;">
+                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"><strong>ORGANIC SESSIONS BY SOURCE</strong></div>
+                    </td>
+                  </tr>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
+              <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                
+        <tr>
+      
+            <td
+               class="" style="vertical-align:top;width:300px;"
+            >
+          <![endif]-->
+              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;width:100%" width="100%">
+                  <tr>
+                    <td align="center" style="font-size:0px;padding:5px 25px;word-break:break-word;">
+                      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;width:100%" width="100%">
+                        <tbody>
+                          <tr>
+                            <td style="width:100%;"> <img height="auto" src="{{organic_sessions_by_source_chart_url}}" style="border:0;display:block;outline:none;text-decoration:none;width:100%;"
+                                width="100%" /> </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+
+
+
+
+
+                </table>
+              </div>
+              <!--[if mso | IE]>
+            </td>
+          
+            <td
+               class="" style="vertical-align:top;width:300px;"
+            >
+          <![endif]-->
+              <!--<div class="mj-column-per-80 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">-->
+
+              <!--  <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">-->
+              <!--    <tr>-->
+
+
+
+
+
+              <!--      <td align="left" class="country-tble" style="font-size:0px;padding:10px 25px;word-break:break-word;">-->
+              <!--        <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;">-->
+              <!--          <tr>-->
+              <!--            <th align="left">Legend</th>-->
+              <!--            <th align="left">Percent(%)</th>-->
+              <!--            <th align="left">Results</th>-->
+              <!--            <th align="left">Previous Period</th>-->
+              <!--          </tr>-->
+              <!--          <tr>-->
+              <!--            <td>Lorem Ipsum Dolor Sit Ament.</td>-->
+              <!--            <td align="center">2</td>-->
+              <!--            <td align="center">34,100</td>-->
+              <!--            <td align="center">-200</td>-->
+              <!--          </tr>-->
+              <!--         <tr>-->
+              <!--            <td>Lorem Ipsum Dolor Sit Ament.</td>-->
+              <!--            <td align="center">2</td>-->
+              <!--            <td align="center">34,100</td>-->
+              <!--            <td align="center">-200</td>-->
+              <!--          </tr>-->
+              <!--          <tr>-->
+              <!--            <td>Lorem Ipsum Dolor Sit Ament.</td>-->
+              <!--            <td align="center">2</td>-->
+              <!--            <td align="center">34,100</td>-->
+              <!--            <td align="center">-200</td>-->
+              <!--          </tr>-->
+              <!--          <tr>-->
+              <!--            <td>Lorem Ipsum Dolor Sit Ament.</td>-->
+              <!--            <td align="center">2</td>-->
+              <!--            <td align="center">34,100</td>-->
+              <!--            <td align="center">-200</td>-->
+              <!--          </tr>-->
+              <!--        </table>-->
+              <!--      </td>-->
+
+
+              <!--    </tr>-->
+
+              <!--  </table>-->
+              <!--</div>-->
+
+              <!--[if mso | IE]>
+            </td>
+          
+
+
+
+        </tr>
+      
+                  </table>
+                <![endif]-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+      
+         <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="30" style="vertical-align:top;height:30px;">
+      
+    <![endif]-->
+
+    <!--[if mso | IE]>
+    
+        </td></tr></table>    
+      
+     <table
+         align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+    <div class="mjGrid90" style="background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;border-top:3px solid #f2f2f2">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#fff;background-color:#fff;width:100%;">
+        <tbody>
+          <tr><td style="padding:15px 5px 5px 15px;"><div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"> <strong>AGES, GENDERS, DEVICES BY USER</strong></div></td></tr>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
+              <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                
+        <tr>
+      
+            <td
+               class="" style="vertical-align:top;width:200px;"
+            >
+          <![endif]-->
+              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                  <tr>
+                    <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                        <tbody>
+                          <tr>
+                            <td style="width:100%;"> <img height="auto" src="{{age_genders_devices_chart_url.age}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
+                                width="100%" /> </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <!--[if mso | IE]>
+            </td>
+          
+            <td
+               class="" style="vertical-align:top;width:200px;"
+            >
+          <![endif]-->
+              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                  <tr>
+                    <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                        <tbody>
+                          <tr>
+                            <td style="width:100%"> <img height="auto" src="{{age_genders_devices_chart_url.genders}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
+                                width="100%" /> </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <!--[if mso | IE]>
+            </td>
+          
+            <td
+               class="" style="vertical-align:top;width:200px;"
+            >
+          <![endif]-->
+              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                  <tr>
+                    <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                        <tbody>
+                          <tr>
+                            <td style="width:100%;"> <img height="auto" src="{{age_genders_devices_chart_url.devices}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
+                                width="100%" /> </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <!--[if mso | IE]>
+            </td>
+          
+        </tr>
+      
+                  </table>
+                <![endif]-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+
+    
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="30" style="vertical-align:top;height:30px;">
+      
+    <![endif]-->
+    <div style="height:3px;"> &nbsp; </div>
+    <!--[if mso | IE]>
+    
+        </td></tr></table>
+    
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+    <div class="mjGrid90" style="background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;overflow-x:scroll">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#fff;background-color:#fff;width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
+              <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                
+        <tr>
+      
+            <td
+               class="" style="vertical-align:top;width:600px;"
+            >
+          <![endif]-->
+              <div class="hideThisShit mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                  <tr>
+                    <td align="left" style="font-size:0px;padding:5px 15px;word-break:break-word;">
+                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"><strong>TOP ORGANIC PAGES</strong></div>
+                    </td>
+                  </tr>
+                  
+                  <table class="padded-striped-table" style="border-collapse:separate;border-spacing:0px;font-size:12px;font-family:Arial, Helvetica, sans-serif;">
+                    <tr>
+                      <th style="padding:5px">URL</th>
+                      <th style="padding:5px">SESSIONS</th>
+                      <th style="padding:5px">PAGEVIEWS</th>
+                      <th style="padding:5px">TIME ON PAGE</th>
+                      <th style="padding:5px">BOUNCE (%)</th>
+                    </tr>
+                    {{#each top_organic_pages}}
+                    <tr class="{{@index}}">
+                      <td width="175"><a href="{{this.url}}">{{this.page}}</a></td>
+                      <td>{{this.sessions}}</td>
+                      <td>{{this.pageviews}}</td>
+                      <td>{{this.avg_time_on_page}}</td>
+                      <td>{{this.bounce_rate}}%</td>
+                    </tr>
+                    {{/each}}
+                  </table>
+                </table>
+              </div>
+              <!--[if mso | IE]>
+            </td>
+          
+        </tr>
+      
+                  </table>
+                <![endif]-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+      
+
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="30" style="vertical-align:top;height:30px;">
+      
+    <![endif]-->
+    <div style="height:3px;"> &nbsp; </div>
+    <!--[if mso | IE]>
+    
+        </td></tr></table>
+    
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+    <div class="mjGrid90" style="background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;overflow-x:scroll">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#fff;background-color:#fff;width:100%">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
+              <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                
+        <tr>
+      
+            <td
+               class="" style="vertical-align:top;width:600px;"
+            >
+          <![endif]-->
+              <div class="hideThisShit mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                  <tr>
+                    <td align="left" width="100%" style="font-size:0px;padding:5px 15px;word-break:break-word;">
+                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"><strong>TOP KEYWORDS</strong></div>
+                    </td>
+                  </tr>
+                  
+                  <table class="padded-striped-table" style="border-collapse:separate;border-spacing:0px;font-size:12px;font-family:Arial, Helvetica, sans-serif;">
+                    <tr>
+                      <th style="padding:5px">KEYWORD</th>
+                      <th style="padding:5px">CLICKS</th>
+                      <th style="padding:5px">IMPRESSIONS</th>
+                      <th style="padding:5px">CTR</th>
+                      <th style="padding:5px">POSITION</th>
+                    </tr>
+                    {{#each top_organic_keywords}}
+                    <tr>
+                      <td width="200">{{this.keyword}}</td>
+                      <td>{{this.clicks}}</td>
+                      <td>{{this.impressions}}</td>
+                      <td>{{this.ctr}}%</td>
+                      <td>{{this.position}}</td>
+                    </tr>
+                    {{/each}}
+                  </table>
+                </table>
+              </div>
+              <!--[if mso | IE]>
+            </td>
+          
+        </tr>
+      
+                  </table>
+                <![endif]-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>    
+      
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+    <div style="Margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
+              <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                
+        <tr>
+      
+            <td
+               class="" style="vertical-align:top;width:600px;"
+            >
+          <![endif]-->
+              <div class="mjGrid90 mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-bottom:1px solid #000;vertical-align:top;" width="100%">
+                  <tr>
+                    <td align="left" style="font-size:0px;padding:0px;word-break:break-word;">
+                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"> </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <!--[if mso | IE]>
+            </td>
+          
+        </tr>
+      
+                  </table>
+                <![endif]-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+      <![endif]-->
+    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#333;background-color:#333;width:100%;">
+      <tbody>
+        <tr>
+          <td>
+            <!--[if mso | IE]>
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+            <div style="Margin:0px auto;max-width:600px;">
+              <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                <tbody>
+                  <tr>
+                    <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0;text-align:center;vertical-align:top;">
+                      <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                
+        <tr>
+      
+            <td
+               class="" style="vertical-align:top;width:600px;"
+            >
+          <![endif]-->
+                      <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                              <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:center;color:#fff;"> Copyright 2020 © Ninja Reports </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                              <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:center;color:#000000;"> <a href="#">Terms</a> - <a href="#">Privacy</a> </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                      <!--[if mso | IE]>
+            </td>
+          
+        </tr>
+      
+                  </table>
+                <![endif]-->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+      <![endif]-->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</body>
+
+  
