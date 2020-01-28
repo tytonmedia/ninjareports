@@ -63,7 +63,6 @@
         width: 320px;
       }
     }
-     .introtext {display:none !important;}
   </style>
   <!--<![endif]-->
   <!--[if mso]>
@@ -145,13 +144,22 @@
 
 
     }
+    .introtext {display:none;}
   </style>
 </head>
 
-<body style="background-color:#ffffff;">
-    <span class="introtext">Hello! Here is your Traffic Report for {{$data['report_date']}}.</span>
-  <div style="background-color:#ffffff;">
-    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#1180f3;background-color:#1180f3;width:100%;">
+<body style="background-color:#f2f2f2;">
+  <div style="background-color:#f2f2f2;">
+  <span class="introtext">Hello! Here is your Traffic Report.</span>
+    <!--[if mso | IE]>
+      <table
+         align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+      >
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      <![endif]-->
+    <div style="Margin:0px auto;max-width:600px;">
+        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#1180f3;background-color:#1180f3;width:100%;">
       <tbody>
         <tr>
           <td>
@@ -166,7 +174,7 @@
               <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
                 <tbody>
                   <tr>
-                    <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
+                    <td style="direction:ltr;font-size:0px;padding:5px 0;text-align:center;vertical-align:top;">
                       <!--[if mso | IE]>
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                 
@@ -183,8 +191,8 @@
                               <table align="left" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                                 <tbody>
                                   <tr>
-                                    <td style="width:200px;"> <img height="auto" src="https://marketing-image-production.s3.amazonaws.com/uploads/814b70f29c6259212d83f688ca3627a8b486ce71759213aa5d0f170649bd9ae8ee12554d2117db227a831a5d15df78f9d9c0bb84c7a227c68b6fa96f62512df4.jpg"
-                                        style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;" width="200" /> </td>
+                                    <td style="width:200px;"> <img height="auto" src="https://s3-us-west-2.amazonaws.com/ninjareports/ninja+reports+logo+email.png"
+                                        style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:175px;" width="200" /> </td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -205,8 +213,11 @@
                             <td align="center" vertical-align="middle" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                               <table align="right" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;mso-line-height-rule:exactly">
                                 <tr>
-                                  <td align="center" bgcolor="transparent" role="presentation" style="border:1px solid white;border-radius:3px;cursor:auto;padding:10px 25px;" valign="middle">
-                                    <p style="background:transparent;color:#ffffff;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;line-height:120%;mso-line-height-rule:exactly;Margin:0;text-decoration:none;text-transform:none;"> GO TO WEBSITE </p>
+                                  <td align="center" bgcolor="transparent" role="presentation" style="border:1px solid transparent;border-radius:3px;cursor:auto;padding:10px 25px;text-align:right;" valign="middle">
+                                    <p style="background:transparent;color:#ffffff;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;line-height:120%;mso-line-height-rule:exactly;Margin:0;text-decoration:none;text-transform:none;"> 
+                                    <span style="font-weight:bolder;display:inline-block;margin-bottom:3px;font-size:16px;text-align:right;">TRAFFIC REPORT</span> <br/>
+                                      {{report_date}}
+                                    </p>
                                   </td>
                                 </tr>
                               </table>
@@ -235,83 +246,13 @@
         </tr>
       </tbody>
     </table>
-    <!--[if mso | IE]>
-      <table
-         align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
-      >
-        <tr>
-          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
-      <![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
+     <div style="background:#ffffff;;padding:10px 0;">
+     <span style="padding-left:15px;font-family:arial;font-size:14px;">Domain: <strong>{{domain}}</strong></span>
+     </div>
       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
         <tbody>
           <tr>
-            <td style="border-bottom:1px solid #ccc;direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0;text-align:center;vertical-align:top;">
-              <!--[if mso | IE]>
-                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                
-        <tr>
-      
-            <td
-               class="" style="vertical-align:top;width:300px;"
-            >
-          <![endif]-->
-              <div class="mj-column-per-50 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
-                  <tr>
-                    <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;mso-line-height-rule:exactly;text-align:left;color:#000000;"> <span style="padding-right:5px"></span><span>TRAFFIC REPORT</span>                        </div>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <!--[if mso | IE]>
-            </td>
-          
-            <td
-               class="" style="vertical-align:top;width:300px;"
-            >
-          <![endif]-->
-              <div class="mj-column-per-50 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
-                  <tr>
-                    <td align="" style="font-size:15px;padding:10px 25px;padding-right:25px;padding-bottom:0;word-break:break-word;text-align:right;">
-                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;mso-line-height-rule:exactly;text-align:;color:#ccc;"> {{$data['report_date']}} </div>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <!--[if mso | IE]>
-            </td>
-          
-        </tr>
-      
-                  </table>
-                <![endif]-->
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!--[if mso | IE]>
-          </td>
-        </tr>
-      </table>
-      <![endif]-->
-    <!-- Row 1 -->
-
-    <!--[if mso | IE]>
-      <table
-         align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
-      >
-        <tr>
-          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
-      <![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-        <tbody>
-          <tr>
-            <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0;text-align:center;vertical-align:top;">
+            <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0;text-align:center;vertical-align:top;background:#ffffff">
               <!--[if mso | IE]>
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                 
@@ -321,15 +262,14 @@
                class="" style="vertical-align:top;width:200px;"
             >
           <![endif]-->
-              <div class="mjGrid90 resPadB20 mj-column-per-33 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+              <div class="mjGrid90 resPadB20 mj-column-per-33 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;background:#ffffff">
                 <table style="background-color:#fff;vertical-align:top;" border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
                   <tr>
                     <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                         <tr>
-                          <td width="30px" style="padding-left:10px;"></td>
-                          <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{$data['users']}}</span></td>
-                          <td align="right" style="padding-right:10px;padding-top:5px;"><img width="35" height="35" src="https://marketing-image-production.s3.amazonaws.com/uploads/e2717d8dbcfec7c59ee91a7fff77b90109d8216b3604486df21f69811c451a2a64898cf8cc5a80ac6b75f6cb012e7271dda9901114488ca71bbce69d57a58e6d.jpg" /></td>
+                          <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;padding-left:15px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:24px; color: #1180f3; line-height: 21px; text-decoration: none;">{{users}}</span></td>
+                          <td align="right" style="padding-right:10px;padding-top:5px;"><img width="35" height="35" src="https://cdn.mcauto-images-production.sendgrid.net/a5b536ad3b0d9482/2f4d8311-a40d-4d9f-a56d-fea5676b7e41/35x35.png" /></td>
                         </tr>
                       </table>
                     </td>
@@ -339,7 +279,7 @@
                     <td align="left" style="font-size:0px;padding:0;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="background-color:#fff;vertical-align:top;cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;mso-line-height-rule:exactly;table-layout:auto;width:100%;">
                         <tr>
-                          <td style="padding-left:15px;padding-bottom:10px;color:#ccc; font-size:16px;">USERS</td>
+                          <td style="padding-left:15px;padding-bottom:10px;color:#ccc; font-size:14px;">USERS</td>
 
 
                         </tr>
@@ -362,9 +302,9 @@
                     <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                         <tr style="background-color:#fff;">
-                          <td width="30px" style="padding-left:10px"></td>
-                          <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{$data['pageviews']}}</span></td>
-                          <td align="right" style="padding-top:5px;padding-right:10px"><img width="35" height="35" src="https://marketing-image-production.s3.amazonaws.com/uploads/91069d971f3a2c6466d7d81e3614a852296b91e296c21ec27cfb6266cea9b72e953e7e8978be5d11be3d9c99b4bb5485f498253a75f3aa9c9fd0d0283f4cd11c.jpg" /></td>
+                          
+                          <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;padding-left:15px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:24px; color: #1180f3; line-height: 21px; text-decoration: none;">{{pageviews}}</span></td>
+                          <td align="right" style="padding-top:5px;padding-right:10px"><img width="35" height="35" src="https://cdn.mcauto-images-production.sendgrid.net/a5b536ad3b0d9482/986f641d-caba-441d-9607-7a26e1328d9b/35x35.png" /></td>
                         </tr>
                       </table>
                     </td>
@@ -374,7 +314,7 @@
                     <td align="left" style="font-size:0px;padding:0;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;mso-line-height-rule:exactly;table-layout:auto;width:100%;">
                         <tr style="background-color:#fff;">
-                          <td style="padding-left:15px;padding-bottom:10px;color:#ccc; font-size:16px;">PAGEVIEWS</td>
+                          <td style="padding-left:15px;padding-bottom:10px;color:#ccc; font-size:14px;">PAGEVIEWS</td>
 
                         </tr>
                       </table>
@@ -396,9 +336,9 @@
                     <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                         <tr style="background-color:#fff;">
-                          <td width="30px" style="padding-left:10px"></td>
-                          <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{$data['pages_per_visit']}}</span></td>
-                          <td align="right" style="padding-right:10px;padding-top:5px;"><img width="38" height="38" src="https://marketing-image-production.s3.amazonaws.com/uploads/1f58b6d05daf765a51456d2f22cf9d2f52c51e85fad7bbf3577ed2fe376c756b00dd393b0324feeb145287cce012329d2f7fd684e5d91719f0291149f0aacb9b.jpg" /></td>
+                          
+                          <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;padding-left:15px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:24px; color: #1180f3; line-height: 21px; text-decoration: none;">{{pages_per_visit}}</span></td>
+                          <td align="right" style="padding-right:10px;padding-top:5px;"><img width="35" height="35" src="http://cdn.mcauto-images-production.sendgrid.net/a5b536ad3b0d9482/7cdb3ea6-6fbe-4337-8983-857bdbe2f7d3/35x35.png" /></td>
                         </tr>
                       </table>
                     </td>
@@ -407,7 +347,7 @@
                     <td align="left" style="font-size:0px;padding:0;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;mso-line-height-rule:exactly;table-layout:auto;width:100%;">
                         <tr style="background-color:#fff;">
-                          <td style="padding-left:15px;padding-bottom:10px;color:#ccc; font-size:16px;">PAGES PER VISIT</td>
+                          <td style="padding-left:15px;padding-bottom:10px;color:#ccc; font-size:14px;">PAGES PER VISIT</td>
 
                         </tr>
                       </table>
@@ -445,7 +385,7 @@
       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
         <tbody>
           <tr>
-            <td style="direction:ltr;font-size:0px;padding:20px 0;padding-top:20px;text-align:center;vertical-align:top;">
+            <td style="direction:ltr;font-size:0px;padding:20px 0;padding-top:20px;text-align:center;vertical-align:top;background:#ffffff">
               <!--[if mso | IE]>
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                 
@@ -461,9 +401,9 @@
                     <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                         <tr style="background-color:#fff;">
-                          <td width="30px" style="padding-left:10px"></td>
-                          <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{$data['bounce_rate']}}</span></td>
-                          <td align="right" style="padding-right:10px;padding-top:5px"><img width="32" height="32" src="https://marketing-image-production.s3.amazonaws.com/uploads/badd7d05d3fbaf111e82f0d1a379a4b256ab1768a2cc6b0850f6914798cd011789e671da4e697df97113f6f502b6b48af2dc84afa745b9d646817523045e88d9.jpg" /></td>
+                          
+                          <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;padding-left:15px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:24px; color: #1180f3; line-height: 21px; text-decoration: none;">{{bounce_rate}}</span></td>
+                          <td align="right" style="padding-right:10px;padding-top:5px"><img width="32" height="32" src="http://cdn.mcauto-images-production.sendgrid.net/a5b536ad3b0d9482/37f830fa-f6e7-4702-aad7-94f2407e9dfa/35x35.png" /></td>
                         </tr>
                       </table>
                     </td>
@@ -473,7 +413,7 @@
                     <td align="left" style="font-size:0px;padding:0;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;mso-line-height-rule:exactly;table-layout:auto;width:100%;">
                         <tr style="background-color:#fff;">
-                          <td style="padding-left:15px;padding-bottom:10px;color:#ccc; font-size:16px;">BOUNCE RATE</td>
+                          <td style="padding-left:15px;padding-bottom:10px;color:#ccc; font-size:14px;">BOUNCE RATE</td>
 
                         </tr>
                       </table>
@@ -495,9 +435,9 @@
                     <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                         <tr style="background-color:#fff;">
-                          <td width="30px" style="padding-left:10px"></td>
-                          <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{$data['new_visitors']}}</span></td>
-                          <td align="right" style="padding-right:10px;padding-top:5px;"><img width="35" height="42" src="https://marketing-image-production.s3.amazonaws.com/uploads/4d27f4ea8dcbb8c39ce17b34a39ba97c975e174c085ef235338340d43d4674f63260a435cbaad552961094133a4e1bbab52340c8aa513be007ee5f09ab13207c.jpg" /></td>
+                          
+                          <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;padding-left:15px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:24px; color: #1180f3; line-height: 21px; text-decoration: none;">{{new_visitors}}</span></td>
+                          <td align="right" style="padding-right:10px;padding-top:5px;"><img width="35" height="35" src="https://cdn.mcauto-images-production.sendgrid.net/a5b536ad3b0d9482/76061d3d-a7a4-4702-9be8-51f203ecb51c/35x35.png" /></td>
                         </tr>
                       </table>
                     </td>
@@ -507,7 +447,7 @@
                     <td align="left" style="font-size:0px;padding:0;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;mso-line-height-rule:exactly;table-layout:auto;width:100%;">
                         <tr style="background-color:#fff;">
-                          <td style="padding-left:15px;padding-bottom:10px;color:#ccc; font-size:16px;">NEW VISITORS</td>
+                          <td style="padding-left:15px;padding-bottom:10px;color:#ccc; font-size:14px;">NEW VISITORS</td>
 
                         </tr>
                       </table>
@@ -529,9 +469,9 @@
                     <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                         <tr style="background-color:#fff;">
-                          <td width="30px" style="padding-left:10px"></td>
-                          <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{$data['avg_time_on_site']}}</span></td>
-                          <td align="right" style="padding-right:5px;padding-top:5px"><img width="32" height="32" src="https://marketing-image-production.s3.amazonaws.com/uploads/badd7d05d3fbaf111e82f0d1a379a4b256ab1768a2cc6b0850f6914798cd011789e671da4e697df97113f6f502b6b48af2dc84afa745b9d646817523045e88d9.jpg" /></td>
+                          
+                          <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;padding-left:15px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:24px; color: #1180f3; line-height: 21px; text-decoration: none;">{{avg_time_on_site}}</span></td>
+                          <td align="right" style="padding-right:5px;padding-top:5px"><img width="32" height="32" src="http://cdn.mcauto-images-production.sendgrid.net/a5b536ad3b0d9482/f6144e95-0eb6-4aff-aa0f-6d9e700d602b/35x35.png" /></td>
                         </tr>
                       </table>
                     </td>
@@ -540,7 +480,7 @@
                     <td align="left" style="font-size:0px;padding:0;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;mso-line-height-rule:exactly;table-layout:auto;width:100%;">
                         <tr style="background-color:#fff;">
-                          <td style="padding-left:15px;padding-bottom:10px;color:#ccc; font-size:16px;">AVG TIME ON SITE</td>
+                          <td style="padding-left:15px;padding-bottom:10px;color:#ccc; font-size:14px;">AVG TIME ON SITE</td>
                         </tr>
                       </table>
                     </td>
@@ -574,7 +514,7 @@
       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
         <tbody>
           <tr>
-            <td style="direction:ltr;font-size:0px;padding:20px 0;padding-top:0;text-align:center;vertical-align:top;">
+            <td style="direction:ltr;font-size:0px;padding:5px 0;padding-top:0;text-align:center;vertical-align:top;">
               <!--[if mso | IE]>
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                 
@@ -590,9 +530,9 @@
                     <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                         <tr style="background-color:#fff;">
-                          <td width="30px" style="padding-left:10px"></td>
-                          <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{$data['avg_page_load_time']}}</span></td>
-                          <td align="right" style="padding-right:10px;padding-top:5px"><img width="35" height="32" src="https://marketing-image-production.s3.amazonaws.com/uploads/badd7d05d3fbaf111e82f0d1a379a4b256ab1768a2cc6b0850f6914798cd011789e671da4e697df97113f6f502b6b48af2dc84afa745b9d646817523045e88d9.jpg" /></td>
+                          
+                          <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;padding-left:15px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:24px; color: #1180f3; line-height: 21px; text-decoration: none;">{{avg_page_load_time}}</span></td>
+                          <td align="right" style="padding-right:10px;padding-top:5px"><img width="35" height="32" src="https://cdn.mcauto-images-production.sendgrid.net/a5b536ad3b0d9482/8f43fe9c-4292-4ef4-83d3-ff829f5b4957/35x35.png" /></td>
                         </tr>
                       </table>
                     </td>
@@ -602,7 +542,7 @@
                     <td align="left" style="font-size:0px;padding:0;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;mso-line-height-rule:exactly;table-layout:auto;width:100%;">
                         <tr style="background-color:#fff;">
-                          <td style="padding-left:15px;padding-bottom:10px;color:#ccc; font-size:16px;">AVG PAGE LOAD TIME(sec)</td>
+                          <td style="padding-left:15px;padding-bottom:10px;color:#ccc; font-size:14px;">AVG PAGE LOAD TIME (sec)</td>
 
                         </tr>
                       </table>
@@ -624,9 +564,9 @@
                     <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                         <tr style="background-color:#fff;">
-                          <td width="30px" style="padding-left:10px"></td>
-                          <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{$data['avg_server_response_time']}}</span></td>
-                          <td align="right" style="padding-right:10px;padding-top:5px;"><img width="45" height="42" src="https://marketing-image-production.s3.amazonaws.com/uploads/5e63ce0025eb7710f1a15c42388c07cb6fb04236fbc23c5f3e2dfdb6eaf2c8395847273043930d60b4a792c3ce047a02f96603feb4c97f0251d6c189183cda26.jpg" /></td>
+                        
+                          <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;padding-left:15px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:24px; color: #1180f3; line-height: 21px; text-decoration: none;">{{avg_server_response_time}}</span></td>
+                          <td align="right" style="padding-right:10px;padding-top:5px;"><img width="35" height="35" src="https://cdn.mcauto-images-production.sendgrid.net/a5b536ad3b0d9482/746413e9-df72-412e-bc3f-aa6414e7ad0e/35x35.png" /></td>
                         </tr>
                       </table>
                     </td>
@@ -636,7 +576,7 @@
                     <td align="left" style="font-size:0px;padding:0;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;mso-line-height-rule:exactly;table-layout:auto;width:100%;">
                         <tr style="background-color:#fff;">
-                          <td style="padding-left:15px;padding-bottom:10px;padding-right:10px;color:#ccc; font-size:16px;">AVG SERVER RESPONSE TIME(sec)</td>
+                          <td style="padding-left:15px;padding-bottom:10px;padding-right:10px;color:#ccc; font-size:14px;">AVG  RESP. TIME (sec)</td>
 
                         </tr>
                       </table>
@@ -658,9 +598,9 @@
                     <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;table-layout:auto;width:100%;">
                         <tr style="background-color:#fff;">
-                          <td width="30px" style="padding-left:10px"></td>
-                          <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;">{{$data['avg_page_download_time']}}</span></td>
-                          <td align="right" style="padding-right:5px;padding-top:5px"><img width="35" height="35" src="https://marketing-image-production.s3.amazonaws.com/uploads/983f025b3cbb8d1e1b525cdf7495acd0b32e03dc293f75794c1c9d555d15f16006c2f845bf836a22f716fcc1e32b5c306844c3ae4d03996c6cfb7f4a4b6f87c0.jpg" /></td>
+                          
+                          <td><span style="width:90px;font-size:24px;display:inline-block;word-wrap:break-word;padding-left:15px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:24px; color: #1180f3; line-height: 21px; text-decoration: none;">{{avg_page_download_time}}</span></td>
+                          <td align="right" style="padding-right:5px;padding-top:5px"><img width="35" height="35" src="https://cdn.mcauto-images-production.sendgrid.net/a5b536ad3b0d9482/a09db72f-a7be-4b83-96e7-14b38ed716af/35x35.png" /></td>
                         </tr>
                       </table>
                     </td>
@@ -669,7 +609,7 @@
                     <td align="left" style="font-size:0px;padding:0;word-break:break-word;">
                       <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;mso-line-height-rule:exactly;table-layout:auto;width:100%;">
                         <tr style="background-color:#fff;">
-                          <td style="padding-left:15px;padding-bottom:10px;padding-right:10px;color:#ccc; font-size:16px;">AVG PAGE DOWNLOAD TIME(sec)</td>
+                          <td style="padding-left:15px;padding-bottom:10px;padding-right:10px;color:#ccc; font-size:14px;">AVG PAGE DL TIME(sec)</td>
                         </tr>
                       </table>
                     </td>
@@ -717,7 +657,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
                   <tr>
                     <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"> TOP VISITED USERS BY COUNTRY</div>
+                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"><strong> TOP VISITED USERS BY COUNTRY</strong></div>
                     </td>
                   </tr>
                   <tr>
@@ -725,7 +665,7 @@
                       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                         <tbody>
                           <tr>
-                            <td style="width:250px;"> <img height="auto" src="{{$data['users_by_country_chart_url']}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
+                            <td style="width:250px;"> <img height="auto" src="{{users_by_country_chart_url}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
                                 width="250" /> </td>
                           </tr>
                         </tbody>
@@ -761,12 +701,12 @@
                           <th align="left">COUNTRY</th>
                           <th align="left">USERS</th>
                         </tr>
-                        @foreach ($data['users_by_country'] as $row)
+                       {{#each users_by_country}}
                         <tr>
-                          <td>{{$row['country']}}</td>
-                          <td>{{$row['users']}}</td>
+                          <td>{{this.country}}</td>
+                          <td>{{this.users}}</td>
                         </tr>
-                        @endforeach
+                        {{/each}}
                       </table>
                     </td>
 
@@ -800,7 +740,7 @@
         <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="30" style="vertical-align:top;height:30px;">
       
     <![endif]-->
-    <div style="height:30px;"> &nbsp; </div>
+    <div style="height:3px;"> &nbsp; </div>
     <!--[if mso | IE]>
     
         </td></tr></table>
@@ -829,11 +769,11 @@
                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
                   <tr>
                     <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"> TOP PAGES</div>
+                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"><strong>TOP PAGES</strong></div>
                     </td>
                   </tr>
                   
-                  <table style="border-collapse:separate;border-spacing:20px">
+                   <table style="border-collapse:separate;border-spacing:20px;font-family:Arial, Helvetica, sans-serif;font-size:12px;">
                     <tr>
                       <th>URL</th>
                       <th>PAGEVIEWS</th>
@@ -841,15 +781,15 @@
                       <th>BOUNCE RATE(%)</th>
                       <th>REVENUE($)</th>
                     </tr>
-                    @foreach ($data['top_pages'] as $row)
+                    {{#each top_pages}}
                       <tr>
-                        <td>{{$row['page']}}</td>
-                        <td>{{$row['pageviews']}}</td>
-                        <td>{{$row['avg_time_on_page']}}</td>
-                        <td>{{$row['bounce_rate']}}</td>
-                        <td>{{$row['revenue']}}</td>
+                        <td>{{this.page}}</td>
+                        <td>{{this.pageviews}}</td>
+                        <td>{{this.avg_time_on_page}}</td>
+                        <td>{{this.bounce_rate}}</td>
+                        <td>{{this.revenue}}</td>
                       </tr>
-                    @endforeach
+                    {{/each}}
                   </table>
                 </table>
               </div>
@@ -874,7 +814,7 @@
         <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="30" style="vertical-align:top;height:30px;">
       
     <![endif]-->
-    <div style="height:30px;"> &nbsp; </div>
+    <div style="height:3px;"> &nbsp; </div>
     <!--[if mso | IE]>
     
         </td></tr></table>
@@ -901,13 +841,14 @@
           <![endif]-->
               <div class="hideThisShit mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;">
                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+
                   <tr>
                     <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"> VISITORS BY SOURCE</div>
+                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"><strong>VISITORS BY SOURCE</stroong></div>
                     </td>
                   </tr>
                   
-                  <table style="border-collapse:separate;border-spacing:20px">
+                  <table style="border-collapse:separate;border-spacing:20px;font-family:Arial, Helvetica, sans-serif;font-size:12px;">
                     <tr>
                       <th>SOURCES</th>
                       <th>PAGEVIEWS</th>
@@ -915,15 +856,16 @@
                       <th>BOUNCE RATE(%)</th>
                       <th>REVENUE($)</th>
                     </tr>
-                    @foreach ($data['visitors_by_source'] as $row)
+                    
+                    {{#each visitors_by_source}}
                       <tr>
-                        <td>{{$row['source']}}</td>
-                        <td>{{$row['pageviews']}}</td>
-                        <td>{{$row['avg_time_on_page']}}</td>
-                        <td>{{$row['bounce_rate']}}</td>
-                        <td>{{$row['revenue']}}</td>
+                        <td>{{this.source}}</td>
+                        <td>{{this.pageviews}}</td>
+                        <td>{{this.avg_time_on_page}}</td>
+                        <td>{{this.bounce_rate}}</td>
+                        <td>{{this.revenue}}</td>
                       </tr>
-                    @endforeach
+                    {{/each}}
                   </table>
                 </table>
               </div>
@@ -947,7 +889,7 @@
          <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="30" style="vertical-align:top;height:30px;">
       
     <![endif]-->
-    <div style="height:30px;"> &nbsp; </div>
+    <div style="height:3px;"> &nbsp; </div>
     <!--[if mso | IE]>
     
         </td></tr></table>   
@@ -961,7 +903,7 @@
     <div class="mjGrid90" style="background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;">
       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#fff;background-color:#fff;width:100%;">
         <tbody>
-          <tr><td style="padding-left:30px;padding-top:30px"><div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"> AGES, GENDERS, DEVICES BY USERS </div></td></tr>
+          <tr><td style="padding-left:30px;padding-top:30px"><div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"><strong>DEMOGRAPHICS</strong></div></td></tr>
           <tr>
             <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
               <!--[if mso | IE]>
@@ -973,7 +915,7 @@
                class="" style="vertical-align:top;width:200px;"
             >
           <![endif]-->
-              <div class="mj-column-per-33 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
                   <tr>
                     <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
@@ -984,7 +926,7 @@
                       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                         <tbody>
                           <tr>
-                            <td style="width:150px;"> <img height="auto" src="{{$data['age_genders_devices_chart_url']['age']}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
+                            <td style="width:100%;"> <img height="auto" src="{{age_genders_devices_chart_url.age}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
                                 width="150" /> </td>
                           </tr>
                         </tbody>
@@ -1000,14 +942,14 @@
                class="" style="vertical-align:top;width:200px;"
             >
           <![endif]-->
-              <div class="mj-column-per-33 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
                   <tr>
                     <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                         <tbody>
                           <tr>
-                            <td style="width:150px;"> <img height="auto" src="{{$data['age_genders_devices_chart_url']['genders']}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
+                            <td style="width:100%;"> <img height="auto" src="{{age_genders_devices_chart_url.genders}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
                                 width="150" /> </td>
                           </tr>
                         </tbody>
@@ -1023,14 +965,14 @@
                class="" style="vertical-align:top;width:200px;"
             >
           <![endif]-->
-              <div class="mj-column-per-33 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
                   <tr>
                     <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                         <tbody>
                           <tr>
-                            <td style="width:150px;"> <img height="auto" src="{{$data['age_genders_devices_chart_url']['devices']}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
+                            <td style="width:100%;"> <img height="auto" src="{{age_genders_devices_chart_url.devices}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
                                 width="150" /> </td>
                           </tr>
                         </tbody>
@@ -1081,7 +1023,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-bottom:1px solid #000;vertical-align:top;" width="100%">
                   <tr>
                     <td align="left" style="font-size:0px;padding:0px;word-break:break-word;">
-                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"> </div>
+                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">  </div>
                     </td>
                   </tr>
                 </table>
