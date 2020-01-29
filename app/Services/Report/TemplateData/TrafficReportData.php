@@ -207,7 +207,6 @@ class TrafficReportData
             );
 
         $this->data = [
-            'domain' => $profileId,
             'users' => $generalReport['ga:users'],
             'pageviews' => $generalReport['ga:pageviews'],
             'pages_per_visit' => $generalReport['ga:pageviewsPerSession'],
