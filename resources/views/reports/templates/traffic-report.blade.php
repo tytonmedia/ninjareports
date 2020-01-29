@@ -252,7 +252,7 @@
       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
         <tbody>
           <tr>
-            <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0;text-align:center;vertical-align:top;background:#ffffff">
+            <td style="direction:ltr;font-size:0px;padding:5px 0;padding-bottom:0;text-align:center;vertical-align:top;background:#ffffff">
               <!--[if mso | IE]>
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                 
