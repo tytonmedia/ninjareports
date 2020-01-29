@@ -140,9 +140,6 @@
                     </tbody>
                 </table>
             </div>
-            <div>
-                <p class="credit-alert"><i class="fa fa-bullhorn"></i> Your credit card will automatically be charged when your trial has ended. If you do not  cancel by the end of the trial, your card will be charged.</p>
-            </div>
             </div>
         </div>
     </div>
