@@ -504,7 +504,7 @@ table th {font-family:Ubuntu, Helvetica, Arial, sans-serif;font-weight:normal}
                class="" style="vertical-align:top;width:200px;"
             >
           <![endif]-->
-              <div class="mjGrid90 mj-column-per-33 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+              <div class="mjGrid90 mj-column-per-33 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;background:#ffffff">
                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:#fff;vertical-align:top;" width="100%">
                   <tr>
                     <td align="left" style="font-size:0px;padding:10 0 10 0;word-break:break-word;">
@@ -550,11 +550,11 @@ table th {font-family:Ubuntu, Helvetica, Arial, sans-serif;font-weight:normal}
         <tr>
           <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
       <![endif]-->
-    <div class="mjGrid90" style="background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;">
+    <div class="mjGrid90" style="background:#ffffff;background-color:#ffffff;Margin:0px auto;max-width:600px;border-top:2px solid #f2f2f2">
       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#fff;background-color:#fff;width:100%;">
         <tbody>
           <tr>
-            <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;border-top:2px solid #f2f2f2">
+            <td style="direction:ltr;font-size:0px;text-align:center;vertical-align:top;border-top:2px solid #f2f2f2;padding:15px ">
               <!--[if mso | IE]>
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                 
@@ -567,7 +567,7 @@ table th {font-family:Ubuntu, Helvetica, Arial, sans-serif;font-weight:normal}
               <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:#fff;vertical-align:top;width:100%" width="100%">
                   <tr>
-                    <td align="left" style="font-size:0px;padding:0px 15px;word-break:break-word;">
+                    <td align="left" style="font-size:0px;word-break:break-word;">
                       <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"><strong> SPEND/CONVERSION BY DAY </strong> </div>
                     </td>
                   </tr>
@@ -606,7 +606,7 @@ table th {font-family:Ubuntu, Helvetica, Arial, sans-serif;font-weight:normal}
         <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="30" style="vertical-align:top;height:30px;">
       
     <![endif]-->
-    <div style="height:3px;"> &nbsp; </div>
+ 
     <!--[if mso | IE]>
     
         </td></tr></table>
@@ -618,10 +618,10 @@ table th {font-family:Ubuntu, Helvetica, Arial, sans-serif;font-weight:normal}
         <tr>
           <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
       <![endif]-->
-    <div class="mjGrid90" style="background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;">
+    <div class="mjGrid90" style="background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;border-top:2px solid #f2f2f2">
       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#fff;background-color:#fff;width:100%;">
         <tbody>
-          <tr><td style="padding:5px 15px"><div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"><strong> AGES, GENDERS, DEVICES </strong></div></td></tr>
+          <tr><td style="padding:15px 5px 5px 15px"><div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"><strong> AGES, GENDERS, DEVICES </strong></div></td></tr>
           <tr>
             <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
               <!--[if mso | IE]>
