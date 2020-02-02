@@ -216,6 +216,10 @@ class GoogleAdsReportData
                 ]
             );
             $emailData['spend_and_conversions_by_day_chart_url'] = $url;
+            if($emailData['spend_and_conversions_by_day_chart_url'] == '')
+            {
+                $emailData['spend_and_conversions_by_day_chart_url'] = '#';
+            }
         }
         return $emailData;
     }
