@@ -175,7 +175,7 @@ class GoogleAdsReportData
             ];
            
         }
-
+        $emailData['performance_by_country_chart_url'] = "";
         if ($this->data['performance_by_country']) {
             $mapData =  array_reduce($this->data['performance_by_country'],function ($result,$item) {
                 $result[$item['CountryISO']] = $item['Clicks'];
@@ -185,6 +185,7 @@ class GoogleAdsReportData
             $emailData['performance_by_country_chart_url'] = $url;
         }
 
+        $emailData['spend_and_conversions_by_day_chart_url'] = '#';
         if ($this->data['spend_by_day'] && $this->data['conversions_by_day']) {
             $chartData = $this->chartService->generateComboChartData(
                 array_merge($this->data['spend_by_day'],$this->data['conversions_by_day']),
