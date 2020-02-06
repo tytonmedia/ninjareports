@@ -1,12 +1,12 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
-<head>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title> </title>
   <!--[if !mso]> -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!--<![endif]-->
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style type="text/css">
     #outlook a {
@@ -574,8 +574,8 @@
                       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                         <tbody>
                           <tr>
-                            <td style="width:550px;"> <img height="auto" src="{{$data['spend_and_conversions_by_day_chart_url']}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
-                                width="550" /> </td>
+                            <td style="width:550px;"> @if(isset($data['spend_and_conversions_by_day_chart_url'])) <img height="auto" src="{{$data['spend_and_conversions_by_day_chart_url']}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
+                                width="550" /> @endif</td>
                           </tr>
                         </tbody>
                       </table>
@@ -918,8 +918,8 @@
                       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                         <tbody>
                           <tr>
-                            <td style="width:250px;"> <img height="auto" src="{{$data['performance_by_country_chart_url']}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
-                                width="250" /> </td>
+                            <td style="width:250px;"> @if(isset($data['performance_by_country_chart_url']))<img height="auto" src="{{$data['performance_by_country_chart_url']}}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
+                                width="250" /> @endif</td>
                           </tr>
                         </tbody>
                       </table>
